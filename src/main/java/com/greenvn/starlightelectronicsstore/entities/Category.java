@@ -14,7 +14,7 @@ public class Category {
 	@Id
 	@Column(name = "CATEGORY_ID")
 	@GeneratedValue
-	private long categoryID;
+	private Long categoryID;
 	
 	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên không được để trống!")

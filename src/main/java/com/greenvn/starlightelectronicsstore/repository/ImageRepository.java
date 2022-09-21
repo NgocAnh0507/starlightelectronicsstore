@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.greenvn.starlightelectronicsstore.entities.Image;
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image,Integer>{
+public interface ImageRepository extends JpaRepository<Image,Long>{
 
 }

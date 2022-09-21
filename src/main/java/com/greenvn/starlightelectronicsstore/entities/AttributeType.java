@@ -14,7 +14,7 @@ public class AttributeType {
 	@Id
 	@Column(name = "ATTRIBUTE_TYPE_ID")
 	@GeneratedValue
-	private long attributeTypeID;
+	private Long attributeTypeID;
 
 	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên không được để trống!")

@@ -16,7 +16,7 @@ public class Image {
 	@Id
 	@Column(name = "IMAGE_ID")
 	@GeneratedValue
-	private long imageID;
+	private Long imageID;
 
 	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên không được để trống!")

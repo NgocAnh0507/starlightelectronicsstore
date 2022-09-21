@@ -16,7 +16,7 @@ public class Order {
 	@Id
 	@Column(name = "ORDER_ID")
 	@GeneratedValue
-	private long orderID;
+	private Long orderID;
 	
 	@ManyToOne
 	@NotBlank(message = "Khách hàng không được để trống!")

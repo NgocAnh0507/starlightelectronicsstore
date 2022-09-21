@@ -18,7 +18,7 @@ public class ProductAttribute {
 	@Id
 	@Column(name = "PRODUCT_ATTRIBUTE_ID")
 	@GeneratedValue
-	private long productAttributeID;
+	private Long productAttributeID;
 	
 	@ManyToOne
 	@NotBlank(message = "Danh mục không được để trống!")

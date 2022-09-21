@@ -15,7 +15,7 @@ public class Manufacturer {
 	@Id
 	@Column(name = "MANUFACTURER_ID")
 	@GeneratedValue
-	private long manufacturerID;
+	private Long manufacturerID;
 	
 	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên không được để trống!")

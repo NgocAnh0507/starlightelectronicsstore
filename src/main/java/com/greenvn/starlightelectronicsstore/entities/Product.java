@@ -20,7 +20,7 @@ public class Product {
 	@Id
 	@Column(name = "PRODUCT_ID")
 	@GeneratedValue
-	private long productID;
+	private Long productID;
 	
 	@Column(name = "PRODUCT_SKU", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "SKU không được để trống!")

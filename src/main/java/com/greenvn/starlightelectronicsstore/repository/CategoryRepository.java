@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.greenvn.starlightelectronicsstore.entities.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category,Integer>{
+public interface CategoryRepository extends JpaRepository<Category,Long>{
 
 }

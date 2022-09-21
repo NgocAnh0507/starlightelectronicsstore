@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.greenvn.starlightelectronicsstore.entities.AttributeType;
 
 @Repository
-public interface AttributeTypeRepository extends JpaRepository<AttributeType,Integer>{
+public interface AttributeTypeRepository extends JpaRepository<AttributeType,Long>{
 
 }

@@ -16,7 +16,7 @@ public class ProductReview {
 	@Id
 	@Column(name = "PRODUCT_REVIEW_ID")
 	@GeneratedValue
-	private long productReviewID;
+	private Long productReviewID;
 
 	@Column(name = "RATING", columnDefinition = "INT")
 	@NotBlank(message = "Mức đánh giá không được để trống!")

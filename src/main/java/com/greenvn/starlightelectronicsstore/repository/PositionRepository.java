@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.greenvn.starlightelectronicsstore.entities.Position;
 
 @Repository
-public interface PositionRepository extends JpaRepository<Position,Integer>{
+public interface PositionRepository extends JpaRepository<Position,Long>{
 
 }

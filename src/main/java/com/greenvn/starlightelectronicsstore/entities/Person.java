@@ -1,7 +1,6 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,9 +8,6 @@ import javax.validation.constraints.NotBlank;
 @MappedSuperclass
 public abstract class Person {
 
-	@Id
-	@Column(name = "ID_CARD", columnDefinition = "VARCHAR(155)")
-	private String idCard;
 
 	@Column(name = "NAME",columnDefinition = "VARCHAR(155)")
 	@NotBlank(message = "Tên không được để trống!")
@@ -29,14 +25,6 @@ public abstract class Person {
 	@NotBlank(message = "Email không được để trống!")
 	@Email(message = "Email không hợp lệ!")
 	private String email;
-
-	public String getIdCard() {
-		return idCard;
-	}
-
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
 
 	public String getName() {
 		return name;
