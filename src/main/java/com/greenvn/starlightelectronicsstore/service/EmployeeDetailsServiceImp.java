@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class EmployeeDetailsServiceImp implements UserDetailsService {
 
 	@Autowired
-	private UserService userService;
+	private EmployeeService empService;
 	public final static String ROLE_PREFIX = "ROLE_";// Spring Security 4
 	public final static String PERMISSION_AUTHENTICATED = "AUTH";
 
