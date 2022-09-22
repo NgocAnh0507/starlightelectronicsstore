@@ -1,9 +1,18 @@
 package com.greenvn.starlightelectronicsstore.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.greenvn.starlightelectronicsstore.entities.Employee;
+import com.greenvn.starlightelectronicsstore.entities.Permission;
 
 public class EmployeeDetailsServiceImp implements UserDetailsService {
 
@@ -15,7 +24,30 @@ public class EmployeeDetailsServiceImp implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		Employee emp = null;
+		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		try {
+			emp =empService.getEmployeeByUserName(username);
+			if(emp==null) {
+				throw new UsernameNotFoundException("employee not found");
+			}
+			//kiem tra quyen
+			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + PERMISSION_AUTHENTICATED);// required to
+			// login
+			authorities.add(role);
+			if(emp.getPermissions()!=null && emp.getPermissions().size()>0) {
+				List<Permission>permissions = emp.getPermissions();
+				for (Permission permission : permissions) {
+					GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + permission.getName());
+					authorities.add(auth);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new UsernameNotFoundException("Employee not found.");
+		}
+		org.springframework.security.core.userdetails.User secEmployee = new org.springframework.security.core.userdetails.User(username, emp.getPassword(), emp.getIsActive(), true, true, true, authorities);
+		return secEmployee;
 	}
 
 }

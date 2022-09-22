@@ -10,6 +10,6 @@ import com.greenvn.starlightelectronicsstore.entities.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long>{
 	
-	@Query("SELECT e FROM Employee AS e WHERE userName = :uname")
+	@Query("SELECT u FROM Employee u WHERE userName = :uname")
 	Employee findEmployeeByUserName(@Param("uname") String userName);
 }

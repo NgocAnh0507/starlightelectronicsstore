@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class PositionService {
 	public void deletePosition(Long id)
 	{
 		positionRepository.deleteById(id);
+	}
+	public void managePosition(){
+		Position posi = new Position();
+		posi.setName("MANAGER");
+		positionRepository.save(posi);
 	}
 }
