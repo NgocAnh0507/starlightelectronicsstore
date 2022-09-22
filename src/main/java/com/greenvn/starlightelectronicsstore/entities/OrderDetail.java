@@ -12,7 +12,6 @@ public class OrderDetail {
 	
 	@Column(name = "ORDER_ID")
 	private Order orderID;
-
 	
 	@Column(name = "PRODUCT_ID")
 	private Product productID;

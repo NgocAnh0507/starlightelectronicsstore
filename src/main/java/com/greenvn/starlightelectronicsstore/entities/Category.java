@@ -1,9 +1,12 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -20,6 +23,16 @@ public class Category {
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 
+	@OneToMany(mappedBy = "category")
+	private List<Product> products;
+
+	@OneToMany(mappedBy = "category")
+	private List<ProductAttribute> productAttributes;
+
+	public long getCategoryID() {
+		return categoryID;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -28,12 +41,25 @@ public class Category {
 		this.name = name;
 	}
 
-	public long getCategoryID() {
-		return categoryID;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setCategoryID(long categoryID) {
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void setCategoryID(Long categoryID) {
 		this.categoryID = categoryID;
 	}
 
+	public List<ProductAttribute> getProductAttributes() {
+		return productAttributes;
+	}
+
+	public void setProductAttributes(List<ProductAttribute> productAttributes) {
+		this.productAttributes = productAttributes;
+	}
+
+	
 }

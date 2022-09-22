@@ -79,13 +79,13 @@ public class Product {
 	@NotBlank(message = "Free ship không được để trống!")
 	private Boolean freeShip;
 
+	@OneToMany(mappedBy = "product")
+	private List<ProductReview> productReviews;
+
 	public long getProductID() {
 		return productID;
 	}
 
-	public void setProductID(long productID) {
-		this.productID = productID;
-	}
 
 	public String getProductSKU() {
 		return productSKU;
@@ -214,4 +214,17 @@ public class Product {
 	public void setFreeShip(Boolean freeShip) {
 		this.freeShip = freeShip;
 	}
+
+	public List<ProductReview> getProductReviews() {
+		return productReviews;
+	}
+
+	public void setProductReviews(List<ProductReview> productReviews) {
+		this.productReviews = productReviews;
+	}
+
+	public void setProductID(Long productID) {
+		this.productID = productID;
+	}
+	
 }

@@ -1,9 +1,12 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -20,6 +23,16 @@ public class Position {
 	@NotBlank(message = "Tên chức vụ không được để trống!")
 	private String name;
 
+	@OneToMany(mappedBy = "position")
+	private List<Employee> employees;
+	
+	public long getPositionID() {
+		return positionID;
+	}
+
+	public void setPositionID(long positionID) {
+		this.positionID = positionID;
+	}
 	
 	public String getName() {
 		return name;
@@ -29,12 +42,12 @@ public class Position {
 		this.name = name;
 	}
 
-	public long getPositionID() {
-		return positionID;
+	public List<Employee> getEmployees() {
+		return employees;
 	}
 
-	public void setPositionID(long positionID) {
-		this.positionID = positionID;
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 	
 }

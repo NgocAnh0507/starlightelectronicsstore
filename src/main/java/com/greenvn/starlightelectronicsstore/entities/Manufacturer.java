@@ -1,9 +1,12 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +27,9 @@ public class Manufacturer {
 	@OneToOne
 	@NotBlank(message = "Logo không được để trống!")
 	private Image logo;
+
+	@OneToMany(mappedBy = "manufacturer")
+	private List<Product> products;
 
 	public long getManufacturerID() {
 		return manufacturerID;
@@ -47,6 +53,18 @@ public class Manufacturer {
 
 	public void setLogo(Image logo) {
 		this.logo = logo;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public void setManufacturerID(Long manufacturerID) {
+		this.manufacturerID = manufacturerID;
 	}
 	
 }

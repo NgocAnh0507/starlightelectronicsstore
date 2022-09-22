@@ -14,10 +14,6 @@ public class Employee extends Person{
 	@Id
 	@Column(name = "EMPLOYEE_ID", columnDefinition = "VARCHAR(155)")
 	private Long idEmployee;
-	
-	@ManyToOne
-	@NotBlank(message = "Chức vụ không được để trống!")
-	private Position position;
 
 	@Column(name = "USER_NAME", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Thiếu Username rồi")
@@ -25,17 +21,21 @@ public class Employee extends Person{
 	
 	@Column(name = "PASSWORD", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Thiếu Password rồi")
-	private String password;
+	private String passWord;
 
-	@Column(name = "IS_ACTIVE", length = 1)
+	@Column(name = "IS_ACTIVE", columnDefinition = "BOOLEAN")
 	private Boolean isActive = false;
+	
+	@ManyToOne
+	@NotBlank(message = "Chức vụ không được để trống!")
+	private Position position;
 
-	public Position getPosition() {
-		return position;
+	public Long getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
+	public void setIdEmployee(Long idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
 	public String getUserName() {
@@ -47,11 +47,11 @@ public class Employee extends Person{
 	}
 
 	public String getPassword() {
-		return password;
+		return passWord;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.passWord = password;
 	}
 
 	public Boolean getIsActive() {
@@ -61,13 +61,13 @@ public class Employee extends Person{
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	public Long getIdEmployee() {
-		return idEmployee;
+	
+	public Position getPosition() {
+		return position;
 	}
 
-	public void setIdEmployee(Long idEmployee) {
-		this.idEmployee = idEmployee;
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 	
 }

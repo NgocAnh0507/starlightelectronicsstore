@@ -1,8 +1,11 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +21,36 @@ public class Customer extends Person{
 	@NotBlank(message = "Địa chỉ không được để trống!")
 	private String address;
 
+	@OneToMany(mappedBy = "customer")
+	private List<Order> orders;
+
+	@OneToMany(mappedBy = "customer")
+	private List<ProductReview> productReviews;
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<ProductReview> getProductReviews() {
+		return productReviews;
+	}
+
+	public void setProductReviews(List<ProductReview> productReviews) {
+		this.productReviews = productReviews;
+	}
+	
+	public Long getIdCustomer() {
+		return idCustomer;
+	}
+
+	public void setIdCustomer(Long idCustomer) {
+		this.idCustomer = idCustomer;
+	}
+	
 	public String getAddress() {
 		return address;
 	}
@@ -26,12 +59,5 @@ public class Customer extends Person{
 		this.address = address;
 	}
 
-	public Long getIdCustomer() {
-		return idCustomer;
-	}
-
-	public void setIdCustomer(Long idCustomer) {
-		this.idCustomer = idCustomer;
-	}
 	
 }
