@@ -34,6 +34,7 @@ public class PositionService {
 	{
 		Position position = findPositionById(positionID);
 		position.setName(positionNew.getName());
+		position.setEditData(positionNew.getEditData());
 		return positionRepository.save(position);
 	}
 	

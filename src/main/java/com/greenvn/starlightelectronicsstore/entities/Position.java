@@ -22,6 +22,10 @@ public class Position {
 	@Column(name = "NAME",columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên chức vụ không được để trống!")
 	private String name;
+	
+	@Column(name = "EDIT_DATA",columnDefinition = "BOOLEAN")
+	@NotBlank(message = "Quyền chỉnh sủa không được để trống!")
+	private Boolean editData;
 
 	@OneToMany(mappedBy = "position")
 	private List<Employee> employees;
@@ -40,6 +44,14 @@ public class Position {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getEditData() {
+		return editData;
+	}
+
+	public void setEditData(Boolean editData) {
+		this.editData = editData;
 	}
 
 	public List<Employee> getEmployees() {
