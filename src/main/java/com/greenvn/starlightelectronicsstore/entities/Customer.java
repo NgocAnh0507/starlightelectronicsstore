@@ -15,7 +15,7 @@ public class Customer extends Person{
 
 	@Id
 	@Column(name = "CUSTOMER_ID", columnDefinition = "VARCHAR(155)")
-	private Long idCustomer;
+	private Long customerID;
 	
 	@Column(name = "ADDRESS",columnDefinition = "VARCHAR(555)")
 	@NotBlank(message = "Địa chỉ không được để trống!")
@@ -43,14 +43,14 @@ public class Customer extends Person{
 		this.productReviews = productReviews;
 	}
 	
-	public Long getIdCustomer() {
-		return idCustomer;
+	public Long getCustomerID() {
+		return customerID;
 	}
 
-	public void setIdCustomer(Long idCustomer) {
-		this.idCustomer = idCustomer;
+	public void setCustomerID(Long customerID) {
+		this.customerID = customerID;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}

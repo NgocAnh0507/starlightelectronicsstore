@@ -1,4 +1,4 @@
-package com.greenvn.starlightelectronicsstore.Controller;
+package com.greenvn.starlightelectronicsstore.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

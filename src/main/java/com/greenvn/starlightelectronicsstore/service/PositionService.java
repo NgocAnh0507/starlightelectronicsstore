@@ -1,6 +1,5 @@
 package com.greenvn.starlightelectronicsstore.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +25,20 @@ public class PositionService {
 		return positionSaved;
 	}
 	
-	public Position findPositionById(Long id)
+	public Position findPositionById(Long positionID)
 	{
-		return positionRepository.findById(id).get();
+		return positionRepository.findById(positionID).get();
 	}
 	
-	public Position updatePosition(Position positionNew, Long id)
+	public Position updatePosition(Position positionNew, Long positionID)
 	{
-		Position position = findPositionById(id);
+		Position position = findPositionById(positionID);
 		position.setName(positionNew.getName());
 		return positionRepository.save(position);
 	}
 	
-	public void deletePosition(Long id)
+	public void deletePosition(Long positionID)
 	{
-		positionRepository.deleteById(id);
-	}
-	public void managePosition(){
-		Position posi = new Position();
-		posi.setName("MANAGER");
-		positionRepository.save(posi);
+		positionRepository.deleteById(positionID);
 	}
 }

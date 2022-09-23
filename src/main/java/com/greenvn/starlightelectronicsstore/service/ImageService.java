@@ -25,23 +25,23 @@ public class ImageService {
 		return imageSaved;
 	}
 	
-	public Image findImageById(Long id)
+	public Image findImageById(Long imageID)
 	{
-		return imageRepository.findById(id).get();
+		return imageRepository.findById(imageID).get();
 	}
 	
-	public Image updateImage(Image imageNew, Long id)
+	public Image updateImage(Image imageNew, Long imageID)
 	{
-		Image image = findImageById(id);
+		Image image = findImageById(imageID);
 		image.setName(imageNew.getName());
 		image.setImageURL(imageNew.getImageURL());
 		image.setProduct(imageNew.getProduct());
 		return imageRepository.save(image);
 	}
 	
-	public void deleteImage(Long id)
+	public void deleteImage(Long imageID)
 	{
-		imageRepository.deleteById(id);
+		imageRepository.deleteById(imageID);
 	}
 
 }

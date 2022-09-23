@@ -25,14 +25,14 @@ public class CustomerService {
 		return customerSaved;
 	}
 	
-	public Customer findCustomerById(Long id)
+	public Customer findCustomerById(Long customerID)
 	{
-		return customerRepository.findById(id).get();
+		return customerRepository.findById(customerID).get();
 	}
 	
-	public Customer updateCustomer(Customer customertNew, Long id)
+	public Customer updateCustomer(Customer customertNew, Long customerID)
 	{
-		Customer customer = findCustomerById(id);
+		Customer customer = findCustomerById(customerID);
 		customer.setAddress(customertNew.getAddress());
 		customer.setBithYear(customertNew.getBithYear());
 		customer.setEmail(customertNew.getEmail());
@@ -41,9 +41,9 @@ public class CustomerService {
 		return customerRepository.save(customer);
 	}
 	
-	public void deleteCustomer(Long id)
+	public void deleteCustomer(Long customerID)
 	{
-		customerRepository.deleteById(id);
+		customerRepository.deleteById(customerID);
 	}
 }
 	

@@ -25,20 +25,20 @@ public class CategoryService {
 		return categorySaved;
 	}
 	
-	public Category findCategoryById(Long id)
+	public Category findCategoryById(Long categoryID)
 	{
-		return categoryRepository.findById(id).get();
+		return categoryRepository.findById(categoryID).get();
 	}
 	
-	public Category updateCategory(Category categoryNew, Long id)
+	public Category updateCategory(Category categoryNew, Long categoryID)
 	{
-		Category category = findCategoryById(id);
+		Category category = findCategoryById(categoryID);
 		category.setName(categoryNew.getName());
 		return categoryRepository.save(category);
 	}
 	
-	public void deleteCategory(Long id)
+	public void deleteCategory(Long categoryID)
 	{
-		categoryRepository.deleteById(id);
+		categoryRepository.deleteById(categoryID);
 	}
 }

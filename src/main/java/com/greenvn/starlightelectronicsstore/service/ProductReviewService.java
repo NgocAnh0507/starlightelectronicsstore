@@ -25,14 +25,14 @@ public class ProductReviewService {
 		return productReviewSaved;
 	}
 	
-	public ProductReview findProductReviewById(Long id)
+	public ProductReview findProductReviewById(Long productReviewID)
 	{
-		return productReviewRepository.findById(id).get();
+		return productReviewRepository.findById(productReviewID).get();
 	}
 	
-	public ProductReview updateProductReview(ProductReview productReviewNew, Long id)
+	public ProductReview updateProductReview(ProductReview productReviewNew, Long productReviewID)
 	{
-		ProductReview productReview = findProductReviewById(id);
+		ProductReview productReview = findProductReviewById(productReviewID);
 		productReview.setRating(productReviewNew.getRating());
 		productReview.setCustomer(productReviewNew.getCustomer());
 		productReview.setProduct(productReviewNew.getProduct());
@@ -42,8 +42,8 @@ public class ProductReviewService {
 		
 	}
 	
-	public void deleteProductReview(Long id)
+	public void deleteProductReview(Long productReviewID)
 	{
-		productReviewRepository.deleteById(id);
+		productReviewRepository.deleteById(productReviewID);
 	}
 }

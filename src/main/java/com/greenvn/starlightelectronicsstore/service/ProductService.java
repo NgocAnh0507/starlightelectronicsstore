@@ -26,14 +26,14 @@ public class ProductService {
 		return productSaved;
 	}
 	
-	public Product findProductById(Long id)
+	public Product findProductById(Long productID)
 	{
-		return productRepository.findById(id).get();
+		return productRepository.findById(productID).get();
 	}
 	
-	public Product updateProduct(Product productNew, Long id)
+	public Product updateProduct(Product productNew, Long productID)
 	{
-		Product product = findProductById(id);
+		Product product = findProductById(productID);
 		product.setProductSKU(productNew.getProductSKU());
 		product.setCategory(productNew.getCategory());
 		product.setManufacturer(productNew.getManufacturer());
@@ -51,9 +51,9 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 	
-	public void deleteProduct(Long id)
+	public void deleteProduct(Long productID)
 	{
-		productRepository.deleteById(id);
+		productRepository.deleteById(productID);
 	}
 	
 }

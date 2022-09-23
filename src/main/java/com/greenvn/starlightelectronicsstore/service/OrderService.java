@@ -25,14 +25,14 @@ public class OrderService {
 		return orderSaved;
 	}
 	
-	public Order findOrdertById(Long id)
+	public Order findOrderById(Long orderID)
 	{
-		return orderRepository.findById(id).get();
+		return orderRepository.findById(orderID).get();
 	}
 	
-	public Order updateOrder(Order orderNew, Long id)
+	public Order updateOrder(Order orderNew, Long orderID)
 	{
-		Order order = findOrdertById(id);
+		Order order = findOrderById(orderID);
 		order.setCustomer(orderNew.getCustomer());
 		order.setOrderStatus(orderNew.getOrderStatus());
 		order.setAmount(orderNew.getAmount());
@@ -41,8 +41,8 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 	
-	public void deleteOrder(Long id)
+	public void deleteOrder(Long orderID)
 	{
-		orderRepository.existsById(id);
+		orderRepository.existsById(orderID);
 	}
 }

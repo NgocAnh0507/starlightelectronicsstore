@@ -25,22 +25,22 @@ public class ManufacturerService {
 		return manufacturerSaved;
 	}
 	
-	public Manufacturer findManufacturertById(Long id)
+	public Manufacturer findManufacturertById(Long manufacturerID)
 	
 	{
-		return manufacturerRepository.findById(id).get();
+		return manufacturerRepository.findById(manufacturerID).get();
 	}
 	
-	public Manufacturer updateManufacturer(Manufacturer manufacturerNew, Long id)
+	public Manufacturer updateManufacturer(Manufacturer manufacturerNew, Long manufacturerID)
 	{
-		Manufacturer manufacturer = findManufacturertById(id);
+		Manufacturer manufacturer = findManufacturertById(manufacturerID);
 		manufacturer.setName(manufacturerNew.getName());
 		manufacturer.setLogo(manufacturerNew.getLogo());
 		return manufacturerRepository.save(manufacturer);
 	}
 	
-	public void deleteManufacturer(Long id)
+	public void deleteManufacturer(Long manufacturerID)
 	{
-		manufacturerRepository.deleteById(id);
+		manufacturerRepository.deleteById(manufacturerID);
 	}
 }

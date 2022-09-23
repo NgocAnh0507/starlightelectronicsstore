@@ -25,22 +25,22 @@ public class ProductAttributeService {
 		return productAttributeSaved;
 	}
 	
-	public ProductAttribute findProductAttributeById(Long id)
+	public ProductAttribute findProductAttributeById(Long productAttributeID)
 	{
-		return productAttributeRepository.findById(id).get();
+		return productAttributeRepository.findById(productAttributeID).get();
 	}
 	
-	public ProductAttribute updateProductAttribute(ProductAttribute productAttributeNew, Long id)
+	public ProductAttribute updateProductAttribute(ProductAttribute productAttributeNew, Long productAttributeID)
 	{
-		ProductAttribute productAttribute = findProductAttributeById(id);
+		ProductAttribute productAttribute = findProductAttributeById(productAttributeID);
 		productAttribute.setCategory(productAttributeNew.getCategory());
 		productAttribute.setType(productAttributeNew.getType());
 		productAttribute.setValue(productAttributeNew.getValue());
 		return productAttributeRepository.save(productAttribute);
 	}
 	
-	public void deleteProductAttribute(Long id)
+	public void deleteProductAttribute(Long productAttributeID)
 	{
-		productAttributeRepository.deleteById(id);
+		productAttributeRepository.deleteById(productAttributeID);
 	}
 }

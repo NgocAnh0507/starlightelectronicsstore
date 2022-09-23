@@ -25,20 +25,20 @@ public class AttributeTypeService {
 		return attributeTypeSaved;
 	}
 	
-	public AttributeType findAttributeTypeById(Long id)
+	public AttributeType findAttributeTypeById(Long attributeTypeID)
 	{
-		return attributeTypeRepository.findById(id).get();
+		return attributeTypeRepository.findById(attributeTypeID).get();
 	}
 	
-	public AttributeType updateAttributeType(AttributeType attributeTypeNew, Long id)
+	public AttributeType updateAttributeType(AttributeType attributeTypeNew, Long attributeTypeID)
 	{
-		AttributeType attributeType = findAttributeTypeById(id);
+		AttributeType attributeType = findAttributeTypeById(attributeTypeID);
 		attributeType.setName(attributeTypeNew.getName());
 		return attributeTypeRepository.save(attributeType);
 	}
 	
-	public void deleteAttributeType(Long id)
+	public void deleteAttributeType(Long attributeTypeID)
 	{
-		attributeTypeRepository.deleteById(id);
+		attributeTypeRepository.deleteById(attributeTypeID);
 	}
 }

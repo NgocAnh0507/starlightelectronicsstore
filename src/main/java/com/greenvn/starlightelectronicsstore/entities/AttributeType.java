@@ -26,10 +26,6 @@ public class AttributeType {
 	@OneToMany(mappedBy = "type")
 	private List<ProductAttribute> productAttributes;
 
-	public long getAttributeTypeID() {
-		return attributeTypeID;
-	}
-
 	public void setAttributeTypeID(long attributeTypeID) {
 		this.attributeTypeID = attributeTypeID;
 	}
