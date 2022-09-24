@@ -1,0 +1,91 @@
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin}">
+<head>
+<meta charset="UTF-8" />
+<title>Info</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<<section class="my-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<h2 class="text-center text-success"> User</h2>
+						<form th:action="@{/edituser?(userId=${user.id})}" th:object="${user}" method="get">
+							<label for="firstName" class="col-form-label">First Name</label>
+							<input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name"> 
+							<p th:errors ="*{firstName}" class="text-danger" ></p>
+							<label for="lastName" class="col-form-label mt-1">Last Name</label>
+							<input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last Name"> 
+							<p th:errors ="*{lastName}" class="text-danger"></p>
+							<label for="email" class="col-form-label mt-1">Email</label>
+							<input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email Address"> 
+							<p th:errors ="*{email}" class="text-danger"></p>
+								
+								
+								<input
+								type="submit" class="btn btn-primary mt-1" value="Save">
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		
+		<!-- <section class="my-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+
+						<form th:action="@{/edituser?(userId=${user.id})}" th:object="${user}" method="post">
+							<label for="firstName" class="col-form-label">First Name</label>
+							<input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name"> 
+							<p th:errors ="*{firstName}" class="text-danger" ></p>
+							<label for="lastName" class="col-form-label mt-1">Last Name</label>
+							<input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last Name"> 
+							<p th:errors ="*{lastName}" class="text-danger"></p>
+							<label for="email" class="col-form-label mt-1">Email</label>
+							<input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email Address"> 
+							<p th:errors ="*{email}" class="text-danger"></p>
+								
+								
+								<input
+								type="submit" class="btn btn-primary mt-1" value="Save">
+						</form>
+					</div>
+				</div>
+			</div>
+		</section> -->
+	</div>
+	<!-- <div align="center">
+		<h1>Employee Manager</h1>
+		<a href="new_emp">Create new Employee</a>
+		<br>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Dob</th>
+					
+				</tr>
+				<tr th:each="emp: ${listEmp}">
+					<td th:text = "${emp.id}">Id</td>
+					<td th:text = "${emp.name}">Name</td>
+					<td th:text = "${emp.dob}">Dob</td>
+					<td th:text = "${product.madein}">Made in</td>
+					<td th:text = "${product.price}">Price</td>
+					<td>
+						<a th:href="@{'/edit/' +${product.id}}">Edit</a>
+						&nbsp;&nbsp;&nbsp;
+						<a th:href="@{'/delete/' +${product.id}}">Delete</a>
+					</td>
+				</tr>
+			</thead>
+		</table>
+	</div> -->
+</body>
+</html>

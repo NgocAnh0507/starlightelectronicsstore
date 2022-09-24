@@ -51,11 +51,11 @@ fit=no">
 									<li class="nav-item"><a class="nav-link active"
 										aria-current="page" th:href="@{/}">Trang chủ web bán hàng</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="thanhtoan-tienich.html">Danh sách nhân viên</a></li>
+										th:href="@{/admin/user}">Danh sách nhân viên</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="#">Dashboard</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="thanhtoan-tienich.html">Info</a></li>
+										th:href="@{/admin/infoUser}">Info</a></li>
 									<li class="nav-item dropdown"><a
 										class="nav-link dropdown-toggle" href="#" role="button"
 										data-bs-toggle="dropdown" aria-expanded="false"> ADMIN</a>
@@ -81,8 +81,8 @@ fit=no">
 			<ul class="nav flex-column">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="#"> Dashboard </a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/donhang}"> Danh sách đơn hàng </a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/product}"> Danh sách sản phẩm
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/donhang}"> Danh sách đơn hàng </a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/admin/product}"> Danh sách sản phẩm
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">
 						Danh sách khách hàng </a></li>

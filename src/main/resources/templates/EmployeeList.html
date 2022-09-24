@@ -1,13 +1,15 @@
-       <<html xmlns:th="http://www.thymeleaf.org" lang="en"
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layoutadmin}">
+	layout:decorate="~{layout-admin}">
 <head>
 <meta charset="UTF-8" />
 <title>Employee Manager</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div align="center">
+	<div layout:fragment="content"></div>
+	<!-- <div align="center">
 		<h1>Employee Manager</h1>
 		<a href="new_emp">Create new Employee</a>
 		<br>
@@ -23,16 +25,16 @@
 					<td th:text = "${emp.id}">Id</td>
 					<td th:text = "${emp.name}">Name</td>
 					<td th:text = "${emp.dob}">Dob</td>
-					<!-- <td th:text = "${product.madein}">Made in</td>
+					<td th:text = "${product.madein}">Made in</td>
 					<td th:text = "${product.price}">Price</td>
 					<td>
 						<a th:href="@{'/edit/' +${product.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp;
 						<a th:href="@{'/delete/' +${product.id}}">Delete</a>
-					</td> -->
+					</td>
 				</tr>
 			</thead>
 		</table>
-	</div>
+	</div> -->
 </body>
 </html>
