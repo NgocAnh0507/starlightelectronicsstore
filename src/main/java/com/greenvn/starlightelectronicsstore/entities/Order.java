@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+
 @Table(name = "PRODUCT_ORDER")
 public class Order {
 	@Id

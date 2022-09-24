@@ -3,18 +3,23 @@ package com.greenvn.starlightelectronicsstore.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
+import com.greenvn.starlightelectronicsstore.entities.helper.OrderDetailID;
 
+@Entity
+@IdClass(OrderDetailID.class)
 public class OrderDetail {
 
-	
+	@Id
 	@Column(name = "ORDER_ID")
-	private Order orderID;
+	private Long orderID;
 	
+	@Id
 	@Column(name = "PRODUCT_ID")
-	private Product productID;
+	private Long productID;
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
 	@NotBlank(message = "Số lượng hiện có không được để trống!")
@@ -24,20 +29,20 @@ public class OrderDetail {
 	@NotBlank(message = "Giá bán không được để trống!")
 	private Double price;
 
-	public Order getOrderID() {
+	public Long getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(Order order) {
-		this.orderID = order;
+	public void setOrderID(Long orderID) {
+		this.orderID = orderID;
 	}
 
-	public Product getProductID() {
+	public Long getProductID() {
 		return productID;
 	}
 
-	public void setProductID(Product product) {
-		this.productID = product;
+	public void setProductID(Long productID) {
+		this.productID = productID;
 	}
 
 	public Integer getQuantity() {

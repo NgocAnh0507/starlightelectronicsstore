@@ -2,6 +2,7 @@ package com.greenvn.starlightelectronicsstore.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,6 +14,7 @@ public class Employee extends Person{
 
 	@Id
 	@Column(name = "EMPLOYEE_ID", columnDefinition = "VARCHAR(155)")
+	@GeneratedValue
 	private Long employeeID;
 
 	@Column(name = "USER_NAME", columnDefinition = "VARCHAR(55) UNIQUE")
