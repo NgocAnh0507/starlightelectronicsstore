@@ -1,5 +1,7 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +21,25 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@GetMapping("/customers")
+	@GetMapping("/admin/customers")
 	public String showCustomerList(Model model)
 	{
 		model.addAttribute("customers",customerService.getCustomers());
-		return "/customers";
+		return "customers";
 	}
 	
-	@GetMapping("/formAddCustomer")
+	@GetMapping("/admin/formAddCustomer")
 	public String addCustomerForm(Customer customer) {
 		return "add-customer";
 	}
 	
-	@PostMapping("/addCustomer")
+	@PostMapping("/admin/addCustomer")
 	public String addCustomer(@Valid Customer customer, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "add-customer";
 		}
 		customerService.addCustomer(customer);
-		return "";
+		return "redirect:/admin/customers";
 	}
 	
 	@GetMapping("/formUpdateCustomer")
