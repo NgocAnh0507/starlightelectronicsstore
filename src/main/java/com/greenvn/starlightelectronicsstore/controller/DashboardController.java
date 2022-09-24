@@ -9,4 +9,9 @@ public class DashboardController {
 	public String showIndexAdmin(){
 		return "admin";
 	}
+	
+	@GetMapping("/donhang")
+	public String showDonHang(){
+		return "ProductList";
+	}
 }

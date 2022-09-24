@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layoutadmin}">
+	layout:decorate="~{layout-admin}">
 <head>
 <meta charset="UTF-8" />
 <title>Product Manager</title>
@@ -15,10 +15,10 @@
 			<thead>
 				<tr>
 					<th>Product ID</th>
-					<th>Product Name</th>
-					<th>Product Brand</th>
-					<th>Made in</th>
+					<th>FreeShip</th>
 					<th>Price</th>
+					<th>Price Special</th>
+					<th>Price Special </th>
 					<th>Action</th>
 				</tr>
 				<tr th:each="product: ${listProducts}">

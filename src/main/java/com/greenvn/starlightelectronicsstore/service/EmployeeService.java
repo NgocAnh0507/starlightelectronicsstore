@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.entities.Position;
@@ -57,8 +57,11 @@ public class EmployeeService {
 	{
 		employeeRepository.deleteById(employeeID);
 	}
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	
 	private static final String DEFAULT_INITIAL_PASSWORD = "admin";
 	public void createDefaultAdmin() throws Exception{
 		String password = passwordEncoder.encode("123456");
@@ -79,10 +82,7 @@ public class EmployeeService {
 		emp.setUserName("admin");
 		employeeRepository.save(emp);
 	}
-	@GetMapping("/admin")
-	public String showIndexAdmin(){
-		return "admin";
-	}
+	
 	
 }
 	
