@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class Person {
@@ -14,7 +15,7 @@ public abstract class Person {
 	private String name;
 	
 	@Column(name = "BIRTH_YEAR",columnDefinition = "INT")
-	@NotBlank(message = "Năm sinh không được để trống!")
+	@NotNull(message = "Năm sinh không được để trống!")
 	private Integer bithYear;
 
 	@Column(name = "PHONE_NUMBER",columnDefinition = "VARCHAR(15)")

@@ -12,7 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
-import com.greenvn.starlightelectronicsstore.entities.Permission;
+//import com.greenvn.starlightelectronicsstore.entities.Permission;
+import com.greenvn.starlightelectronicsstore.entities.Position;
 
 public class EmployeeDetailsServiceImp implements UserDetailsService {
 
@@ -35,12 +36,17 @@ public class EmployeeDetailsServiceImp implements UserDetailsService {
 			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + PERMISSION_AUTHENTICATED);// required to
 			// login
 			authorities.add(role);
-			if(emp.getPermissions()!=null && emp.getPermissions().size()>0) {
-				List<Permission>permissions = emp.getPermissions();
-				for (Permission permission : permissions) {
-					GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + permission.getName());
-					authorities.add(auth);
-				}
+//			if(emp.getPermissions()!=null && emp.getPermissions().size()>0) {
+//				List<Permission>permissions = emp.getPermissions();
+//				for (Permission permission : permissions) {
+//					GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + permission.getName());
+//					authorities.add(auth);
+//				}
+//			}
+			if(emp.getPosition()!=null) {
+				Position position = emp.getPosition();
+				GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + position.getName());
+				authorities.add(auth);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
