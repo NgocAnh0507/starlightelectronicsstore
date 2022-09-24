@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -21,15 +25,15 @@ public class Employee extends Person{
 	@NotBlank(message = "Thiếu Username rồi")
 	private String userName;
 	
-	@Column(name = "PASSWORD", columnDefinition = "VARCHAR(55)")
+	@Column(name = "PASSWORD", columnDefinition = "VARCHAR(1000)")
 	@NotBlank(message = "Thiếu Password rồi")
 	private String passWord;
 
 	@Column(name = "IS_ACTIVE", columnDefinition = "BOOLEAN")
 	private Boolean isActive = false;
 	
-	@ManyToOne
-	@NotBlank(message = "Chức vụ không được để trống!")
+	@ManyToOne(cascade =  CascadeType.PERSIST)
+	@NotNull(message = "Chức vụ không được để trống!")
 	private Position position;
 
 	public Long getEmployeeID() {

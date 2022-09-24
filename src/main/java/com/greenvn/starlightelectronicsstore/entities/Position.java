@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "POSITION")
@@ -24,8 +25,8 @@ public class Position {
 	private String name;
 	
 	@Column(name = "EDIT_DATA",columnDefinition = "BOOLEAN")
-	@NotBlank(message = "Quyền chỉnh sủa không được để trống!")
-	private Boolean editData;
+	@NotNull(message = "Quyền chỉnh sủa không được để trống!")
+	private Boolean editData = false;
 
 	@OneToMany(mappedBy = "position")
 	private List<Employee> employees;
