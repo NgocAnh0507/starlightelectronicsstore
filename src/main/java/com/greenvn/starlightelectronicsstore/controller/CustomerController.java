@@ -19,11 +19,11 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@GetMapping("/customers")
+	@GetMapping("/admin/customers")
 	public String showCustomerList(Model model)
 	{
 		model.addAttribute("customers",customerService.getCustomers());
-		return "/customers";
+		return "customers";
 	}
 	
 	@GetMapping("/formAddCustomer")

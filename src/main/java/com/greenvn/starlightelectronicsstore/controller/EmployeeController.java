@@ -19,11 +19,11 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@GetMapping("/employees")
+	@GetMapping("/admin/employee")
 	public String showEmployeeList(Model model)
 	{
 		model.addAttribute("employees",employeeService.getEmployees());
-		return "/employees";
+		return "EmployeeList";
 	}
 	
 	@GetMapping("/formAddEmployee")
