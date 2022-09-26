@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import com.greenvn.starlightelectronicsstore.entities.helper.OrderDetailID;

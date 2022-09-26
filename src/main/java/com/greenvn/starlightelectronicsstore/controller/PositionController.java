@@ -22,7 +22,7 @@ public class PositionController {
 	@GetMapping("/positons")
 	public String showPositionList(Model model)
 	{
-//		model.addAttribute("positions",positionService.getPositions());
+		model.addAttribute("positions",positionService.getPositions());
 		return "positions";
 	}
 	

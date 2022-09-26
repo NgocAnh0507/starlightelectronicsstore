@@ -15,10 +15,10 @@ public class PositionService {
 	@Autowired
 	private PositionRepository positionRepository;
 	
-//	public List<Position> getPositions()
-//	{
-//		return positionRepository.findAll();
-//	}
+	public List<Position> getPositions()
+	{
+		return positionRepository.findAll();
+	}
 	public List<String> getAllPosition(){
 		List<Position>positions= positionRepository.findAll();
 		List<String>positionList = new ArrayList<String>();

@@ -40,21 +40,21 @@ public class EmployeeController {
 		return "";
 	}
 	
-	@GetMapping("/admin/formUpdateEmployee")
+	@GetMapping("/formUpdateEmployee")
 	public String updateEmployeeForm(@RequestParam(name = "employeeID")Long employeeID, Model model) {
 		Employee employee = employeeService.findEmployeeById(employeeID);
 		model.addAttribute("employee", employee);
 		return "update-employee";
 	}
 	
-	@PostMapping("admin/updateEmployee")
+	@PostMapping("/updateEmployee")
 	public String updateEmployee(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
 		if(result.hasErrors()) {
 			employee.setEmployeeID(employeeID);
 			return "update-employee";
 		}
 		employeeService.updateEmployee(employee, employeeID);
-		return "redirect:/admin/infoUser";
+		return "";
 	}
 	
 	@GetMapping("/deleteEmployee")
@@ -62,6 +62,5 @@ public class EmployeeController {
 		employeeService.deleteEmployee(employeeID);
 		return "";
 	}
-	
 }
 

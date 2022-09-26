@@ -1,0 +1,64 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin}">
+<head>
+<meta charset="UTF-8" />
+<title>Product Manager</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center">
+		<h1>Product Manager</h1>
+		<a href="new">Create new Product</a> <br>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ProductID</th>
+					<th>ProductSKU</th>
+					<th>Category</th>
+					<th>ProductManufacture</th>
+					<th>ProductDefaultImage</th>
+					<th>Images</th>
+					<th>ProductDescription</th>
+					<th>Price</th>
+					<th>PriceSpecial</th>
+					<th>PriceSpecialStartDate</th>
+					<th>PriceSpecialEndDate</th>
+					<th>Quantity</th>
+					<th>QuantityOrderMin</th>
+					<th>QuantityOrderMax</th>
+					<th>ProductAttribute</th>
+					<th>Status</th>
+					<th>FreeShip</th>
+					<th>ProductReview</th>
+				</tr>
+				<tr th:each="product: ${products}">
+					<td th:text="${product.productID}">Id</td>
+					<td th:text="${product.productSKU}">Name</td>
+					<td th:text="${product.category.categoryID + product.category.name}">Brand</td><!-- c1: cộng chuỗi để hiển thị lên hết 1 ô -->
+					<td th:href="@{/viewManafacture}" th:text="${product.manufacturer}">Made in</td><!-- c2: tạo 1 controller viết map view để vao xem chi tiết thông tin đó  -->
+					<td th:text="${product.defaultImage}">Price</td>
+					<td th:text="${product.images}">Price</td>
+					<td th:text= "${product.productDescription}"></td>
+					<td th:text= "${product.price}"></td>
+					<td th:text= "${product.priceSpecial}"></td>
+					<td th:text= "${product.priceSpecialStartDate}"></td>
+					<td th:text= "${product.priceSpecialEndDate}"></td>
+					<td th:text= "${product.quantity}"></td>
+					<td th:text= "${product.quantityOrderMin}"></td>
+					<td th:text= "${product.quantityOrderMax}"></td>
+					<td th:text= "${product.attributes}"></td>
+					<td th:text= "${product.status}"></td>
+					<td th:text= "${product.freeShip}"></td>
+					<td th:text= "${product.productReviews}"></td>
+					<td><a th:href="@{'/edit/' +${product.id}}">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a th:href="@{'/delete/' +${product.id}}">Delete</a>
+					</td>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	</div>
+</body>
+</html>
