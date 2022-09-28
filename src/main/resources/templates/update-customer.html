@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout-admin1}">
 <head>
-<title>Add Customer</title>
+<title>Update Customer</title>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -11,8 +11,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
-						<h2 class="text-center text-success">Thêm khách hàng mới</h2>
-						<form th:action="@{/admin/addCustomer}" th:object="${customer}" method="post">
+						<h2 class="text-center text-success">Cập nhật thông tin khách hàng</h2>
+						<form th:action="@{/admin/updateCustomer?(customerID=${customer.customerID})}" th:object="${customer}" method="post">
 							<label for="bithYear" class="col-form-label">Năm sinh</label>
 							<input type="text" th:field="*{bithYear}" class="form-control" id="bithYear" placeholder="Năm sinh"> 
 							<p th:errors ="*{bithYear}" class="text-danger" ></p>
