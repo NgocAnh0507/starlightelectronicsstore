@@ -18,7 +18,7 @@ public class Customer extends Person{
 	@Id
 	@Column(name = "CUSTOMER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long customerID;
+	private long customerID;
 	
 	@Column(name = "ADDRESS",columnDefinition = "VARCHAR(555)")
 	@NotBlank(message = "Địa chỉ không được để trống!")
@@ -29,6 +29,22 @@ public class Customer extends Person{
 
 	@OneToMany(mappedBy = "customer")
 	private List<ProductReview> productReviews;
+
+	public long getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(long customerID) {
+		this.customerID = customerID;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public List<Order> getOrders() {
 		return orders;
@@ -45,22 +61,5 @@ public class Customer extends Person{
 	public void setProductReviews(List<ProductReview> productReviews) {
 		this.productReviews = productReviews;
 	}
-	
-	public Long getCustomerID() {
-		return customerID;
-	}
 
-	public void setCustomerID(Long customerID) {
-		this.customerID = customerID;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	
 }

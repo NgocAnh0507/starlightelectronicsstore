@@ -35,7 +35,7 @@ public class DashboardController {
 	public String showUserInfoPage(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userName = authentication.getName();
-		Employee emp = empSer.getEmployeeByUserName(userName);
+		Employee emp = empSer.findEmployeeByUserName(userName);
 		model.addAttribute("employee", emp);
 		return "infoUSer";
 	}

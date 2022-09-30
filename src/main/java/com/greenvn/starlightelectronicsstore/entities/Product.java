@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -21,36 +22,22 @@ public class Product {
 	@Id
 	@Column(name = "PRODUCT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long productID;
+	private long productID;
+
+	@Column(name = "PRODUCT_NAME", columnDefinition = "VARCHAR(555) UNIQUE")
+	@NotBlank(message = "Tên sản phẩm không được để trống!")
+	private String productName;
 	
 	@Column(name = "PRODUCT_SKU", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "SKU không được để trống!")
 	private String productSKU;
 	
-	@ManyToOne
-	@NotBlank(message = "Danh mục không được để trống!")
-	private Category category;
-	
-	@ManyToOne
-	@NotBlank(message = "Hãng sản xuất không được để trống!")
-	private Manufacturer manufacturer;
-
-	@OneToOne
-	@NotBlank(message = "Ảnh bìa không được để trống!")
-	private Image defaultImage;
-
-	@OneToMany(mappedBy = "product")
-	private List<Image> images;
-	
-	@ManyToMany
-	private List<ProductAttribute> attributes;
-	
 	@Column(name = "PRODUCT_DESCRIPTION", columnDefinition = "VARCHAR(5555)")
-	@NotBlank(message = "Mô tả không được để trống!")
+	@NotBlank(message = "Mô tả sản phẩm không được để trống!")
 	private String productDescription;
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
-	@NotBlank(message = "Giá bán không được để trống!")
+	@NotNull(message = "Giá bán không được để trống!")
 	private Double price;
 
 	@Column(name = "PRICE_SPECIAL", columnDefinition = "DECIMAL(11,1)")
@@ -63,7 +50,7 @@ public class Product {
 	private Date priceSpecialEndDate;
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
-	@NotBlank(message = "Số lượng hiện có không được để trống!")
+	@NotNull(message = "Số lượng hiện có không được để trống!")
 	private Integer quantity;
 
 	@Column(name = "QUANTITY_ORDER_MIN", columnDefinition = "INT")
@@ -73,20 +60,49 @@ public class Product {
 	private Integer quantityOrderMax;
 
 	@Column(name = "STATUS", columnDefinition = "BOOLEAN NOT NULL")
-	@NotBlank(message = "Trạng thái không được để trống!")
+	@NotNull(message = "Trạng thái không được để trống!")
 	private Boolean status;
 
 	@Column(name = "FREESHIP", columnDefinition = "BOOLEAN NOT NULL")
-	@NotBlank(message = "Free ship không được để trống!")
+	@NotNull(message = "Giao hàng miễn phí không được để trống!")
 	private Boolean freeShip;
+	
+	@ManyToOne
+	@NotNull(message = "Danh mục không được để trống!")
+	private Category category;
+	
+	@ManyToOne
+	@NotNull(message = "Hãng sản xuất không được để trống!")
+	private Manufacturer manufacturer;
+
+	@OneToOne
+	@NotNull(message = "Ảnh bìa không được để trống!")
+	private Image defaultImage;
+
+	@OneToMany(mappedBy = "product")
+	private List<Image> images;
 
 	@OneToMany(mappedBy = "product")
 	private List<ProductReview> productReviews;
+	
+	@ManyToMany
+	private List<ProductAttribute> attributes;
 
 	public long getProductID() {
 		return productID;
 	}
 
+	public void setProductID(long productID) {
+		this.productID = productID;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 
 	public String getProductSKU() {
 		return productSKU;
@@ -96,46 +112,7 @@ public class Product {
 		this.productSKU = productSKU;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public Image getDefaultImage() {
-		return defaultImage;
-	}
-
-	public void setDefaultImage(Image defaultImage) {
-		this.defaultImage = defaultImage;
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
-
-	public List<ProductAttribute> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(List<ProductAttribute> attributes) {
-		this.attributes = attributes;
-	}
-
+	
 	public String getProductDescription() {
 		return productDescription;
 	}
@@ -216,6 +193,38 @@ public class Product {
 		this.freeShip = freeShip;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public Image getDefaultImage() {
+		return defaultImage;
+	}
+
+	public void setDefaultImage(Image defaultImage) {
+		this.defaultImage = defaultImage;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
 	public List<ProductReview> getProductReviews() {
 		return productReviews;
 	}
@@ -224,8 +233,12 @@ public class Product {
 		this.productReviews = productReviews;
 	}
 
-	public void setProductID(Long productID) {
-		this.productID = productID;
+	public List<ProductAttribute> getAttributes() {
+		return attributes;
 	}
-	
+
+	public void setAttributes(List<ProductAttribute> attributes) {
+		this.attributes = attributes;
+	}
+
 }

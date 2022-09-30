@@ -1,64 +1,174 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout-admin}">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
-<title>Product Manager</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<title>Quản lý sản phẩm</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center">
-		<h1>Product Manager</h1>
-		<a href="new">Create new Product</a> <br>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>ProductID</th>
-					<th>ProductSKU</th>
-					<th>Category</th>
-					<th>ProductManufacture</th>
-					<th>ProductDefaultImage</th>
-					<th>Images</th>
-					<th>ProductDescription</th>
-					<th>Price</th>
-					<th>PriceSpecial</th>
-					<th>PriceSpecialStartDate</th>
-					<th>PriceSpecialEndDate</th>
-					<th>Quantity</th>
-					<th>QuantityOrderMin</th>
-					<th>QuantityOrderMax</th>
-					<th>ProductAttribute</th>
-					<th>Status</th>
-					<th>FreeShip</th>
-					<th>ProductReview</th>
-				</tr>
-				<tr th:each="product: ${products}">
-					<td th:text="${product.productID}">Id</td>
-					<td th:text="${product.productSKU}">Name</td>
-					<td th:text="${product.category.categoryID + product.category.name}">Brand</td><!-- c1: cộng chuỗi để hiển thị lên hết 1 ô -->
-					<td th:href="@{/viewManafacture}" th:text="${product.manufacturer}">Made in</td><!-- c2: tạo 1 controller viết map view để vao xem chi tiết thông tin đó  -->
-					<td th:text="${product.defaultImage}">Price</td>
-					<td th:text="${product.images}">Price</td>
-					<td th:text= "${product.productDescription}"></td>
-					<td th:text= "${product.price}"></td>
-					<td th:text= "${product.priceSpecial}"></td>
-					<td th:text= "${product.priceSpecialStartDate}"></td>
-					<td th:text= "${product.priceSpecialEndDate}"></td>
-					<td th:text= "${product.quantity}"></td>
-					<td th:text= "${product.quantityOrderMin}"></td>
-					<td th:text= "${product.quantityOrderMax}"></td>
-					<td th:text= "${product.attributes}"></td>
-					<td th:text= "${product.status}"></td>
-					<td th:text= "${product.freeShip}"></td>
-					<td th:text= "${product.productReviews}"></td>
-					<td><a th:href="@{'/edit/' +${product.id}}">Edit</a>
-						&nbsp;&nbsp;&nbsp; <a th:href="@{'/delete/' +${product.id}}">Delete</a>
-					</td>
-				</tr>
-			</thead>
-		</table>
+		<div align="center" style="padding-top: 35px">
+			<h1 style="font-size: 35px;">Quản lý sản phẩm</h1>
+		</div>
+
+		<div th:switch="${productAttributes}" class="container-fluid"
+			style="padding-top: 25px">
+			<h2 th:case="null" align="center">Chưa có sản phẩm nào!</h2>
+			<div th:case="*">
+				<div class="row">
+					<!-- <div class="col-md-2"></div> -->
+					<div class="col-md-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='productID',sortDir=${reverseSortDir})}">
+											Mã sản phẩm</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='productName',sortDir=${reverseSortDir})}">
+											Tên sản phẩm</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='productSKU',sortDir=${reverseSortDir})}">
+											Mã SKU</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='productDescription',sortDir=${reverseSortDir})}">
+											Mô tả sản phẩm</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='price',sortDir=${reverseSortDir})}">
+											Giá</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='priceSpecial',sortDir=${reverseSortDir})}">
+											Giá khuyến mãi</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='priceSpecialStartDate',sortDir=${reverseSortDir})}">
+											Ngày bắt đầu khuyến mãi</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='priceSpecialEndDate',sortDir=${reverseSortDir})}">
+											Ngày hết khuyến mãi</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='quantity',sortDir=${reverseSortDir})}">
+											Số lượng hiện có</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='quantityOrderMin',sortDir=${reverseSortDir})}">
+											Số lượng đặt hàng tối thiểu </a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
+											Số lượng đặt hàng tối đa/a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
+											Trạng thái</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='freeShip',sortDir=${reverseSortDir})}">
+											Giao hàng miễn phí</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='category.name',sortDir=${reverseSortDir})}">
+											Danh mục</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
+											Hãng sản xuất</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
+											Ảnh bìa</a></th>
+									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product : ${products}">
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.productID}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.productName}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.productSKU}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.productDescription}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.price}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.priceSpecial}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.priceSpecialStartDate}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.priceSpecialEndDate}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.quantity}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.quantityOrderMin}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.quantityOrderMax}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.status}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.freeShip}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.category.name}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.manufacturer.name}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.defaultImage.name}"></td>
+									<td align="center">
+										<a class="btn btn-warning"
+										style="font-size: 15px;" role="button"
+										th:href="@{/formUpdateProduct?(productID=${product.productID})}">
+											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
+										<a class="btn btn-danger" style="font-size: 15px;"
+										role="button"
+										th:href="@{/deleteProduct?(productID=${product.productID})}">
+											<i class="fas fa-trash-alt"></i> Xóa</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								<li th:if="${currentPage>1}" class="page-item"><a
+									class="page-link"
+									th:href="@{/products?(page=${currentPage-1})}">Trang trước</a></li>
+
+								<li th:if="${currentPage<=1}" class="page-item disabled"><a
+									class="page-link" href="#">Trang trước</a></li>
+
+								<li th:each="i:${#numbers.sequence(1,totalPage)}"
+									class="page-item"><a class="page-link" th:text=${i}
+									th:href="@{/products?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+
+								<li th:if="${currentPage<totalPage}" class="page-item"><a
+									class="page-link"
+									th:href="@{/products?(page=${currentPage+1})}">Trang kế tiếp</a></li>
+								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
+									class="page-link" href="#">Trang kế tiếp</a></li>
+							</ul>
+						</nav>
+					</div>
+					<!-- <div class="col-md-2"></div> -->
+				</div>
+			</div>
+		</div>
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+			<a class="btn btn-success" style="font-size: 15px;" role="button"
+			th:href="@{/formAddProduct}">
+				<i class="fas fa-plus"></i> Thêm sản phẩm mới</a> 
+				
+		</div>
 	</div>
-	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
 </body>
 </html>

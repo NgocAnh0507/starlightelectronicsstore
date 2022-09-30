@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,8 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.greenvn.starlightelectronicsstore.entities.Category;
 import com.greenvn.starlightelectronicsstore.service.CategoryService;
@@ -34,6 +33,7 @@ public class CategoryController {
 		int pageSize = 9;
 		Page<Category> pageCategory = categoryService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Category> categories = pageCategory.getContent();
+		if(categories.size() == 0) categories = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageCategory.getTotalPages());
 		
@@ -41,49 +41,61 @@ public class CategoryController {
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		model.addAttribute("categories",categoryService.getCategories());
+		model.addAttribute("categories",categories);
 		return "category-management";
 	}
 	
 	@GetMapping("/formAddCategory")
-	public ModelAndView addCategoryForm(Category category) {
-		return new ModelAndView(new RedirectView("add-category"));
-		
+	public String addCategoryForm(Category category) {
+		return "category-add";
 	}
 	
 	@PostMapping("/addCategory")
 	public String addCategory(@Valid Category category, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "add-category";
+			return "category-add";
 		}
+		
+		if(categoryService.findCategoryByName(category.getName()) != null) {
+			
+			model.addAttribute("messages","Danh mục đã tồn tại!");
+			return "category-add";
+		}
+		else model.addAttribute("messages",null);
+		
 		categoryService.addCategory(category);
-		return "category-management";
+		return "redirect:/categories";
 	}
 	
 	@GetMapping("/formUpdateCategory")
-	public ModelAndView updateCategoryForm(@RequestParam(name = "categoryID")Long categoryID, Model model) {
+	public String updateCategoryForm(@RequestParam(name = "categoryID")Long categoryID, Model model) {
 		Category category =  categoryService.findCategoryById(categoryID);
 		model.addAttribute("category", category);
-		return new ModelAndView(new RedirectView("update-category"));
+		return "category-update";
 	}
 
 	@PostMapping("/updateCategory")
 	public String updateCategory(@RequestParam(name = "categoryID")Long categoryID,@Valid Category category, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			category.setCategoryID(categoryID);
-			return "update-category";
+			return "category-update";
 		}
+
+		if(categoryService.findCategoryByName(category.getName()) != null) {
+			model.addAttribute("messages","Danh mục đã tồn tại!");
+			return "category-update";
+		}
+		
+		else model.addAttribute("messages",null);
+		
 		categoryService.updateCategory(category,categoryID);
-		return "category-management";
+		return "redirect:/categories";
 	}
 	
 	@GetMapping("/deleteCategory")
 	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model) {
 		categoryService.deleteCategory(categoryID);
-		//chỗ này pải thêm param
-		//showCategoryList(model);
-		return "category-management";	
-		
+		return "redirect:/categories";
 	}
 	 
 }

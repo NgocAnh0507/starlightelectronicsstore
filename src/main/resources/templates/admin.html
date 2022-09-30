@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout-admin1}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <title>Hello</title>
 </head>
 <body>
 	<div layout:fragment="content">
 	<a class="nav-link" th:href="@{/categories}">Quản lý danh mục</a>
+	<a class="nav-link" th:href="@{/attributeTypes}">Quản lý loại thuộc tính</a>
+	<a class="nav-link" th:href="@{/productAttributes}">Quản lý thuộc tính</a>
+	<a class="nav-link" th:href="@{/positions}">Quản lý chức vụ</a>
+	<a class="nav-link" th:href="@{/employees}">Quản lý nhân viên</a>
+	<a class="nav-link" th:href="@{/manufacturers}">Quản lý hãng sản xuất</a>
+	<a class="nav-link" th:href="@{/products}">Quản lý sản phẩm</a>
 	</div>
 </body>
 </html>
+
+

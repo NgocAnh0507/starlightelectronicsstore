@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "POSITION")
@@ -21,17 +20,16 @@ public class Position {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long positionID;
 	
-	@Column(name = "NAME",columnDefinition = "VARCHAR(55)")
+	@Column(name = "NAME",columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Tên chức vụ không được để trống!")
 	private String name;
 	
-	@Column(name = "EDIT_DATA",columnDefinition = "BOOLEAN")
-	@NotNull(message = "Quyền chỉnh sủa không được để trống!")
-	private Boolean editData = false;
+	@Column(name = "EDIT_DATA",columnDefinition = "BOOLEAN DEFAULT FALSE" )
+	private Boolean editData;
 
 	@OneToMany(mappedBy = "position")
 	private List<Employee> employees;
-	
+
 	public long getPositionID() {
 		return positionID;
 	}
@@ -39,7 +37,7 @@ public class Position {
 	public void setPositionID(long positionID) {
 		this.positionID = positionID;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -63,5 +61,5 @@ public class Position {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
-	
+
 }

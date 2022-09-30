@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 
@@ -18,10 +19,10 @@ public class Order {
 	@Id
 	@Column(name = "ORDER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long orderID;
+	private long orderID;
 	
 	@ManyToOne
-	@NotBlank(message = "Khách hàng không được để trống!")
+	@NotNull(message = "Khách hàng không được để trống!")
 	private Customer customer;
 
 	@Column(name = "ORDER_STATUS", columnDefinition = "VARCHAR(55)")
@@ -29,15 +30,15 @@ public class Order {
 	private String orderStatus;
 	
 	@Column(name = "AMOUNT", columnDefinition = "DECIMAL(11,1)")
-	@NotBlank(message = "Tổng sản phẩm không được để trống!")
+	@NotNull(message = "Tổng sản phẩm không được để trống!")
 	private Double amount;
 	
 	@Column(name = "TOTAL", columnDefinition = "DECIMAL(11,1)")
-	@NotBlank(message = "Tổng tiền không được để trống!")
+	@NotNull(message = "Tổng tiền không được để trống!")
 	private Double total;
 	
 	@Column(name = "ORDER_DATE", columnDefinition = "DATETIME")
-	@NotBlank(message = "Ngày mua không được để trống!")
+	@NotNull(message = "Ngày mua không được để trống!")
 	private Date orderDate;
 
 	public long getOrderID() {
@@ -87,4 +88,5 @@ public class Order {
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
+
 }

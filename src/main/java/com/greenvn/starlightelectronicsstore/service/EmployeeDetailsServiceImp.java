@@ -2,7 +2,6 @@ package com.greenvn.starlightelectronicsstore.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,7 +27,7 @@ public class EmployeeDetailsServiceImp implements UserDetailsService {
 		Employee emp = null;
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		try {
-			emp =empService.getEmployeeByUserName(username);
+			emp =empService.findEmployeeByUserName(username);
 			if(emp==null) {
 				throw new UsernameNotFoundException("employee not found");
 			}

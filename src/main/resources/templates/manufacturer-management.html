@@ -1,0 +1,109 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<title>Quản lý hãng sản xuất</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center" style="padding-top: 35px">
+			<h1 style="font-size: 35px;">Quản lý hãng sản xuất</h1>
+		</div>
+
+		<div th:switch="${manufacturers}" class="container-fluid"
+			style="padding-top: 25px">
+			<h2 th:case="null" align="center">Chưa có hãng sản xuất nào!</h2>
+			<div th:case="*">
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/manufacturers?(page=${currentPage},sortField='manufacturerID',sortDir=${reverseSortDir})}">
+											Mã hãng sản xuất</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/manufacturers?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
+											Tên hãng sản xuất</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/manufacturers?(page=${currentPage},sortField='logo.name',sortDir=${reverseSortDir})}">
+											Ảnh biểu tượng</a></th>
+									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="manufacturer: ${manufacturers}">
+									<td align="center" style="font-size: 15px;"
+										th:text="${manufacturer.manufacturerID}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${manufacturer.name}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${manufacturer.logo.name}"></td>
+									<td align="center">
+										<a class="btn btn-warning"
+										style="font-size: 15px;" role="button"
+										th:href="@{/formUpdateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}">
+											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
+										<a class="btn btn-danger" style="font-size: 15px;"
+										role="button"
+										th:href="@{/deleteManufacturer?(manufacturerID=${manufacturer.manufacturerID})}">
+											<i class="fas fa-trash-alt"></i> Xóa</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								<li th:if="${currentPage>1}" class="page-item"><a
+									class="page-link"
+									th:href="@{/manufacturers?(page=${currentPage-1})}">Trang trước</a></li>
+
+								<li th:if="${currentPage<=1}" class="page-item disabled"><a
+									class="page-link" href="#">Trang trước</a></li>
+
+								<li th:each="i:${#numbers.sequence(1,totalPage)}"
+									class="page-item"><a class="page-link" th:text=${i}
+									th:href="@{/manufacturers?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+
+								<li th:if="${currentPage<totalPage}" class="page-item"><a
+									class="page-link"
+									th:href="@{/manufacturers?(page=${currentPage+1})}">Trang kế tiếp</a></li>
+								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
+									class="page-link" href="#">Trang kế tiếp</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+		</div>
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+			<a class="btn btn-success" style="font-size: 15px;" role="button"
+			th:href="@{/formAddManufacturer}">
+				<i class="fas fa-plus"></i> Thêm hãng sản xuất mới</a> 
+				
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+</html>

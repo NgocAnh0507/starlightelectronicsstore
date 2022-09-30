@@ -26,8 +26,13 @@ public class CategoryService {
 	
 	public Category addCategory(Category category)
 	{
-		Category categorySaved = categoryRepository.saveAndFlush(category);
+		Category categorySaved = categoryRepository.save(category);
 		return categorySaved;
+	}
+
+	public Category findCategoryByName(String Name)
+	{
+		return categoryRepository.findCategoryByName(Name);
 	}
 	
 	public Category findCategoryById(Long categoryID)

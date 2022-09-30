@@ -4,8 +4,11 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.repository.ProductRepository;
 
@@ -17,7 +20,7 @@ public class ProductService {
 	
 	public List<Product> getProducts()
 	{
-		return productRepository.findAll();
+		return this.productRepository.findAll();
 	}
 	
 	public Product addProduct(Product product)
@@ -25,10 +28,15 @@ public class ProductService {
 		Product productSaved = productRepository.save(product);
 		return productSaved;
 	}
+
+	public Product findProductByName(String Name)
+	{
+		return productRepository.findProductByName(Name);
+	}
 	
 	public Product findProductById(Long productID)
 	{
-		return productRepository.findById(productID).get();
+		return this.productRepository.findById(productID).get();
 	}
 	
 	public Product updateProduct(Product productNew, Long productID)
@@ -39,6 +47,7 @@ public class ProductService {
 		product.setManufacturer(productNew.getManufacturer());
 		product.setDefaultImage(productNew.getDefaultImage());
 		product.setProductDescription(productNew.getProductDescription());
+		product.setProductName(productNew.getProductName());
 		product.setPrice(productNew.getPrice());
 		product.setPriceSpecial(productNew.getPrice());
 		product.setPriceSpecialStartDate(productNew.getPriceSpecialEndDate());
@@ -56,4 +65,16 @@ public class ProductService {
 		productRepository.deleteById(productID);
 	}
 	
+	//Pageable
+		public Page<Product> findAll(int pageNo, int pageSize,String sortField, String sortDirection){
+				
+				//sort
+				Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+						Sort.by(sortField).ascending() :
+						Sort.by(sortField).descending();
+				
+				Pageable pageable = PageRequest.of(pageNo - 1, pageSize,sort);
+				Page<Product> pageProduct = productRepository.findAll(pageable);
+				return pageProduct;
+		}
 }

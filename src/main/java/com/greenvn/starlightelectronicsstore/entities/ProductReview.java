@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCT_REVIEW")
@@ -17,22 +18,22 @@ public class ProductReview {
 	@Id
 	@Column(name = "PRODUCT_REVIEW_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long productReviewID;
+	private long productReviewID;
 
 	@Column(name = "RATING", columnDefinition = "INT")
-	@NotBlank(message = "Mức đánh giá không được để trống!")
+	@NotNull(message = "Mức đánh giá không được để trống!")
 	private Integer rating;
 
 	@ManyToOne
-	@NotBlank(message = "Khách hàng không được để trống!")
+	@NotNull(message = "Khách hàng không được để trống!")
 	private Customer customer;
 
 	@ManyToOne
-	@NotBlank(message = "Sản phẩm không được để trống!")
+	@NotNull(message = "Sản phẩm không được để trống!")
 	private Product product;
 
 	@Column(name = "REVIEW_DATE", columnDefinition = "DATETIME")
-	@NotBlank(message = "Ngày đánh giá không được để trống!")
+	@NotNull(message = "Ngày đánh giá không được để trống!")
 	private Date reviewDate;
 	
 	@Column(name = "REVIEW_DESCRIPTION", columnDefinition = "VARCHAR(5555)")
@@ -86,5 +87,5 @@ public class ProductReview {
 	public void setReviewDescription(String reviewDescription) {
 		this.reviewDescription = reviewDescription;
 	}
-	
+
 }

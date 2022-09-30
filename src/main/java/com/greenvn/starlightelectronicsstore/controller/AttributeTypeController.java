@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.AttributeType;
-import com.greenvn.starlightelectronicsstore.entities.Category;
 import com.greenvn.starlightelectronicsstore.service.AttributeTypeService;
 
 @Controller
@@ -32,6 +32,7 @@ public class AttributeTypeController {
 		int pageSize = 9;
 		Page<AttributeType> pageAttributeType = attributeTypeService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<AttributeType> attributeTypes = pageAttributeType.getContent();
+		if(attributeTypes.size() == 0) attributeTypes = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageAttributeType.getTotalPages());
 		
@@ -39,46 +40,62 @@ public class AttributeTypeController {
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		model.addAttribute("attributeTypes",attributeTypeService.getAttributeTypes());
+		model.addAttribute("attributeTypes",attributeTypes);
 		return "attributeType-management";
 				
 	}
 	
 	@GetMapping("/formAddAttributeType")
 	public String addAttributeTypeForm(AttributeType attributeType) {
-		return "add-attributeType";
+		return "attributeType-add";
 	}
 	
 	@PostMapping("/addAttributeType")
 	public String addAttributeType(@Valid AttributeType attributeType, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "add-attributeType";
+			return "attributeType-add";
 		}
+		
+		if(attributeTypeService.findAttributeTypeByName(attributeType.getName()) != null) {
+			
+			model.addAttribute("messages","Loại thuộc tính đã tồn tại!");
+			return "attributeType-add";
+		}
+		else model.addAttribute("messages",null);
+		
 		attributeTypeService.addAttributeType(attributeType);
-		return "";
+		return "redirect:/attributeTypes";
 	}
 
 	@GetMapping("/formUpdateAttributeType")
 	public String updateAttributeTypeForm(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model) {
 		AttributeType attributeType =  attributeTypeService.findAttributeTypeById(attributeTypeID);
 		model.addAttribute("attributeType", attributeType);
-		return "update-attributeType";
+		return "attributeType-update";
 	}
 
 	@PostMapping("/updateAttributeType")
 	public String updateAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID,@Valid AttributeType attributeType, BindingResult result, Model model){
 		if(result.hasErrors()) {
 			attributeType.setAttributeTypeID(attributeTypeID);
-			return "update-attributeType";
+			return "attributeType-update";
 		}
+
+		if(attributeTypeService.findAttributeTypeByName(attributeType.getName()) != null) {
+			
+			model.addAttribute("messages","Loại thuộc tính đã tồn tại!");
+			return "attributeType-update";
+		}
+		else model.addAttribute("messages",null);
+		
 		attributeTypeService.updateAttributeType(attributeType,attributeTypeID);
-		return "";
+		return "redirect:/attributeTypes";
 	}
 
 	@GetMapping("/deleteAttributeType")
 	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model) {
 		attributeTypeService.deleteAttributeType(attributeTypeID);
-		// showAttributeTypeList(model);
-		return "attributeType-management";
+		showAttributeTypeList(1,"attributeTypeID","asc",model);
+		return "redirect:/attributeTypes";
 	}
 }

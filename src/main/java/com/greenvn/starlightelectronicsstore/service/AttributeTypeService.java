@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenvn.starlightelectronicsstore.entities.AttributeType;
-import com.greenvn.starlightelectronicsstore.entities.Category;
 import com.greenvn.starlightelectronicsstore.repository.AttributeTypeRepository;
 
 @Service
@@ -33,6 +32,11 @@ public class AttributeTypeService {
 	public AttributeType findAttributeTypeById(Long attributeTypeID)
 	{
 		return attributeTypeRepository.findById(attributeTypeID).get();
+	}
+
+	public AttributeType findAttributeTypeByName(String Name)
+	{
+		return attributeTypeRepository.findAttributeTypeByName(Name);
 	}
 	
 	public AttributeType updateAttributeType(AttributeType attributeTypeNew, Long attributeTypeID)

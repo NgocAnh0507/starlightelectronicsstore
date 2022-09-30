@@ -18,9 +18,9 @@ public class Category {
 	@Id
 	@Column(name = "CATEGORY_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long categoryID;
+	private long categoryID;
 	
-	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
+	@Column(name = "NAME", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 
@@ -32,6 +32,10 @@ public class Category {
 
 	public long getCategoryID() {
 		return categoryID;
+	}
+
+	public void setCategoryID(long categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public String getName() {
@@ -50,10 +54,6 @@ public class Category {
 		this.products = products;
 	}
 
-	public void setCategoryID(Long categoryID) {
-		this.categoryID = categoryID;
-	}
-
 	public List<ProductAttribute> getProductAttributes() {
 		return productAttributes;
 	}
@@ -61,6 +61,6 @@ public class Category {
 	public void setProductAttributes(List<ProductAttribute> productAttributes) {
 		this.productAttributes = productAttributes;
 	}
-
+	
 	
 }

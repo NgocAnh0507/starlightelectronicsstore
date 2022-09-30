@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -17,13 +18,13 @@ public class Image {
 	@Id
 	@Column(name = "IMAGE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long imageID;
+	private long imageID;
 
 	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 
-	@Column(name = "URL", columnDefinition = "VARCHAR(55)")
+	@Column(name = "URL", columnDefinition = "VARCHAR(1000)")
 	@NotBlank(message = "URL không được để trống!")
 	private String imageURL;
 	
@@ -61,5 +62,5 @@ public class Image {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
+
 }

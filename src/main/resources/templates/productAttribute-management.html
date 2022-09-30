@@ -14,17 +14,17 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<title>Quản lý danh mục</title>
+<title>Quản lý thuộc tính</title>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div align="center" style="padding-top: 35px">
-			<h1 style="font-size: 35px;">Quản lý danh mục</h1>
+			<h1 style="font-size: 35px;">Quản lý thuộc tính</h1>
 		</div>
 
-		<div th:switch="${categories}" class="container-fluid"
+		<div th:switch="${productAttributes}" class="container-fluid"
 			style="padding-top: 25px">
-			<h2 th:case="null" align="center">Chưa có danh mục nào!</h2>
+			<h2 th:case="null" align="center">Chưa có thuộc tính nào!</h2>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-2"></div>
@@ -33,28 +33,38 @@
 							<thead>
 								<tr>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/categories?(page=${currentPage},sortField='categoryID',sortDir=${reverseSortDir})}">Mã
-											danh mục</a></th>
+										th:href="@{/productAttributes?(page=${currentPage},sortField='productAttributeID',sortDir=${reverseSortDir})}">
+											Mã thuộc tính</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/categories?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
-											danh mục</a></th>
+										th:href="@{/productAttributes?(page=${currentPage},sortField='category.name',sortDir=${reverseSortDir})}">
+											Danh mục</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/productAttributes?(page=${currentPage},sortField='type.name',sortDir=${reverseSortDir})}">
+											Loại thuộc tính</a></th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/productAttributes?(page=${currentPage},sortField='value',sortDir=${reverseSortDir})}">
+											Giá trị</a></th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="category: ${categories}">
+								<tr th:each="productAttribute: ${productAttributes}">
 									<td align="center" style="font-size: 15px;"
-										th:text="${category.categoryID}"></td>
+										th:text="${productAttribute.productAttributeID}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${category.name}"></td>
+										th:text="${productAttribute.category.name}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${productAttribute.type.name}"></td>
+									<td align="center" style="font-size: 15px;"
+										th:text="${productAttribute.value}"></td>
 									<td align="center">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/formUpdateCategory?(categoryID=${category.categoryID})}">
+										th:href="@{/formUpdateProductAttribute?(productAttributeID=${productAttribute.productAttributeID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
 										<a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/deleteCategory?(categoryID=${category.categoryID})}">
+										th:href="@{/deleteProductAttribute?(productAttributeID=${productAttribute.productAttributeID})}">
 											<i class="fas fa-trash-alt"></i> Xóa</a>
 									</td>
 								</tr>
@@ -65,23 +75,22 @@
 							<ul class="pagination">
 								<li th:if="${currentPage>1}" class="page-item"><a
 									class="page-link"
-									th:href="@{/categories?(page=${currentPage-1})}">Trang trước</a></li>
+									th:href="@{/productAttributes?(page=${currentPage-1})}">Trang trước</a></li>
 
 								<li th:if="${currentPage<=1}" class="page-item disabled"><a
 									class="page-link" href="#">Trang trước</a></li>
 
 								<li th:each="i:${#numbers.sequence(1,totalPage)}"
 									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/categories?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+									th:href="@{/productAttributes?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
 								<li th:if="${currentPage<totalPage}" class="page-item"><a
 									class="page-link"
-									th:href="@{/categories?(page=${currentPage+1})}">Trang kế tiếp</a></li>
+									th:href="@{/productAttributes?(page=${currentPage+1})}">Trang kế tiếp</a></li>
 								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
 									class="page-link" href="#">Trang kế tiếp</a></li>
 							</ul>
 						</nav>
-
 					</div>
 					<div class="col-md-2"></div>
 				</div>
@@ -89,8 +98,8 @@
 		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
-			th:href="@{/formAddCategory}">
-				<i class="fas fa-plus"></i> Thêm danh mục mới</a> 
+			th:href="@{/formAddProductAttribute}">
+				<i class="fas fa-plus"></i> Thêm thuộc tính mới</a> 
 				
 		</div>
 	</div>

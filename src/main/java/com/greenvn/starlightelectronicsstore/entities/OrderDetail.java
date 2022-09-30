@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.greenvn.starlightelectronicsstore.entities.helper.OrderDetailID;
 
@@ -14,33 +14,33 @@ public class OrderDetail {
 
 	@Id
 	@Column(name = "ORDER_ID")
-	private Long orderID;
+	private long orderID;
 	
 	@Id
 	@Column(name = "PRODUCT_ID")
-	private Long productID;
+	private long productID;
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
-	@NotBlank(message = "Số lượng hiện có không được để trống!")
+	@NotNull(message = "Số lượng hiện có không được để trống!")
 	private Integer quantity;
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
-	@NotBlank(message = "Giá bán không được để trống!")
+	@NotNull(message = "Giá bán không được để trống!")
 	private Double price;
 
-	public Long getOrderID() {
+	public long getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(Long orderID) {
+	public void setOrderID(long orderID) {
 		this.orderID = orderID;
 	}
 
-	public Long getProductID() {
+	public long getProductID() {
 		return productID;
 	}
 
-	public void setProductID(Long productID) {
+	public void setProductID(long productID) {
 		this.productID = productID;
 	}
 
@@ -59,5 +59,5 @@ public class OrderDetail {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
+
 }

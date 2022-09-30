@@ -1,6 +1,5 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ public class Employee extends Person{
 	@Id
 	@Column(name = "EMPLOYEE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long employeeID;
+	private long employeeID;
 
 	@Column(name = "USER_NAME", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Thiếu Username rồi")
@@ -27,29 +26,21 @@ public class Employee extends Person{
 	
 	@Column(name = "PASSWORD", columnDefinition = "VARCHAR(1000)")
 	@NotBlank(message = "Thiếu Password rồi")
-	private String passWord;
+	private String password;
 
-	@Column(name = "IS_ACTIVE", columnDefinition = "BOOLEAN")
-	private Boolean isActive = false;
+	@Column(name = "IS_ACTIVE", columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private Boolean isActive;
 	
-	@ManyToOne(cascade =  CascadeType.PERSIST)
+	@ManyToOne
 	@NotNull(message = "Chức vụ không được để trống!")
 	private Position position;
 
-	public Long getEmployeeID() {
+	public long getEmployeeID() {
 		return employeeID;
 	}
 
-	public void setEmployeeID(Long employeeID) {
+	public void setEmployeeID(long employeeID) {
 		this.employeeID = employeeID;
-	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
 	}
 
 	public String getUserName() {
@@ -60,12 +51,13 @@ public class Employee extends Person{
 		this.userName = userName;
 	}
 
+
 	public String getPassword() {
-		return passWord;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		this.passWord = password;
+		this.password = password;
 	}
 
 	public Boolean getIsActive() {
@@ -75,7 +67,7 @@ public class Employee extends Person{
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	public Position getPosition() {
 		return position;
 	}
@@ -83,5 +75,5 @@ public class Employee extends Person{
 	public void setPosition(Position position) {
 		this.position = position;
 	}
-	
+
 }

@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.entities.Position;
 import com.greenvn.starlightelectronicsstore.repository.EmployeeRepository;
+import com.greenvn.starlightelectronicsstore.repository.PositionRepository;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
@@ -17,6 +23,9 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	private PositionRepository positionRepository;
 	
 	public List<Employee> getEmployees()
 	{
@@ -48,7 +57,7 @@ public class EmployeeService {
 		return employeeRepository.save(employee);
 	}
 	
-	public Employee getEmployeeByUserName(String username)
+	public Employee findEmployeeByUserName(String username)
 	{
 		return employeeRepository.findEmployeeByUserName(username);
 	}
@@ -58,31 +67,49 @@ public class EmployeeService {
 		employeeRepository.deleteById(employeeID);
 	}
 	
+	// Pageable
+	public Page<Employee> findAll(int pageNo, int pageSize, String sortField, String sortDirection) {
+
+		// sort
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
+				: Sort.by(sortField).descending();
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		Page<Employee> pageEmployee = employeeRepository.findAll(pageable);
+		return pageEmployee;
+	}
+	
+	// Mã hóa password
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
 	
 	private static final String DEFAULT_INITIAL_PASSWORD = "admin";
 	public void createDefaultAdmin() throws Exception{
 		String password = passwordEncoder.encode("123456");
-		Position adminPositon = new Position();
-		adminPositon.setName("ADMIN");
-		adminPositon.setEditData(true);
+		Position adminPositon = positionRepository.findPositionByName("Admin");
 		
-		List<Position>positions = new ArrayList();
+		List<Position>positions = new ArrayList<Position>();
 		positions.add(adminPositon);
 		Employee emp = new Employee();
 		emp.setBithYear(1996);
 		emp.setEmail("haivuong258@gmail.com");
 		emp.setIsActive(true);
 		emp.setName("Hai");
+		emp.setUserName("admin");
 		emp.setPassword(password);
 		emp.setPhoneNumber("123456789");
 		emp.setPosition(adminPositon);
-		emp.setUserName("admin");
 		employeeRepository.save(emp);
 	}
 	
-	
+	public boolean checkPhoneNumber(String numberPhone)
+	{ 
+		for(int i=0; i<numberPhone.length(); i++)
+		{
+			if(numberPhone.charAt(i) <= '0' && numberPhone.charAt(i) >= '9')
+				return false;
+		}
+		return true;
+	}
 }
 	

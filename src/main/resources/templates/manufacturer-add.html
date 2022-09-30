@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<title>Thêm hãng sản xuất</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center" style="padding-top: 55px">
+			<h1 style="font-size: 35px;">Thêm hãng sản xuất</h1>
+		</div>
+
+		<div class="container-fluid" style="padding-top: 35px">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<form th:action="@{/addManufacturer}" th:object="${manufacturer}"
+						method="post">
+						
+						<label for="name" class="col-form-label" style="font-size: 20px;">Tên hãng sản xuất:</label> 
+						<input type="text" th:field="*{name}" class="form-control"
+							id="name" placeholder="Hãy nhập tên của hãng sản xuất bạn muốn thêm"  style="font-size: 20px;">
+						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div th:switch="${messages}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
+						
+						<label for="logo" class="col-form-lable" style="font-size: 20px;">
+							Ảnh biểu tượng </label> 
+						<select id="logo" th:field="*{logo}"
+							class="form-control" style="font-size: 20px;">
+							<option th:value="null" selected="selected">
+							- Chọn ảnh biểu tượng hoặc tải ảnh mới lên - </option>
+							<option th:each="logo: ${images}" th:value="${{logo}}"
+								th:text="${logo.name}"></option>
+						</select>
+						<p th:errors="*{logo}" class="text-danger"
+							style="font-size: 20px; padding-top: 15px;"></p>
+							
+						<div align="center" style="padding-top: 55px">
+							<a class="btn btn-warning" style="font-size: 15px;" role="button"
+							th:href="@{/formAddImage}" target=”_blank”>
+								<i class="fas fa-plus"></i> Tải ảnh mới lên</a> 
+						</div>
+						
+						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+</html>

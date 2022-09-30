@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "MANUFACTURER")
@@ -19,14 +20,14 @@ public class Manufacturer {
 	@Id
 	@Column(name = "MANUFACTURER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long manufacturerID;
+	private long manufacturerID;
 	
-	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
+	@Column(name = "NAME", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 	
 	@OneToOne
-	@NotBlank(message = "Logo không được để trống!")
+	@NotNull(message = "Logo không được để trống!")
 	private Image logo;
 
 	@OneToMany(mappedBy = "manufacturer")

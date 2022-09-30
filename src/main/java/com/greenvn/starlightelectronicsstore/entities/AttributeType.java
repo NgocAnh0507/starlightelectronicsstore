@@ -18,14 +18,18 @@ public class AttributeType {
 	@Id
 	@Column(name = "ATTRIBUTE_TYPE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long attributeTypeID;
+	private long attributeTypeID;
 
-	@Column(name = "NAME", columnDefinition = "VARCHAR(55)")
+	@Column(name = "NAME", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 	
 	@OneToMany(mappedBy = "type")
 	private List<ProductAttribute> productAttributes;
+
+	public long getAttributeTypeID() {
+		return attributeTypeID;
+	}
 
 	public void setAttributeTypeID(long attributeTypeID) {
 		this.attributeTypeID = attributeTypeID;
@@ -47,8 +51,8 @@ public class AttributeType {
 		this.productAttributes = productAttributes;
 	}
 
-	public void setAttributeTypeID(Long attributeTypeID) {
-		this.attributeTypeID = attributeTypeID;
+	public AttributeType() {
+		super();
 	}
-	
+
 }

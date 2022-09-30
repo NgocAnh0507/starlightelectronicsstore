@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCT_ATTRIBUTE")
@@ -19,14 +20,14 @@ public class ProductAttribute {
 	@Id
 	@Column(name = "PRODUCT_ATTRIBUTE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long productAttributeID;
+	private long productAttributeID;
 	
 	@ManyToOne
-	@NotBlank(message = "Danh mục không được để trống!")
+	@NotNull(message = "Danh mục không được để trống!")
 	private Category category;
 
 	@ManyToOne
-	@NotBlank(message = "Loại thuộc tính không được để trống!")
+	@NotNull(message = "Loại thuộc tính không được để trống!")
 	private AttributeType type;
 
 	@Column(name = "VALUE", columnDefinition = "VARCHAR(55)")
@@ -75,5 +76,5 @@ public class ProductAttribute {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-	
+
 }
