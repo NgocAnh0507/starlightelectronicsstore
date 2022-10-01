@@ -25,9 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         // permitall không cần kiểm tra
         .antMatchers("/", "/contact", "/about","/css/**","/images/**").permitAll()
         // .hasrole phaỉ có quyền ADMIN mới được phép truy cập và đăng nhập
+        
 //      .antMatchers("/users/**").access("hasRole('ADMIN')")
-        .antMatchers("/users/**").hasRole("ADMIN")
-        .antMatchers("/admin/**").hasRole("ADMIN")
+        .antMatchers("/admin").hasRole("Admin")
+        .antMatchers("/users/**").hasRole("Admin")
+        .antMatchers("/admin/**").hasRole("Admin")
         .anyRequest().authenticated()//Những cái URL còn lại đều phải đăng nhập mới được xài
         .and()
         .formLogin()

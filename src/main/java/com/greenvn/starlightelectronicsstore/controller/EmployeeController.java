@@ -100,6 +100,31 @@ public class EmployeeController {
 		employeeService.updateEmployee(employee, employeeID);
 		return "redirect:/employees";
 	}
+    @GetMapping("/admin/formUpdateEmployee")
+    public String updateEmployeeForm1(@RequestParam(name = "employeeID")Long employeeID, Model model) {
+        Employee employee = employeeService.findEmployeeById(employeeID);
+        model.addAttribute("employee", employee);
+        model.addAttribute("positions",positionService.getPositions());
+        return "employee-update1";
+    }
+    @PostMapping("/admin/updateEmployee")
+    public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
+        if(result.hasErrors()) {
+            Employee emp = employeeService.findEmployeeById(employeeID);
+            model.addAttribute("employee", emp);
+            model.addAttribute("positions",positionService.getPositions());
+            return "employee-update1";
+        }
+        if(!employeeService.checkPhoneNumber(employee.getPhoneNumber())) {
+            model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
+            Employee emp = employeeService.findEmployeeById(employeeID);
+            model.addAttribute("employee", emp);
+            model.addAttribute("positions",positionService.getPositions());
+        }
+        else model.addAttribute("messages",null);
+        employeeService.updateEmployee(employee, employeeID);
+        return "redirect:/admin/infoUser";
+    }
 	
 	@GetMapping("/deleteEmployee")
 	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model) {

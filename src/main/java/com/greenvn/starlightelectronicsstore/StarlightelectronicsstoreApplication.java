@@ -27,7 +27,7 @@ public class StarlightelectronicsstoreApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		System.out.println("Test");
-		if(empSer.findEmployeeByUserName("admin")==null) {
+		if(empSer.findEmployeeByUserName("Admin")==null) {
 
 			if(posSer.findPositionByUserName("Admin")==null) {
 				Position adminPositon = new Position();
