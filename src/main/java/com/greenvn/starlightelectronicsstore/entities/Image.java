@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +29,7 @@ public class Image {
 	@NotBlank(message = "URL không được để trống!")
 	private String imageURL;
 	
+
 	@ManyToOne
 	private Product product;
 
