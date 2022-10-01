@@ -28,7 +28,7 @@ public class CustomerController {
 	
 	@GetMapping("/admin/formAddCustomer")
 	public String addCustomerForm(Customer customer) {
-		return "add-customer";
+		return "customer-add";
 	}
 	
 	@PostMapping("/admin/addCustomer")
@@ -44,7 +44,7 @@ public class CustomerController {
 	public String updateCustomerForm(@RequestParam(name = "customerID")Long customerID, Model model) {
 		Customer customer = customerService.findCustomerById(customerID);
 		model.addAttribute("customer", customer);
-		return "update-customer";
+		return "customer-update";
 	}
 	
 	@PostMapping("/admin/updateCustomer")
