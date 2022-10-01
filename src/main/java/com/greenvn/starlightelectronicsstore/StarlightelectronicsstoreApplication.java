@@ -27,11 +27,11 @@ public class StarlightelectronicsstoreApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		System.out.println("Test");
-		if(empSer.findEmployeeByUserName("admin")==null) {
+		if(empSer.findEmployeeByUserName("ADMIN")==null) {
 
-			if(posSer.findPositionByUserName("Admin")==null) {
+			if(posSer.findPositionByUserName("ADMIN")==null) {
 				Position adminPositon = new Position();
-				adminPositon.setName("Admin");
+				adminPositon.setName("ADMIN");
 				adminPositon.setEditData(true);
 				posSer.addPosition(adminPositon);
 			}
