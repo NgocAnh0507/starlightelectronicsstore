@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -43,11 +44,19 @@ public class Product {
 	@Column(name = "PRICE_SPECIAL", columnDefinition = "DECIMAL(11,1)")
 	private Double priceSpecial;
 
+	@Transient
+	private String priceSpecialStartDateStr;
+	
 	@Column(name = "PRICE_SPECIAL_STARTDATE", columnDefinition = "DATETIME")
 	private Date priceSpecialStartDate;
 	
+	@Transient
+	private String priceSpecialEndDateStr;
+	
 	@Column(name = "PRICE_SPECIAL_ENDDATE", columnDefinition = "DATETIME")
 	private Date priceSpecialEndDate;
+	
+	
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
 	@NotNull(message = "Số lượng hiện có không được để trống!")
@@ -149,8 +158,24 @@ public class Product {
 		return priceSpecialEndDate;
 	}
 
+	public String getPriceSpecialEndDateStr() {
+		return priceSpecialEndDateStr;
+	}
+
+	public void setPriceSpecialEndDateStr(String priceSpecialEndDateStr) {
+		this.priceSpecialEndDateStr = priceSpecialEndDateStr;
+	}
+
 	public void setPriceSpecialEndDate(Date priceSpecialEndDate) {
 		this.priceSpecialEndDate = priceSpecialEndDate;
+	}
+
+	public String getPriceSpecialStartDateStr() {
+		return priceSpecialStartDateStr;
+	}
+
+	public void setPriceSpecialStartDateStr(String priceSpecialStartDateStr) {
+		this.priceSpecialStartDateStr = priceSpecialStartDateStr;
 	}
 
 	public Integer getQuantity() {

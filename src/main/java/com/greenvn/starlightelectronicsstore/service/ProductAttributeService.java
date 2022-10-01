@@ -22,6 +22,11 @@ public class ProductAttributeService {
 	{
 		return productAttributeRepository.findAll();
 	}
+
+	public List<ProductAttribute> findProductAttributeByCategoryID(long ID)
+	{
+		return productAttributeRepository.findProductAttributeByCategoryID(ID);
+	}
 	
 	public ProductAttribute addProductAttribute(ProductAttribute productAttribute)
 	{

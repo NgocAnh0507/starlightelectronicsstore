@@ -22,7 +22,7 @@
 			<h1 style="font-size: 35px;">Quản lý sản phẩm</h1>
 		</div>
 
-		<div th:switch="${productAttributes}" class="container-fluid"
+		<div th:switch="${products}" class="container-fluid"
 			style="padding-top: 25px">
 			<h2 th:case="null" align="center">Chưa có sản phẩm nào!</h2>
 			<div th:case="*">
@@ -64,7 +64,7 @@
 											Số lượng đặt hàng tối thiểu </a></th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
-											Số lượng đặt hàng tối đa/a></th>
+											Số lượng đặt hàng tối đa </a></th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
 											Trạng thái</a></th>
@@ -116,7 +116,9 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.manufacturer.name}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${product.defaultImage.name}"></td>
+										th:text="${product.defaultImage.name}">
+										
+									</td>
 									<td align="center">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"

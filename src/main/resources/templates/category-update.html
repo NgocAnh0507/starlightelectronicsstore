@@ -29,7 +29,7 @@
 						method="post">
 						<label for="name" class="col-form-label" style="font-size: 20px;">Tên danh mục:</label> 
 						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên danh mục bạn muốn thêm"  style="font-size: 20px;">
+							id="name" placeholder="Hãy nhập tên danh mục bạn muốn chỉnh sửa"  style="font-size: 20px;">
 						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						<div th:switch="${messages}">
 							<div th:case="null"></div>

@@ -1,7 +1,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout-admin1}">
+	layout:decorate="~{layout-admin}">
 <head>
 <meta charset="UTF-8" />
 <title>Info</title>
@@ -9,67 +9,32 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<section class="my-5">
+		<<section class="my-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
-						<h2 class="text-center text-success">Thông tin người dùng</h2>
-						<!-- <form th:action="@{/admin/updateEmployee?(employeeID=${employee.id})}" th:object="${employee}" method="post"> -->
-						<div class="card" style="width: 40rem;">
-							<!-- <img src="..." class="card-img-top" alt="..."> -->
-							<div class="card-body">
-								<h5 class="card-title">
-									<span th:text="${employee.name}"> </span>
-								</h5>
-								<div class="row">
-									<div class="col-md-4">ID</div>
-									<div class="col-md-8" th:text="${employee.employeeID}"></div>
-									<div class="col-md-4">Username</div>
-									<div class="col-md-8" th:text="${employee.userName}"></div>
-									<div class="col-md-4">Email:</div>
-									<div class="col-md-8" th:text="${employee.email}"></div>
-									<div class="col-md-4">Năm sinh</div>
-									<div class="col-md-8" th:text="${employee.bithYear}"></div>
-									<div class="col-md-4">Số điện thoại</div>
-									<div class="col-md-8" th:text="${employee.phoneNumber}"></div>
-									<a class="btn btn-primary"
-										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}"
-										role="button"><i class="fas fa-edit"></i></a> <a
-										th:href="@{/admin}" class="btn btn-primary mt-1">Trở về</a>
-
-								</div>
-								<!-- <p class="card-text">Some quick example text to build on the
-									card title and make up the bulk of the card's content.</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a> -->
-							</div>
-						</div>
-						<!-- <form th:object="${employee}" method="get">
-							<label for="name" class="col-form-label">Tên:</label> <input
-								type="text" th:field="*{name}" class="form-control" id="name"
-								placeholder="name">
-							<p th:errors="*{name}" class="text-danger"></p>
-							<label for="bithYear" class="col-form-label mt-1">Năm
-								sinh</label> <input type="text" th:field="*{bithYear}"
-								class="form-control" id="bithYear" placeholder="bithYear">
-							<p th:errors="*{bithYear}" class="text-danger"></p>
-							<label for="phoneNumber" class="col-form-label mt-1">Số
-								điện thoại</label> <input type="text" th:field="*{phoneNumber}"
-								class="form-control" id="phoneNumber" placeholder="phoneNumber">
-							<p th:errors="*{phoneNumber}" class="text-danger"></p>
-							<label for="email" class="col-form-label mt-1">Email</label> <input
-								type="text" th:field="*{email}" class="form-control"
-								id="phoneNumber" placeholder="phoneNumber">
-							<p th:errors="*{email}" class="text-danger"></p>
-
-
-							<input type="submit" class="btn btn-primary mt-1" value="Save">
-						</form> -->
+						<h2 class="text-center text-success"> User</h2>
+						<form th:action="@{/edituser?(userId=${user.id})}" th:object="${user}" method="get">
+							<label for="firstName" class="col-form-label">First Name</label>
+							<input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name"> 
+							<p th:errors ="*{firstName}" class="text-danger" ></p>
+							<label for="lastName" class="col-form-label mt-1">Last Name</label>
+							<input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last Name"> 
+							<p th:errors ="*{lastName}" class="text-danger"></p>
+							<label for="email" class="col-form-label mt-1">Email</label>
+							<input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email Address"> 
+							<p th:errors ="*{email}" class="text-danger"></p>
+								
+								
+								<input
+								type="submit" class="btn btn-primary mt-1" value="Save">
+						</form>
 					</div>
 				</div>
 			</div>
 		</section>
-
-
+		
+		
 		<!-- <section class="my-5">
 			<div class="container">
 				<div class="row">

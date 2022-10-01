@@ -19,48 +19,48 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@GetMapping("/admin/customers")
+	@GetMapping("/customers")
 	public String showCustomerList(Model model)
 	{
 		model.addAttribute("customers",customerService.getCustomers());
-		return "customers";
+		return "/customers";
 	}
 	
-	@GetMapping("/admin/formAddCustomer")
+	@GetMapping("/formAddCustomer")
 	public String addCustomerForm(Customer customer) {
-		return "customer-add";
+		return "add-customer";
 	}
 	
-	@PostMapping("/admin/addCustomer")
+	@PostMapping("/addCustomer")
 	public String addCustomer(@Valid Customer customer, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "add-customer";
 		}
 		customerService.addCustomer(customer);
-		return "redirect:/admin/customers";
+		return "";
 	}
 	
-	@GetMapping("/admin/formUpdateCustomer")
+	@GetMapping("/formUpdateCustomer")
 	public String updateCustomerForm(@RequestParam(name = "customerID")Long customerID, Model model) {
 		Customer customer = customerService.findCustomerById(customerID);
 		model.addAttribute("customer", customer);
-		return "customer-update";
+		return "update-customer";
 	}
 	
-	@PostMapping("/admin/updateCustomer")
+	@PostMapping("/updateCustomer")
 	public String updateCustomer(@RequestParam(name = "customerID")Long customerID,@Valid Customer customer, BindingResult result, Model model){
 		if(result.hasErrors()) {
 			customer.setCustomerID(customerID);
 			return "update-customer";
 		}
 		customerService.updateCustomer(customer, customerID);
-		return "redirect:/admin/customers";
+		return "";
 	}
 	
-	@GetMapping("/admin/deleteCustomer")
+	@GetMapping("/deleteCustomer")
 	public String deleteCustomer(@RequestParam(name = "customerID")Long customerID, Model model) {
 		customerService.deleteCustomer(customerID);
-		return "redirect:/admin/customers";
+		return "";
 	}
 }
 

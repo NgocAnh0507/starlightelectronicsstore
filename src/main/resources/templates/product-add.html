@@ -62,11 +62,11 @@
 						<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						
 						 <label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu khuyến mãi: </label> 
-						<input type="date"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
+						<input type="date"  th:field="*{priceSpecialStartDateStr}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
 						<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
 						
 						 <label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày hết khuyến mãi: </label> 
-						<input type="date"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
+						<input type="date"  th:field="*{priceSpecialEndDateStr}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
 						<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						
 						<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
@@ -85,7 +85,7 @@
 						<p th:errors="*{quantityOrderMax}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						
 						<input type="checkbox"  th:field="*{status}" id="status" name="status" value="trạng thái của sản phẩm">
-						 <label for="status" class="col-form-label" style="font-size: 20px;"> Trạng thái </label> 
+						 <label for="status" class="col-form-label" style="font-size: 20px;"> Cho phép bán </label> 
 						<p th:errors="*{status}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						<br/>
 						<input type="checkbox"  th:field="*{freeShip}" id="freeShip" name="freeShip" value="giao hàng miễn phí">
@@ -127,7 +127,8 @@
 							<option th:value="null" selected="selected">
 							- Chọn ảnh bìa hoặc tải ảnh mới lên - </option>
 							<option th:each="defaultImage: ${images}" th:value="${{defaultImage}}"
-								th:text="${defaultImage.name}"></option>
+								th:text="${defaultImage.name}">
+							</option>
 						</select>
 						<p th:errors="*{defaultImage}" class="text-danger"
 							style="font-size: 20px; padding-top: 15px;"></p>
@@ -138,39 +139,6 @@
 								<i class="fas fa-plus"></i> Tải ảnh mới lên</a> 
 						</div>
 						
-						<label class="col-form-lable" style="font-size: 20px;">
-							Thuộc tính </label> 
-						<div class="row" style="padding-top: 15px">
-		                    <div class="col-md-5">
-		                        <label for="attributes" class="form-lable">Thuộc tính đã được chọn cho sản phẩm: </label>
-		                        <select id="attributes" th:field="*{attributes}" multiple
-									class="form-select" style="font-size: 20px; padding-top: 5px;">
-									
-								</select>
-		                    </div>
-		                    <div class="col-md-2 text-center">
-		                        <div class="row pt-4">
-		                            <div class="col">
-		                                <input type="button" class="btn btn-outline-primary" value="->" id="left" onclick = "assign()">
-		                            </div>
-		                        </div>
-		                        <div class="row pt-4">
-		                            <div class="col">
-		                                <input type="button" class="btn btn-outline-primary" value="<-" id="right" onclick = "deassign()">
-		                            </div>
-		                        </div>
-		                            
-		                    </div>
-		
-		                    <div class="col-md-5">
-		                        <label for="allAattributes" class="form-label">Chọn thuộc tính: </label>
-								<select id="allAattributes" multiple 
-									class="form-select" style="font-size: 20px;">
-									<option th:each="attribute: ${productAttributes}" th:value="${{attribute}}"
-										th:text="${attribute.category.name} + ' - ' + ${attribute.type.name} + ' - ' + ${attribute.value}"></option>
-								</select>
-		                    </div>
-						</div>
 						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">
 						</div>

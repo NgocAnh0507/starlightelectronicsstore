@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.greenvn.starlightelectronicsstore.entities.Position;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.service.CategoryService;
@@ -63,7 +64,6 @@ public class ProductController {
 	@GetMapping("/formAddProduct")
 	public String addProductForm(Product product,Model model) {
 		model.addAttribute("categories",categoryService.getCategories());
-		model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
 		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 		model.addAttribute("images", imageService.getImages());
 		return "product-add";
@@ -73,7 +73,6 @@ public class ProductController {
 	public String addProduct(@Valid Product product, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("categories",categoryService.getCategories());
-			model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
 			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 			model.addAttribute("images", imageService.getImages());
 			return "product-add";
@@ -83,15 +82,33 @@ public class ProductController {
 		{
 			model.addAttribute("messages", "Sản phẩm đã tồn tại!");
 			model.addAttribute("categories",categoryService.getCategories());
-			model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
 			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 			model.addAttribute("images", imageService.getImages());
 			return "product-add";
 		}
-		
 		else model.addAttribute("messages", null);
-		
 		productService.addProduct(product);
+		
+		Product newProduct = productService.findProductByName(product.getProductName());
+		return "redirect:/products";
+		//return attributesForProduct(newProduct.getProductID(),model);
+	}
+	
+	@GetMapping("/formAttributesForProduct")
+	public String attributesForProduct(@RequestParam(name = "productID")Long productID, Model model) {
+		Product product = this.productService.findProductById(productID);
+		
+		model.addAttribute("categories",categoryService.getCategories());
+		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+		model.addAttribute("images", imageService.getImages());
+		model.addAttribute("productAttributes", productAttributeService.findProductAttributeByCategoryID(product.getCategory().getCategoryID()));
+		model.addAttribute("product", product);
+		return "product-addAttribute";
+	}
+	
+	@PostMapping("/attributesForProduct")
+	public String attributesForProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model) {
+		productService.updateProduct(product, productID);
 		return "redirect:/products";
 	}
 	
@@ -99,9 +116,9 @@ public class ProductController {
 	public String updateProductForm(@RequestParam(name = "productID")Long productID, Model model) {
 		Product product = this.productService.findProductById(productID);
 		model.addAttribute("product", product);
-		model.addAttribute("categories",this.categoryService.getCategories());
+		model.addAttribute("categories",categoryService.getCategories());
 		model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
-		model.addAttribute("manufacturer", manufacturerService.getManufacturers());
+		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 		model.addAttribute("images", imageService.getImages());
 		return "product-update";
 	}
@@ -110,19 +127,20 @@ public class ProductController {
 	public String updateProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model){
 		if(result.hasErrors()) {
 			model.addAttribute("product", product);
-			model.addAttribute("categories",this.categoryService.getCategories());
+			model.addAttribute("categories",categoryService.getCategories());
 			model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
-			model.addAttribute("manufacturer", manufacturerService.getManufacturers());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 			model.addAttribute("images", imageService.getImages());
 			return "product-update";
 		}
 		
-		if(productService.findProductByName(product.getProductName()) != null) {
+		Product P = productService.findProductByName(product.getProductName());
+		if(P != null && P.getProductID() != product.getProductID()) {
 			model.addAttribute("messages", "Sản phẩm đã tồn tại!");
 			model.addAttribute("product", product);
-			model.addAttribute("categories",this.categoryService.getCategories());
+			model.addAttribute("categories",categoryService.getCategories());
 			model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
-			model.addAttribute("manufacturer", manufacturerService.getManufacturers());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
 			model.addAttribute("images", imageService.getImages());
 			return "product-update";
 		}
