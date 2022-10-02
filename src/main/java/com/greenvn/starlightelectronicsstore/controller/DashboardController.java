@@ -15,17 +15,21 @@ public class DashboardController {
 	@Autowired
 	private EmployeeService empSer;
 	@GetMapping("/admin")
-	public String showIndexAdmin(){
+	public String showAdmin(){
 		return "admin";
 	}
-	
-	@GetMapping("/admin/donhang")
-	public String showDonHang(){
-		return "donhangList";
-	}
-	@GetMapping("/admin/product")
+
+	/*
+	 * @GetMapping("/admin/employees") public String showEmployees(){ return
+	 * "employee-management"; }
+	 */
+	/*
+	 * @GetMapping("/admin/donhang") public String showDonHang(){ return
+	 * "donhangList"; }
+	 */
+	@GetMapping("/admin/products")
 	public String showProduct(){
-		return "ProductList";
+		return "product-management";
 	}
 	@GetMapping("/admin/user")
 	public String showUserList() {

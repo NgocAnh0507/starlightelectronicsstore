@@ -35,10 +35,10 @@ fit=no">
 				<a href="#"
 					class="list-group-item list-group-item-action bg-transparent second-text active"><i
 					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a
-					th:href="@{/admin/donhang}"
+					th:href="@{/admin/employees}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-project-diagram me-2"></i> Danh sách đơn hàng</a> <a
-					th:href="@{/admin/product}"
+					class="fas fa-project-diagram me-2"></i> Danh sách nhân viên</a> <a
+					th:href="@{/admin/products}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-chart-line me-2"></i>Danh sách sản phẩm</a> <a
 					th:href="@{/admin/customers}"
@@ -46,7 +46,7 @@ fit=no">
 					class="fas fa-user-friends"></i>Danh sách khách hàng</a> <a
 					th:href="@{/}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i>Trang chủ web bán hàng</a> <a
+					class="fas fa-home"></i>Trang chủ</a> <a
 					th:href="@{/login}"
 					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
 					class="fas fa-power-off me-2"></i>Logout</a>
@@ -76,7 +76,7 @@ fit=no">
 							aria-expanded="false"> <i class="fas fa-user me-2"></i>
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" th:href="@{/admin/infoUser}">Profile</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/formUpdateInfo}">Profile</a></li>
 
 								<li><a class="dropdown-item" th:href="@{/login}">Logout</a></li>
 							</ul></li>

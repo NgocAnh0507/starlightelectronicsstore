@@ -14,16 +14,15 @@
 					<thead>
 						<tr>
 							<th>Tên sản phẩm</th>
-							<th>Mỏ tả sản phẩm</th>
+							<th>Mô tả sản phẩm</th>
 							<th>Giá sản phẩm</th>
 							<th>Giá khuyến mãi</th>
-							<th>THời gian bắt đầu giá khuyến mãi</th>
-							<th>Thời gian kết thúc</th>
+
 							<th>Danh mục sản phẩm</th>
 							<th>Nhà sản xuất</th>
 							<th>Hình ảnh</th>
 							<th>Giỏ hàng</th>
-							
+
 						</tr>
 					</thead>
 					<tbody>
@@ -32,23 +31,27 @@
 							<td th:text="${pro.productDescription}"></td>
 							<td th:text="${pro.price}"></td>
 							<td th:text="${pro.priceSpecial}"></td>
-							<td th:text="${pro.priceSpecialStartDate}"></td>
-							<td th:text="${pro.priceSpecialEndDate}"></td>
-							<td th:text="${pro.category}"></td>
-							<td th:text="${pro.manufacturer}"></td>
-							<td th:text="${pro.defaultImage}"></td>
-							<td><a class="btn btn-primary"
-								th:href="#" role="button">Thêm vào giỏ hàng</a></td>
-							
+
+							<td th:text="${pro.category.name}"></td>
+							<td th:text="${pro.manufacturer.name}"></td>
+							<td><a
+								th:href="@{/upload/{path}(path=${pro.defaultImage.name})}">
+									<img
+									th:attr="src=@{/upload/{path}(path=${pro.defaultImage.name})}"
+									width="100px" height="100px" />
+							</a></td>
+							<td><a class="btn btn-primary" href="#" role="button">Thêm
+									vào giỏ hàng</a></td>
+
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			
+
 
 		</div>
-		</div>
+	</div>
 
 	</div>
 </body>

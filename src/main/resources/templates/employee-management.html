@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -33,28 +34,28 @@
 							<thead>
 								<tr>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employeeID',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employeeID',sortDir=${reverseSortDir})}">
 											Mã nhân viên</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.name',sortDir=${reverseSortDir})}">
 											Tên</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.bithYear',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.bithYear',sortDir=${reverseSortDir})}">
 											Năm sinh</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.phoneNumber',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.phoneNumber',sortDir=${reverseSortDir})}">
 											Số điện thoại</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.email',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.email',sortDir=${reverseSortDir})}">
 											Email</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.userName',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.userName',sortDir=${reverseSortDir})}">
 											Tài khoản</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='employee.isActive',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.isActive',sortDir=${reverseSortDir})}">
 											Trạng thái làm việc</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 											Chức vụ</a></th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
@@ -82,11 +83,11 @@
 										th:text="${employee.position.name}"></td>
 									<td align="center"><a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/formUpdateEmployee?(employeeID=${employee.employeeID})}">
+										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
 									</a> <a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/deleteEmployee?(employeeID=${employee.employeeID})}">
+										th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-trash-alt"></i> Xóa
 									</a></td>
 								</tr>
@@ -97,7 +98,7 @@
 							<ul class="pagination">
 								<li th:if="${currentPage>1}" class="page-item"><a
 									class="page-link"
-									th:href="@{/employees?(page=${currentPage-1})}">Trang
+									th:href="@{/admin/employees?(page=${currentPage-1})}">Trang
 										trước</a></li>
 
 								<li th:if="${currentPage<=1}" class="page-item disabled"><a
@@ -105,11 +106,11 @@
 
 								<li th:each="i:${#numbers.sequence(1,totalPage)}"
 									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/employees?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+									th:href="@{/admin/employees?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
 								<li th:if="${currentPage<totalPage}" class="page-item"><a
 									class="page-link"
-									th:href="@{/employees?(page=${currentPage+1})}">Trang
+									th:href="@{/admin/employees?(page=${currentPage+1})}">Trang
 										kế tiếp</a></li>
 										
 								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
@@ -123,7 +124,7 @@
 		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
-				th:href="@{/formAddEmployee}"> <i class="fas fa-plus"></i>
+				th:href="@{/admin/formAddEmployee}"> <i class="fas fa-plus"></i>
 				Thêm nhân viên mới
 			</a>
 

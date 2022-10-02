@@ -21,7 +21,7 @@ public class PositionController {
 	@Autowired
 	private PositionService positionService;
 	
-	@GetMapping("/positions")
+	@GetMapping("/admin/positions")
 	public String showPositionList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "positionID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
@@ -42,12 +42,12 @@ public class PositionController {
 		return "position-management";
 	}
 	
-	@GetMapping("/formAddPosition")
+	@GetMapping("/admin/formAddPosition")
 	public String addPositionForm(Position position) {
 		return "position-add";
 	}
 	
-	@PostMapping("/addPosition")
+	@PostMapping("/admin/addPosition")
 	public String addPosition(@Valid Position position, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "position-add";
@@ -62,17 +62,17 @@ public class PositionController {
 		if(position.getEditData() == null) position.setEditData(false);
 		
 		positionService.addPosition(position);
-		return "redirect:/positions";
+		return "redirect:/admin/positions";
 	}
 	
-	@GetMapping("/formUpdatePosition")
+	@GetMapping("/admin/formUpdatePosition")
 	public String updatePositionForm(@RequestParam(name = "positionID")Long positionID, Model model) {
 		Position position =  positionService.findPositionById(positionID);
 		model.addAttribute("position", position);
 		return "position-update";
 	}
 
-	@PostMapping("/updatePosition")
+	@PostMapping("/admin/updatePosition")
 	public String updatePosition(@RequestParam(name = "positionID")Long positionID,@Valid Position position, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			position.setPositionID(positionID);
@@ -90,13 +90,13 @@ public class PositionController {
 		if(position.getEditData() == null) position.setEditData(false);
 		
 		positionService.updatePosition(position,positionID);
-		return "redirect:/positions";
+		return "redirect:/admin/positions";
 	}
 	
-	@GetMapping("/deletePosition")
+	@GetMapping("/admin/deletePosition")
 	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model) {
 		positionService.deletePosition(positionID);
-		return "redirect:/positions";
+		return "redirect:/admin/positions";
 		}
 	 
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
@@ -18,6 +19,7 @@ import com.greenvn.starlightelectronicsstore.service.EmployeeService;
 import com.greenvn.starlightelectronicsstore.service.PositionService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class EmployeeController {
 	
 	@Autowired
@@ -68,7 +70,7 @@ public class EmployeeController {
 		else model.addAttribute("messages",null);
 		
 		employeeService.addEmployee(employee);
-		return "redirect:/employees";
+		return "redirect:/admin/employees";
 	}
 	
 	@GetMapping("/formUpdateEmployee")
@@ -98,16 +100,15 @@ public class EmployeeController {
 		else model.addAttribute("messages",null);
 		
 		employeeService.updateEmployee(employee, employeeID);
-		return "redirect:/employees";
+		return "redirect:/admin/employees";
 	}
-    @GetMapping("/admin/formUpdateEmployee")
-    public String updateEmployeeForm1(@RequestParam(name = "employeeID")Long employeeID, Model model) {
-        Employee employee = employeeService.findEmployeeById(employeeID);
-        model.addAttribute("employee", employee);
-        model.addAttribute("positions",positionService.getPositions());
-        return "employee-update1";
-    }
-    @PostMapping("/admin/updateEmployee")
+    @GetMapping("/formUpdateInfo")
+    public String updateEmployeeForm1(Model model) {
+		
+		
+		return "employee-update";
+	}
+    @PostMapping("/formUpdateInfo")
     public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
         if(result.hasErrors()) {
             Employee emp = employeeService.findEmployeeById(employeeID);
@@ -129,7 +130,7 @@ public class EmployeeController {
 	@GetMapping("/deleteEmployee")
 	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model) {
 		employeeService.deleteEmployee(employeeID);
-		return "redirect:/employees";
+		return "redirect:/admin/employees";
 	}
 }
 

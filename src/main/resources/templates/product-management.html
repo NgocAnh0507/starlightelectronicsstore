@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -115,20 +116,21 @@
 										th:text="${product.category.name}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.manufacturer.name}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${product.defaultImage.name}">
-										
-									</td>
-									<td align="center">
-										<a class="btn btn-warning"
+									<td align="center" style="font-size: 15px;">
+									<a th:href="@{/upload/{path}(path=${product.defaultImage.name})}">
+											<img
+											th:attr="src=@{/upload/{path}(path=${product.defaultImage.name})}"
+											width="100px" height="100px" />
+									</a></td>
+									<td align="center"><a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/formUpdateProduct?(productID=${product.productID})}">
-											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
-										<a class="btn btn-danger" style="font-size: 15px;"
+											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
+									</a> <a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
 										th:href="@{/deleteProduct?(productID=${product.productID})}">
-											<i class="fas fa-trash-alt"></i> Xóa</a>
-									</td>
+											<i class="fas fa-trash-alt"></i> Xóa
+									</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -148,7 +150,8 @@
 
 								<li th:if="${currentPage<totalPage}" class="page-item"><a
 									class="page-link"
-									th:href="@{/products?(page=${currentPage+1})}">Trang kế tiếp</a></li>
+									th:href="@{/products?(page=${currentPage+1})}">Trang kế
+										tiếp</a></li>
 								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
 									class="page-link" href="#">Trang kế tiếp</a></li>
 							</ul>
@@ -160,9 +163,10 @@
 		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
-			th:href="@{/formAddProduct}">
-				<i class="fas fa-plus"></i> Thêm sản phẩm mới</a> 
-				
+				th:href="@{/formAddProduct}"> <i class="fas fa-plus"></i> Thêm
+				sản phẩm mới
+			</a>
+
 		</div>
 	</div>
 
