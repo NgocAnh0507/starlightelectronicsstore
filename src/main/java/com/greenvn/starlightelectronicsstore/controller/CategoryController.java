@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Category;
@@ -19,6 +20,7 @@ import com.greenvn.starlightelectronicsstore.service.CategoryService;
 
 
 @Controller
+@RequestMapping(value = "/admin")
 public class CategoryController {
 
 	@Autowired
@@ -64,7 +66,7 @@ public class CategoryController {
 		else model.addAttribute("messages",null);
 		
 		categoryService.addCategory(category);
-		return "redirect:/categories";
+		return "redirect:/admin/categories";
 	}
 	
 	@GetMapping("/formUpdateCategory")
@@ -89,13 +91,13 @@ public class CategoryController {
 		else model.addAttribute("messages",null);
 		
 		categoryService.updateCategory(category,categoryID);
-		return "redirect:/categories";
+		return "redirect:/admin/categories";
 	}
 	
 	@GetMapping("/deleteCategory")
 	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model) {
 		categoryService.deleteCategory(categoryID);
-		return "redirect:/categories";
+		return "redirect:/admin/categories";
 	}
 	 
 }

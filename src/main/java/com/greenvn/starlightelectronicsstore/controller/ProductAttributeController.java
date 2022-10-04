@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
@@ -19,6 +20,7 @@ import com.greenvn.starlightelectronicsstore.service.CategoryService;
 import com.greenvn.starlightelectronicsstore.service.ProductAttributeService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class ProductAttributeController {
 	
 	@Autowired
@@ -66,7 +68,7 @@ public class ProductAttributeController {
 			return "productAttribute-add";
 		}
 		this.productAttributeService.addProductAttribute(productAttribute);
-		return "redirect:/productAttributes";
+		return "redirect:/admin/productAttributes";
 	}
 	
 	@GetMapping("/formUpdateProductAttribute")
@@ -87,12 +89,12 @@ public class ProductAttributeController {
 			return "productAttribute-update";
 		}
 		this.productAttributeService.updateProductAttribute(productAttribute, productAttributeID);
-		return "redirect:/productAttributes";
+		return "redirect:/admin/productAttributes";
 	}
 	
 	@GetMapping("/deleteProductAttribute")
 	public String deleteProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model) {
 		this.productAttributeService.deleteProductAttribute(productAttributeID);
-		return "redirect:/productAttributes";
+		return "redirect:/admin/productAttributes";
 	}
 }

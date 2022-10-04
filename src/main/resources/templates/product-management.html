@@ -34,52 +34,52 @@
 							<thead>
 								<tr>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='productID',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='productID',sortDir=${reverseSortDir})}">
 											Mã sản phẩm</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='productName',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='productName',sortDir=${reverseSortDir})}">
 											Tên sản phẩm</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='productSKU',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='productSKU',sortDir=${reverseSortDir})}">
 											Mã SKU</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='productDescription',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='productDescription',sortDir=${reverseSortDir})}">
 											Mô tả sản phẩm</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='price',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='price',sortDir=${reverseSortDir})}">
 											Giá</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='priceSpecial',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecial',sortDir=${reverseSortDir})}">
 											Giá khuyến mãi</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/products?(page=${currentPage},sortField='priceSpecialStartDate',sortDir=${reverseSortDir})}">
 											Ngày bắt đầu khuyến mãi</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='priceSpecialEndDate',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecialEndDate',sortDir=${reverseSortDir})}">
 											Ngày hết khuyến mãi</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='quantity',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='quantity',sortDir=${reverseSortDir})}">
 											Số lượng hiện có</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='quantityOrderMin',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMin',sortDir=${reverseSortDir})}">
 											Số lượng đặt hàng tối thiểu </a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
 											Số lượng đặt hàng tối đa </a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
 											Trạng thái</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='freeShip',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='freeShip',sortDir=${reverseSortDir})}">
 											Giao hàng miễn phí</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='category.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='category.name',sortDir=${reverseSortDir})}">
 											Danh mục</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
 											Hãng sản xuất</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
 											Ảnh bìa</a></th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
@@ -124,11 +124,11 @@
 									</a></td>
 									<td align="center"><a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/formUpdateProduct?(productID=${product.productID})}">
+										th:href="@{/admin/formUpdateProduct?(productID=${product.productID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
 									</a> <a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/deleteProduct?(productID=${product.productID})}">
+										th:href="@{/admin/deleteProduct?(productID=${product.productID})}">
 											<i class="fas fa-trash-alt"></i> Xóa
 									</a></td>
 								</tr>
@@ -139,18 +139,18 @@
 							<ul class="pagination">
 								<li th:if="${currentPage>1}" class="page-item"><a
 									class="page-link"
-									th:href="@{/products?(page=${currentPage-1})}">Trang trước</a></li>
+									th:href="@{/admin/products?(page=${currentPage-1})}">Trang trước</a></li>
 
 								<li th:if="${currentPage<=1}" class="page-item disabled"><a
 									class="page-link" href="#">Trang trước</a></li>
 
 								<li th:each="i:${#numbers.sequence(1,totalPage)}"
 									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/products?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+									th:href="@{/admin/products?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
 								<li th:if="${currentPage<totalPage}" class="page-item"><a
 									class="page-link"
-									th:href="@{/products?(page=${currentPage+1})}">Trang kế
+									th:href="@{/admin/products?(page=${currentPage+1})}">Trang kế
 										tiếp</a></li>
 								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
 									class="page-link" href="#">Trang kế tiếp</a></li>
@@ -163,7 +163,7 @@
 		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
-				th:href="@{/formAddProduct}"> <i class="fas fa-plus"></i> Thêm
+				th:href="@{/admin/formAddProduct}"> <i class="fas fa-plus"></i> Thêm
 				sản phẩm mới
 			</a>
 

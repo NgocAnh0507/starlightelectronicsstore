@@ -102,11 +102,12 @@ public class EmployeeController {
 		employeeService.updateEmployee(employee, employeeID);
 		return "redirect:/admin/employees";
 	}
-    @GetMapping("/formUpdateInfo")
-    public String updateEmployeeForm1(Model model) {
-		
-		
-		return "employee-update";
+    @GetMapping("/formUpdateInfoEmployee")
+    public String updateEmployeeForm1(@RequestParam(name = "employeeID")Long employeeID, Model model) {
+    	Employee employee = employeeService.findEmployeeById(employeeID);
+        model.addAttribute("employee", employee);
+        model.addAttribute("positions",positionService.getPositions());
+		return "employee-update1";
 	}
     @PostMapping("/formUpdateInfo")
     public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){

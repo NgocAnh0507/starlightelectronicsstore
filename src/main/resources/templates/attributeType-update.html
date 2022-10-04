@@ -26,7 +26,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form th:action="@{/updateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}" th:object="${attributeType}"
+					<form th:action="@{/admin/updateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}" th:object="${attributeType}"
 						method="post">
 						<label for="name" class="col-form-label" style="font-size: 20px;">Tên loại thuộc tính:</label> 
 						<input type="text" th:field="*{name}" class="form-control"

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
@@ -19,6 +20,7 @@ import com.greenvn.starlightelectronicsstore.service.ImageService;
 import com.greenvn.starlightelectronicsstore.service.ManufacturerService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class ManufacturerController {
 
 	@Autowired
@@ -71,7 +73,7 @@ public class ManufacturerController {
 		else model.addAttribute("messages",null);
 		
 		manufacturerService.addManufacturer(manufacturer);
-		return "redirect:/manufacturers";
+		return "redirect:/admin/manufacturers";
 	}
 
 	@GetMapping("/formUpdateManufacturer")
@@ -90,13 +92,13 @@ public class ManufacturerController {
 			return "manufacturer-update";
 		}
 		manufacturerService.updateManufacturer(manufacturer,manufacturerID);
-		return "redirect:/manufacturers";
+		return "redirect:/admin/manufacturers";
 	}
 
 	@GetMapping("/deleteManufacturer")
 	public String deleteManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID, Model model) {
 		manufacturerService.deleteManufacturer(manufacturerID);
-		return "redirect:/manufacturers";
+		return "redirect:/admin/manufacturers";
 	}
 }
 

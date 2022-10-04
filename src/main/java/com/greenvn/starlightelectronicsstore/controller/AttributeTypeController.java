@@ -12,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.AttributeType;
 import com.greenvn.starlightelectronicsstore.service.AttributeTypeService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class AttributeTypeController {
 	
 	@Autowired
@@ -64,7 +66,7 @@ public class AttributeTypeController {
 		else model.addAttribute("messages",null);
 		
 		attributeTypeService.addAttributeType(attributeType);
-		return "redirect:/attributeTypes";
+		return "redirect:/admin/attributeTypes";
 	}
 
 	@GetMapping("/formUpdateAttributeType")
@@ -89,13 +91,13 @@ public class AttributeTypeController {
 		else model.addAttribute("messages",null);
 		
 		attributeTypeService.updateAttributeType(attributeType,attributeTypeID);
-		return "redirect:/attributeTypes";
+		return "redirect:/admin/attributeTypes";
 	}
 
 	@GetMapping("/deleteAttributeType")
 	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model) {
 		attributeTypeService.deleteAttributeType(attributeTypeID);
 		showAttributeTypeList(1,"attributeTypeID","asc",model);
-		return "redirect:/attributeTypes";
+		return "redirect:/admin/attributeTypes";
 	}
 }

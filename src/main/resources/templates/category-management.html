@@ -34,10 +34,10 @@
 							<thead>
 								<tr>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/categories?(page=${currentPage},sortField='categoryID',sortDir=${reverseSortDir})}">Mã
+										th:href="@{/admin/categories?(page=${currentPage},sortField='categoryID',sortDir=${reverseSortDir})}">Mã
 											danh mục</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/categories?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
+										th:href="@{/admin/categories?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											danh mục</a></th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
@@ -51,11 +51,11 @@
 									<td align="center">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/formUpdateCategory?(categoryID=${category.categoryID})}">
+										th:href="@{/admin/formUpdateCategory?(categoryID=${category.categoryID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
 										<a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/deleteCategory?(categoryID=${category.categoryID})}">
+										th:href="@{/admin/deleteCategory?(categoryID=${category.categoryID})}">
 											<i class="fas fa-trash-alt"></i> Xóa</a>
 									</td>
 								</tr>
@@ -66,18 +66,18 @@
 							<ul class="pagination">
 								<li th:if="${currentPage>1}" class="page-item"><a
 									class="page-link"
-									th:href="@{/categories?(page=${currentPage-1})}">Trang trước</a></li>
+									th:href="@{/admin/categories?(page=${currentPage-1})}">Trang trước</a></li>
 
 								<li th:if="${currentPage<=1}" class="page-item disabled"><a
 									class="page-link" href="#">Trang trước</a></li>
 
 								<li th:each="i:${#numbers.sequence(1,totalPage)}"
 									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/categories?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+									th:href="@{/admin/categories?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
 								<li th:if="${currentPage<totalPage}" class="page-item"><a
 									class="page-link"
-									th:href="@{/categories?(page=${currentPage+1})}">Trang kế tiếp</a></li>
+									th:href="@{/admin/categories?(page=${currentPage+1})}">Trang kế tiếp</a></li>
 								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
 									class="page-link" href="#">Trang kế tiếp</a></li>
 							</ul>
@@ -90,7 +90,7 @@
 		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
-			th:href="@{/formAddCategory}">
+			th:href="@{/admin/formAddCategory}">
 				<i class="fas fa-plus"></i> Thêm danh mục mới</a> 
 				
 		</div>

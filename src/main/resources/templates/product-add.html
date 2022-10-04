@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form th:action="@{/addProduct}" th:object="${product}"
+					<form th:action="@{/admin/addProduct}" th:object="${product}"
 						method="post">
 						
 						<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
@@ -102,7 +102,7 @@
 						 <p th:errors="*{category}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						<div align="center" style="padding-top: 15px; padding-bottom: 5px">
 							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddCategory}" target=”_blank”>
+							th:href="@{/admin/formAddCategory}" target=”_blank”>
 								<i class="fas fa-plus"></i> Thêm danh mục mới</a> 
 						</div>
 						
@@ -116,7 +116,7 @@
 						 <p th:errors="*{manufacturer}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						<div align="center" style="padding-top: 15px">
 							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddManufacturer}" target=”_blank”>
+							th:href="@{/admin/formAddManufacturer}" target=”_blank”>
 								<i class="fas fa-plus"></i> Thêm hãng sản xuất mới</a> 
 						</div>
 						

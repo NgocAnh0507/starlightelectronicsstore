@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form th:action="@{/updateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}" th:object="${manufacturer}"
+					<form th:action="@{/admin/updateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}" th:object="${manufacturer}"
 						method="post">
 						
 						<label for="name" class="col-form-label" style="font-size: 20px;">Tên hãng sản xuất:</label> 

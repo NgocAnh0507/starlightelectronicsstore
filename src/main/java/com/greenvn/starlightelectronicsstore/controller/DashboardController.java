@@ -27,10 +27,10 @@ public class DashboardController {
 	 * @GetMapping("/admin/donhang") public String showDonHang(){ return
 	 * "donhangList"; }
 	 */
-	@GetMapping("/admin/products")
-	public String showProduct(){
-		return "product-management";
-	}
+//	@GetMapping("/admin/products")
+//	public String showProduct(){
+//		return "product-management";
+//	}
 	@GetMapping("/admin/user")
 	public String showUserList() {
 		return "EmployeeList";
