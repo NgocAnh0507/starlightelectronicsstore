@@ -3,19 +3,84 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout-admin1}">
-	
+
 <head>
+
 <title>Hello</title>
 </head>
 <body>
 	<div layout:fragment="content">
-	<!-- <a class="nav-link" th:href="@{/categories}">Quản lý danh mục</a><br/>
-	<a class="nav-link" th:href="@{/attributeTypes}">Quản lý loại thuộc tính</a><br/>
-	<a class="nav-link" th:href="@{/productAttributes}">Quản lý thuộc tính</a><br/>
-	<a class="nav-link" th:href="@{/positions}">Quản lý chức vụ</a><br/>
-	<a class="nav-link" th:href="@{/employees}">Quản lý nhân viên</a><br/>
-	<a class="nav-link" th:href="@{/manufacturers}">Quản lý hãng sản xuất</a><br/>
-	<a class="nav-link" th:href="@{/products}">Quản lý sản phẩm</a><br/> -->
+		<!-- <a class="nav-link" th:href="@{/categories}">Quáº£n lÃ½ danh má»¥c</a><br/>
+	<a class="nav-link" th:href="@{/attributeTypes}">Quáº£n lÃ½ loáº¡i thuá»™c tÃ­nh</a><br/>
+	<a class="nav-link" th:href="@{/productAttributes}">Quáº£n lÃ½ thuá»™c tÃ­nh</a><br/>
+	<a class="nav-link" th:href="@{/positions}">Quáº£n lÃ½ chá»©c vá»¥</a><br/>
+	<a class="nav-link" th:href="@{/employees}">Quáº£n lÃ½ nhÃ¢n viÃªn</a><br/>
+	<a class="nav-link" th:href="@{/manufacturers}">Quáº£n lÃ½ hÃ£ng sáº£n xuáº¥t</a><br/>
+	<a class="nav-link" th:href="@{/products}">Quáº£n lÃ½ sáº£n pháº©m</a><br/> -->
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card text-white bg-success mb-3"
+						style="max-width: 18rem;">
+						
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">Doanh số tháng này<h5>
+							<h1 class="text-center">10.000.000</h1>
+							<div class="d-flex justify-content-center" style="font-size: 44px;">
+								<i class="fas fa-money-check-alt"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-primary mb-3"
+						style="max-width: 18rem;">
+						
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">Số lượng khách hàng<h5>
+							<h1 class="text-center">1000</h1>
+							<div class="d-flex justify-content-center" style="font-size: 44px;">
+								<i class="fas fa-user"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-warning mb-3"
+						style="max-width: 18rem;">
+						
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">Sản phẩm trong kho<h5>
+							<h1 class="text-center">10.000</h1>
+							<div class="d-flex justify-content-center" style="font-size: 44px;">
+								<i class="fas fa-store"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-white bg-info mb-3"
+						style="max-width: 18rem;">
+						
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">Đang giao hàng<h5>
+							<h1 class="text-center">300</h1>
+							<div class="d-flex justify-content-center" style="font-size: 44px;">
+								<i class="fas fa-truck-moving"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="charts">
+				<div class="chart">
+					<h2>Doanh số(số liệu từng tháng)</h2>
+				</div>
+				<div class="chart" id="doughnut-chart">
+					<h2>Số lượng khách đặt mua hàng</h2>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
