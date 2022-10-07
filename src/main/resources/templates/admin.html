@@ -5,84 +5,164 @@
 	layout:decorate="~{layout-admin1}">
 
 <head>
-
+<meta charset="UTF-8">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <title>Hello</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<!-- <a class="nav-link" th:href="@{/categories}">Quáº£n lÃ½ danh má»¥c</a><br/>
-	<a class="nav-link" th:href="@{/attributeTypes}">Quáº£n lÃ½ loáº¡i thuá»™c tÃ­nh</a><br/>
-	<a class="nav-link" th:href="@{/productAttributes}">Quáº£n lÃ½ thuá»™c tÃ­nh</a><br/>
-	<a class="nav-link" th:href="@{/positions}">Quáº£n lÃ½ chá»©c vá»¥</a><br/>
-	<a class="nav-link" th:href="@{/employees}">Quáº£n lÃ½ nhÃ¢n viÃªn</a><br/>
-	<a class="nav-link" th:href="@{/manufacturers}">Quáº£n lÃ½ hÃ£ng sáº£n xuáº¥t</a><br/>
-	<a class="nav-link" th:href="@{/products}">Quáº£n lÃ½ sáº£n pháº©m</a><br/> -->
+		<!-- <a class="nav-link" th:href="@{/categories}">QuÃ¡ÂºÂ£n lÃƒÂ½ danh mÃ¡Â»Â¥c</a><br/>
+	<a class="nav-link" th:href="@{/attributeTypes}">QuÃ¡ÂºÂ£n lÃƒÂ½ loÃ¡ÂºÂ¡i thuÃ¡Â»â„¢c tÃƒÂ­nh</a><br/>
+	<a class="nav-link" th:href="@{/productAttributes}">QuÃ¡ÂºÂ£n lÃƒÂ½ thuÃ¡Â»â„¢c tÃƒÂ­nh</a><br/>
+	<a class="nav-link" th:href="@{/positions}">QuÃ¡ÂºÂ£n lÃƒÂ½ chÃ¡Â»Â©c vÃ¡Â»Â¥</a><br/>
+	<a class="nav-link" th:href="@{/employees}">QuÃ¡ÂºÂ£n lÃƒÂ½ nhÃƒÂ¢n viÃƒÂªn</a><br/>
+	<a class="nav-link" th:href="@{/manufacturers}">QuÃ¡ÂºÂ£n lÃƒÂ½ hÃƒÂ£ng sÃ¡ÂºÂ£n xuÃ¡ÂºÂ¥t</a><br/>
+	<a class="nav-link" th:href="@{/products}">QuÃ¡ÂºÂ£n lÃƒÂ½ sÃ¡ÂºÂ£n phÃ¡ÂºÂ©m</a><br/> -->
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-3">
 					<div class="card text-white bg-success mb-3"
 						style="max-width: 18rem;">
-						
+
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">Doanh số tháng này<h5>
-							<h1 class="text-center">10.000.000</h1>
-							<div class="d-flex justify-content-center" style="font-size: 44px;">
-								<i class="fas fa-money-check-alt"></i>
-							</div>
+							<h5 class="card-title text-center">
+								Doanh số tháng này
+								<h5>
+									<h1 class="text-center">10.000.000</h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-money-check-alt"></i>
+									</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="card text-white bg-primary mb-3"
 						style="max-width: 18rem;">
-						
+
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">Số lượng khách hàng<h5>
-							<h1 class="text-center">1000</h1>
-							<div class="d-flex justify-content-center" style="font-size: 44px;">
-								<i class="fas fa-user"></i>
-							</div>
+							<h5 class="card-title text-center">
+								Số lượng khách hàng
+								<h5>
+									<h1 class="text-center">1000</h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-user"></i>
+									</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="card text-white bg-warning mb-3"
 						style="max-width: 18rem;">
-						
+
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">Sản phẩm trong kho<h5>
-							<h1 class="text-center">10.000</h1>
-							<div class="d-flex justify-content-center" style="font-size: 44px;">
-								<i class="fas fa-store"></i>
-							</div>
+							<h5 class="card-title text-center">
+								Sản phẩm trong kho
+								<h5>
+									<h1 class="text-center">10.000</h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-store"></i>
+									</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="card text-white bg-info mb-3"
-						style="max-width: 18rem;">
-						
+					<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">Đang giao hàng<h5>
-							<h1 class="text-center">300</h1>
-							<div class="d-flex justify-content-center" style="font-size: 44px;">
-								<i class="fas fa-truck-moving"></i>
-							</div>
+							<h5 class="card-title text-center">
+								Đang giao hàng
+								<h5>
+									<h1 class="text-center">300</h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-truck-moving"></i>
+									</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="charts">
-				<div class="chart">
-					<h2>Doanh số(số liệu từng tháng)</h2>
-				</div>
-				<div class="chart" id="doughnut-chart">
-					<h2>Số lượng khách đặt mua hàng</h2>
-				</div>
+			<div class="row mt-5">
+				<h2>Doanh số(số liệu từng tháng)</h2>
+				<canvas id="myChart" style="max-width: 1000px;"></canvas>
+				<script>
+					var ctx = document.getElementById("myChart").getContext(
+							'2d');
+					var myChart = new Chart(ctx, {
+						type : 'bar',
+						data : {
+							labels : [ "Tháng 1", "Tháng 2", "Tháng 3",
+									"Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
+									"Tháng 8", "Tháng 9", "Tháng 10",
+									"Tháng 11", "Tháng 12" ],
+							datasets : [ {
+								label : 'Doanh số (triệu)',
+								data : [ 12, 19, 3, 5, 2, 3, 16, 15, 19, 22,
+										17, 32 ],
+								backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+										'rgba(54, 162, 235, 0.2)',
+										'rgba(255, 206, 86, 0.2)',
+										'rgba(75, 192, 192, 0.2)',
+										'rgba(153, 102, 255, 0.2)',
+										'rgba(255, 159, 64, 0.2)' ],
+								borderColor : [ 'rgba(255,99,132,1)',
+										'rgba(54, 162, 235, 1)',
+										'rgba(255, 206, 86, 1)',
+										'rgba(75, 192, 192, 1)',
+										'rgba(153, 102, 255, 1)',
+										'rgba(255, 159, 64, 1)' ],
+								borderWidth : 1
+							} ]
+						},
+						options : {
+							scales : {
+								yAxes : [ {
+									ticks : {
+										beginAtZero : true
+									}
+								} ]
+							}
+						}
+					});
+				</script>
+			</div>
+			<div class="row mt-5">
+
+				<h2>Số lượng sản phẩm chiếm trong kho</h2>
+				<canvas id="pieChart" style="max-width: 900px;"></canvas>
+				<script>
+					//pie
+					var ctxP = document.getElementById("pieChart").getContext(
+							'2d');
+					var myPieChart = new Chart(ctxP, {
+						type : 'pie',
+						data : {
+							labels : [ "SAMSUNG", "IPHONE", "DELL", "HP",
+									"LENOVO", "ACER", "ISUS" ],
+							datasets : [ {
+								data : [ 200, 50, 100, 40, 120, 100, 30 ],
+								backgroundColor : [ "#F7464A", "#46BFBD",
+										"#FDB45C", "#949FB1", "#4D5360",
+										"#8B008B", "#7FFF00" ],
+								hoverBackgroundColor : [ "#FF5A5E", "#5AD3D1",
+										"#FFC870", "#A8B3C5", "#616774",
+										"#9932CC", "#7FFFD4" ]
+							} ]
+						},
+						options : {
+							responsive : true
+						}
+					});
+				</script>
+
 			</div>
 		</div>
 	</div>
 </body>
+
 </html>
 
 
