@@ -82,8 +82,8 @@ public class AttributeTypeController {
 			attributeType.setAttributeTypeID(attributeTypeID);
 			return "attributeType-update";
 		}
-
-		if(attributeTypeService.findAttributeTypeByName(attributeType.getName()) != null) {
+		AttributeType A = attributeTypeService.findAttributeTypeByName(attributeType.getName());
+		if(A != null && A.getAttributeTypeID() != attributeType.getAttributeTypeID()) {
 			
 			model.addAttribute("messages","Loại thuộc tính đã tồn tại!");
 			return "attributeType-update";

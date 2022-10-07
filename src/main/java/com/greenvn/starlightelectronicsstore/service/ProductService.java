@@ -9,7 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.entities.Product;
+import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.repository.ProductRepository;
 
 @Service
@@ -39,13 +42,27 @@ public class ProductService {
 		return this.productRepository.findById(productID).get();
 	}
 	
+	public Product updateProductAttribute(List<ProductAttribute> productAttributes, String image, Long productID) {
+		
+		Product product= findProductById(productID);
+		product.setDefaultImage(image);
+		product.setAttributes(productAttributes);
+		return productRepository.save(product);
+	}
+	
+	public Product updateProductImage(List<Image> productImages, Long productID) {
+		
+		Product product= findProductById(productID);
+		product.setImages(productImages);
+		return productRepository.save(product);
+	}
+	
 	public Product updateProduct(Product productNew, Long productID)
 	{
 		Product product = findProductById(productID);
 		product.setProductSKU(productNew.getProductSKU());
 		product.setCategory(productNew.getCategory());
 		product.setManufacturer(productNew.getManufacturer());
-		product.setDefaultImage(productNew.getDefaultImage());
 		product.setProductDescription(productNew.getProductDescription());
 		product.setProductName(productNew.getProductName());
 		product.setPrice(productNew.getPrice());

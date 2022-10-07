@@ -23,7 +23,7 @@ public class ProductAttribute {
 	private long productAttributeID;
 	
 	@ManyToOne
-	@NotNull(message = "Danh mục không được để trống!")
+//	@NotNull(message = "Danh mục không được để trống!")
 	private Category category;
 
 	@ManyToOne

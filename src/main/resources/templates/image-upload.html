@@ -15,7 +15,41 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+	window.onload = function () {
+	    var fileUpload = document.getElementById("fileupload");
+	    
+	    fileUpload.onchange = function () {
+	        if (typeof (FileReader) != "undefined") {
+	            var dvPreview = document.getElementById("dvPreview");
+	            dvPreview.innerHTML = "";
+	            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+	            for (var i = 0; i < fileUpload.files.length; i++) {
+	                var file = fileUpload.files[i];
+	                if (regex.test(file.name.toLowerCase())) {
+	                    var reader = new FileReader();
+	                    reader.onload = function (e) {
+	                        var img = document.createElement("IMG");
+	                        img.height = "135";
+	                        img.width = "135";
+	                        img.border = "1";
+	                        img.src = e.target.result;
+	                        dvPreview.appendChild(img);
+	                    }
+	                    reader.readAsDataURL(file);
+	                } else {
+	                    alert(file.name + " không phải tên file hợp lệ.");
+	                    dvPreview.innerHTML = "";
+	                    return false;
+	                }
+	            }
+	        } else {
+	            alert("Trình duyệt này không hỗ trợ FileReader.");
+	        }
+	    }
+	};
+</script>
 <title>Tải ảnh lên</title>
 </head>
 <body>
@@ -34,10 +68,16 @@
 					<div>
 						<form method="POST" enctype="multipart/form-data" action="/upload">
 							<label for="file" class="col-form-label" style="font-size: 20px;">Chọn ảnh tải lên từ thiết bị của bạn:</label> 
-							<input class="form-control" type="file" name="file">
+							<input id="fileupload" class="form-control" type="file" name="file" multiple="multiple" />
+							<hr />
+							<b>Ảnh đã chọn: </b>
+							<br />
+							<br />
+							<div id="dvPreview"></div>
 							<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 								<input type="submit" class="btn btn-success mt-5" value="Tải lên" style="font-size: 20px;">
 							</div>
+							
 						</form>
 					</div>
 					

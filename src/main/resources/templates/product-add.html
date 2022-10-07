@@ -14,7 +14,41 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+	window.onload = function () {
+	    var fileUpload = document.getElementById("fileupload");
+	    
+	    fileUpload.onchange = function () {
+	        if (typeof (FileReader) != "undefined") {
+	            var dvPreview = document.getElementById("dvPreview");
+	            dvPreview.innerHTML = "";
+	            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+	            for (var i = 0; i < fileUpload.files.length; i++) {
+	                var file = fileUpload.files[i];
+	                if (regex.test(file.name.toLowerCase())) {
+	                    var reader = new FileReader();
+	                    reader.onload = function (e) {
+	                        var img = document.createElement("IMG");
+	                        img.height = "135";
+	                        img.width = "135";
+	                        img.border = "1";
+	                        img.src = e.target.result;
+	                        dvPreview.appendChild(img);
+	                    }
+	                    reader.readAsDataURL(file);
+	                } else {
+	                    alert(file.name + " không phải tên file hợp lệ.");
+	                    dvPreview.innerHTML = "";
+	                    return false;
+	                }
+	            }
+	        } else {
+	            alert("Trình duyệt này không hỗ trợ FileReader.");
+	        }
+	    }
+	};
+</script>
 <title>Thêm sản phẩm</title>
 </head>
 <body>
@@ -28,7 +62,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<form th:action="@{/admin/addProduct}" th:object="${product}"
-						method="post">
+						 enctype="multipart/form-data" method="post">
 						
 						<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
 						<input type="text" th:field="*{productName}" class="form-control"
@@ -62,11 +96,11 @@
 						<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						
 						 <label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu khuyến mãi: </label> 
-						<input type="date"  th:field="*{priceSpecialStartDateStr}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
+						<input type="datetime-local"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
 						<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
 						
 						 <label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày hết khuyến mãi: </label> 
-						<input type="date"  th:field="*{priceSpecialEndDateStr}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
+						<input type="datetime-local"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
 						<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 						
 						<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
@@ -120,27 +154,16 @@
 								<i class="fas fa-plus"></i> Thêm hãng sản xuất mới</a> 
 						</div>
 						
-						<label for="defaultImage" class="col-form-lable" style="font-size: 20px;">
-							Ảnh bìa </label> 
-						<select id="defaultImage" th:field="*{defaultImage}"
-							class="form-control" style="font-size: 20px;">
-							<option th:value="null" selected="selected">
-							- Chọn ảnh bìa hoặc tải ảnh mới lên - </option>
-							<option th:each="defaultImage: ${images}" th:value="${{defaultImage}}"
-								th:text="${defaultImage.name}">
-							</option>
-						</select>
-						<p th:errors="*{defaultImage}" class="text-danger"
-							style="font-size: 20px; padding-top: 15px;"></p>
-							
-						<div align="center" style="padding-top: 15px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddImage}" target=”_blank”>
-								<i class="fas fa-plus"></i> Tải ảnh mới lên</a> 
-						</div>
+						<label for="file" class="col-form-label" style="font-size: 20px;">Tải lên ảnh sản phẩm:</label> 
+						<input id="fileupload" class="form-control" type="file" name="file" multiple="multiple" />
+						<hr />
+						<b>Ảnh sản phẩm đã chọn: </b>
+						<br />
+						<br />
+						<div id="dvPreview"></div>
 						
 						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">
+							<input type="submit" class="btn btn-success mt-5" value="Tiếp theo" style="font-size: 20px;">
 						</div>
 					</form>
 				</div>

@@ -1,7 +1,10 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.greenvn.starlightelectronicsstore.entities.AttributeType;
+import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.entities.Position;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
@@ -22,10 +28,14 @@ import com.greenvn.starlightelectronicsstore.service.ImageService;
 import com.greenvn.starlightelectronicsstore.service.ManufacturerService;
 import com.greenvn.starlightelectronicsstore.service.ProductAttributeService;
 import com.greenvn.starlightelectronicsstore.service.ProductService;
+import com.greenvn.starlightelectronicsstore.service.StorageService;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class ProductController {
+
+	@Autowired
+	private StorageService storageService;
 	
 	@Autowired
 	private ProductService productService;
@@ -72,11 +82,11 @@ public class ProductController {
 	}
 	
 	@PostMapping("/addProduct")
-	public String addProduct(@Valid Product product, BindingResult result, Model model) {
+	public String addProduct(@Valid Product product, BindingResult result, Model model,
+			HttpServletRequest request, @RequestParam("file") List<MultipartFile> file) {
 		if (result.hasErrors()) {
 			model.addAttribute("categories",categoryService.getCategories());
 			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-			model.addAttribute("images", imageService.getImages());
 			return "product-add";
 		}
 		
@@ -85,32 +95,39 @@ public class ProductController {
 			model.addAttribute("messages", "Sản phẩm đã tồn tại!");
 			model.addAttribute("categories",categoryService.getCategories());
 			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-			model.addAttribute("images", imageService.getImages());
 			return "product-add";
 		}
 		else model.addAttribute("messages", null);
-		productService.addProduct(product);
+		Product productSaved =productService.addProduct(product);
+
+		String uploadRootPath = request.getServletContext().getRealPath("upload");
+		storageService.storeImageMultiFiles(file, uploadRootPath, productSaved);
 		
-		Product newProduct = productService.findProductByName(product.getProductName());
-		return "redirect:/admin/products";
-		//return attributesForProduct(newProduct.getProductID(),model);
+		return "redirect:/admin/formAttributesForProduct?productID="+productSaved.getProductID();
+		//return attributesForProduct(productSaved.getProductID(),model);
 	}
 	
 	@GetMapping("/formAttributesForProduct")
 	public String attributesForProduct(@RequestParam(name = "productID")Long productID, Model model) {
 		Product product = this.productService.findProductById(productID);
 		
-		model.addAttribute("categories",categoryService.getCategories());
-		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-		model.addAttribute("images", imageService.getImages());
-		model.addAttribute("productAttributes", productAttributeService.findProductAttributeByCategoryID(product.getCategory().getCategoryID()));
+		List<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+		List<ProductAttribute> productAttributes =  productAttributeService.findProductAttributeByCategoryID(product.getCategory().getCategoryID());
+		for(ProductAttribute PA : productAttributes) {
+			if(!attributeTypes.contains(PA.getType())) attributeTypes.add(PA.getType());
+		}
+
+		model.addAttribute("images",product.getImages());
+		model.addAttribute("productAttributes",productAttributes);
+		model.addAttribute("attributeTypes",attributeTypes);
 		model.addAttribute("product", product);
-		return "product-addAttribute";
+		return "product-editAttribute";
 	}
 	
 	@PostMapping("/attributesForProduct")
 	public String attributesForProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model) {
-		productService.updateProduct(product, productID);
+		
+		productService.updateProductAttribute(product.getAttributes(),product.getDefaultImage(), productID);
 		return "redirect:/admin/products";
 	}
 	
@@ -119,20 +136,19 @@ public class ProductController {
 		Product product = this.productService.findProductById(productID);
 		model.addAttribute("product", product);
 		model.addAttribute("categories",categoryService.getCategories());
-		model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
 		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-		model.addAttribute("images", imageService.getImages());
+		model.addAttribute("images", product.getImages());
 		return "product-update";
 	}
 	
 	@PostMapping("/updateProduct")
-	public String updateProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model){
+	public String updateProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model,
+			HttpServletRequest request, @RequestParam("file") List<MultipartFile> file){
 		if(result.hasErrors()) {
 			model.addAttribute("product", product);
 			model.addAttribute("categories",categoryService.getCategories());
-			model.addAttribute("productAttributes", productAttributeService.getProductAttributes());
 			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-			model.addAttribute("images", imageService.getImages());
+			model.addAttribute("images", product.getImages());
 			return "product-update";
 		}
 		
@@ -150,11 +166,19 @@ public class ProductController {
 		else model.addAttribute("messages", null);
 		
 		productService.updateProduct(product, productID);
-		return "redirect:/admin/products";
+
+		String uploadRootPath = request.getServletContext().getRealPath("upload");
+		storageService.storeImageMultiFiles(file, uploadRootPath, product);
+		
+		return "redirect:/admin/formAttributesForProduct?productID="+product.getProductID();
 	}
 	
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(@RequestParam(name = "productID")Long productID, Model model) {
+		Product product = this.productService.findProductById(productID);
+		for(Image i : product.getImages()) {
+			imageService.deleteImage(i.getImageID());
+		}
 		productService.deleteProduct(productID);
 		return "redirect:/admin/products";
 	}

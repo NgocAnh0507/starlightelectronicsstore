@@ -1,7 +1,9 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
+import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.service.EmployeeService;
+import com.greenvn.starlightelectronicsstore.service.ImageService;
 import com.greenvn.starlightelectronicsstore.service.PositionService;
+import com.greenvn.starlightelectronicsstore.service.StorageService;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -28,6 +34,12 @@ public class EmployeeController {
 	@Autowired
 	private PositionService positionService;
 
+	@Autowired
+	private StorageService storageService;
+
+	@Autowired
+	private ImageService imageService;
+	
 	@GetMapping("/employees")
 	public String showEmployeeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "employeeID") String sortField,
@@ -56,7 +68,8 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/addEmployee")
-	public String addEmployee(@Valid Employee employee, BindingResult result, Model model) {
+	public String addEmployee(@Valid Employee employee, BindingResult result, Model model,
+			HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		if (result.hasErrors()) {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
@@ -68,6 +81,23 @@ public class EmployeeController {
 			return "employee-add";
 		}
 		else model.addAttribute("messages",null);
+
+		String uploadRootPath = request.getServletContext().getRealPath("upload");
+		File saveFile = storageService.storeImage(file, uploadRootPath);
+
+		if(saveFile != null) {
+			String name = file.getOriginalFilename();
+			Image image = new Image();
+			image.setImageURL(uploadRootPath);
+			image.setName(name);
+			image.setProduct(null);
+			employee.setAvatar(imageService.addImage(image));
+			model.addAttribute("noImage",null);
+		}
+		else{
+			model.addAttribute("noImage","Ảnh biểu tượng không được để trống!");
+			return "employee-add";
+		}
 		
 		employeeService.addEmployee(employee);
 		return "redirect:/admin/employees";
@@ -82,7 +112,8 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/updateEmployee")
-	public String updateEmployee(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
+	public String updateEmployee(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model,
+			HttpServletRequest request, @RequestParam("file") MultipartFile file){
 		if(result.hasErrors()) {
 			Employee emp = employeeService.findEmployeeById(employeeID);
 			model.addAttribute("employee", emp);
@@ -99,7 +130,22 @@ public class EmployeeController {
 		}
 		else model.addAttribute("messages",null);
 		
+		Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+		String uploadRootPath = request.getServletContext().getRealPath("upload");
+		File saveFile = storageService.storeImage(file, uploadRootPath);
+		
+		if(saveFile != null) {
+			String name = file.getOriginalFilename();
+			Image image = new Image();
+			image.setImageURL(uploadRootPath);
+			image.setName(name);
+			image.setProduct(null);
+			employee.setAvatar(imageService.addImage(image));
+		}
+		else employee.setAvatar(currentImage);
+		
 		employeeService.updateEmployee(employee, employeeID);
+		if(saveFile != null) imageService.deleteImage(currentImage.getImageID());
 		return "redirect:/admin/employees";
 	}
     @GetMapping("/formUpdateInfoEmployee")
@@ -130,7 +176,9 @@ public class EmployeeController {
 	
 	@GetMapping("/deleteEmployee")
 	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model) {
+		Employee E = employeeService.findEmployeeById(employeeID);
 		employeeService.deleteEmployee(employeeID);
+		imageService.deleteImage(E.getAvatar().getImageID());
 		return "redirect:/admin/employees";
 	}
 }

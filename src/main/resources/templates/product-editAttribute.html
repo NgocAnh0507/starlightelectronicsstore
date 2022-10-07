@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<title>Chọn thuộc tính cho sản phẩm</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center" style="padding-top: 55px">
+			<h1 style="font-size: 35px;">Chọn thuộc tính cho sản phẩm</h1>
+		</div>
+
+		<div class="container-fluid" style="padding-top: 35px">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<form th:action="@{/attributesForProduct?(productID=${product.productID})}" th:object="${product}"
+						method="post">
+						<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
+						<input type="text" th:field="*{productName}" class="form-control"  disabled style="font-size: 20px;">
+						<hr />
+						<label for="defaultImage"  class="col-form-lable" style="font-size: 20px;">Ảnh bìa</label>
+						 <select id="defaultImage" th:field="*{defaultImage}" class="form-control" style="font-size: 20px;">
+						 	 <option th:value="null" selected="selected">- Chọn ảnh bìa -</option>
+							 <option th:each="image: ${images}"
+							 		th:value = "${image.name}"
+							 		th:text="${image.name}"> </option>
+						 </select>
+						<div th:each="attributeType: ${attributeTypes}">
+							
+							<label class="col-form-lable" style="font-size: 20px;" th:text="' (+) ' + ${attributeType.name}"></label> 
+							<select th:field="*{attributes}" class="form-control" style="font-size: 20px;">
+							 	<option th:value="null" selected="selected">- Có thể chọn hoặc để trống -</option>
+								<div th:each="attribute: ${productAttributes}" th:switch="${attribute.type.attributeTypeID}">
+							 			<div th:case="${attributeType.attributeTypeID}">
+								 			<option th:value = "${{attribute}}"
+											 		th:text="${attribute.value}">
+										 	</option>
+										</div>
+							 	 </div>
+							</select>
+						</div>
+						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+							<input type="submit" class="btn btn-success mt-5" value="Hoàn thành" style="font-size: 20px;">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+</html>

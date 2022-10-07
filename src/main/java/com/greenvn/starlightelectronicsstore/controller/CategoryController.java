@@ -82,8 +82,8 @@ public class CategoryController {
 			category.setCategoryID(categoryID);
 			return "category-update";
 		}
-
-		if(categoryService.findCategoryByName(category.getName()) != null) {
+		Category C = categoryService.findCategoryByName(category.getName());
+		if(C != null && C.getCategoryID() != category.getCategoryID()) {
 			model.addAttribute("messages","Danh mục đã tồn tại!");
 			return "category-update";
 		}

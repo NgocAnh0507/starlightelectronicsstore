@@ -6,19 +6,28 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.greenvn.starlightelectronicsstore.entities.Image;
+import com.greenvn.starlightelectronicsstore.entities.Product;
 
 @Service
 public class StorageService {
 
-	public File store(MultipartFile fileData, String uploadRootPath) {
+	@Autowired
+	private ImageService imageService;
+
+	@Autowired
+	private ProductService productService;
+	
+	public File storeImage(MultipartFile fileData, String uploadRootPath) {
 		String name = fileData.getOriginalFilename();
 		File uploadRootDir = new File(uploadRootPath);
 		if(!uploadRootDir.exists()) {
 			uploadRootDir.mkdir();
 		}
-		System.out.println("Client File Name = " + name);
 		if (name != null && name.length() > 0) {
 			try {
 				// Tạo file tại Server.
@@ -27,6 +36,7 @@ public class StorageService {
 				stream.write(fileData.getBytes());
 				stream.close();
 				//
+				
 				return serverFile;
 			} catch (Exception e) {
 				System.out.println("Lỗi ghi file: " + name);
@@ -34,6 +44,27 @@ public class StorageService {
 			}
 		}
 		return null;
+	}
+	
+
+	public List<File> storeImageMultiFiles(List<MultipartFile> fileDataList, String uploadRootPath, Product product) {
+		List<File> results = new ArrayList<File>();
+		List<Image> imageList = new ArrayList<Image>();
+		for(MultipartFile file: fileDataList) {
+			File saveFile = this.storeImage(file, uploadRootPath);
+			results.add(saveFile);
+			if(saveFile != null) {
+				String name = file.getOriginalFilename();
+				Image image = new Image();
+				image.setImageURL(uploadRootPath);
+				image.setName(name);
+				image.setProduct(product);
+				imageList.add(imageService.addImage(image));
+			}
+		}
+
+		if(product != null) productService.updateProductImage(imageList, product.getProductID());
+		return results;
 	}
 
 	public List<String> loadAll(String rootPath) {

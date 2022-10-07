@@ -15,7 +15,41 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+	window.onload = function () {
+	    var fileUpload = document.getElementById("fileupload");
+	    
+	    fileUpload.onchange = function () {
+	        if (typeof (FileReader) != "undefined") {
+	            var dvPreview = document.getElementById("dvPreview");
+	            dvPreview.innerHTML = "";
+	            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+	            for (var i = 0; i < fileUpload.files.length; i++) {
+	                var file = fileUpload.files[i];
+	                if (regex.test(file.name.toLowerCase())) {
+	                    var reader = new FileReader();
+	                    reader.onload = function (e) {
+	                        var img = document.createElement("IMG");
+	                        img.height = "195";
+	                        img.width = "195";
+	                        img.border = "1";
+	                        img.src = e.target.result;
+	                        dvPreview.appendChild(img);
+	                    }
+	                    reader.readAsDataURL(file);
+	                } else {
+	                    alert(file.name + " không phải tên file hợp lệ.");
+	                    dvPreview.innerHTML = "";
+	                    return false;
+	                }
+	            }
+	        } else {
+	            alert("Trình duyệt này không hỗ trợ FileReader.");
+	        }
+	    }
+	};
+</script>
 <title>Chỉnh sửa hãng sản xuất</title>
 </head>
 <body>
@@ -29,11 +63,11 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<form th:action="@{/admin/updateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}" th:object="${manufacturer}"
-						method="post">
+						enctype="multipart/form-data" method="post">
 						
 						<label for="name" class="col-form-label" style="font-size: 20px;">Tên hãng sản xuất:</label> 
 						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên của hãng sản xuất bạn muốn thêm"  style="font-size: 20px;">
+							id="name" placeholder="Hãy nhập tên của hãng sản xuất bạn muốn chỉnh sửa"  style="font-size: 20px;">
 						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						<div th:switch="${messages}">
 							<div th:case="null"></div>
@@ -42,20 +76,27 @@
 							</div>
 						</div>
 
-						<label for="logo" class="col-form-lable" style="font-size: 20px;">
-							Ảnh biểu tượng </label> <select id="logo" th:field="*{logo}"
-							class="form-control" style="font-size: 20px;">
-							<option th:value="null" selected="selected">- Chọn ảnh
-								biểu tượng -</option>
-							<option th:each="logo: ${images}" th:value="${{logo}}"
-								th:text="${logo.name}"></option>
-						</select>
-						<p th:errors="*{logo}" class="text-danger" style="font-size: 20px; padding-top: 15px;"></p>
-						<div align="center" style="padding-top: 55px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddImage}" target=”_blank”>
-								<i class="fas fa-plus"></i> Tải ảnh mới lên</a> 
+						<label class="col-form-lable" style="font-size: 20px;">
+							Ảnh biểu tượng hiện tại: </label> 
+						<a th:href="@{/upload/{path}(path=${manufacturer.logo.name})}" class="form-control" >
+			              <img th:attr="src=@{/upload/{path}(path=${manufacturer.logo.name})}"  width="100px" height="100px"/>
+			            </a>
+			            
+						<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
+							Tải lên ảnh biểu tượng </label> 
+						<input id="fileupload" class="form-control" type="file" name="file"/>
+						<div th:switch="${noImage}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${noImage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
 						</div>
+						<hr />
+						<b>Ảnh đã chọn: </b>
+						<br />
+						<br />
+						<div id="dvPreview"></div>
+							
 						
 						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">

@@ -17,12 +17,13 @@ import com.greenvn.starlightelectronicsstore.entities.Position;
 import com.greenvn.starlightelectronicsstore.service.PositionService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class PositionController {
 
 	@Autowired
 	private PositionService positionService;
 	
-	@GetMapping("/admin/positions")
+	@GetMapping("/positions")
 	public String showPositionList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "positionID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
@@ -43,12 +44,12 @@ public class PositionController {
 		return "position-management";
 	}
 	
-	@GetMapping("/admin/formAddPosition")
+	@GetMapping("/formAddPosition")
 	public String addPositionForm(Position position) {
 		return "position-add";
 	}
 	
-	@PostMapping("/admin/addPosition")
+	@PostMapping("/addPosition")
 	public String addPosition(@Valid Position position, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "position-add";
@@ -66,14 +67,14 @@ public class PositionController {
 		return "redirect:/admin/positions";
 	}
 	
-	@GetMapping("/admin/formUpdatePosition")
+	@GetMapping("/formUpdatePosition")
 	public String updatePositionForm(@RequestParam(name = "positionID")Long positionID, Model model) {
 		Position position =  positionService.findPositionById(positionID);
 		model.addAttribute("position", position);
 		return "position-update";
 	}
 
-	@PostMapping("/admin/updatePosition")
+	@PostMapping("/updatePosition")
 	public String updatePosition(@RequestParam(name = "positionID")Long positionID,@Valid Position position, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			position.setPositionID(positionID);
@@ -94,7 +95,7 @@ public class PositionController {
 		return "redirect:/admin/positions";
 	}
 	
-	@GetMapping("/admin/deletePosition")
+	@GetMapping("/deletePosition")
 	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model) {
 		positionService.deletePosition(positionID);
 		return "redirect:/admin/positions";

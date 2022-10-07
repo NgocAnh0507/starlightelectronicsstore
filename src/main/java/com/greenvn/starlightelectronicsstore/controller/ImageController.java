@@ -1,6 +1,7 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -35,7 +36,10 @@ public class ImageController {
 	}
 	
 	@GetMapping("/formAddImage")
-	public String addImageForm(Image image) {
+	public String addImageForm(Image image, HttpServletRequest request, Model model) {
+
+		String uploadRootPath = request.getServletContext().getRealPath("upload");
+		model.addAttribute("files", storageService.loadAll(uploadRootPath));
 		return "image-upload";
 	}
 	
@@ -49,20 +53,15 @@ public class ImageController {
 	}
 
 	@PostMapping("/upload")
-	public String handleFileUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file,
+	public String handleFileUpload(HttpServletRequest request, @RequestParam("file") List<MultipartFile> file,
 			Model model) {
 		
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
-		String name = file.getOriginalFilename();
 
-		storageService.store(file, uploadRootPath);
+		storageService.storeImageMultiFiles(file, uploadRootPath, null);
 		
-		Image image = new Image();
-		image.setImageURL(uploadRootPath);
-		image.setName(name);
-		imageService.addImage(image);
 		
-		model.addAttribute("messages", "Đã tải lên thành công ảnh " + file.getOriginalFilename() + "!");
+		model.addAttribute("messages", "Đã tải lên thành công!");
 		return "image-upload";
 	}
 	
@@ -84,8 +83,8 @@ public class ImageController {
 	}
 	
 	@GetMapping("/deleteImage")
-	public String deleteImage(@RequestParam(name = "imageID")Long imageID, Model model) {
+	public String deleteImage(@RequestParam(name = "imageID")Long imageID, Model model, Long productID) {
 		imageService.deleteImage(imageID);
-		return "";
+		return "redirect:/formUpdateProduct?productID="+productID;
 	}
 }

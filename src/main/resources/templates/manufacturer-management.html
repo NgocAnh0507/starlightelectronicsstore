@@ -51,8 +51,9 @@
 										th:text="${manufacturer.manufacturerID}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${manufacturer.name}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${manufacturer.logo.name}"></td>
+									<td align="center" style="font-size: 15px;">
+							            <img th:attr="src=@{/upload/{path}(path=${manufacturer.logo.name})}"  width="100px" height="100px"/>
+									</td>
 									<td align="center">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"

@@ -15,7 +15,41 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+	window.onload = function () {
+	    var fileUpload = document.getElementById("fileupload");
+	    
+	    fileUpload.onchange = function () {
+	        if (typeof (FileReader) != "undefined") {
+	            var dvPreview = document.getElementById("dvPreview");
+	            dvPreview.innerHTML = "";
+	            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+	            for (var i = 0; i < fileUpload.files.length; i++) {
+	                var file = fileUpload.files[i];
+	                if (regex.test(file.name.toLowerCase())) {
+	                    var reader = new FileReader();
+	                    reader.onload = function (e) {
+	                        var img = document.createElement("IMG");
+	                        img.height = "195";
+	                        img.width = "195";
+	                        img.border = "1";
+	                        img.src = e.target.result;
+	                        dvPreview.appendChild(img);
+	                    }
+	                    reader.readAsDataURL(file);
+	                } else {
+	                    alert(file.name + " không phải tên file hợp lệ.");
+	                    dvPreview.innerHTML = "";
+	                    return false;
+	                }
+	            }
+	        } else {
+	            alert("Trình duyệt này không hỗ trợ FileReader.");
+	        }
+	    }
+	};
+</script>
 <title>Thêm nhân viên</title>
 </head>
 <body>
@@ -29,7 +63,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<form th:action="@{/admin/addEmployee}" th:object="${employee}"
-						method="post">
+						enctype="multipart/form-data" method="post">
 						<label for="name" class="col-form-label" style="font-size: 20px;">Tên:</label> 
 						<input type="text" th:field="*{name}" class="form-control"
 							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
@@ -88,6 +122,21 @@
 						 <label for="isActive" class="col-form-label" style="font-size: 20px;"> Trạng thái làm việc</label> 
 						<p th:errors="*{isActive}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						 
+						<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
+							Tải lên ảnh đại diện </label> 
+						<input id="fileupload" class="form-control" type="file" name="file"/>
+						<div th:switch="${noImage}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${noImage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
+						<hr />
+						<b>Ảnh đã chọn: </b>
+						<br />
+						<br />
+						<div id="dvPreview"></div>
+							
 						
 						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">

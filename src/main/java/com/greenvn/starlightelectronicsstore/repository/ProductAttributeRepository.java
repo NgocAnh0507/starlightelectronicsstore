@@ -17,5 +17,8 @@ public interface ProductAttributeRepository extends JpaRepository<ProductAttribu
 	Page<ProductAttribute> findAll(Pageable pageable);
 	
 	@Query("SELECT a FROM ProductAttribute AS a WHERE a.category.categoryID = :cID")
-	List<ProductAttribute> findProductAttributeByCategoryID(@Param("cID") long ID);
+	List<ProductAttribute> findProductAttributeByCategoryID(@Param("cID") long categoryID);
+
+	@Query("SELECT a FROM ProductAttribute AS a WHERE a.category.categoryID = :cID AND a.type.attributeTypeID = :tID")
+	List<ProductAttribute> findProductAttributeByCategoryIDandTypeID(@Param("cID") long categoryID, @Param("tID") long typeID);
 }

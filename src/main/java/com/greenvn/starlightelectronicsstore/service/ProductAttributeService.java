@@ -9,14 +9,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.greenvn.starlightelectronicsstore.entities.Category;
+import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.repository.ProductAttributeRepository;
+import com.greenvn.starlightelectronicsstore.repository.ProductRepository;
 
 @Service
 public class ProductAttributeService {
 
 	@Autowired
 	private ProductAttributeRepository productAttributeRepository;
+	
+	@Autowired 
+	private ProductRepository productRepository;
 	
 	public List<ProductAttribute> getProductAttributes()
 	{
@@ -27,9 +33,23 @@ public class ProductAttributeService {
 	{
 		return productAttributeRepository.findProductAttributeByCategoryID(ID);
 	}
+
+	public List<ProductAttribute> findProductAttributeByCategoryIDandTypeID(long categoryID, long typeID)
+	{
+		return productAttributeRepository.findProductAttributeByCategoryIDandTypeID(categoryID,typeID);
+	}
 	
 	public ProductAttribute addProductAttribute(ProductAttribute productAttribute)
 	{
+		ProductAttribute productAttributeSaved = productAttributeRepository.save(productAttribute);
+		return productAttributeSaved;
+	}
+	
+	public ProductAttribute addProductAttribute(ProductAttribute productAttribute,Long productID)
+	{
+		Product product = productRepository.findById(productID).get();
+		Category category = product.getCategory();
+		productAttribute.setCategory(category);
 		ProductAttribute productAttributeSaved = productAttributeRepository.save(productAttribute);
 		return productAttributeSaved;
 	}

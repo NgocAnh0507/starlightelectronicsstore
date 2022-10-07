@@ -27,7 +27,6 @@ public class Manufacturer {
 	private String name;
 	
 	@OneToOne
-	@NotNull(message = "Logo không được để trống!")
 	private Image logo;
 
 	@OneToMany(mappedBy = "manufacturer")

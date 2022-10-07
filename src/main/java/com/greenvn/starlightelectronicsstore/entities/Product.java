@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
@@ -44,16 +46,14 @@ public class Product {
 	@Column(name = "PRICE_SPECIAL", columnDefinition = "DECIMAL(11,1)")
 	private Double priceSpecial;
 
-	@Transient
-	private String priceSpecialStartDateStr;
 	
 	@Column(name = "PRICE_SPECIAL_STARTDATE", columnDefinition = "DATETIME")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date priceSpecialStartDate;
 	
-	@Transient
-	private String priceSpecialEndDateStr;
 	
 	@Column(name = "PRICE_SPECIAL_ENDDATE", columnDefinition = "DATETIME")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date priceSpecialEndDate;
 	
 	
@@ -84,9 +84,8 @@ public class Product {
 	@NotNull(message = "Hãng sản xuất không được để trống!")
 	private Manufacturer manufacturer;
 
-	@OneToOne
-	@NotNull(message = "Ảnh bìa không được để trống!")
-	private Image defaultImage;
+	@Column(name = "DEFAULT_IMAGE", columnDefinition = "VARCHAR(555)")
+	private String defaultImage;
 
 	@OneToMany(mappedBy = "product")
 	private List<Image> images;
@@ -158,24 +157,9 @@ public class Product {
 		return priceSpecialEndDate;
 	}
 
-	public String getPriceSpecialEndDateStr() {
-		return priceSpecialEndDateStr;
-	}
-
-	public void setPriceSpecialEndDateStr(String priceSpecialEndDateStr) {
-		this.priceSpecialEndDateStr = priceSpecialEndDateStr;
-	}
 
 	public void setPriceSpecialEndDate(Date priceSpecialEndDate) {
 		this.priceSpecialEndDate = priceSpecialEndDate;
-	}
-
-	public String getPriceSpecialStartDateStr() {
-		return priceSpecialStartDateStr;
-	}
-
-	public void setPriceSpecialStartDateStr(String priceSpecialStartDateStr) {
-		this.priceSpecialStartDateStr = priceSpecialStartDateStr;
 	}
 
 	public Integer getQuantity() {
@@ -233,12 +217,13 @@ public class Product {
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
 	}
+	
 
-	public Image getDefaultImage() {
+	public String getDefaultImage() {
 		return defaultImage;
 	}
 
-	public void setDefaultImage(Image defaultImage) {
+	public void setDefaultImage(String defaultImage) {
 		this.defaultImage = defaultImage;
 	}
 
