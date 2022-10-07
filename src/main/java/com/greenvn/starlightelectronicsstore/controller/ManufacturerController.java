@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.service.ImageService;
 import com.greenvn.starlightelectronicsstore.service.ManufacturerService;
+import com.greenvn.starlightelectronicsstore.service.StorageService;
 
 @Controller
 @RequestMapping(value = "/admin")
