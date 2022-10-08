@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
+
+<head>
+<meta charset="UTF-8">
+<title>Đổi mật khẩu</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row mt-5">
+			<div class="col-md-6 offset-md-3">
+
+				<!-- form card change password -->
+				<div class="card card-outline-secondary">
+					<div class="card-header">
+						<h3 class="mb-0 text-center">Đổi mật khẩu</h3>
+					</div>
+					<div class="card-body">
+						<form class="form" role="form" autocomplete="off" th:action="@{/admin/change-PassWord}" method="post">
+							<div class="form-group pt-3">
+								<label for="inputPasswordOld">Mật khẩu cũ</label> <input
+									type="password" class="form-control" id="inputPasswordOld"
+									required="" name="oldPassword">
+							</div>
+							<div class="form-group pt-3">
+								<label for="inputPasswordNew">Mật khẩu mới</label> <input
+									type="password" class="form-control" id="inputPasswordNew"
+									required="" name="newPassword"> 
+							</div>
+		
+							<div class="form-group text-end pt-3">
+								<button type="submit" class="btn btn-success btn-lg float-right">Save</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /form card change password -->
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
