@@ -9,94 +9,7 @@
 	<div layout:fragment="content">
 
 
-		<!-- <div class="row">
-			<div class="col-md-6">
-				<h2 class="my-5">Danh ssÃ¡ch sáº£n pháº©m</h2>
-				<table class="table table-striped table-responsive-md">
-					<thead>
-						<tr>
-							<th>TÃªn sáº£n pháº©m</th>
-							<th>MÃ£ sáº£n pháº©m</th>
-							<th>GiÃ¡ sáº£n pháº©m</th>
-							<th>GiÃ¡ khuyáº¿n mÃ£i</th>
-
-							<th>Danh má»¥c sáº£n pháº©m</th>
-							<th>NhÃ  sáº£n xuáº¥t</th>
-							<th>HÃ¬nh áº£nh</th>
-							<th>Giá»� hÃ ng</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="pro : ${products}">
-							<td th:text="${pro.productName}"></td>
-							<td th:text="${pro.productDescription}"></td>
-							<td th:text="${pro.price}"></td>
-							<td th:text="${pro.priceSpecial}"></td>
-
-							<td th:text="${pro.category.name}"></td>
-							<td th:text="${pro.manufacturer.name}"></td>
-							<td><a th:href="@{/upload/{path}(path=${pro.defaultImage})}">
-									<img th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
-									width="100px" height="100px" />
-							</a></td>
-							<td><a class="btn btn-primary" href="#" role="button">ThÃªm
-									vÃ o giá»� hÃ ng</a></td>
-
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-
-
-		</div>
-		<section class=" mt-5">
-			<div class="container">
-				<h3 class="text-center">Deal Hot!!!</h3>
-				<div class="row">
-					<div class="col-12">
-						<h3>Laptop</h3>
-					</div>
-				</div>
-				<div class="row deal-hot-product text-center">
-					<div class="col-2th">
-						<div class="sale-product">
-							<img src="images/hot1.png">
-							<div class="hot-name">
-								<p>LG ULtra</p>
-							</div>
-							<div class="hot-price">
-								23.000.000 VND<a href="#"></a>
-								<p>25.000.000 VND</p>
-								<button type="button" class="btn btn-warning">ThÃªm vaÌ€o
-									gioÌ‰ haÌ€ng</button>
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<h3>SmartPhone</h3>
-					</div>
-					<div class="row deal-hot-product text-center bg-success">
-						<div class="col-2th">
-							<div class="sale-product">
-								<img class="a" src="images/ip1.jpg">
-								<div class="hot-name">
-									<p>LG ULtra</p>
-								</div>
-								<div class="hot-price">
-									23.000.000 VND<a href="#"></a>
-									<p>25.000.000 VND</p>
-									<button type="button" class="btn btn-warning">ThÃªm
-										vaÌ€o gioÌ‰ haÌ€ng</button>
-								</div>
-							</div>
-						</div>
-					</div>
-		</section> -->
+	
 		<section class=" mt-5">
 			<div class="container">
 				<h3 class="text-center">Deal Hot</h3>
@@ -111,8 +24,8 @@
 							<h5 class="hot-price" th:text= "${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}">VND</h5>
 							<h5 class="old-price" th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></h5>
 							
-							<a class="btn btn-primary" href="#" role="button">Thêm
-									vào giỏ hàng</a>	
+							<a class="btn btn-primary" href="#" role="button">ThÃªm
+									vÃ o giá»� hÃ ng</a>	
 							
 						</div>
 					</div>

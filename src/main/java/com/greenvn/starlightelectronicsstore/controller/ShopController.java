@@ -19,14 +19,14 @@ public class ShopController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping("/shop")
+	@GetMapping("/")
 	public String home(Model model) {
 		List<Product> products = this.productService.getProducts();
 		model.addAttribute("products", products);
 		return "shop/home";
 	}
 
-	@RequestMapping(value = "/shop/productInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/productInfo", method = RequestMethod.GET)
 	public String getProduct(Long productId, HttpServletRequest request, Model model) {
 
 		Product product = productService.findProductById(productId);
