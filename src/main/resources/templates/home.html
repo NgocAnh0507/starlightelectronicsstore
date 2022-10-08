@@ -7,24 +7,16 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="row">
-			<a class="nav-link" th:href="@{/admin/categories}">Quản lý danh mục</a><br/>
-			<a class="nav-link" th:href="@{/admin/attributeTypes}">Quản lý loại thuộc tính</a><br/>
-			<a class="nav-link" th:href="@{/admin/productAttributes}">Quản lý thuộc tính</a><br/>
-			<a class="nav-link" th:href="@{/admin/positions}">Quản lý chức vụ</a><br/>
-			<a class="nav-link" th:href="@{/admin/employees}">Quản lý nhân viên</a><br/>
-			<a class="nav-link" th:href="@{/admin/manufacturers}">Quản lý hãng sản xuất</a><br/>
-			<a class="nav-link" th:href="@{/admin/products}">Quản lý sản phẩm</a><br/>
-		</div>
+		
 		
 		<div class="row">
 			<div class="col-md-6">
-				<h2 class="my-5">Danh sách sản phẩm</h2>
+				<h2 class="my-5">Danh ssách sản phẩm</h2>
 				<table class="table table-striped table-responsive-md">
 					<thead>
 						<tr>
 							<th>Tên sản phẩm</th>
-							<th>Mô tả sản phẩm</th>
+							<th>Mã sản phẩm</th>
 							<th>Giá sản phẩm</th>
 							<th>Giá khuyến mãi</th>
 
@@ -50,8 +42,7 @@
 									th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
 									width="100px" height="100px" />
 							</a></td>
-							<td><a class="btn btn-primary" href="#" role="button">Thêm
-									vào giỏ hàng</a></td>
+							<td><a class="btn btn-primary" href="#" role="button">Thêm vào giỏ hàng</a></td>
 
 						</tr>
 					</tbody>
