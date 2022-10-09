@@ -1,13 +1,17 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +31,9 @@ import com.greenvn.starlightelectronicsstore.service.StorageService;
 @Controller
 @RequestMapping(value = "/admin")
 public class EmployeeController {
+	
+	@Autowired
+	private BCryptPasswordEncoder BcryptPasswordEncoder;
 	
 	@Autowired
 	private EmployeeService employeeService;
@@ -180,6 +187,34 @@ public class EmployeeController {
 		employeeService.deleteEmployee(employeeID);
 		if(E.getAvatar() != null)imageService.deleteImage(E.getAvatar().getImageID());
 		return "redirect:/admin/employees";
+	}
+	//Change PassWord
+	@GetMapping("/change-PassWord")
+	public String formChangePw() {
+		return "changePw";
+	}
+	@PostMapping("/change-PassWord")
+	public String changePassword(@RequestParam("oldPassword") String oldPassword
+			,@RequestParam("newPassword") String newPassword,Principal principal
+			) 
+	{
+		System.out.println("OLD PASSWORD"+oldPassword);
+		System.out.println("NEW PASSWORD"+newPassword);
+		String userName = principal.getName();
+		Employee currentEmp = this.employeeService.findEmployeeByUserName(userName);
+		System.out.println(currentEmp.getPassword());
+		if(this.BcryptPasswordEncoder.matches(oldPassword, currentEmp.getPassword())) {
+			
+			currentEmp.setPassword(this.BcryptPasswordEncoder.encode(newPassword));
+			this.employeeService.updateEmployee(currentEmp, currentEmp.getEmployeeID());
+			
+			
+		}else {
+			System.out.println("");
+			return "redirect:/admin/change-PassWord";
+		}
+		return "redirect:/login";
+		
 	}
 }
 
