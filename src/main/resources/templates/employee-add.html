@@ -96,7 +96,7 @@
 						<p th:errors="*{userName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
 						<label for="password" class="col-form-label" style="font-size: 20px;">Mật khẩu:</label> 
-						<input type="text" th:field="*{password}" class="form-control"
+						<input type="password" th:field="*{password}" class="form-control"
 							id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn thêm"  style="font-size: 20px;">
 						<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						 
@@ -118,9 +118,6 @@
 								<i class="fas fa-plus"></i> Thêm chức vụ mới</a> 
 						</div>
 								
-						<input type="checkbox"  th:field="*{isActive}" id="isActive" name="isActive" value="dữ liệu">
-						 <label for="isActive" class="col-form-label" style="font-size: 20px;"> Trạng thái làm việc</label> 
-						<p th:errors="*{isActive}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						 
 						<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
 							Tải lên ảnh đại diện </label> 
@@ -138,6 +135,9 @@
 						<div id="dvPreview"></div>
 							
 						
+						<input type="checkbox"  th:field="*{isActive}" id="isActive" name="isActive" value="dữ liệu">
+						 <label for="isActive" class="col-form-label" style="font-size: 20px;"> Trạng thái làm việc</label> 
+						 
 						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">
 						</div>

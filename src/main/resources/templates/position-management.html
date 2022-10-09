@@ -41,8 +41,7 @@
 										th:href="@{/admin/positions?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											chức vụ</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/positions?(page=${currentPage},sortField='editData',sortDir=${reverseSortDir})}">Quyền
-											chỉnh sửa dữ liệu</a></th>
+										th:href="@{/admin/positions?(page=${currentPage},sortField='role',sortDir=${reverseSortDir})}">Quyền hạn</a></th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
 							</thead>
@@ -53,9 +52,7 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${position.name}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:switch=="${position.editData}">
-										<p th:case="true">Được phép</p>
-										<p th:case="false">Không được phép</p>
+										th:text="${position.role}">
 									</td>
 									<td align="center">
 										<a class="btn btn-warning"
@@ -65,7 +62,8 @@
 										<a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/deletePosition?(positionID=${position.positionID})}">
-											<i class="fas fa-trash-alt"></i> Xóa</a></td>
+											<i class="fas fa-trash-alt"></i> Xóa</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -93,6 +91,13 @@
 					</div>
 					<div class="col-md-2"></div>
 				</div>
+			</div>
+		</div>
+		
+		<div  align="center" th:switch="${messages}">
+			<div th:case="null"></div>
+			<div th:case="*">
+				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
 		<div align="center" style="padding-top: 55px">

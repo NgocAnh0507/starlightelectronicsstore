@@ -97,6 +97,12 @@
 				</div>
 			</div>
 		</div>
+		<div  align="center" th:switch="${messages}">
+			<div th:case="null"></div>
+			<div th:case="*">
+				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+			</div>
+		</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 			th:href="@{/admin/formAddProductAttribute}">

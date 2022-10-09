@@ -85,6 +85,6 @@ public class ImageController {
 	@GetMapping("/deleteImage")
 	public String deleteImage(@RequestParam(name = "imageID")Long imageID, Model model, Long productID) {
 		imageService.deleteImage(imageID);
-		return "redirect:/formUpdateProduct?productID="+productID;
+		return "redirect:/admin/formUpdateProduct?productID="+productID;
 	}
 }

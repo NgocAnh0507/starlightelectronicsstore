@@ -94,6 +94,11 @@ public class ProductAttributeController {
 	
 	@GetMapping("/deleteProductAttribute")
 	public String deleteProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model) {
+		ProductAttribute productAttribute = this.productAttributeService.findProductAttributeById(productAttributeID);
+		if(productAttribute.getProducts().size() > 0) {
+			model.addAttribute("messages","Không thể xóa thuộc tính đang có sản phẩm!");
+			return showProductAttributeList(1,"productAttributeID","asc",model);
+		}
 		this.productAttributeService.deleteProductAttribute(productAttributeID);
 		return "redirect:/admin/productAttributes";
 	}

@@ -56,7 +56,7 @@ public class PositionService {
 	{
 		Position position = findPositionById(positionID);
 		position.setName(positionNew.getName());
-		position.setEditData(positionNew.getEditData());
+		position.setRole(positionNew.getRole());
 		return positionRepository.save(position);
 	}
 	

@@ -20,12 +20,12 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 55px">
+		<div align="center" style="padding-top: 50px">
 			<h1 style="font-size: 35px;">Quản lý loại thuộc tính</h1>
 		</div>
 
 		<div th:switch="${attributeTypes}" class="container-fluid"
-			style="padding-top: 35px">
+			style="padding-top: 30px">
 			<h2 th:case="null" align="center">Chưa có loại thuộc tính nào!</h2>
 			<div th:case="*">
 				<div class="row">
@@ -52,11 +52,11 @@
 									<td align="center">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/formUpdateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
+										th:href="@{/admin/formUpdateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
 										<a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/deleteAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
+										th:href="@{/admin/deleteAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
 											<i class="fas fa-trash-alt"></i> Xóa</a></td>
 								</tr>
 							</tbody>
@@ -86,6 +86,12 @@
 					</div>
 					<div class="col-md-2"></div>
 				</div>
+			</div>
+		</div>
+		<div  align="center" th:switch="${messages}">
+			<div th:case="null"></div>
+			<div th:case="*">
+				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
 		<div align="center" style="padding-top: 55px">

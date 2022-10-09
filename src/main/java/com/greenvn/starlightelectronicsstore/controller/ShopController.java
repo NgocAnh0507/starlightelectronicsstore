@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.service.ProductService;
@@ -26,10 +27,16 @@ public class ShopController {
 		return "shop/home";
 	}
 
-	@RequestMapping(value = "/productInfo", method = RequestMethod.GET)
-	public String getProduct(Long productId, HttpServletRequest request, Model model) {
+	@GetMapping("/dashboard")
+	public String dashboard(Model model) {
+		return "admin";
+	}
+	
+	@GetMapping("/shop/productInfo")
+	public String getProduct(@RequestParam(name = "productID")Long productID, HttpServletRequest request, Model model) {
 
-		Product product = productService.findProductById(productId);
+		Product product = productService.findProductById(productID);
+		model.addAttribute("images", product.getImages());
 		model.addAttribute("product", product);
 		return "shop/product-detail";
 	}

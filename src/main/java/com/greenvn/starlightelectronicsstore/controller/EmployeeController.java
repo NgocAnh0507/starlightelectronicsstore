@@ -185,7 +185,7 @@ public class EmployeeController {
 	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model) {
 		Employee E = employeeService.findEmployeeById(employeeID);
 		employeeService.deleteEmployee(employeeID);
-		imageService.deleteImage(E.getAvatar().getImageID());
+		if(E.getAvatar() != null)imageService.deleteImage(E.getAvatar().getImageID());
 		return "redirect:/admin/employees";
 	}
 	//Change PassWord

@@ -54,6 +54,7 @@ public class EmployeeService {
 		employee.setEmail(employeeNew.getEmail());
 		employee.setName(employeeNew.getName());
 		employee.setPhoneNumber(employeeNew.getPhoneNumber());
+		employee.setAvatar(employeeNew.getAvatar());
 		return employeeRepository.save(employee);
 	}
 	
@@ -106,7 +107,7 @@ public class EmployeeService {
 	{ 
 		for(int i=0; i<numberPhone.length(); i++)
 		{
-			if(numberPhone.charAt(i) <= '0' && numberPhone.charAt(i) >= '9')
+			if(numberPhone.charAt(i) < '0' || numberPhone.charAt(i) > '9')
 				return false;
 		}
 		return true;

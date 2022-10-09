@@ -24,8 +24,9 @@ public class Position {
 	@NotBlank(message = "Tên chức vụ không được để trống!")
 	private String name;
 	
-	@Column(name = "EDIT_DATA",columnDefinition = "BOOLEAN DEFAULT FALSE" )
-	private Boolean editData;
+	@Column(name = "ROLE",columnDefinition = "VARCHAR(55)")
+	@NotBlank(message = "Quyền hạn không được để trống!")
+	private String role;
 
 	@OneToMany(mappedBy = "position")
 	private List<Employee> employees;
@@ -46,20 +47,20 @@ public class Position {
 		this.name = name;
 	}
 
-	public Boolean getEditData() {
-		return editData;
-	}
-
-	public void setEditData(Boolean editData) {
-		this.editData = editData;
-	}
-
 	public List<Employee> getEmployees() {
 		return employees;
 	}
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

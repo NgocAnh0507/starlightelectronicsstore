@@ -63,6 +63,7 @@
 					<div class="col-2th" th:each="pro : ${products}">
 						<div class="sale-product">
 							<img th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
+<<<<<<< HEAD
 								width="200px" height="auto" /> <a
 								th:href="@{/shop/productInfo}"><h3 class="hot- name"
 									th:text="${pro.productName}"></h3></a>
@@ -75,6 +76,17 @@
 							<a class="btn btn-primary" href="#" role="button">Thêm vào
 								giỏ hàng</a>
 
+=======
+									width="200px" height="auto" />
+							
+							<a th:href="@{shop/productInfo?(productID=${pro.productID})}"><h3 class="hot-name" th:text="${pro.productName}"></h3></a>
+							
+							<h5 class="hot-price" th:text= "${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}"></h5>
+							<h5 class="old-price" th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></h5>
+							
+							<a class="btn btn-primary" href="#" role="button">Thêm vào giỏ hàng</a>	
+							
+>>>>>>> e76c0e8b10ef5e89c7a5bbdd47926b2022ef703b
 						</div>
 					</div>
 
