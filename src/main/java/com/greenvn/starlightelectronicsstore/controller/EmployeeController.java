@@ -195,7 +195,7 @@ public class EmployeeController {
 	}
 	@PostMapping("/change-PassWord")
 	public String changePassword(@RequestParam("oldPassword") String oldPassword
-			,@RequestParam("newPassword") String newPassword,Principal principal
+			,@RequestParam("newPassword") String newPassword,Principal principal,Model model
 			) 
 	{
 		System.out.println("OLD PASSWORD"+oldPassword);
@@ -210,8 +210,8 @@ public class EmployeeController {
 			
 			
 		}else {
-			System.out.println("");
-			return "redirect:/admin/change-PassWord";
+			model.addAttribute("message", "Mật khẩu cũ không đúng");
+			return "changePw";
 		}
 		return "redirect:/login";
 		
