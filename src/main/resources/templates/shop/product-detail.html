@@ -32,7 +32,7 @@
 							</h4>
 
 							<p class="card-text" th:text="${product.productDescription}"></p>
-							<a th:href="@{/shop/buyProduct?(id=${product.productID })}"
+							<a th:href="@{/shop/buyProduct?(productID=${product.productID })}"
 								class="btn btn-primary">Thêm vào giỏ hàng <i
 								class="fas fa-shopping-cart"></i></a>
 								 <span class="text-warning">★ ★ ★ ★ ☆</span> 4.0

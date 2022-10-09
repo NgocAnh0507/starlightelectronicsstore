@@ -1,0 +1,140 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-shop}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<title>Giỏ hàng</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="entry-header-area pb-50 pdtop">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="entry-header">
+							<h1 class="entry-title">Giỏ hàng của bạn</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cart-main-area pb-50">
+			<div class="container-fluid">
+				<!-- cart-main-area start -->
+				<div class="cart-main-area ptb-40">
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<div class="table-responsive">
+									<div></div>
+
+									<table id="mainCartTable"
+										class="table table-hover table-condensed">
+
+										<thead>
+											<tr>
+												<th>Ảnh</th>
+												<th>Mã sản phẩm</th>
+												<th>Tên sản phẩm</th>
+
+												<th>Giá</th>
+												<th>Số lượng</th>
+												<th>Tổng</th>
+												<th>Xóa sản phẩm</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<form
+												th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
+												method="POST" th:action="@{/shop/shoppingCart}"
+												th:object="${cartForm}">
+												<div class="product-preview-container">
+													<tr th:each="cartLineInfo,itemStat:*{cartLines}">
+														<td data-th="Image">
+															<div class="row-cart">
+																<div class="col-sm-4 hidden-xs">
+																	<img width="75" height=50 src=""
+																		th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+																</div>
+															</div>
+														</td>
+														<td width="15%"
+															th:text="${cartLineInfo.productInfo.productId}"></td>
+														<input type="hidden"
+															th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
+														<td class="col"
+															th:text="${cartLineInfo.productInfo.productName}"></td>
+														<td class="col"><strong
+															th:text="${cartLineInfo.productInfo.priceSpecial}"></strong>
+														</td>
+														<td class="col"><input
+															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
+														</td>
+														<td th:text="${cartLineInfo.amount}"></td>
+														<td class="col"><a
+															th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
+															<i class="fas fa-trash-alt"></i>
+
+														</a></td>
+													</tr>
+												</div>
+
+												<input class="button-update-sc" type="submit"
+													value="Cập nhật số lượng" />
+											</form>
+										</tbody>
+									</table>
+								</div>
+								<div class="row">
+									<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+										<div class="buttons-cart pdtop">
+											<a class="btn btn-primary" th:href="@{/shop}">Tiếp tục
+												mua hàng</a>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+
+										<div class="cart_totals">
+											<h2>Tổng cộng</h2>
+											<div class="cart-totals-table">
+												<table class="table">
+													<tbody>
+														<tr class="cart-subtotal">
+															<th>Tổng cộng</th>
+															<td th:text="${cartForm.amountTotal}"></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="wc-proceed-to-checkout pdbottom">
+											<a th:href="@{/shop/shoppingCartCustomer}"
+												class="btn btn-primary">Tiếp tục</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
