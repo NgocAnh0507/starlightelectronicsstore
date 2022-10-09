@@ -96,6 +96,11 @@ public class CategoryController {
 	
 	@GetMapping("/deleteCategory")
 	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model) {
+		Category category =  categoryService.findCategoryById(categoryID);
+		if(category.getProductAttributes().size() > 0 || category.getProducts().size() > 0) {
+			model.addAttribute("messages","Không thể xóa danh mục đang có thuộc tính hoặc sản phẩm!");
+			return showCategoryList(1,"categoryID","asc",model);
+		}
 		categoryService.deleteCategory(categoryID);
 		return "redirect:/admin/categories";
 	}

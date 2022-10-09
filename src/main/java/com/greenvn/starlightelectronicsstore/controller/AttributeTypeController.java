@@ -96,8 +96,13 @@ public class AttributeTypeController {
 
 	@GetMapping("/deleteAttributeType")
 	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model) {
+		AttributeType attributeType =  attributeTypeService.findAttributeTypeById(attributeTypeID);
+		if(attributeType.getProductAttributes().size() > 0) {
+			model.addAttribute("messages","Không thể xóa loại thuộc tính đang có thuộc tính!");
+			return showAttributeTypeList(1,"attributeTypeID","asc",model);
+		}
 		attributeTypeService.deleteAttributeType(attributeTypeID);
-		showAttributeTypeList(1,"attributeTypeID","asc",model);
+		
 		return "redirect:/admin/attributeTypes";
 	}
 }

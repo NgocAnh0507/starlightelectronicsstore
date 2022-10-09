@@ -144,6 +144,10 @@ public class ManufacturerController {
 	@GetMapping("/deleteManufacturer")
 	public String deleteManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID, Model model) {
 		Manufacturer M = manufacturerService.findManufacturertById(manufacturerID);
+		if(M.getProducts().size() > 0) {
+			model.addAttribute("messages","Không thể xóa hãng sản xuất đang có sản phẩm!");
+			return showManufacturerList(1,"manufacturerID","asc",model);
+		}
 		manufacturerService.deleteManufacturer(manufacturerID);
 		imageService.deleteImage(M.getLogo().getImageID());
 		return "redirect:/admin/manufacturers";

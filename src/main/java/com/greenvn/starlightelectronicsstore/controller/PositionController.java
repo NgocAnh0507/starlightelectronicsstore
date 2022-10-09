@@ -61,8 +61,6 @@ public class PositionController {
 		}
 		else model.addAttribute("messages",null);
 		
-		if(position.getEditData() == null) position.setEditData(false);
-		
 		positionService.addPosition(position);
 		return "redirect:/admin/positions";
 	}
@@ -88,8 +86,6 @@ public class PositionController {
 			return "position-update";
 		}
 		else model.addAttribute("messages",null);
-
-		if(position.getEditData() == null) position.setEditData(false);
 		
 		positionService.updatePosition(position,positionID);
 		return "redirect:/admin/positions";
@@ -97,6 +93,11 @@ public class PositionController {
 	
 	@GetMapping("/deletePosition")
 	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model) {
+		Position P = positionService.findPositionById(positionID);
+		if(P.getEmployees().size() > 0) {
+			model.addAttribute("messages","Không thể xóa chức vụ đang có nhân viên nắm giữ!");
+			return showPositionList(1, "positionID", "asc", model);
+		}
 		positionService.deletePosition(positionID);
 		return "redirect:/admin/positions";
 		}

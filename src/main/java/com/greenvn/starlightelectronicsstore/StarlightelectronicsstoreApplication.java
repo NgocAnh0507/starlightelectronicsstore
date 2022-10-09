@@ -32,7 +32,7 @@ public class StarlightelectronicsstoreApplication implements CommandLineRunner {
 			if(posSer.findPositionByUserName("Admin")==null) {
 				Position adminPositon = new Position();
 				adminPositon.setName("Admin");
-				adminPositon.setEditData(true);
+				adminPositon.setRole("ADMIN");
 				posSer.addPosition(adminPositon);
 			}
 			empSer.createDefaultAdmin();
