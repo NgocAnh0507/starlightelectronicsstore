@@ -19,7 +19,11 @@ public class ProductInfo {
 		super();
 	}
 	public ProductInfo(Product product) {
-		
+		this.productID = product.getProductID();
+		this.productName = product.getProductName();
+		this.productDescription = product.getProductDescription();
+		this.priceSpecial = product.getPriceSpecial();
+		this.defaultImage = product.getDefaultImage();
 	}
 	public long getProductID() {
 		return productID;

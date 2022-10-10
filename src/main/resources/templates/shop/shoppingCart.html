@@ -43,7 +43,7 @@
 									<table id="mainCartTable"
 										class="table table-hover table-condensed">
 
-										<thead>
+										<!-- <thead>
 											<tr>
 												<th>Ảnh</th>
 												<th>Mã sản phẩm</th>
@@ -55,7 +55,7 @@
 												<th>Xóa sản phẩm</th>
 
 											</tr>
-										</thead>
+										</thead> -->
 										<tbody>
 											<form
 												th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
@@ -72,21 +72,22 @@
 															</div>
 														</td>
 														<td width="15%"
-															th:text="${cartLineInfo.productInfo.productId}"></td>
+															th:text="${cartLineInfo.productInfo.productID}"></td>
 														<input type="hidden"
 															th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
 														<td class="col"
 															th:text="${cartLineInfo.productInfo.productName}"></td>
 														<td class="col"><strong
-															th:text="${cartLineInfo.productInfo.priceSpecial}"></strong>
+															th:text="${#numbers.formatInteger(cartLineInfo.productInfo.priceSpecial,3,'POINT')}"></strong>
 														</td>
 														<td class="col"><input
 															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 														</td>
-														<td th:text="${cartLineInfo.amount}"></td>
+														<td
+															th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></td>
 														<td class="col"><a
 															th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
-															<i class="fas fa-trash-alt"></i>
+																<i class="fas fa-trash-alt"></i>
 
 														</a></td>
 													</tr>
@@ -101,8 +102,8 @@
 								<div class="row">
 									<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
 										<div class="buttons-cart pdtop">
-											<a class="btn btn-primary" th:href="@{/shop}">Tiếp tục
-												mua hàng</a>
+											<a class="btn btn-primary" th:href="@{/}">Tiếp tục mua
+												hàng</a>
 										</div>
 									</div>
 
@@ -115,7 +116,8 @@
 													<tbody>
 														<tr class="cart-subtotal">
 															<th>Tổng cộng</th>
-															<td th:text="${cartForm.amountTotal}"></td>
+															<td
+																th:text="${#numbers.formatInteger(cartForm.amountTotal,0,'POINT')}"></td>
 														</tr>
 													</tbody>
 												</table>
@@ -134,7 +136,55 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
+		<section class="h-100" style="background-color: #eee;">
+			<div class="container h-100 py-5">
+				<div
+					class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-10">
+
+						<div
+							class="d-flex justify-content-between align-items-center mb-4">
+							<h3 class="fw-normal mb-0 text-black">Giỏ hàng của bạn</h3>
+						</div>
+					</div>
+					<div class="card rounded-3 mb-4"th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
+												method="POST" th:action="@{/shop/shoppingCart}"
+												th:object="${cartForm}">
+						<div class="card-body p-4" th:each="cartLineInfo,itemStat:*{cartLines}">
+							<div
+								class="row d-flex justify-content-between align-items-center">
+								<div class="col-md-2 col-lg-2 col-xl-2">
+									<img width="200" height=auto src="" th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+								</div>
+								<div class="col-md-3 col-lg-3 col-xl-3">
+									<p class="lead fw-normal mb-2" th:text="${cartLineInfo.productInfo.productName}"></p>
+									<p>
+										<span th:text="${cartLineInfo.productInfo.productDescription}"></span>
+									</p>
+								</div>
+								<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+									<button class="btn btn-link px-2"
+										onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+										<i class="fas fa-minus"></i>
+									</button>
+
+									<input id="form1" min="0" name="quantity" value="2"
+										type="number" class="form-control form-control-sm" />
+
+									<button class="btn btn-link px-2"
+										onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+										<i class="fas fa-plus"></i>
+									</button>
+								</div>
+								<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+									<h5 class="mb-0">$499.00</h5>
+								</div>
+								<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+									<a href="#!" class="text-danger"><i
+										class="fas fa-trash fa-lg"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
 </body>
 </html>
