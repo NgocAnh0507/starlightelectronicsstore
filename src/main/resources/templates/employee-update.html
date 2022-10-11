@@ -106,7 +106,7 @@
 							 <option th:each="position: ${positions}"
 							 		th:value = "${{position}}"
 							 		th:switch="${position.role}">
-							 		<p th:case="ADMIN "><span th:text="${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
+							 		<p th:case="ADMIN"><span th:text="${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
 							 		<p th:case="MANAGEMENT"><span th:text="${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
 							 		<p th:case="EMPLOYEE"><span th:text="${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
 							 </option> 

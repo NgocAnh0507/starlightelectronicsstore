@@ -66,7 +66,7 @@ public class ProductService {
 		product.setProductDescription(productNew.getProductDescription());
 		product.setProductName(productNew.getProductName());
 		product.setPrice(productNew.getPrice());
-		product.setPriceSpecial(productNew.getPrice());
+		product.setPriceSpecial(productNew.getPriceSpecial());
 		product.setPriceSpecialStartDate(productNew.getPriceSpecialEndDate());
 		product.setPriceSpecialEndDate(productNew.getPriceSpecialEndDate());
 		product.setQuantity(productNew.getQuantity());

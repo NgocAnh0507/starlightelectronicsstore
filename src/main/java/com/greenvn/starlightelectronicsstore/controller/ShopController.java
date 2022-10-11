@@ -49,12 +49,23 @@ public class ShopController {
 	public String getProduct(@RequestParam(name = "productID")Long productID, HttpServletRequest request, Model model) {
 
 		Product product = productService.findProductById(productID);
-		Integer size = product.getProductReviews().size();
+		Integer sizeReviews = product.getProductReviews().size();
+		Integer sizeAttributes = product.getAttributes().size();
 		model.addAttribute("images", product.getImages());
 		model.addAttribute("reviews", product.getProductReviews());
-		model.addAttribute("reviewsCount", size.toString());
+		model.addAttribute("reviewsCount", sizeReviews.toString());
+		model.addAttribute("attributes", product.getAttributes());
+		model.addAttribute("attributesCount", sizeAttributes.toString());
 		model.addAttribute("rating", countRating(product.getProductReviews()).toString());
 		model.addAttribute("product", product);
 		return "shop/product-detail";
+	}
+	
+	@GetMapping("/shop/productDescription")
+	public String getProductDescription(@RequestParam(name = "productName")String productName, HttpServletRequest request, Model model) {
+
+		Product product = productService.findProductByName(productName);
+		model.addAttribute("product", product);
+		return "shop/product-detail-description";
 	}
 }

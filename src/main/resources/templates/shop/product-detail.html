@@ -15,6 +15,21 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    function createPopupWin(pageTitle,
+                popupWinWidth, popupWinHeight) {
+
+	    var pName = document.getElementById("pName").innerText;
+        var left = (screen.width - popupWinWidth) / 2;
+        var top = (screen.height - popupWinHeight) / 4;
+         
+        var myWindow = window.open('/shop/productDescription?productName=' + pName, pageTitle,
+                'resizable=yes, width=' + popupWinWidth
+                + ', height=' + popupWinHeight + ', top='
+                + top + ', left=' + left);
+    }
+</script>
 <title>Chi tiết sản phẩm</title>
 </head>
 <body>
@@ -50,13 +65,74 @@
 			</div>
 			<div class="col-md-5">
 				<h3 align="center"  th:text="${product.category.name} + ' ' + ${product.productName}"></h3>
+				<div align="center" id="SKU">
+					<p>
+						<span th:text="'SKU: ' + ${product.productSKU}" style="font-size: 15px;"></span>
+					</p>
+				</div>
 				<div align="center" id="rating">
 					<p>
 						<span th:text=" ${rating} + ' '"></span><i class='fas fa-star' style="color: #FFD700"></i>
-						<span><span th:text="' / ' + ${reviewsCount} + ' bình luận '"></span><i class='fas fa-comment-dots'></i></pspan>
+						<span><span th:text="' / ' + ${reviewsCount} + ' bình luận '"></span><i class='fas fa-comment-dots'></i></span>
 					</p>
 				</div>
+				<div id="brand" style="padding-left: 10%;">
+					<p>
+						<span th:text=" 'Thương hiệu: ' + ${product.manufacturer.name}" style="font-size: 25px;"></span>
+						<img th:attr="src=@{/upload/{path}(path=${product.manufacturer.logo.name})}"  style="margin-left: 5%; max-width: 15%; border: 1px solid #000000;"/>
+					</p>
+				</div>
+				
+				<div id="price" style="padding-left: 10%;" th:switch="${product.priceSpecial}">
+					<hr/>
+					<div th:case="null">
+						<b><p th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')}" style="font-size: 25px;"></p></b>
+					</div>
+					<div th:case="*">
+						<p class="old-price" th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')}" style="font-size: 25px;"></p>
+						<b><p class="hot-price" th:text="'Giá khuyến mãi: ' + ${#numbers.formatInteger(product.priceSpecial,3,'POINT')}" style="font-size: 25px; color: red;"></p></b>
+						<b><p class="hot-price" th:text="'( Từ ' + ${product.priceSpecialStartDate} + ' đến ' + ${product.priceSpecialEndDate} + ' )'" style="font-size: 15px;"></p></b>
+					</div>
+				</div>
+				<div id="ship" style="padding-left: 10%;" th:switch="${product.freeShip}">
+					<hr/>
+					<div th:case="null"></div>
+					<div th:case="*">
+						<span><i class='fas fa-truck' style='color:green'></i><span th:text="' Giao hàng miễn phí'"></span></span>
+					</div>
+				</div>
+				
+				<div id="attributes" style="padding-left: 10%;" th:switch="${attributesCount}">
+					<hr/>
+					<div th:case="0"></div>
+					<div th:case="*">
+						<p th:text="'Thông tin chung:'" style="font-size: 25px;"></p>
+						<div style="border: 1px solid #000000; border-radius: 5px;">
+							<p th:each="attribute : ${attributes}" th:text="${attribute.type.name} + ': ' + ${attribute.value}" style="padding-left: 3%; font-size: 20px;"></p>
+						</div>
+					</div>
+				</div>
+				
+				<div id="description" style="padding-left: 10%; " th:switch="${product.productDescription}">
+					<hr/>
+					<div th:case="null"></div>
+					<div th:case="*">
+						<p type="text" th:text="*{product.productName}"
+							id="pName" hidden="hidden"></p>
+						<button class="btn btn-success btn-sm" style="font-size: 20px;"
+						    th:onclick = "createPopupWin('Thông tin chi tiết', 550, 650);">
+					        Thông tin chi tiết
+					    </button>
+					</div>
+				</div>
+				
+				<div id="button" style="padding-left: 10%; " align="center"  >
+					<hr/>
+					<button type="button" class="btn btn-primary">Mua ngay!</button>
+					<button type="button" class="btn btn-outline-primary">Thêm vào giỏ hàng</button>
+				</div>
 			</div>
+			
 			<div class="col-md-1"></div>
 		</div>
 	</div>
