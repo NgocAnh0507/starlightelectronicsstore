@@ -89,7 +89,7 @@ public class EmployeeService {
 		String password = passwordEncoder.encode("123456");
 		Position adminPositon = positionRepository.findPositionByName("Admin");
 		
-		List<Position>positions = new ArrayList<Position>();
+		List<Position> positions = new ArrayList<Position>();
 		positions.add(adminPositon);
 		Employee emp = new Employee();
 		emp.setBithYear(1996);

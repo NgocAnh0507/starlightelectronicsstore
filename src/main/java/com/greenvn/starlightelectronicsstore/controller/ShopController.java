@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Product;
+import com.greenvn.starlightelectronicsstore.entities.ProductReview;
 import com.greenvn.starlightelectronicsstore.service.ProductService;
 
 @Controller
@@ -32,11 +33,27 @@ public class ShopController {
 		return "admin";
 	}
 	
+	private Double countRating(List<ProductReview> list) {
+		Double rating = 0.0, size = (double) list.size();
+		if(size == 0.0) return rating;
+		
+		for(ProductReview r : list) {
+			rating += (r.getRating()*1.0);
+		}
+		
+		rating /= size;
+		return rating;
+	}
+	
 	@GetMapping("/shop/productInfo")
 	public String getProduct(@RequestParam(name = "productID")Long productID, HttpServletRequest request, Model model) {
 
 		Product product = productService.findProductById(productID);
+		Integer size = product.getProductReviews().size();
 		model.addAttribute("images", product.getImages());
+		model.addAttribute("reviews", product.getProductReviews());
+		model.addAttribute("reviewsCount", size.toString());
+		model.addAttribute("rating", countRating(product.getProductReviews()).toString());
 		model.addAttribute("product", product);
 		return "shop/product-detail";
 	}

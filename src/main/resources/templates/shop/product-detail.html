@@ -19,30 +19,45 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="container pdtop">
+		<div align="center" style="padding-top: 35px">
+			<h1 style="font-size: 35px;">Chi tiết sản phẩm</h1>
+		</div>
+		<div class="container-fliud pt-5">
 			<div class="row">
-				<div class="col-lg-9">
-					<div class="card mt-4">
-						<img class="card-img-top img-fluid"
-							th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"  width="100px" height="100px"/>
-						<div class="card-body">
-							<h3 class="card-title" th:text="${product.productName}"></h3>
-							<h4>
-								<span th:text="${product.price}"></span>
-							</h4>
-
-							<p class="card-text" th:text="${product.productDescription}"></p>
-							<a th:href="@{/shop/buyProduct?(productID=${product.productID })}"
-								class="btn btn-primary">Thêm vào giỏ hàng <i
-								class="fas fa-shopping-cart"></i></a>
-								 <span class="text-warning">★ ★ ★ ★ ☆</span> 4.0
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+				
+					<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img class="d-block w-100" th:attr="src=@{/upload/{path}(path=${product.defaultImage})}" style="max-width: 90%; padding-left: 10%"/>
+							</div>
+							<div class="carousel-item " th:each="image : ${images}">
+								<img class="d-block w-100" th:attr="src=@{/upload/{path}(path=${image.name})}" style="max-width: 90%; padding-left: 10%"/>
+							</div> 
 						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#myCarousel" data-bs-slide="prev">
+							<span><i class="fa fa-angle-left" aria-hidden="true" style="color:#000000; font-size: 55px;" ></i></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#myCarousel" data-bs-slide="next">
+							<span><i class="fa fa-angle-right" aria-hidden="true" style="color:#000000; font-size: 55px;"></i></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
-					<!-- /.card -->
-
-				</div>
-				<!-- /.col-lg-9 -->
 			</div>
+			<div class="col-md-5">
+				<h3 align="center"  th:text="${product.category.name} + ' ' + ${product.productName}"></h3>
+				<div align="center" id="rating">
+					<p>
+						<span th:text=" ${rating} + ' '"></span><i class='fas fa-star' style="color: #FFD700"></i>
+						<span><span th:text="' / ' + ${reviewsCount} + ' bình luận '"></span><i class='fas fa-comment-dots'></i></pspan>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
 		</div>
 	</div>
 

@@ -105,9 +105,10 @@
 						 	 <option th:value="null" selected="selected">- Chọn chức vụ -</option>
 							 <option th:each="position: ${positions}"
 							 		th:value = "${{position}}"
-							 		th:switch="${position.editData}">
-							 		<p th:case="true"><span th:text="${position.name}"></span> - Được phép chỉnh sửa dữ liệu</p>
-							 		<p th:case="false"><span th:text="${position.name}"></span> - Không được phép chỉnh sửa dữ liệu</p>
+							 		th:switch="${position.role}">
+							 		<p th:case="ADMIN "><span th:text="${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
+							 		<p th:case="MANAGEMENT"><span th:text="${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
+							 		<p th:case="EMPLOYEE"><span th:text="${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
 							 </option> 
 						 </select>
 						 <p th:errors="*{position}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>

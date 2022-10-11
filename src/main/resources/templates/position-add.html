@@ -41,13 +41,13 @@
 						<label class="col-form-label" style="font-size: 20px;">Quyền hạn:</label> 
 						<br/>
 						<input type="radio"  th:field="*{role}" value="ADMIN">
-						<label class="col-form-label" style="font-size: 20px;"> ADMIN - Có quyền chỉnh sửa dữ liệu và thông tin nhân viên </label> 
+						<label class="col-form-label" style="font-size: 20px;"> ADMIN - Được phép chỉnh sửa dữ liệu và thông tin nhân viên </label> 
 						<br/>
 						<input type="radio"  th:field="*{role}" value="MANAGEMENT">
-						<label class="col-form-label" style="font-size: 20px;"> MANAGEMENT - Có quyền chỉnh sửa dữ liệu </label> 
+						<label class="col-form-label" style="font-size: 20px;"> MANAGEMENT - Được phép chỉnh sửa dữ liệu </label> 
 						<br/>
 						<input type="radio"  th:field="*{role}" value="EMPLOYEE">
-						<label class="col-form-label" style="font-size: 20px;"> EMPLOYEE - Chỉ có quyền xem dữ liệu </label> 
+						<label class="col-form-label" style="font-size: 20px;"> EMPLOYEE - Chỉ được phép xem dữ liệu </label> 
 						<br/>
 						<p th:errors="*{role}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
