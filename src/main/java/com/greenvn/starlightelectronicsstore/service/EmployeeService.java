@@ -1,6 +1,8 @@
 package com.greenvn.starlightelectronicsstore.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class EmployeeService {
 		employee.setPassword(employeeNew.getPassword());
 		employee.setIsActive(employeeNew.getIsActive());
 		employee.setPosition(employeeNew.getPosition());
-		employee.setBithYear(employeeNew.getBithYear());
+		employee.setBirthday(employeeNew.getBirthday());
 		employee.setEmail(employeeNew.getEmail());
 		employee.setName(employeeNew.getName());
 		employee.setPhoneNumber(employeeNew.getPhoneNumber());
@@ -88,11 +90,13 @@ public class EmployeeService {
 	public void createDefaultAdmin() throws Exception{
 		String password = passwordEncoder.encode("123456");
 		Position adminPositon = positionRepository.findPositionByName("Admin");
-		
+		String sDate1="01/01/1996";  
+	    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
+	    
 		List<Position> positions = new ArrayList<Position>();
 		positions.add(adminPositon);
 		Employee emp = new Employee();
-		emp.setBithYear(1996);
+		emp.setBirthday(date1);
 		emp.setEmail("haivuong258@gmail.com");
 		emp.setIsActive(true);
 		emp.setName("Hai");

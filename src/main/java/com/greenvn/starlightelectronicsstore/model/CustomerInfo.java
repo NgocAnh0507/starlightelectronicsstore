@@ -1,8 +1,13 @@
 package com.greenvn.starlightelectronicsstore.model;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class CustomerInfo {
 	private String name;
-	private Integer birthYear;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private Date birthday;
 	private String street;
 	private String district;
 	private String city;
@@ -14,7 +19,7 @@ public class CustomerInfo {
 
 	public CustomerInfo(CustomerInfo customerInfo) {
 		this.name = customerInfo.getName();
-		this.birthYear = customerInfo.getBirthYear();
+		this.birthday = customerInfo.getBirthday();
 		this.street = customerInfo.getStreet();
 		this.district = customerInfo.getDistrict();
 		this.city = customerInfo.getCity();
@@ -70,12 +75,13 @@ public class CustomerInfo {
 		this.numberPhone = numberPhone;
 	}
 
-	public Integer getBirthYear() {
-		return birthYear;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setBirthYear(Integer birthYear) {
-		this.birthYear = birthYear;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
+
 	
 }

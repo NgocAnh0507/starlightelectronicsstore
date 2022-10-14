@@ -1,10 +1,14 @@
 package com.greenvn.starlightelectronicsstore.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
 public abstract class Person {
@@ -14,9 +18,10 @@ public abstract class Person {
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 	
-	@Column(name = "BIRTH_YEAR",columnDefinition = "INT")
-	@NotNull(message = "Năm sinh không được để trống!")
-	private Integer bithYear;
+	@Column(name = "BIRTHDAY",columnDefinition = "DATETIME")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@NotNull(message = "Ngày sinh không được để trống!")
+	private Date birthday;
 
 	@Column(name = "PHONE_NUMBER",columnDefinition = "VARCHAR(15)")
 	@NotBlank(message = "Số điện thoại không được để trống!")
@@ -35,12 +40,12 @@ public abstract class Person {
 		this.name = name;
 	}
 
-	public Integer getBithYear() {
-		return bithYear;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setBithYear(Integer bithYear) {
-		this.bithYear = bithYear;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getPhoneNumber() {

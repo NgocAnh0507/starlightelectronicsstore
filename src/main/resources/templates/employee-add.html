@@ -69,10 +69,10 @@
 							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
 						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
-						<label for="bithYear" class="col-form-label" style="font-size: 20px;">Năm sinh:</label> 
-						<input type="number" min="1900" max="2100" step="1" value="2000" 
-							th:field="*{bithYear}"  class="form-control" id="bithYear"  style="font-size: 20px;">
-						<p th:errors="*{bithYear}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<label for="birthday" class="col-form-label" style="font-size: 20px;">Ngày sinh:</label> 
+						<input type="datetime-local"
+							th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
+						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
 						<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
 						<input type="text" th:field="*{phoneNumber}" class="form-control"
@@ -106,9 +106,9 @@
 							 <option th:each="position: ${positions}"
 							 		th:value = "${{position}}"
 							 		th:switch="${position.role}">
-							 		<p th:case="ADMIN"><span th:text="${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
-							 		<p th:case="MANAGEMENT"><span th:text="${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
-							 		<p th:case="EMPLOYEE"><span th:text="${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
+							 		<p th:case="ADMIN"><span th:text="${position.name} + ' - ' + ${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
+							 		<p th:case="MANAGEMENT"><span th:text="${position.name} + ' - ' + ${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
+							 		<p th:case="EMPLOYEE"><span th:text="${position.name} + ' - ' + ${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
 							 </option> 
 						 </select>
 						 <p th:errors="*{position}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>

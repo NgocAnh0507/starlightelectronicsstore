@@ -1,6 +1,9 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,22 +113,27 @@ public class ShoppingCartController {
 	
 	@RequestMapping(value = { "/shoppingCartConfirmation" }, method = RequestMethod.POST)
 			public String shoppingCartCustomerSave(@ModelAttribute("customerInfo") CustomerInfo customerInfo,
-			HttpServletRequest request, Model model) 
+			HttpServletRequest request, Model model) throws ParseException 
 	{
 		CartInfo cartInfo = Utils.getCartInSession(request);
 		
+		String sDate1="01/01/1990";  
+	    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
+		String sDate2="30/12/2020";  
+	    Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(sDate2);  
+	    
 		Boolean checkCustomer = true;
 		if (customerInfo.getName() == null || customerInfo.getName().isEmpty()) {
 			model.addAttribute("nameMessages", "Họ và tên không được để trống!");
 			checkCustomer = false;
 		}
-		if (customerInfo.getBirthYear() == null) {
-			model.addAttribute("birthYearMessages", "Năm sinh không được để trống!");
+		if (customerInfo.getBirthday() == null) {
+			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
 			checkCustomer = false;
 		}
-		else if(customerInfo.getBirthYear() < 1900 || customerInfo.getBirthYear() > 2020)
+		else if(customerInfo.getBirthday().before(date1) || customerInfo.getBirthday().after(date2))
 		{
-			model.addAttribute("birthYearMessages", "Năm sinh không được nhỏ hơn 1900 hoặc lớn hơn 2020!");
+			model.addAttribute("birthdayMessages", "Ngày sinh không được trước ngày 01/01/1990 hoặc sau ngày 30/12/2020!");
 			checkCustomer = false;
 		}
 		if (customerInfo.getStreet() == null ||

@@ -42,7 +42,7 @@ public class CustomerService {
 				
 		Customer customer = new Customer();
 		customer.setAddress(address);
-		customer.setBithYear(customerInfo.getBirthYear());
+		customer.setBirthday(customerInfo.getBirthday());
 		customer.setEmail(customerInfo.getEmail());
 		customer.setName(customerInfo.getName());
 		customer.setPhoneNumber(customerInfo.getNumberPhone());
@@ -60,7 +60,7 @@ public class CustomerService {
 	{
 		Customer customer = findCustomerById(customerID);
 		customer.setAddress(customertNew.getAddress());
-		customer.setBithYear(customertNew.getBithYear());
+		customer.setBirthday(customertNew.getBirthday());
 		customer.setEmail(customertNew.getEmail());
 		customer.setName(customertNew.getName());
 		customer.setPhoneNumber(customertNew.getPhoneNumber());

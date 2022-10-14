@@ -57,19 +57,19 @@
 									<div class="col-md-6">
 
 										<div class="checkout-form-list">
-											<label>Năm sinh<span class="required">*</span></label> <input
-												class="form-control" th:field="*{birthYear}"
-												id="customer.birthYear" name="customer.billing.birthYear"
-												title="Birthyear is required" autofocus="autofocus"
-												type="number"
+											<label>Ngày sinh<span class="required">*</span></label> <input
+												class="form-control" th:field="*{birthday}"
+												id="customer.birthday" name="customer.billing.birthday"
+												title="Birthday is required" autofocus="autofocus"
+												type="datetime-local"
 												style="background-color: rgb(240, 255, 255);"
-												placeholder="Năm sinh" /> <span
-												id="error-customer.billing.birthYear" class="error"></span>
+												placeholder="Ngày sinh" /> <span
+												id="error-customer.billing.birthday" class="error"></span>
 										</div>
-										<div th:switch="${birthYearMessages}">
+										<div th:switch="${birthdayMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
-												<p th:text="${birthYearMessages}" class="text-danger"
+												<p th:text="${birthdayMessages}" class="text-danger"
 													style="font-size: 20px; padding-top: 15px;"></p>
 											</div>
 										</div>
