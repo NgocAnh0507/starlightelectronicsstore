@@ -24,7 +24,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="entry-header">
-							<h1 class="entry-title">Giỏ hàng của bạn</h1>
+							<h1 class="entry-title" align="center" >Giỏ hàng của bạn</h1>
 						</div>
 					</div>
 				</div>
@@ -43,25 +43,23 @@
 									<table id="mainCartTable"
 										class="table table-hover table-condensed">
 
-										<!-- <thead>
+										<thead>
 											<tr>
-												<th>Ảnh</th>
+												<th>Ảnh sản phẩm</th>
 												<th>Mã sản phẩm</th>
 												<th>Tên sản phẩm</th>
 
 												<th>Giá</th>
 												<th>Số lượng</th>
-												<th>Tổng</th>
+												<th>Thành tiền</th>
 												<th>Xóa sản phẩm</th>
 
 											</tr>
-										</thead> -->
+										</thead>
 										<tbody>
-											<form
-												th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
+											<form th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
 												method="POST" th:action="@{/shop/shoppingCart}"
 												th:object="${cartForm}">
-												<div class="product-preview-container">
 													<tr th:each="cartLineInfo,itemStat:*{cartLines}">
 														<td data-th="Image">
 															<div class="row-cart">
@@ -77,23 +75,20 @@
 															th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
 														<td class="col"
 															th:text="${cartLineInfo.productInfo.productName}"></td>
-														<td class="col"
-															th:text="${cartLineInfo.productInfo.productDescription}"></td>
-														<td class="col"><strong
-															th:text="${#numbers.formatInteger(cartLineInfo.productInfo.priceSpecial,3,'POINT')}"></strong>
+														<td class="col">
+															<strong th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
 														</td>
-														<td class="col"><input
+														<td class="col"><input type="number"
 															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 														</td>
 														<td
 															th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></td>
-														<td class="col"><a
+														<td class="col"><a class="btn btn-danger"
 															th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
-																<i class="fas fa-trash-alt"></i>
+																<i class="fas fa-trash-alt"></i> Xóa
 
 														</a></td>
 													</tr>
-												</div>
 
 												<input class="button-update-sc" type="submit"
 													value="Cập nhật số lượng" />
@@ -108,7 +103,8 @@
 												hàng</a>
 										</div>
 									</div>
-
+								</div>
+								<div class="row">
 									<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
 
 										<div class="cart_totals">
@@ -127,8 +123,8 @@
 										</div>
 
 										<div class="wc-proceed-to-checkout pdbottom">
-											<a th:href="@{/shop/shoppingCartCustomer}"
-												class="btn btn-primary">Tiếp tục</a>
+											<a th:href="@{/shop/shoppingCartConfirmation}"
+												class="btn btn-primary">Thanh toán</a>
 										</div>
 									</div>
 								</div>
@@ -139,7 +135,5 @@
 			</div>
 		</div>
 		
-</div>
-					
 </body>
 </html>

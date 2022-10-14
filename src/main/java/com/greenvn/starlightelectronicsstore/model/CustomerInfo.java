@@ -1,43 +1,33 @@
 package com.greenvn.starlightelectronicsstore.model;
 
 public class CustomerInfo {
-	private String firstName;
-	private String lastName;
+	private String name;
+	private Integer birthYear;
 	private String street;
 	private String district;
 	private String city;
 	private String email;
 	private String numberPhone;
-	private boolean valid;
 
 	public CustomerInfo() {
 	}
 
-	public CustomerInfo(CustomerForm customerForm) {
-		this.firstName = customerForm.getFirstName();
-		this.lastName = customerForm.getLastName();
-		this.street = customerForm.getStreet();
-		this.district = customerForm.getDistrict();
-		this.city = customerForm.getCity();
-		this.email = customerForm.getEmail();
-		this.numberPhone = customerForm.getNumberPhone();
-		this.valid = customerForm.isValid();
+	public CustomerInfo(CustomerInfo customerInfo) {
+		this.name = customerInfo.getName();
+		this.birthYear = customerInfo.getBirthYear();
+		this.street = customerInfo.getStreet();
+		this.district = customerInfo.getDistrict();
+		this.city = customerInfo.getCity();
+		this.email = customerInfo.getEmail();
+		this.numberPhone = customerInfo.getNumberPhone();
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getStreet() {
@@ -80,11 +70,12 @@ public class CustomerInfo {
 		this.numberPhone = numberPhone;
 	}
 
-	public boolean isValid() {
-		return valid;
+	public Integer getBirthYear() {
+		return birthYear;
 	}
 
-	public void setValid(boolean valid) {
-		this.valid = valid;
+	public void setBirthYear(Integer birthYear) {
+		this.birthYear = birthYear;
 	}
+	
 }

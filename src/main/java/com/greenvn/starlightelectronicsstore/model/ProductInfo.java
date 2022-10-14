@@ -9,11 +9,8 @@ public class ProductInfo {
 	private long productID;
 	private String productName;
 	private String productDescription;
-	private Double priceSpecial;
+	private Double price;
 	private String defaultImage;
-	
-	
-	
 	
 	public ProductInfo() {
 		super();
@@ -22,7 +19,8 @@ public class ProductInfo {
 		this.productID = product.getProductID();
 		this.productName = product.getProductName();
 		this.productDescription = product.getProductDescription();
-		this.priceSpecial = product.getPriceSpecial();
+		if(product.getPriceSpecial() != null) this.price = product.getPriceSpecial();
+		else this.price = product.getPrice();
 		this.defaultImage = product.getDefaultImage();
 	}
 	public long getProductID() {
@@ -43,11 +41,11 @@ public class ProductInfo {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
-	public Double getPriceSpecial() {
-		return priceSpecial;
+	public Double getPrice() {
+		return price;
 	}
-	public void setPriceSpecial(Double priceSpecial) {
-		this.priceSpecial = priceSpecial;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 	public String getDefaultImage() {
 		return defaultImage;
@@ -55,7 +53,5 @@ public class ProductInfo {
 	public void setDefaultImage(String defaultImage) {
 		this.defaultImage = defaultImage;
 	}
-	
-	
 	
 }

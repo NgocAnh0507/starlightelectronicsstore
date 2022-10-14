@@ -23,11 +23,21 @@ public class OrderDetail {
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
 	@NotNull(message = "Số lượng hiện có không được để trống!")
-	private Integer quantity;
+	private Double quantity;
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
 	@NotNull(message = "Giá bán không được để trống!")
 	private Double price;
+	
+	public OrderDetail() {
+		super();
+	}
+
+	public OrderDetail(OrderDetailID orderDetailID) {
+		super();
+		this.orderID = orderDetailID.getOrderID();
+		this.productID = orderDetailID.getProductID();
+	}
 
 	public long getOrderID() {
 		return orderID;
@@ -45,11 +55,11 @@ public class OrderDetail {
 		this.productID = productID;
 	}
 
-	public Integer getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 

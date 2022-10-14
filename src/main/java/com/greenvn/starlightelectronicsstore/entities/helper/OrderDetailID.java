@@ -4,30 +4,34 @@ import java.io.Serializable;
 
 public class OrderDetailID implements Serializable {
 	
-	 private Long productID;
+	 private long productID;
 
-	 private Long orderID;
+	 private long orderID;
 
-	public Long getProductID() {
+	public long getProductID() {
 		return productID;
 	}
 
-	public void setProductID(Long productID) {
+	public void setProductID(long productID) {
 		this.productID = productID;
 	}
 
-	public Long getOrderID() {
+	public long getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderID(Long orderID) {
+	public void setOrderID(long orderID) {
 		this.orderID = orderID;
 	}
 
-	public OrderDetailID(Long productID, Long orderID) {
+	public OrderDetailID(long productID, long orderID) {
 		super();
 		this.productID = productID;
 		this.orderID = orderID;
+	}
+
+	public OrderDetailID() {
+		super();
 	}
 	 
 	 

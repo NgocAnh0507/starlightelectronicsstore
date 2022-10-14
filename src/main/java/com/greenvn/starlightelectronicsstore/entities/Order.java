@@ -40,6 +40,10 @@ public class Order {
 	@Column(name = "ORDER_DATE", columnDefinition = "DATETIME")
 	@NotNull(message = "Ngày mua không được để trống!")
 	private Date orderDate;
+	
+	@Column(name = "FASTSHIP", columnDefinition = "BOOLEAN NOT NULL")
+	@NotNull(message = "Chuyển phát nhanh không được để trống!")
+	private Boolean fastShip;
 
 	public long getOrderID() {
 		return orderID;
@@ -87,6 +91,14 @@ public class Order {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public Boolean getFastShip() {
+		return fastShip;
+	}
+
+	public void setFastShip(Boolean fastShip) {
+		this.fastShip = fastShip;
 	}
 
 }

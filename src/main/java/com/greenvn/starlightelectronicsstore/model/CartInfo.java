@@ -7,7 +7,8 @@ import com.greenvn.starlightelectronicsstore.entities.Product;
 
 public class CartInfo {
 	private CustomerInfo customerInfo;
-	private Long orderNum;
+	private Boolean fastShip;
+	private long orderID;
 	private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
 
 	public CustomerInfo getCustomerInfo() {
@@ -22,12 +23,20 @@ public class CartInfo {
 		return cartLines;
 	}
 
-	public Long getOrderNum() {
-		return orderNum;
+	public Boolean getFastShip() {
+		return fastShip;
 	}
 
-	public void setOrderNum(Long orderNum) {
-		this.orderNum = orderNum;
+	public void setFastShip(Boolean fastShip) {
+		this.fastShip = fastShip;
+	}
+
+	public long getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(long orderID) {
+		this.orderID = orderID;
 	}
 
 	private CartLineInfo findLineById(Long productID) {
@@ -39,15 +48,15 @@ public class CartInfo {
 		return null;
 	}
 
-	public void addProduct(ProductInfo productInfo, int quantity) {
+	public void addProduct(ProductInfo productInfo, Double quantity) {
 		CartLineInfo line = this.findLineById(productInfo.getProductID());
 		if (line == null) {
 			line = new CartLineInfo();
-			line.setQuantity(0);
+			line.setQuantity(0.0);
 			line.setProductInfo(productInfo);
 			this.cartLines.add(line);
 		}
-		int newQuantity = line.getQuantity() + quantity;
+		Double newQuantity = line.getQuantity() + quantity;
 		if (newQuantity <= 0) {
 			this.cartLines.remove(line);
 		} else {
@@ -55,7 +64,7 @@ public class CartInfo {
 		}
 	}
 
-	public void updateProduct(Long productID, int quantity) {
+	public void updateProduct(Long productID, Double quantity) {
 		CartLineInfo line = this.findLineById(productID);
 		if (line != null) {
 			if (quantity <= 0) {

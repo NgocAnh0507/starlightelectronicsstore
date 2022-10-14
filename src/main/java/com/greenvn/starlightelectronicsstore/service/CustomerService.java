@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.greenvn.starlightelectronicsstore.entities.Customer;
+import com.greenvn.starlightelectronicsstore.model.CustomerInfo;
 import com.greenvn.starlightelectronicsstore.repository.CustomerRepository;
 
 @Service
@@ -21,6 +22,31 @@ public class CustomerService {
 	
 	public Customer addCustomer(Customer customer)
 	{
+		Customer customerSaved = customerRepository.save(customer);
+		return customerSaved;
+	}
+
+	public boolean checkPhoneNumber(String numberPhone)
+	{ 
+		for(int i=0; i<numberPhone.length(); i++)
+		{
+			if(numberPhone.charAt(i) < '0' || numberPhone.charAt(i) > '9')
+				return false;
+		}
+		return true;
+	}
+
+	public Customer addCustomer(CustomerInfo customerInfo)
+	{
+		String address = customerInfo.getStreet() + ", " + customerInfo.getDistrict() + ", " + customerInfo.getCity();
+				
+		Customer customer = new Customer();
+		customer.setAddress(address);
+		customer.setBithYear(customerInfo.getBirthYear());
+		customer.setEmail(customerInfo.getEmail());
+		customer.setName(customerInfo.getName());
+		customer.setPhoneNumber(customerInfo.getNumberPhone());
+		
 		Customer customerSaved = customerRepository.save(customer);
 		return customerSaved;
 	}
