@@ -27,6 +27,19 @@ public class ShopController {
 		model.addAttribute("products", products);
 		return "shop/home";
 	}
+	
+	@GetMapping("/shop/byApple")
+	public String listByApple(Model model) {
+		List<Product>products = productService.getProductByManufacturer("APPLE");
+		model.addAttribute("products", products);
+		return "listByApple";
+	}
+	@GetMapping("/shop/bySamsung")
+	public String listBySamsung(Model model) {
+		List<Product>products = productService.getProductByManufacturer("SAMSUNG");
+		model.addAttribute("products", products);
+		return "listBySamsung";
+	}
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model) {
@@ -67,5 +80,50 @@ public class ShopController {
 		Product product = productService.findProductByName(productName);
 		model.addAttribute("product", product);
 		return "shop/product-detail-description";
+	}
+	@GetMapping("/shop/thanhtoanvatienich")
+	public String thanhToanVaTienIchPage() {
+		return "thanhtoanvatienich";
+	}
+	@GetMapping("/shop/tinmoi")
+	public String tinMoiPage() {
+		return "tinmoi";
+	}
+	@GetMapping("/shop/khuyenmai")
+	public String khuyenMaiPage() {
+		return "khuyenmai";
+	}
+	@GetMapping("/shop/appvagame")
+	public String appvaGamePage() {
+		return "appvagame";
+	}
+	@GetMapping("/shop/tuvan")
+	public String tuvanPage() {
+		return "tuvan";
+	}
+	@GetMapping("/shop/quydinhchung")
+	public String quydinhPage() {
+		return "quydinhchung";
+	}
+	//
+	@GetMapping("/shop/huongdanmuahang")
+	public String huongdanmuahangPage() {
+		return "huongdanmuahang";
+	}
+	@GetMapping("/shop/thanhtoanvagiaonhan")
+	public String thanhtoanvagiaonhanPage() {
+		return "thanhtoanvagiaonhan";
+	}
+	@GetMapping("/shop/caccauhoi")
+	public String caccauhoiPage() {
+		return "caccauhoi";
+	}
+	@GetMapping("/shop/huongdandoitra")
+	public String huongdandoitraPage() {
+		return "huongdandoitra";
+	}
+	@GetMapping("/shop/baomatthongtin")
+	public String baomatthongtinkhPage() {
+		return "baomatthongtinkh";
 	}
 }

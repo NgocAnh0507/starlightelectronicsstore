@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout-shop}">
 <head>
-<title>Welcome to Our Site</title>
+<title>Samsung</title>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -26,16 +26,16 @@
 							</div>
 							<div class="carousel-inner ">
 								<div class="carousel-item active" data-bs-interval="10000">
-									<img src="images/slide4.png" class="d-block w-100 " alt="...">
+									<!-- <img src="images/slide4.png" class="d-block w-100 " alt="..."> -->
+									<img th:attr="src=@{/images/slide4.png}" class="d-block w-100 " alt="...">
 									<div class="carousel-caption d-none d-md-block"></div>
 								</div>
 								<div class="carousel-item " data-bs-interval="2000">
-									<img src="images/slide5.png" class="d-block w-100 " alt="...">
-									<img th:attr="src=@{/images/km1.png}">
+									<img th:attr="src=@{/images/slide5.png}" class="d-block w-100 " alt="...">
 									<div class="carousel-caption d-none d-md-block"></div>
 								</div>
 								<div class="carousel-item ">
-									<img src="images/slide6.png" class="d-block w-100 " alt="...">
+									<img th:attr="src=@{/images/slide6.png}" class="d-block w-100 " alt="...">
 									<div class="carousel-caption d-none d-md-block"></div>
 								</div>
 							</div>
@@ -64,17 +64,17 @@
 					<div class="col-2th" th:each="pro : ${products}">
 						<div class="sale-product">
 							<img th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
-								width="200px" height="auto" /> 
-								<a th:href="@{/shop/productInfo?(productID=${pro.productID})}">
-									<h3 class="hot-name" th:text="${pro.productName}"></h3>
-								</a>
+								width="200px" height="auto" /> <a
+								th:href="@{/shop/productInfo?(productID=${pro.productID})}">
+								<h3 class="hot-name" th:text="${pro.productName}"></h3>
+							</a>
 
 							<h5 class="hot-price"
 								th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}"></h5>
 							<h5 class="old-price"
 								th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></h5>
 
-							
+
 
 						</div>
 					</div>

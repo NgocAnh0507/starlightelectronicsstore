@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,7 +26,15 @@ public class ProductService {
 	{
 		return this.productRepository.findAll();
 	}
-	
+	public List<Product> getProductByManufacturer(String ManufacturerName){
+		List<Product> products = productRepository.findAll();
+		for(Product product1:products ) {
+			if(product1.getCategory().equals(ManufacturerName)) {
+				products.add(product1);
+			}
+		}
+		return products;
+	}
 	public Product addProduct(Product product)
 	{
 		Product productSaved = productRepository.save(product);
@@ -94,4 +103,6 @@ public class ProductService {
 				Page<Product> pageProduct = productRepository.findAll(pageable);
 				return pageProduct;
 		}
+		
+		
 }
