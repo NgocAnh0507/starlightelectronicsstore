@@ -73,6 +73,12 @@
 						<input type="datetime-local"
 							th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
 						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div th:switch="${birthdayMessages}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${birthdayMessages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
 						
 						<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
 						<input type="text" th:field="*{phoneNumber}" class="form-control"

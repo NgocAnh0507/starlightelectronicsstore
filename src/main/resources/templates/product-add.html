@@ -93,15 +93,7 @@
 						<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
 						<input type="number" th:field="*{priceSpecial}" class="form-control"
 							id="priceSpecial" placeholder="Hãy nhập giá khuyến mãi của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
-						
-						 <label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu khuyến mãi: </label> 
-						<input type="datetime-local"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
-						<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
-						
-						 <label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày hết khuyến mãi: </label> 
-						<input type="datetime-local"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
-						<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
 						<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
 						<input type="number" th:field="*{quantity}" class="form-control"

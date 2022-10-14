@@ -36,7 +36,7 @@ public class OrderService {
 		Double amount = 0.0, total = 0.0;
 		for (CartLineInfo line : cartInfo.getCartLines()) {
 			amount += line.getQuantity();
-			total += line.getProductInfo().getPrice();
+			total += line.getProductInfo().getPrice() * line.getQuantity();;
 		}
 		
 		long millis=System.currentTimeMillis(); 

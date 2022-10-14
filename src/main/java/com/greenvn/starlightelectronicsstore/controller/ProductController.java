@@ -126,8 +126,36 @@ public class ProductController {
 	
 	@PostMapping("/attributesForProduct")
 	public String attributesForProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model) {
+		Product productOld = productService.findProductById(productID);
 		
-		productService.updateProductAttribute(product.getAttributes(),product.getDefaultImage(), productID);
+		List<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+		List<ProductAttribute> productAttributes =  productAttributeService.findProductAttributeByCategoryID(productOld.getCategory().getCategoryID());
+		for(ProductAttribute PA : productAttributes) {
+			if(!attributeTypes.contains(PA.getType())) attributeTypes.add(PA.getType());
+		}
+		
+		if(productOld.getPriceSpecial() != null)
+		{
+			if(product.getPriceSpecialEndDate() == null || product.getPriceSpecialStartDate() == null) {
+				
+				model.addAttribute("messages", "Thời gian khuyến mãi không được để trống!");
+				model.addAttribute("images",productOld.getImages());
+				model.addAttribute("productAttributes",productAttributes);
+				model.addAttribute("attributeTypes",attributeTypes);
+				model.addAttribute("product", productOld);
+				return "product-editAttribute";
+			}
+			else if(product.getPriceSpecialEndDate().before(product.getPriceSpecialStartDate())) 
+			{
+				model.addAttribute("messages", "Ngày bắt đầu khuyến mãi không thể muộn hơn ngày kết thúc!");
+				model.addAttribute("images",productOld.getImages());
+				model.addAttribute("productAttributes",productAttributes);
+				model.addAttribute("attributeTypes",attributeTypes);
+				model.addAttribute("product", productOld);
+				return "product-editAttribute";
+			}
+		}
+		productService.updateProductAttribute(product.getAttributes(),product.getDefaultImage(),product, productID);
 		return "redirect:/admin/products";
 	}
 	

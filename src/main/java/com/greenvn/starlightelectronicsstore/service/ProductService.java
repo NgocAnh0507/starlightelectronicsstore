@@ -1,6 +1,5 @@
 package com.greenvn.starlightelectronicsstore.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,15 +25,7 @@ public class ProductService {
 	{
 		return this.productRepository.findAll();
 	}
-	public List<Product> getProductByManufacturer(String ManufacturerName){
-		List<Product> products = productRepository.findAll();
-		for(Product product1:products ) {
-			if(product1.getCategory().equals(ManufacturerName)) {
-				products.add(product1);
-			}
-		}
-		return products;
-	}
+	
 	public Product addProduct(Product product)
 	{
 		Product productSaved = productRepository.save(product);
@@ -51,11 +42,13 @@ public class ProductService {
 		return this.productRepository.findById(productID).get();
 	}
 	
-	public Product updateProductAttribute(List<ProductAttribute> productAttributes, String image, Long productID) {
+	public Product updateProductAttribute(List<ProductAttribute> productAttributes, String image,Product productNew, Long productID) {
 		
 		Product product= findProductById(productID);
 		product.setDefaultImage(image);
 		product.setAttributes(productAttributes);
+		product.setPriceSpecialStartDate(productNew.getPriceSpecialStartDate());
+		product.setPriceSpecialEndDate(productNew.getPriceSpecialEndDate());
 		return productRepository.save(product);
 	}
 	
@@ -76,8 +69,6 @@ public class ProductService {
 		product.setProductName(productNew.getProductName());
 		product.setPrice(productNew.getPrice());
 		product.setPriceSpecial(productNew.getPriceSpecial());
-		product.setPriceSpecialStartDate(productNew.getPriceSpecialEndDate());
-		product.setPriceSpecialEndDate(productNew.getPriceSpecialEndDate());
 		product.setQuantity(productNew.getQuantity());
 		product.setQuantityOrderMin(productNew.getQuantityOrderMin());
 		product.setQuantityOrderMax(productNew.getQuantityOrderMax());
@@ -103,6 +94,4 @@ public class ProductService {
 				Page<Product> pageProduct = productRepository.findAll(pageable);
 				return pageProduct;
 		}
-		
-		
 }

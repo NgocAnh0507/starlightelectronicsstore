@@ -2,6 +2,9 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +59,7 @@ public class ShoppingCartController {
 			product = proSer.findProductById(productID);
 		}
 		if (product != null) {
-			CartInfo cartInfo = Utils.getCartInSession(request);
+			CartInfo cartInfo = Utils.getCartInSession(request); // Lấy giỏ hàng hiện tại ra
 			ProductInfo productInfo = new ProductInfo(product);
 			cartInfo.addProduct(productInfo, 1.0);
 		}
@@ -65,9 +68,7 @@ public class ShoppingCartController {
 
 	@RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
 	public String shoppingCartUpdateQty(HttpServletRequest request, //
-			Model model, //
-
-			@ModelAttribute("cartForm") CartInfo cartForm)
+			Model model, @ModelAttribute("cartForm") CartInfo cartForm)
 
 	{
 		CartInfo cartInfo = Utils.getCartInSession(request);
@@ -116,11 +117,6 @@ public class ShoppingCartController {
 			HttpServletRequest request, Model model) throws ParseException 
 	{
 		CartInfo cartInfo = Utils.getCartInSession(request);
-		
-		String sDate1="01/01/1990";  
-	    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
-		String sDate2="30/12/2020";  
-	    Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(sDate2);  
 	    
 		Boolean checkCustomer = true;
 		if (customerInfo.getName() == null || customerInfo.getName().isEmpty()) {
@@ -131,11 +127,25 @@ public class ShoppingCartController {
 			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
 			checkCustomer = false;
 		}
-		else if(customerInfo.getBirthday().before(date1) || customerInfo.getBirthday().after(date2))
-		{
-			model.addAttribute("birthdayMessages", "Ngày sinh không được trước ngày 01/01/1990 hoặc sau ngày 30/12/2020!");
-			checkCustomer = false;
+		else{
+			// Ngày hiện tại
+			long millis = System.currentTimeMillis(); 
+			Date currentDate = new java.util.Date(millis);  
+			LocalDate currentLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			//
+
+			// Ngày sinh khách hàng
+			LocalDate birthdayLocalDate = customerInfo.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+			long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears(); 
+			
+			if(age < 16 || age > 95)
+			{
+				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 16 đến 95!");
+				checkCustomer = false;
+			}
 		}
+		
 		if (customerInfo.getStreet() == null ||
 				customerInfo.getStreet().isEmpty()) {
 			model.addAttribute("streetMessages", "Số nhà, tên đường, phường không được để trống!");
@@ -171,9 +181,9 @@ public class ShoppingCartController {
 			model.addAttribute("cartInfo", cartInfo);
 			return "shop/checkOut";
 		} 
-		
-		cartInfo.setCustomerInfo(customerInfo);
+
 		Customer customerSaved = customerService.addCustomer(customerInfo);
+		cartInfo.setCustomerInfo(customerInfo);
 		
 		Order orderSaved = orderService.addOrder(cartInfo, customerSaved);
 		

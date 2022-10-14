@@ -32,6 +32,28 @@
 						method="post">
 						<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
 						<input type="text" th:field="*{productName}" class="form-control"  disabled style="font-size: 20px;">
+						<div th:switch="${product.priceSpecial}"> 
+							<div th:case="null"></div>
+							<div th:case="*">
+								<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
+								<input type="number" th:field="*{priceSpecial}" class="form-control" disabled style="font-size: 20px;">
+								
+								 <label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu khuyến mãi: </label> 
+								<input type="datetime-local"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control">
+								<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
+								
+								 <label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày hết khuyến mãi: </label> 
+								<input type="datetime-local"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control">
+								<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								
+								<div th:switch="${messages}">
+									<div th:case="null"></div>
+									<div th:case="*">
+										<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									</div>
+								</div>
+							</div>
+						</div>
 						<hr />
 						<label for="defaultImage"  class="col-form-lable" style="font-size: 20px;">Ảnh bìa</label>
 						 <select id="defaultImage" th:field="*{defaultImage}" class="form-control" style="font-size: 20px;">

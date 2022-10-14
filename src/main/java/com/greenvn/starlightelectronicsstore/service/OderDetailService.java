@@ -34,6 +34,7 @@ public class OderDetailService {
 	public OrderDetail addOrderDetail(CartLineInfo cartLineInfo, Long orderID)
 	{
 		long productID = cartLineInfo.getProductInfo().getProductID();
+		
 		OrderDetail orderDetail = new OrderDetail(new OrderDetailID(productID,orderID));
 		orderDetail.setPrice(cartLineInfo.getProductInfo().getPrice());
 		orderDetail.setQuantity(cartLineInfo.getQuantity());

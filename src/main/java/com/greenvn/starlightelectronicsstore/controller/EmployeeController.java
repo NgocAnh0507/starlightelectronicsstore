@@ -2,6 +2,10 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.io.File;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,6 +85,25 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
+		
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date currentDate= new java.util.Date(millis);  
+		LocalDate currentLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		//
+
+		// Ngày sinh nhân viên
+		LocalDate birthdayLocalDate = employee.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears();
+		
+		if(age < 18 || age > 55) 
+		{
+			model.addAttribute("birthdayMessages", "Tuổi nhân viên phải từ 18 đến 55!");
+			model.addAttribute("positions",positionService.getPositions());
+			return "employee-add";
+		}
+		
 		if(!employeeService.checkPhoneNumber(employee.getPhoneNumber()))
 		{
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
@@ -127,6 +150,25 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-update";
 		}
+		
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date currentDate= new java.util.Date(millis);  
+		LocalDate currentLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		//
+
+		// Ngày sinh nhân viên
+		LocalDate birthdayLocalDate = employee.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears();
+		
+		if(age < 18 || age > 55) 
+		{
+			model.addAttribute("birthdayMessages", "Tuổi nhân viên phải từ 18 đến 55!");
+			model.addAttribute("positions",positionService.getPositions());
+			return "employee-update";
+		}
+		
 		if(!employeeService.checkPhoneNumber(employee.getPhoneNumber()))
 		{
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");

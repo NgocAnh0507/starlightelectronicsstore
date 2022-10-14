@@ -22,11 +22,11 @@ public class Employee extends Person{
 	private long employeeID;
 
 	@Column(name = "USER_NAME", columnDefinition = "VARCHAR(55) UNIQUE")
-	@NotBlank(message = "Thiếu Username rồi")
+	@NotBlank(message = "Tài khoản không được để trống!")
 	private String userName;
 	
 	@Column(name = "PASSWORD", columnDefinition = "VARCHAR(1000)")
-	@NotBlank(message = "Thiếu Password rồi")
+	@NotBlank(message = "Mật khẩu không được để trống!")
 	private String password;
 
 	@Column(name = "IS_ACTIVE", columnDefinition = "BOOLEAN DEFAULT FALSE")
