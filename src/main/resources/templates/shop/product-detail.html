@@ -77,16 +77,16 @@
 					</p>
 				</div>
 				
-				<div id="status" style="padding-left: 10%;" th:switch="${product.status}">
+				<div id="status" style="padding-left: 10%;" th:switch="${product.quantity}">
 					<hr/>
 					<div th:case="null"></div>
-					<div th:case="false">
+					<div th:case="0">
 						<span th:text=" 'Trạng thái: ' " style="font-size: 25px;"></span>
-						<span style="font-size: 25px; color:red">Ngưng bán!</span>
+						<span style="font-size: 25px; color:red">Hết hàng!</span>
 					</div>
-					<div th:case="true">
+					<div th:case="*">
 						<span th:text=" 'Trạng thái: ' " style="font-size: 25px;"></span>
-						<span style="font-size: 25px; color:green">Đang bán!</span>
+						<span style="font-size: 25px; color:green">Còn hàng!</span>
 					</div>
 				</div>
 				
@@ -135,7 +135,7 @@
 						<p type="text" th:text="*{product.productName}"
 							id="pName" hidden="hidden"></p>
 						<button class="btn btn-success btn-sm" style="font-size: 20px;"
-						    th:onclick = "createPopupWin('Thông tin chi tiết', 550, 650);">
+						    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
 					        Thông tin chi tiết
 					    </button>
 					</div>

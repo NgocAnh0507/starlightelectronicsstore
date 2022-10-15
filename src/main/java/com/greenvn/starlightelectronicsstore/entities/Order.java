@@ -26,8 +26,7 @@ public class Order {
 	private Customer customer;
 
 	@Column(name = "ORDER_STATUS", columnDefinition = "VARCHAR(55)")
-	@NotBlank(message = "Trạng thái không được để trống!")
-	private String orderStatus;
+	private OderStatus orderStatus = OderStatus.RECEIVED;
 	
 	@Column(name = "AMOUNT", columnDefinition = "DECIMAL(11,1)")
 	@NotNull(message = "Tổng sản phẩm không được để trống!")
@@ -38,14 +37,12 @@ public class Order {
 	private Double total;
 	
 	@Column(name = "ORDER_DATE", columnDefinition = "DATETIME")
-	@NotNull(message = "Ngày mua không được để trống!")
+	@NotNull(message = "Ngày đặt hàng không được để trống!")
 	private Date orderDate;
 	
 	@Column(name = "FASTSHIP", columnDefinition = "BOOLEAN NOT NULL")
 	@NotNull(message = "Chuyển phát nhanh không được để trống!")
 	private Boolean fastShip;
-	
-	private OderStatus status;
 
 	public long getOrderID() {
 		return orderID;
@@ -63,11 +60,11 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public String getOrderStatus() {
+	public OderStatus getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(String orderStatus) {
+	public void setOrderStatus(OderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 

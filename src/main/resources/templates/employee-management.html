@@ -37,30 +37,28 @@
 										th:href="@{/admin/employees?(page=${currentPage},sortField='employeeID',sortDir=${reverseSortDir})}">
 											Mã nhân viên</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">
 											Tên</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.bithYear',sortDir=${reverseSortDir})}">
-											Năm sinh</a></th>
+										th:href="@{/admin/employees?(page=${currentPage},sortField='birthday',sortDir=${reverseSortDir})}">
+											Ngày-tháng-năm sinh</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.phoneNumber',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='phoneNumber',sortDir=${reverseSortDir})}">
 											Số điện thoại</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.email',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='email',sortDir=${reverseSortDir})}">
 											Email</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.userName',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='userName',sortDir=${reverseSortDir})}">
 											Tài khoản</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='employee.isActive',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/employees?(page=${currentPage},sortField='isActive',sortDir=${reverseSortDir})}">
 											Trạng thái làm việc</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 											Chức vụ</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/employees?(page=${currentPage},sortField='avatar.name',sortDir=${reverseSortDir})}">
-											Ảnh đại diện</a></th>
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasRole('ROLE_Admin')">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;">Ảnh đại diện</th>
+									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,11 +86,11 @@
 							              <div th:case="null"></div>
 							              <div th:case="*"><img th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}"  width="100px" height="100px"/></div>
 									</td>
-									<td align="center"><a class="btn btn-warning"sec:authorize="hasRole('ROLE_Admin')"
+									<td align="center"><a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
-									</a> <a class="btn btn-danger" style="font-size: 15px;"sec:authorize="hasRole('ROLE_Admin')"
+									</a> <a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-trash-alt"></i> Xóa
@@ -129,7 +127,7 @@
 					<!-- <div class="col-md-2"></div> -->
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasRole('ROLE_Admin')">
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 				th:href="@{/admin/formAddEmployee}"> <i class="fas fa-plus"></i>
 				Thêm nhân viên mới
@@ -137,8 +135,6 @@
 
 		</div>
 	</div>
-	</div>
-	
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

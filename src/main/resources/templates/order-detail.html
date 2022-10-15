@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout-shop}">
+	layout:decorate="~{layout-admin1}">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,84 +15,88 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<title>Kiểm tra trạng thái đơn hàng</title>
+<title>Chi tiết hóa đơn</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
 		<div align="center" style="padding-top: 35px">
-			<h1 style="font-size: 35px;">Đơn hàng của bạn</h1>
+			<h1 style="font-size: 35px;">Chi tiết hóa đơn</h1>
 		</div>
-		<div class="checkout-area pb-50 pdtop">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12" th:object="${order}">
-						<div class="row">
-							<div class="col-md-12">
-								<label>Mã hóa đơn: <span th:text="${order.orderID}" /></span></label>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-lg-8 col-md-8" th:object="${order}">
+					<div class="row">
+						<div class="col-md-12">
+							<label>Mã hóa đơn: <span th:text="${order.orderID}" /></span></label>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label>Trạng thái đơn hàng: <span
+								th:text="${order.orderStatus}" style="color: green"></span></label>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-lg-8 col-md-8" th:object="${customer}">
+					<hr />
+					<h5>Thông tin khách hàng</h5>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="checkout-form-list">
+								<label>Họ và tên: <span th:text="*{name}" /></span></label>
 
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label>Trạng thái đơn hàng: <span
-									th:text="${order.orderStatus}" /  style="color: green"></span></label>
+
+						<div class="col-md-6">
+							<div class="checkout-form-list">
+								<label>Ngày sinh: <span th:text="*{birthday}" /></span></label>
 
 							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="checkout-form-list">
+								<label>Email: <span th:text="*{email}" /></span></label>
+
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="checkout-form-list">
+								<label>Số điện thoại: <span th:text="*{phoneNumber}" /></span></label>
+
+							</div>
+						</div>
+					</div>
+					<hr />
+					<h5>Địa chỉ giao hàng</h5>
+					<div class="row">
+						<div class="col-md-12">
+							<p th:text="*{address}" /></p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 col-md-12" th:object="${customer}">
-						<hr />
-						<h5>Thông tin khách hàng</h5>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="checkout-form-list">
-									<label>Họ và tên: <span th:text="*{name}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="checkout-form-list">
-									<label>Ngày sinh: <span th:text="*{birthday}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-
-								<div class="checkout-form-list">
-									<label>Email: <span th:text="*{email}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-
-								<div class="checkout-form-list">
-									<label>Số điện thoại: <span th:text="*{phoneNumber}" /></span></label>
-
-								</div>
-							</div>
-						</div>
-						<hr />
-						<h5>Địa chỉ giao hàng</h5>
-						<div class="row">
-							<div class="col-md-12">
-								<p th:text="*{address}" /></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-12 col-md-12">
+					<div class="col-md-2"></div>
+					<div class="col-lg-8 col-md-8">
 						<hr />
 						<h5>Chi tiết hóa đơn</h5>
 						<div class="row">
 							<div class="col-2">Ảnh sản phẩm</div>
 							<div class="col-2">Mã sản phẩm</div>
 							<div class="col-2">Tên sản phẩm</div>
-
+	
 							<div class="col-2">Giá</div>
 							<div class="col-1">Số lượng</div>
 							<div class="col-2">Thành tiền</div>
@@ -103,8 +107,7 @@
 								<img height=50 src=""
 									th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
 							</div>
-							<div class="col-2"
-								th:text="${cartLineInfo.productInfo.productID}"></div>
+							<div class="col-2" th:text="${cartLineInfo.productInfo.productID}"></div>
 							<div class="col-2"
 								th:text="${cartLineInfo.productInfo.productName}"></div>
 							<div class="col-2">
@@ -124,10 +127,9 @@
 						<h5>Phương thức vận chuyển</h5>
 						<div class="row" style="padding-top: 15px" th:switch="${fastShip}">
 							<br /> <label th:case="true" class="col-11"
-								style="font-size: 20px;"> Chuyển phát nhanh - 100.000
-								VND </label> <label th:case="false" class="col-11"
-								style="font-size: 20px;"> Chuyển phát chậm - 50.000 VND
-							</label>
+								style="font-size: 20px;"> Chuyển phát nhanh - 100.000 VND
+							</label> <label th:case="false" class="col-11" style="font-size: 20px;">
+								Chuyển phát chậm - 50.000 VND </label>
 						</div>
 						<hr />
 						<h5>Phương thức thanh toán</h5>
@@ -136,11 +138,16 @@
 								Thanh toán khi nhận hàng </label>
 						</div>
 					</div>
-					<div class="order-button-payment pdtop">
+					<div class="col-md-2"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-lg-8 col-md-8 order-button-payment pdtop" align="center">
 						<hr />
-						<a class="btn btn-primary" th:href="@{/}">Tiếp tục mua sắm</a>
-
+						<a class="btn btn-primary" th:href="@{/admin/orders}">Quay lại</a>
+	
 					</div>
+					<div class="col-md-2"></div>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<title>Chỉnh sửa hóa đơn</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center" style="padding-top: 55px">
+			<h1 style="font-size: 35px;">Chỉnh sửa hóa đơn</h1>
+		</div>
+
+		<div class="container-fluid" style="padding-top: 35px">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<form th:action="@{/admin/updateOrder?(orderID=${orderID})}"
+						method="post">
+							
+						<strong><label class="col-form-label" style="font-size: 20px;">Mã hóa đơn: <span th:text="${orderID}"/></span></label></strong>
+						<br/>
+						<label class="col-form-label" style="font-size: 20px;">Trạng thái đơn hàng: </label> 
+						<br/>
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-11" th:object="${cartInfo}">
+								<input type="radio"  th:field="*{status}" value="0" style="padding-left: 15px">
+								<label class="col-form-label" style="font-size: 20px;" > Đã nhận đơn </label> 
+								<br/>
+								<input type="radio"  th:field="*{status}" value="1" style="padding-left: 15px">
+								<label class="col-form-label" style="font-size: 20px;"> Đã đóng gói </label> 
+								<br/>
+								<input type="radio"  th:field="*{status}" value="2" style="padding-left: 15px">
+								<label class="col-form-label" style="font-size: 20px;"> Đã chuyển hàng </label> 
+								<br/>
+								<input type="radio"  th:field="*{status}" value="3" style="padding-left: 15px">
+								<label class="col-form-label" style="font-size: 20px;"> Đã hủy đơn </label> 
+								<br/>
+							</div>
+						</div>
+						
+						<div th:switch="${messages}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
+						
+						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+</html>

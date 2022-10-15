@@ -4,9 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenvn.starlightelectronicsstore.entities.Customer;
+import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
+import com.greenvn.starlightelectronicsstore.entities.OderStatus;
 import com.greenvn.starlightelectronicsstore.entities.Order;
 import com.greenvn.starlightelectronicsstore.model.CartInfo;
 import com.greenvn.starlightelectronicsstore.model.CartLineInfo;
@@ -43,7 +49,7 @@ public class OrderService {
 		Date date= new java.util.Date(millis);
 		
 		order.setCustomer(customer);
-		order.setOrderStatus("Đã nhận đơn");
+		order.setOrderStatus( OderStatus.RECEIVED);
 		order.setAmount(amount);
 		order.setTotal(total);
 		order.setOrderDate(date);
@@ -74,4 +80,17 @@ public class OrderService {
 	{
 		orderRepository.deleteById(orderID);
 	}
+	
+	//Pageable
+		public Page<Order> findAll(int pageNo, int pageSize,String sortField, String sortDirection){
+				
+				//sort
+				Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+						Sort.by(sortField).ascending() :
+						Sort.by(sortField).descending();
+				
+				Pageable pageable = PageRequest.of(pageNo - 1, pageSize,sort);
+				Page<Order> pageOrder = orderRepository.findAll(pageable);
+				return pageOrder;
+		}
 }

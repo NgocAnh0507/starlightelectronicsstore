@@ -19,7 +19,7 @@ public abstract class Person {
 	private String name;
 	
 	@Column(name = "BIRTHDAY",columnDefinition = "DATETIME")
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Ngày sinh không được để trống!")
 	private Date birthday;
 

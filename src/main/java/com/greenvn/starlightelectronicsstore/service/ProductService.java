@@ -94,4 +94,16 @@ public class ProductService {
 				Page<Product> pageProduct = productRepository.findAll(pageable);
 				return pageProduct;
 		}
+		
+		public Page<Product> findProductByCategoryName(String categoryName, int pageNo, int pageSize,String sortField, String sortDirection){
+			
+			//sort
+			Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+					Sort.by(sortField).ascending() :
+					Sort.by(sortField).descending();
+			
+			Pageable pageable = PageRequest.of(pageNo - 1, pageSize,sort);
+			Page<Product> pageProduct = productRepository.findProductByCategoryName(categoryName,pageable);
+			return pageProduct;
+	}
 }

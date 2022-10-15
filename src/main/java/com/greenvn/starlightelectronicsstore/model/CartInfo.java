@@ -9,6 +9,7 @@ public class CartInfo {
 	private CustomerInfo customerInfo;
 	private Boolean fastShip;
 	private long orderID;
+	private String status;
 	private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
 
 	public CustomerInfo getCustomerInfo() {
@@ -33,6 +34,16 @@ public class CartInfo {
 
 	public long getOrderID() {
 		return orderID;
+	}
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setOrderID(long orderID) {

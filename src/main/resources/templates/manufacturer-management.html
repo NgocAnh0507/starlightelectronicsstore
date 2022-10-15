@@ -37,11 +37,9 @@
 										th:href="@{/admin/manufacturers?(page=${currentPage},sortField='manufacturerID',sortDir=${reverseSortDir})}">
 											Mã hãng sản xuất</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/manufacturers?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
+										th:href="@{/admin/manufacturers?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">
 											Tên hãng sản xuất</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/manufacturers?(page=${currentPage},sortField='logo.name',sortDir=${reverseSortDir})}">
-											Ảnh biểu tượng</a></th>
+									<th class="text-center" style="font-size: 20px;">Ảnh biểu tượng</th>
 									<th class="text-center" style="font-size: 20px;">Thao tác</th>
 								</tr>
 							</thead>

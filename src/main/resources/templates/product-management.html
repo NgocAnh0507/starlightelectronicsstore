@@ -15,6 +15,21 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    function createPopupWin(pageTitle,
+                popupWinWidth, popupWinHeight) {
+
+	    var pName = document.getElementById("pName").innerText;
+        var left = (screen.width - popupWinWidth) / 2;
+        var top = (screen.height - popupWinHeight) / 4;
+         
+        var myWindow = window.open('/shop/productDescription?productName=' + pName, pageTitle,
+                'resizable=yes, width=' + popupWinWidth
+                + ', height=' + popupWinHeight + ', top='
+                + top + ', left=' + left);
+    }
+</script>
 <title>Quản lý sản phẩm</title>
 </head>
 <body>
@@ -42,9 +57,7 @@
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='productSKU',sortDir=${reverseSortDir})}">
 											Mã SKU</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/products?(page=${currentPage},sortField='productDescription',sortDir=${reverseSortDir})}">
-											Mô tả sản phẩm</a></th>
+									<th class="text-center" style="font-size: 20px;"> Mô tả sản phẩm</th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='price',sortDir=${reverseSortDir})}">
 											Giá</a></th>
@@ -92,8 +105,14 @@
 										th:text="${product.productName}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.productSKU}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${product.productDescription}"></td>
+									<td align="center">
+										<p type="text" th:text="*{product.productName}"
+											id="pName" hidden="hidden"></p>
+										<button class="btn btn-primary btn-sm" style="font-size: 10px;"
+										    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
+									        Thông tin chi tiết
+									    </button>
+									</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.price}"></td>
 									<td align="center" style="font-size: 15px;"

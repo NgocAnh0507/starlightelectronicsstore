@@ -69,8 +69,8 @@
 							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
-						<label for="birthday" class="col-form-label" style="font-size: 20px;">Ngày sinh:</label> 
-						<input type="datetime-local"
+						<label for="birthday" class="col-form-label" style="font-size: 20px;">Ngày-tháng-năm sinh:</label> 
+						<input type="date"
 							th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
 						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
