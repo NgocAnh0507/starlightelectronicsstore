@@ -54,7 +54,7 @@
 									<td align="center" style="font-size: 15px;">
 							            <img th:attr="src=@{/upload/{path}(path=${manufacturer.logo.name})}"  width="100px" height="100px"/>
 									</td>
-									<td align="center">
+									<td align="center" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}">
@@ -99,7 +99,7 @@
 				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 			th:href="@{/admin/formAddManufacturer}">
 				<i class="fas fa-plus"></i> Thêm hãng sản xuất mới</a> 

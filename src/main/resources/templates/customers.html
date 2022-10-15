@@ -30,8 +30,8 @@
 							<th>Tên</th>
 							<th>Số điện thoại</th>
 							<th>Địa chỉ</th>
-							<th>Edit</th>
-							<th>Delete</th>
+							<th sec:authorize="hasRole('ROLE_Admin')">Edit</th>
+							<th sec:authorize="hasRole('ROLE_Admin')">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,16 +42,16 @@
 							<td th:text="${cus.name}"></td>
 							<td th:text="${cus.phoneNumber}"></td>
 							<td th:text="${cus.address}"></td>
-							<td><a class="btn btn-primary"
+							<td sec:authorize="hasRole('ROLE_Admin')"><a class="btn btn-primary"
 								th:href="@{/admin/formUpdateCustomer?(customerID=${cus.customerID})}" role="button"><i class="fas fa-edit"></i></a></td>
-							<td><a class="btn btn-primary"
+							<td sec:authorize="hasRole('ROLE_Admin')"><a class="btn btn-primary"
 								th:href="@{/admin/deleteCustomer?(customerID=${cus.customerID})}" role="button">Delete</a></td> 
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<p class="my-5">
+			<p class="my-5" sec:authorize="hasRole('ROLE_Admin')">
 				<a th:href="@{/admin/formAddCustomer}" class="btn btn-primary"><i
 					class="fas fa-user-plus ml-2"></i></a>
 			</p>

@@ -60,7 +60,7 @@
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/employees?(page=${currentPage},sortField='avatar.name',sortDir=${reverseSortDir})}">
 											Ảnh đại diện</a></th>
-									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasRole('ROLE_Admin')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,11 +88,11 @@
 							              <div th:case="null"></div>
 							              <div th:case="*"><img th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}"  width="100px" height="100px"/></div>
 									</td>
-									<td align="center"><a class="btn btn-warning"
+									<td align="center"><a class="btn btn-warning"sec:authorize="hasRole('ROLE_Admin')"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
-									</a> <a class="btn btn-danger" style="font-size: 15px;"
+									</a> <a class="btn btn-danger" style="font-size: 15px;"sec:authorize="hasRole('ROLE_Admin')"
 										role="button"
 										th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
 											<i class="fas fa-trash-alt"></i> Xóa
@@ -129,7 +129,7 @@
 					<!-- <div class="col-md-2"></div> -->
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasRole('ROLE_Admin')">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 				th:href="@{/admin/formAddEmployee}"> <i class="fas fa-plus"></i>
 				Thêm nhân viên mới
@@ -137,6 +137,8 @@
 
 		</div>
 	</div>
+	</div>
+	
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
