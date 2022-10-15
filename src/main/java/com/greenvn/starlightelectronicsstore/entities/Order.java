@@ -44,6 +44,8 @@ public class Order {
 	@Column(name = "FASTSHIP", columnDefinition = "BOOLEAN NOT NULL")
 	@NotNull(message = "Chuyển phát nhanh không được để trống!")
 	private Boolean fastShip;
+	
+	private OderStatus status;
 
 	public long getOrderID() {
 		return orderID;

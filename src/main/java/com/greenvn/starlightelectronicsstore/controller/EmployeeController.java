@@ -247,7 +247,7 @@ public class EmployeeController {
 		System.out.println(currentEmp.getPassword());
 		if(this.BcryptPasswordEncoder.matches(oldPassword, currentEmp.getPassword())) {
 			
-			currentEmp.setPassword(this.BcryptPasswordEncoder.encode(newPassword));
+			currentEmp.setPassword((newPassword));
 			this.employeeService.updateEmployee(currentEmp, currentEmp.getEmployeeID());
 			
 			

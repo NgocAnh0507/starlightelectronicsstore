@@ -35,10 +35,10 @@
 							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
 						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
-						<label for="bithYear" class="col-form-label" style="font-size: 20px;">Năm sinh:</label> 
+						<label for="birthday" class="col-form-label" style="font-size: 20px;">Năm sinh:</label> 
 						<input type="number" min="1900" max="2100" step="1"
-							th:field="*{bithYear}"  class="form-control" id="bithYear"  style="font-size: 20px;">
-						<p th:errors="*{bithYear}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							th:field="*{birthday}"  class="form-control" id="bithYear"  style="font-size: 20px;">
+						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
 						<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
 						<input type="text" th:field="*{phoneNumber}" class="form-control"

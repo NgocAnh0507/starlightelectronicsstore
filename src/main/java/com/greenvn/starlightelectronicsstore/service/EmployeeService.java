@@ -36,6 +36,9 @@ public class EmployeeService {
 	
 	public Employee addEmployee(Employee employee)
 	{
+		
+		String password = passwordEncoder.encode(employee.getPassword());
+		employee.setPassword(password);
 		Employee employeeSaved = employeeRepository.save(employee);
 		return employeeSaved;
 	}
@@ -49,7 +52,7 @@ public class EmployeeService {
 	{
 		Employee employee = findEmployeeById(employeeID);
 		employee.setUserName(employeeNew.getUserName());
-		employee.setPassword(employeeNew.getPassword());
+		employee.setPassword(passwordEncoder.encode(employeeNew.getPassword()));
 		employee.setIsActive(employeeNew.getIsActive());
 		employee.setPosition(employeeNew.getPosition());
 		employee.setBirthday(employeeNew.getBirthday());

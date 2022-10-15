@@ -28,18 +28,18 @@ public class ShopController {
 		return "shop/home";
 	}
 	
-	@GetMapping("/shop/byApple")
-	public String listByApple(Model model) {
-		List<Product>products = productService.getProductByManufacturer("APPLE");
-		model.addAttribute("products", products);
-		return "listByApple";
-	}
-	@GetMapping("/shop/bySamsung")
-	public String listBySamsung(Model model) {
-		List<Product>products = productService.getProductByManufacturer("SAMSUNG");
-		model.addAttribute("products", products);
-		return "listBySamsung";
-	}
+//	@GetMapping("/shop/byApple")
+//	public String listByApple(Model model) {
+//		List<Product>products = productService.getProductByManufacturer("APPLE");
+//		model.addAttribute("products", products);
+//		return "listByApple";
+//	}
+//	@GetMapping("/shop/bySamsung")
+//	public String listBySamsung(Model model) {
+//		List<Product>products = productService.getProductByManufacturer("SAMSUNG");
+//		model.addAttribute("products", products);
+//		return "listBySamsung";
+//	}
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model) {
