@@ -21,9 +21,12 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public List<Product> getProducts()
+	public List<Product> getProducts(String keyword)
 	{
-		return this.productRepository.findAll();
+		if (keyword != null) {
+            return productRepository.search(keyword);
+        }
+        return productRepository.findAll();
 	}
 	
 	public Product addProduct(Product product)
@@ -105,5 +108,5 @@ public class ProductService {
 			Pageable pageable = PageRequest.of(pageNo - 1, pageSize,sort);
 			Page<Product> pageProduct = productRepository.findProductByCategoryName(categoryName,pageable);
 			return pageProduct;
-	}
+		}
 }

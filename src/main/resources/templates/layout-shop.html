@@ -18,6 +18,7 @@ fit=no">
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 </head>
 <body>
 
@@ -30,9 +31,9 @@ fit=no">
 
 				</div>
 				<div class="col-4 pt-4">
-					<form class="d-flex" role="search">
-						<input class="form-control me-2" type="search"
-							placeholder="Tìm kiếm" aria-label="Search">
+					<form class="d-flex" role="search" th:action="@{/}">
+						<input class="form-control me-2"
+							placeholder="Tìm kiếm" aria-label="Search" type="text" name="keyword" id="keyword" th:value="${keyword}" >
 						<button class="btn btn-outline-success" type="submit">Search</button>
 					</form>
 				</div>

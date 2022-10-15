@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,10 @@ public class ShopController {
 	private ProductService productService;
 
 	@GetMapping("/")
-	public String home(Model model) {
-		List<Product> products = this.productService.getProducts();
+	public String home(Model model, @Param("keyword") String keyword) {
+		List<Product> products = this.productService.getProducts(keyword);
 		model.addAttribute("products", products);
+		model.addAttribute("keyword", keyword);
 		return "shop/home";
 	}
 	
