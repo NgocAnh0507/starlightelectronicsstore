@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.entities.Product;
@@ -21,9 +22,13 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public List<Product> getProducts()
+	public Page<Product> search(String keyword,int pageNo, int pageSize)
 	{
-		return this.productRepository.findAll();
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		if (keyword != null) {
+            return productRepository.search(pageable,keyword);
+        }
+        return productRepository.findAll(pageable);
 	}
 	
 	public Product addProduct(Product product)
@@ -105,5 +110,5 @@ public class ProductService {
 			Pageable pageable = PageRequest.of(pageNo - 1, pageSize,sort);
 			Page<Product> pageProduct = productRepository.findProductByCategoryName(categoryName,pageable);
 			return pageProduct;
-	}
+		}
 }

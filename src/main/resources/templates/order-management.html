@@ -54,9 +54,8 @@
 											
 									<!-- <th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/orders?(page=${currentPage},sortField='order.fastShip',sortDir=${reverseSortDir})}">
-											Phương thức vận chuyển</a></th> -->
-											
-									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+											Phương thức vận chuyển</a></th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,9 +87,8 @@
 										th:switch="${order.fastShip}">
 										<p th:case="true">Chuyển phát nhanh</p>
 										<p th:case="false">Chuyển phát chậm</p>
-									</td> -->
-									
-									<td align="center">
+									</td>
+									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateOrder?(orderID=${order.orderID})}">

@@ -1,5 +1,7 @@
 package com.greenvn.starlightelectronicsstore.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +20,8 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 
 	@Query("SELECT pr FROM Product AS pr WHERE pr.category.name = :cname")
 	Page<Product> findProductByCategoryName(@Param("cname") String categoryName, Pageable pageable);
+	@Query("SELECT pr FROM Product pr WHERE pr.productName LIKE %?1%"
+            + " OR pr.category.name LIKE %?1%"
+            + " OR pr.manufacturer.name LIKE %?1%")
+	 Page<Product>search(Pageable pageable,@Param( "keyword") String keyword);
 }

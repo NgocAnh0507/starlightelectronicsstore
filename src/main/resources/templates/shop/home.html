@@ -56,31 +56,87 @@
 
 		</section>
 
-		<section class=" mt-5">
+		<!-- <section class=" mt-5">
 			<div class="container">
 				<h3 class="text-center">Deal Hot</h3>
 				<div class="row deal-hot-product text-center">
 					<div class="col-2th" th:each="pro : ${products}">
 						<div class="sale-product">
 							<img th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
-								width="200px" height="auto" /> 
-								<a th:href="@{/shop/productInfo?(productID=${pro.productID})}">
-									<h3 class="hot-name" th:text="${pro.productName}"></h3>
-								</a>
+								width="200px" height="auto" /> <a
+								th:href="@{/shop/productInfo?(productID=${pro.productID})}">
+								<h3 class="hot-name" th:text="${pro.productName}"></h3>
+							</a>
 
 							<h5 class="hot-price"
 								th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}"></h5>
 							<h5 class="old-price"
 								th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></h5>
 
-							
+
 
 						</div>
 					</div>
 
 				</div>
 			</div>
-		</section>
+		</section> -->
+		<div class="container mt-5">
+			<h3 class="text-center text-decoration-none text-warning">Sản
+				phẩm</h3>
+			<div class="row clearfix mt-5">
+				<div class="col-lg-3 col-md-4 col-sm-12" th:each="pro : ${products}">
+					<div class="card product_item">
+						<div class="body">
+							<div class="cp_img">
+								<img th:attr="src=@{/upload/{path}(path=${pro.defaultImage})}"
+									alt="Product" class="img-fluid" width="300px" height="auto">
+								<div class="hover">
+									<a class="btn btn-primary" style="font-size: 15px;"
+										role="button"
+										th:href="@{/shop/buyProduct?(productID=${pro.productID})}">
+										Mua ngay! </a>
+								</div>
+							</div>
+							<div class="product_details">
+
+								<a th:href="@{/shop/productInfo?(productID=${pro.productID})}"
+									class="text-decoration-none text-info"><h5
+										th:text="${pro.productName}"></h5></a>
+
+								<ul class="product_price list-unstyled">
+									<li class="old_price text-decoration-line-through"
+										th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></li>
+									<li class="new_price"
+										th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li th:if="${currentPage>1}" class="page-item"><a
+					class="page-link" th:href="@{/(page=${currentPage-1})}">Trang
+						trước</a></li>
+
+				<li th:if="${currentPage<=1}" class="page-item disabled"><a
+					class="page-link" href="#">Trang trước</a></li>
+
+				<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"><a
+					class="page-link" th:text=${i} th:href="@{/(page=${i})}">1</a></li>
+				
+
+				<li th:if="${currentPage<totalPages}" class="page-item"><a
+					class="page-link" th:href="@{/(page=${currentPage+1})}">Trang
+						kế tiếp</a></li>
+				<li th:if="${currentPage>=totalPages}" class="page-item disabled"><a
+					class="page-link" href="#">Trang kế tiếp</a></li>
+			</ul>
+		</nav>
 	</div>
 
 </body>

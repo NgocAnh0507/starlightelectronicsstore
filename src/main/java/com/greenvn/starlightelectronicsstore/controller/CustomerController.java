@@ -28,13 +28,13 @@ public class CustomerController {
 	
 	@GetMapping("/admin/formAddCustomer")
 	public String addCustomerForm(Customer customer) {
-		return "add-customer";
+		return "customer-add";
 	}
 	
 	@PostMapping("/admin/addCustomer")
 	public String addCustomer(@Valid Customer customer, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "add-customer";
+			return "customer-add";
 		}
 		customerService.addCustomer(customer);
 		return "redirect:/admin/customers";
