@@ -58,7 +58,7 @@
 										th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 											Chức vụ</a></th>
 									<th class="text-center" style="font-size: 20px;">Ảnh đại diện</th>
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasRole('ROLE_ADMIN')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>

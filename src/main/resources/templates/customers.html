@@ -35,8 +35,8 @@
 										<th>Tên</th>
 										<th>Số điện thoại</th>
 										<th>Địa chỉ</th>
-										<th sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
-										<th sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
+										<th class="text-center" style="font-size: 20px;"
+											sec:authorize="hasRole('ROLE_ADMIN')">Thao tác</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -47,14 +47,25 @@
 										<td th:text="${cus.name}"></td>
 										<td th:text="${cus.phoneNumber}"></td>
 										<td th:text="${cus.address}"></td>
-										<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+										<!-- <td sec:authorize="hasRole('ROLE_ADMIN')"><a
 											class="btn btn-warning"
 											th:href="@{/admin/formUpdateCustomer?(customerID=${cus.customerID})}"
 											role="button"><i class="fas fa-edit"></i></a></td>
 										<td sec:authorize="hasRole('ROLE_ADMIN')"><a
 											class="btn btn-danger"
 											th:href="@{/admin/deleteCustomer?(customerID=${cus.customerID})}"
-											role="button">Delete</a></td>
+											role="button">Delete</a></td> -->
+										<td align="center"><a class="btn btn-warning"
+											style="font-size: 15px;" role="button"
+											th:href="@{/admin/formUpdateCustomer?(customerID=${cus.customerID})}"
+											sec:authorize="hasRole('ROLE_ADMIN')"> <i
+												class="fas fa-pencil-alt"></i> Chỉnh sửa
+										</a> <a class="btn btn-danger" style="font-size: 15px;"
+											role="button"
+											th:href="@{/admin/deleteCustomer?(customerID=${cus.customerID})}"
+											sec:authorize="hasRole('ROLE_ADMIN')"> <i
+												class="fas fa-trash-alt"></i> Xóa
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
