@@ -24,8 +24,15 @@ public class ShopController {
 	private ProductService productService;
 
 	@GetMapping("/")
-	public String home(Model model, @Param("keyword") String keyword) {
-		List<Product> products = this.productService.getProducts(keyword);
+	public String home(Model model,
+			
+			@RequestParam(name = "page",defaultValue = "1") Integer pageNo,
+			@RequestParam(defaultValue = "4") Integer pageSize, @RequestParam(defaultValue ="") String keyword) {
+		
+		Page<Product> pageProduct=productService.search(keyword, pageNo, pageSize);
+		List<Product> products = pageProduct.getContent();
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", pageProduct.getTotalPages());
 		model.addAttribute("products", products);
 		model.addAttribute("keyword", keyword);
 		return "shop/home";

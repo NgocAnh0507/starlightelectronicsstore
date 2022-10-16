@@ -58,7 +58,7 @@
 										th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 											Chức vụ</a></th>
 									<th class="text-center" style="font-size: 20px;">Ảnh đại diện</th>
-									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,11 +88,11 @@
 									</td>
 									<td align="center"><a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
-										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
+										th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa
 									</a> <a class="btn btn-danger" style="font-size: 15px;"
 										role="button"
-										th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
+										th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
 											<i class="fas fa-trash-alt"></i> Xóa
 									</a></td>
 								</tr>
@@ -127,13 +127,15 @@
 					<!-- <div class="col-md-2"></div> -->
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px">
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasRole('ROLE_ADMIN')">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 				th:href="@{/admin/formAddEmployee}"> <i class="fas fa-plus"></i>
 				Thêm nhân viên mới
 			</a>
 
 		</div>
+		</div>
+		
 	</div>
 
 	<script

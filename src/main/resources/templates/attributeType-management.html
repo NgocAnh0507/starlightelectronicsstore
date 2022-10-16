@@ -40,7 +40,7 @@
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/attributeTypes?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											loại thuộc tính</a></th>
-									<th class="text-center" style="font-size: 20px;">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -49,7 +49,7 @@
 										th:text="${attributeType.attributeTypeID}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${attributeType.name}"></td>
-									<td align="center">
+									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
@@ -94,7 +94,7 @@
 				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
-		<div align="center" style="padding-top: 55px" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">
+		<div align="center" style="padding-top: 55px" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 			th:href="@{/admin/formAddAttributeType}">
 				<i class="fas fa-plus"></i> Thêm loại thuộc tính mới</a> 

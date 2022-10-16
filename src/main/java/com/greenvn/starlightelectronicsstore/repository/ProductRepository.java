@@ -23,5 +23,5 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	@Query("SELECT pr FROM Product pr WHERE pr.productName LIKE %?1%"
             + " OR pr.category.name LIKE %?1%"
             + " OR pr.manufacturer.name LIKE %?1%")
-	public List<Product>search(String keyword);
+	 Page<Product>search(Pageable pageable,@Param( "keyword") String keyword);
 }

@@ -44,7 +44,7 @@ public class EmployeeDetailsServiceImp implements UserDetailsService {
 //			}
 			if(emp.getPosition()!=null) {
 				Position position = emp.getPosition();
-				GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + position.getName());
+				GrantedAuthority auth = new SimpleGrantedAuthority(ROLE_PREFIX + position.getRole());
 				authorities.add(auth);
 			}
 		} catch (Exception e) {

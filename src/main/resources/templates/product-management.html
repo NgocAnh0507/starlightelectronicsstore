@@ -145,7 +145,7 @@
 							              <div th:case="null"></div>
 							              <div th:case="*"><img th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"  width="100px" height="100px"/></div>
 									</td>
-									<td align="center" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">
+									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateProduct?(productID=${product.productID})}">
@@ -185,7 +185,7 @@
 				</div>
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">
+		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 			<a class="btn btn-success" style="font-size: 15px;" role="button"
 				th:href="@{/admin/formAddProduct}"> <i class="fas fa-plus"></i> Thêm
 				sản phẩm mới
