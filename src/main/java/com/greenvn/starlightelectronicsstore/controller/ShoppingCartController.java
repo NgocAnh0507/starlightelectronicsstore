@@ -107,7 +107,7 @@ public class ShoppingCartController {
 		if (customerInfo == null) {
 			customerInfo = new CustomerInfo();
 		}
-		cartInfo.setFastShip(false);
+	//	cartInfo.getFeeShip();
 		model.addAttribute("customerInfo", customerInfo);
 		model.addAttribute("cartInfo", cartInfo);
 		return "shop/checkOut";
@@ -220,7 +220,7 @@ public class ShoppingCartController {
 		model.addAttribute("customer", customer);
 		model.addAttribute("total", total);
 		model.addAttribute("cartLines", cartLines);
-		model.addAttribute("fastShip", order.getFastShip());
+		//model.addAttribute("fastShip", order.getFeeShip());
 		return "shop/orderInfo";
 	}
 	

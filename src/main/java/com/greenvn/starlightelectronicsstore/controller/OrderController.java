@@ -128,7 +128,7 @@ public class OrderController {
 		model.addAttribute("customer", customer);
 		model.addAttribute("total", total);
 		model.addAttribute("cartLines", cartLines);
-		model.addAttribute("fastShip", order.getFastShip());
+	//	model.addAttribute("fastShip", order.getFeeShip());
 		return "order-detail";
 	}
 }

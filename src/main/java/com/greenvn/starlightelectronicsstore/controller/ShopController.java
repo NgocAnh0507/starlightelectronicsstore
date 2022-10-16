@@ -82,6 +82,30 @@ public class ShopController {
 		model.addAttribute("product", product);
 		return "shop/product-detail-description";
 	}
+	
+	// lọc
+	@GetMapping("/shop/productCategoryFilter")
+	public String productCategoryFilter(@RequestParam(name = "categoryName")String categoryName,
+			@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
+			@RequestParam(name= "sortField",required = false,defaultValue = "productID") String sortField,
+			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
+			Model model) {
+
+		int pageSize = 9;
+		Page<Product> pageProduct = productService.findProductByCategoryName(categoryName,pageNo, pageSize,sortField,sortDir);
+		List<Product> products = pageProduct.getContent();
+		if(products.size() == 0) products = null;
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPage", pageProduct.getTotalPages());
+		
+		//sort
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+		model.addAttribute("products",products);
+		return "";
+	}
+	
 	@GetMapping("/shop/thanhtoanvatienich")
 	public String thanhToanVaTienIchPage() {
 		return "thanhtoanvatienich";
@@ -127,4 +151,5 @@ public class ShopController {
 	public String baomatthongtinkhPage() {
 		return "baomatthongtinkh";
 	}
+
 }

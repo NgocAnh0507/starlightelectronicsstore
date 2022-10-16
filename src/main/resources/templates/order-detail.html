@@ -121,21 +121,27 @@
 						</div>
 						<div class="row" style="padding-top: 15px">
 							<strong
-								th:text="'Tổng hóa đơn: ' + ${#numbers.formatInteger(total,0,'POINT')}"></strong>
+								th:text="'Tổng tiền của hóa đơn( không bao gồm phí giao hàng): ' + ${#numbers.formatInteger(total,0,'POINT')}"></strong>
 						</div>
 						<hr />
-						<h5>Phương thức vận chuyển</h5>
+						<!-- <h5>Phí chuyển hàng</h5>
 						<div class="row" style="padding-top: 15px" th:switch="${fastShip}">
 							<br /> <label th:case="true" class="col-11"
 								style="font-size: 20px;"> Chuyển phát nhanh - 100.000 VND
 							</label> <label th:case="false" class="col-11" style="font-size: 20px;">
 								Chuyển phát chậm - 50.000 VND </label>
 						</div>
-						<hr />
+						<hr /> -->
 						<h5>Phương thức thanh toán</h5>
 						<div class="row" style="padding-top: 15px">
-							<br /> <label class="col-11" style="font-size: 20px;">
-								Thanh toán khi nhận hàng </label>
+							<br />
+							 <label class="col-11" style="font-size: 20px;"> -
+								Thanh toán khi nhận hàng</label>
+							<label class="col-11"
+								style="font-size: 20px;"> - Phí giao hàng:
+								<p>+ Cùng thành phố/ tỉnh: 50.000 VND(người giao hàng thu)</p>
+								<p>+ Khác thành phố/ tỉnh: 100.000 VND(người giao hàng thu)</p>
+							</label>
 						</div>
 					</div>
 					<div class="col-md-2"></div>

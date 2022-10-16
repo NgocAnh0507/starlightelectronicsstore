@@ -53,7 +53,7 @@ public class OrderService {
 		order.setAmount(amount);
 		order.setTotal(total);
 		order.setOrderDate(date);
-		order.setFastShip(cartInfo.getFastShip());
+		//order.setFeeShip(cartInfo.getFeeShip());
 		
 		Order orderSaved = orderRepository.save(order);
 		return orderSaved;
@@ -72,7 +72,7 @@ public class OrderService {
 		order.setAmount(orderNew.getAmount());
 		order.setTotal(orderNew.getTotal());
 		order.setOrderDate(orderNew.getOrderDate());
-		order.setFastShip(orderNew.getFastShip());
+	//	order.setFeeShip(orderNew.getFeeShip());
 		return orderRepository.save(order);
 	}
 	
