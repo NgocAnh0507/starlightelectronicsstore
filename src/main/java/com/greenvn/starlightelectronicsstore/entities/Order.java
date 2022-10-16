@@ -40,9 +40,9 @@ public class Order {
 	@NotNull(message = "Ngày đặt hàng không được để trống!")
 	private Date orderDate;
 	
-	@Column(name = "FASTSHIP", columnDefinition = "BOOLEAN NOT NULL")
-	@NotNull(message = "Chuyển phát nhanh không được để trống!")
-	private Boolean fastShip;
+//	@Column(name = "FEESHIP", columnDefinition = "VARCHAR(55)")
+//	@NotBlank(message = "Phí chuyển hàng không được để trống!")
+//	private String feeShip;
 
 	public long getOrderID() {
 		return orderID;
@@ -92,12 +92,14 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public Boolean getFastShip() {
-		return fastShip;
-	}
+//	public String getFeeShip() {
+//		return feeShip;
+//	}
+//
+//	public void setFeeShip(String feeShip) {
+//		this.feeShip = feeShip;
+//	}
 
-	public void setFastShip(Boolean fastShip) {
-		this.fastShip = fastShip;
-	}
+	
 
 }

@@ -42,7 +42,7 @@ public class OderDetailService {
 	public OrderDetail addOrderDetail(CartLineInfo cartLineInfo, Long orderID)
 	{
 		long productID = cartLineInfo.getProductInfo().getProductID();
-
+        // hàm cập nhật lại số lượng trong db
 		Product product = productService.findProductById(productID);
 		int newQuantity = (int)(product.getQuantity() - cartLineInfo.getQuantity());
 		product.setQuantity(newQuantity);

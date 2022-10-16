@@ -7,7 +7,7 @@ import com.greenvn.starlightelectronicsstore.entities.Product;
 
 public class CartInfo {
 	private CustomerInfo customerInfo;
-	private Boolean fastShip;
+	// private String feeShip;
 	private long orderID;
 	private String status;
 	private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
@@ -23,14 +23,14 @@ public class CartInfo {
 	public List<CartLineInfo> getCartLines() {
 		return cartLines;
 	}
-
-	public Boolean getFastShip() {
-		return fastShip;
-	}
-
-	public void setFastShip(Boolean fastShip) {
-		this.fastShip = fastShip;
-	}
+//
+//	public String getFeeShip() {
+//		return feeShip;
+//	}
+//
+//	public void setFeeShip(String feeShip) {
+//		this.feeShip = feeShip;
+//	}
 
 	public long getOrderID() {
 		return orderID;
