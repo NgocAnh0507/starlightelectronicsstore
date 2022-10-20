@@ -63,11 +63,11 @@ public class CartInfo {
 		CartLineInfo line = this.findLineById(productInfo.getProductID());
 		if (line == null) {
 			line = new CartLineInfo();
-			line.setQuantity(0.0);
+			line.setQuantity(0);
 			line.setProductInfo(productInfo);
 			this.cartLines.add(line);
 		}
-		Double newQuantity = line.getQuantity() + quantity;
+		int newQuantity = (int) (line.getQuantity() + quantity);
 		if (newQuantity <= 0) {
 			this.cartLines.remove(line);
 		} else {
@@ -75,7 +75,7 @@ public class CartInfo {
 		}
 	}
 
-	public void updateProduct(Long productID, Double quantity) {
+	public void updateProduct(Long productID, int quantity) {
 		CartLineInfo line = this.findLineById(productID);
 		if (line != null) {
 			if (quantity <= 0) {

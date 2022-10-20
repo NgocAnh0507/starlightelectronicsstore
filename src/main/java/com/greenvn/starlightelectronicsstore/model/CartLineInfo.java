@@ -2,10 +2,10 @@ package com.greenvn.starlightelectronicsstore.model;
 
 public class CartLineInfo {
 	private ProductInfo productInfo;
-	private Double quantity;
+	private int quantity;
 
 	public CartLineInfo() {
-		this.quantity = 0.0;
+		this.quantity = 0;
 	}
 
 	public ProductInfo getProductInfo() {
@@ -16,11 +16,13 @@ public class CartLineInfo {
 		this.productInfo = productInfo;
 	}
 
-	public Double getQuantity() {
+	
+
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 

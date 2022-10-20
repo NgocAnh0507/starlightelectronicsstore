@@ -23,7 +23,7 @@ public class OrderDetail {
 
 	@Column(name = "QUANTITY", columnDefinition = "INT")
 	@NotNull(message = "Số lượng hiện có không được để trống!")
-	private Double quantity;
+	private int quantity;
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
 	@NotNull(message = "Giá bán không được để trống!")
@@ -55,11 +55,13 @@ public class OrderDetail {
 		this.productID = productID;
 	}
 
-	public Double getQuantity() {
+	
+
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 

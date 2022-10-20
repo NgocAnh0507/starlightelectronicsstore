@@ -92,8 +92,7 @@
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
 											Hãng sản xuất</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
+									<th class="text-center" style="font-size: 20px;">Ảnh bìa</th>
 											Ảnh bìa</a></th>
 									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
