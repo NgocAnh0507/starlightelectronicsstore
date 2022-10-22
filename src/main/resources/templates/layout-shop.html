@@ -112,85 +112,24 @@ fit=no">
 								</button>
 								<div class="collapse navbar-collapse"
 									id="navbarSupportedContent">
-									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle text-light" href="#"
-											role="button" data-bs-toggle="dropdown" aria-expanded="false">Điện
-												thoại di động</a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" th:href="@{/shop/byApple}">Apple</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" th:href="@{/shop/bySamsung}">Samsung</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="nokia.html">Nokia</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="xiaomi.html">Xiaomi</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="vivo.html">Vivo</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="oppo.html">Oppo</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="asus.html">Asus</a></li>
-
-											</ul></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle text-light" href="#"
-											role="button" data-bs-toggle="dropdown" aria-expanded="false">Laptop</a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="isuslap.html">Isus</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="acerlap.html">Acer</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="delllap.html">Dell</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="lapgaming.html">Gaming</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="msilap.html">MSI</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="hplap.html">HP</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="lenovo.html">Lenovo</a></li>
-											</ul></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle text-light" href="#"
-											role="button" data-bs-toggle="dropdown" aria-expanded="false">Apple</a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="apple.html">Iphone</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="ipad.html">Ipad</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<!-- <li><hr class="dropdown-divider"></li> -->
-												<li><a class="dropdown-item" href="mac.html">Mac</a></li>
-											</ul></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle text-light" href="#"
-											role="button" data-bs-toggle="dropdown" aria-expanded="false">Phụ kiện - Thiết bị</a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="loa.html">Loa</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="tainghe.html">Tai
-														nghe</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="smartwatch.html">Đồng hồ thông minh</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="printer.html">Máy in</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="xacpin.html">Xạc
-														dự phòng</a></li>
-											</ul></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle text-light" href="#"
-											role="button" data-bs-toggle="dropdown" aria-expanded="false">
-												Khuyến mãi </a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="hotdeal.html">Giảm
-														sâu trong tháng</a></li>
-												<li><hr class="dropdown-divider"></li>
-												<li><a class="dropdown-item" href="khuyenmai.html">Tất
-														cả khuyến mãi</a></li>
-
-											</ul></li>
-
+									<ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+									
+										<li class="nav-item category" th:each="category : ${categories}">
+											<a class="nav-link text-light" 
+											th:href="@{/shop/productCategoryFilter?(categoryName=${category.name})}"
+											role="button" th:text="${category.name}" ></a>
+											<div class="hover" style="border: 1px solid #ffffff; border-radius: 5px;">
+												<div class="row">
+													<div class="col-md-3" th:each="manufacturerInfo: ${manufacturerInfos}" style="margin: 5px;">
+													 	 <a th:switch="${manufacturerInfo.categoryName}">
+													 	 	<img th:case="${category.name}"
+													 	 		th:attr="src=@{/upload/{path}(path=${manufacturerInfo.logo})}" width="100px" 
+																style="border: 1px solid #000000; border-radius: 5px;">
+													 	 </a>
+												 	 </div>
+											 	 </div>
+											</div>
+										</li>
 									</ul>
 
 								</div>
@@ -218,7 +157,7 @@ fit=no">
 	</div> -->
 	<!-- Content Section -->
 	<section layout:fragment="content">
-		<p>This is filled by the content template.</p>
+		
 	</section>
 	<!-- Footer -->
 	<footer class="text-center text-lg-start bg-white text-muted bottom">
