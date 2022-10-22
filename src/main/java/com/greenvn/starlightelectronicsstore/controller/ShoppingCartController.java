@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +52,33 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@GetMapping("/update-quantity")
+	public CartInfo updateProductQuantity(HttpServletRequest request,@RequestParam long productID,@RequestParam int quantity) {
+		Product product = productService.findProductById(productID);
+		CartInfo cartInfo = Utils.getCartInSession(request);
+		if(product.getQuantityOrderMax() >= quantity) {
+			cartInfo.updateProduct(productID, quantity);
+		}else {
+			cartInfo.setMessage("Vuot qua so luong cho phep");
+		}
+		return cartInfo;
+	}
+//	@RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
+//	public String shoppingCartUpdateQty(HttpServletRequest request, //
+//			Model model, @ModelAttribute("cartForm") CartInfo cartForm,@RequestParam long productID,@RequestParam int quantity)
+//
+//	{
+//		Product product = productService.findProductById(productID);
+//		CartInfo cartInfo = Utils.getCartInSession(request);
+//		if(product.getQuantityOrderMax() >= quantity) {
+//			cartInfo.updateProduct(productID, quantity);
+//			cartInfo.updateQuantity(cartForm);
+//		}else {
+//			cartInfo.setMessage("Vuot qua so luong cho phep");
+//		}
+//		return "redirect:/shop/shoppingCart";
+//	}
 
 	@RequestMapping(value = { "/buyProduct" }, method = RequestMethod.GET)
 	public String listProductHandler(HttpServletRequest request, Model model,

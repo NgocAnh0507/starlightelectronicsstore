@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<title>Toàn bộ thông tin sản phẩm</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center" style="padding-top: 55px">
+			<h1 style="font-size: 35px;">Toàn bộ thông tin sản phẩm</h1>
+		</div>
+		<div class="container-fluid" style="padding-top: 35px">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<form th:object="${product}">
+						<label for="productName" class="col-form-label"
+							style="font-size: 20px;">Tên sản phẩm:</label> 
+							<input
+							class="form-control" type="text" disabled
+							th:field="*{productName}"> 
+							<label for="productSKU"
+							class="col-form-label" style="font-size: 20px;">Mã sản
+							phẩm:</label> 
+							<input class="form-control" type="text" disabled
+							th:field="*{productSKU}"> 
+							
+						<label for="exampleFormControlTextarea1" class="form-label">Mô tả sản phẩm</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1"
+							rows="3" th:field="*{productDescription}"disabled></textarea>
+						<label for="price" class="col-form-label" style="font-size: 20px;">Giá sản phẩm</label>
+						<!-- <input class="form-control" type="text" disabled th:field = "*{#numbers.formatInteger(price,3,'POINT')}"> -->
+						<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi</label>
+						<!-- <input class="form-control" type="number" disabled th:field = "*{#numbers.formatInteger(priceSpecial,3,'POINT')}"> -->
+						<label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu khuyến mãi: </label> 
+						<input type="datetime"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" value="ngày bắt đầu giảm giá" class="form-control" disabled>
+						<label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày hết khuyến mãi: </label> 
+						<input type="datetime"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" value="ngày hết giảm giá" class="form-control" disabled>
+						<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
+						<input type="number" th:field="*{quantity}" class="form-control"
+							id="quantity" style="font-size: 20px;" disabled>
+							<label for="quantityOrderMin" class="col-form-label" style="font-size: 20px;">Số lượng đặt hàng tối thiểu:</label> 
+						<input type="number" th:field="*{quantityOrderMin}" class="form-control"
+							id="quantityOrderMin"style="font-size: 20px;" disabled>
+							<label for="quantityOrderMax" class="col-form-label" style="font-size: 20px;">Số lượng đặt hàng tối đa:</label> 
+						<input type="number" th:field="*{quantityOrderMax}" class="form-control"
+							id="quantityOrderMax"   style="font-size: 20px;" disabled>
+							<label  class="col-form-label" style="font-size: 20px;">Trạng thái</label>
+							
+							
+						
+						 
+					</form>
+				</div>
+			</div>
+</body>
+</html>

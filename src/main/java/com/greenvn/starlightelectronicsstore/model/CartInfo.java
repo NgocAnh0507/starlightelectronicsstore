@@ -6,11 +6,21 @@ import java.util.List;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 
 public class CartInfo {
+	private String message;
 	private CustomerInfo customerInfo;
 	// private String feeShip;
 	private long orderID;
 	private String status;
 	private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
+
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public CustomerInfo getCustomerInfo() {
 		return customerInfo;

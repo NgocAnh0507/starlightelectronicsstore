@@ -169,6 +169,7 @@ public class ProductController {
 		return "product-update";
 	}
 	
+	
 	@PostMapping("/updateProduct")
 	public String updateProduct(@RequestParam(name = "productID")Long productID,@Valid Product product, BindingResult result, Model model,
 			HttpServletRequest request, @RequestParam("file") List<MultipartFile> file){
@@ -209,5 +210,14 @@ public class ProductController {
 		}
 		productService.deleteProduct(productID);
 		return "redirect:/admin/products";
+	}
+	@GetMapping("/fullInfo")
+	public String fullInfo(@RequestParam(name = "productID")Long productID, Model model) {
+		Product product = this.productService.findProductById(productID);
+		model.addAttribute("product", product);
+		model.addAttribute("categories",categoryService.getCategories());
+		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+		model.addAttribute("images", product.getImages());
+		return "fullInfoProduct";
 	}
 }

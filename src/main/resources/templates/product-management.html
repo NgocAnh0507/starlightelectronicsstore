@@ -49,50 +49,50 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center" style="font-size: 20px;"><a
+									<!-- <th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='productID',sortDir=${reverseSortDir})}">
-											Mã sản phẩm</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+											Mã sản phẩm</a></th> -->
+									<th class="text-center " style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='productName',sortDir=${reverseSortDir})}">
 											Tên sản phẩm</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='productSKU',sortDir=${reverseSortDir})}">
 											Mã SKU</a></th>
-									<th class="text-center" style="font-size: 20px;"> Mô tả sản phẩm</th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center text-secondary" style="font-size: 20px;"> Mô tả</th>
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='price',sortDir=${reverseSortDir})}">
 											Giá</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecial',sortDir=${reverseSortDir})}">
-											Giá khuyến mãi</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+											Giá sale</a></th>
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecialStartDate',sortDir=${reverseSortDir})}">
 											Ngày bắt đầu khuyến mãi</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecialEndDate',sortDir=${reverseSortDir})}">
 											Ngày hết khuyến mãi</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantity',sortDir=${reverseSortDir})}">
 											Số lượng hiện có</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<!-- <th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMin',sortDir=${reverseSortDir})}">
-											Số lượng đặt hàng tối thiểu </a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+											Số lượng đặt hàng tối thiểu </a></th> -->
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
 											Số lượng đặt hàng tối đa </a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
-											Cho phép bán </a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+											Tình trạng </a></th>
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='freeShip',sortDir=${reverseSortDir})}">
 											Giao hàng miễn phí</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='category.name',sortDir=${reverseSortDir})}">
 											Danh mục</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
 											Hãng sản xuất</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
 											Ảnh bìa</a></th>
 									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">Thao tác</th>
@@ -100,10 +100,12 @@
 							</thead>
 							<tbody>
 								<tr th:each="product : ${products}">
+									<!-- <td align="center" style="font-size: 15px;"
+										th:text="${product.productID}"></td> -->
 									<td align="center" style="font-size: 15px;"
-										th:text="${product.productID}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${product.productName}"></td>
+										>
+										<a class="text-decoration-none" th:href="@{/admin/fullInfo?(productID=${product.productID})}"><p th:text="${product.productName}" ></p></a>
+										</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.productSKU}"></td>
 									<td align="center">
@@ -115,17 +117,17 @@
 									    </button>
 									</td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${product.price}"></td>
+										th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${product.priceSpecial}"></td>
+										th:text="${#numbers.formatInteger(product.priceSpecial,3,'POINT')}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.priceSpecialStartDate}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.priceSpecialEndDate}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.quantity}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${product.quantityOrderMin}"></td>
+									<!-- <td align="center" style="font-size: 15px;"
+										th:text="${product.quantityOrderMin}"></td> -->
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.quantityOrderMax}"></td>
 									<td align="center" style="font-size: 15px;"

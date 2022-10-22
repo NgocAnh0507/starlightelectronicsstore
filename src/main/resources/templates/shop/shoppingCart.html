@@ -24,6 +24,9 @@
 			$(document).ready(function(){
 				
 				$(".quantity").change(function(){
+					var previousValue = $(this).data("value");
+				
+					console.log(previousValue);
 					/* lấy được giá trị khi được nhập */
 					console.log($(this).val());
 					var quantity = $(this).val();
@@ -33,9 +36,16 @@
 					console.log(productId);
 					var url = "/api/cart/update-quantity?productId="+productId+"&quantity="+quantity;
 					 $.get(url,function(data,status){
+						 var msg = data.message;
 						 console.log(data);
 						 console.log(status);
 						 console.log("Data: "+data+"\nStatus: "+ status);
+						 if(msg != ""){
+							 alert(msg);
+							 $(this).val(quantity);
+						 }
+						 
+						 
 					 })
 					 
 				});
@@ -112,7 +122,7 @@
 																th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 															</td>
 
-															<td
+															<td class="amountTotal"
 																th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')} + VND"></td>
 															<td class="col"><a class="btn btn-danger"
 																th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
