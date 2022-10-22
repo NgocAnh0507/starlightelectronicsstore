@@ -210,7 +210,6 @@ public class ShoppingCartController {
 			CartLineInfo newCartLine = new CartLineInfo();
 			
 			newCartLine.setProductInfo(productInfo);
-			
 			newCartLine.setQuantity(detail.getQuantity());
 			total += detail.getQuantity() * detail.getPrice();
 			

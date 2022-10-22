@@ -110,7 +110,8 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
-		else model.addAttribute("messages",null);
+		 
+		model.addAttribute("messages",null);
 
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
 		File saveFile = storageService.storeImage(file, uploadRootPath);
@@ -145,6 +146,13 @@ public class EmployeeController {
 	public String updateEmployee(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model,
 			HttpServletRequest request, @RequestParam("file") MultipartFile file){
 		if(result.hasErrors()) {
+
+	       if(employee.getPassword().isEmpty())
+	       {
+	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
+	       }
+	       else model.addAttribute("messagesPass", null);
+		       
 			Employee emp = employeeService.findEmployeeById(employeeID);
 			model.addAttribute("employee", emp);
 			model.addAttribute("positions",positionService.getPositions());
@@ -177,7 +185,8 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-update";
 		}
-		else model.addAttribute("messages",null);
+        
+       model.addAttribute("messages",null);
 		
 		Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
 		String uploadRootPath = request.getServletContext().getRealPath("upload");

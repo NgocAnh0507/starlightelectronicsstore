@@ -65,43 +65,63 @@
 					<form th:action="@{/admin/updateManufacturer?(manufacturerID=${manufacturer.manufacturerID})}" th:object="${manufacturer}"
 						enctype="multipart/form-data" method="post">
 						
-						<label for="name" class="col-form-label" style="font-size: 20px;">Tên hãng sản xuất:</label> 
-						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên của hãng sản xuất bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div th:switch="${messages}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="name" class="col-form-label" style="font-size: 18px;">Tên hãng sản xuất:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{name}" class="form-control"
+									id="name" placeholder="Hãy nhập tên của hãng sản xuất bạn muốn thêm"  style="font-size: 18px;">
+								<div class="row">
+									<p th:errors="*{name}" class="text-danger"  style="font-size: 18px; padding-top: 15px;"></p>
+									<div th:switch="${messages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 18px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-
-						<label class="col-form-lable" style="font-size: 20px;">
-							Ảnh biểu tượng hiện tại: </label> 
-						<a th:href="@{/upload/{path}(path=${manufacturer.logo.name})}" class="form-control" >
-			              <img th:attr="src=@{/upload/{path}(path=${manufacturer.logo.name})}"  width="100px" height="100px"/>
-			            </a>
-			            
-						<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
-							Tải lên ảnh biểu tượng </label> 
-						<input id="fileupload" class="form-control" type="file" name="file"/>
-						<div th:switch="${noImage}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${noImage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-							</div>
-						</div>
-						<hr />
-						<b>Ảnh đã chọn: </b>
-						<br />
-						<br />
-						<div id="dvPreview"></div>
-							
 						
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="fileupload" class="col-form-lable" style="font-size: 18px;">
+									Tải lên ảnh biểu tượng: </label> 
+							</div>
+							<div class="col-md-8">
+								<input id="fileupload" class="form-control" type="file" name="file"/>
+								<div th:switch="${noImage}">
+									<div th:case="null"></div>
+									<div th:case="*">
+										<p th:text="${noImage}" class="text-danger"  style="font-size: 18px; padding-top: 15px;"></p>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						<br/>
+						
+						<div class="row">
+							<div class="col-md-3">
+							<p style="font-size: 18px;">Ảnh đã chọn: </p>
+							</div>
+							<div class="col-md-8">
+								<div id="dvPreview"></div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div align="center">
+							<input type="submit" class="btn btn-outline-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
 						</div>
 					</form>
+					<div align="center">
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>

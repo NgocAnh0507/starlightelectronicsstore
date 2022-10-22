@@ -20,6 +20,10 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 
 	@Query("SELECT pr FROM Product AS pr WHERE pr.category.name = :cname")
 	Page<Product> findProductByCategoryName(@Param("cname") String categoryName, Pageable pageable);
+
+    @Query("SELECT pr FROM Product AS pr WHERE pr.manufacturer.name = :mname")
+    Page<Product> findProductByManufacturerName(@Param("mname") String manufacturerName, Pageable pageable);
+    
 	@Query("SELECT pr FROM Product pr WHERE pr.productName LIKE %?1%"
             + " OR pr.category.name LIKE %?1%"
             + " OR pr.manufacturer.name LIKE %?1%")

@@ -25,7 +25,7 @@
 
 		<div th:switch="${productAttributes}" class="container-fluid"
 			style="padding-top: 25px">
-			<h2 th:case="null" align="center">Chưa có thuộc tính nào!</h2>
+			<h2 th:case="null" align="center" class="text-primary">Chưa có thuộc tính nào!</h2>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-2"></div>
@@ -59,14 +59,14 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${productAttribute.value}"></td>
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-										<a class="btn btn-warning"
+										<a class="btn btn-outline-primary"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateProductAttribute?(productAttributeID=${productAttribute.productAttributeID})}">
-											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
-										<a class="btn btn-danger" style="font-size: 15px;"
+											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
+										<a class="btn btn-outline-danger" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/deleteProductAttribute?(productAttributeID=${productAttribute.productAttributeID})}">
-											<i class="fas fa-trash-alt"></i> Xóa</a>
+											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
 									</td>
 								</tr>
 							</tbody>
@@ -103,10 +103,10 @@
 				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
-		<div align="center" style="padding-top: 15px; padding-bottom: 35px"sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-			<a class="btn btn-success" style="font-size: 15px;" role="button"
+		<div align="center" style="padding-top: 35px"sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
+			<a class="btn btn-outline-success" style="font-size: 15px;" role="button"
 			th:href="@{/admin/formAddProductAttribute}">
-				<i class="fas fa-plus"></i> Thêm thuộc tính mới</a> 
+				<i class="fas fa-plus"></i> <b>Thêm thuộc tính mới</b></a> 
 				
 		</div>
 	</div>

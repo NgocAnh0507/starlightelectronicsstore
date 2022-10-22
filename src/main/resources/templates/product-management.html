@@ -49,9 +49,9 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<!-- <th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='productID',sortDir=${reverseSortDir})}">
-											Mã sản phẩm</a></th> -->
+											Mã sản phẩm</a></th>
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='productName',sortDir=${reverseSortDir})}">
 											Tên sản phẩm</a></th>
@@ -92,15 +92,16 @@
 									<th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='manufacturer.name',sortDir=${reverseSortDir})}">
 											Hãng sản xuất</a></th>
-									<th class="text-center" style="font-size: 20px;">Ảnh bìa</th>
+									<th class="text-center" style="font-size: 20px;"><a
+										th:href="@{/admin/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
 											Ảnh bìa</a></th>
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
+									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="product : ${products}">
-									<!-- <td align="center" style="font-size: 15px;"
-										th:text="${product.productID}"></td> -->
+									<td align="center" style="font-size: 15px;"
+										th:text="${product.productID}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.productName}"></td>
 									<td align="center" style="font-size: 15px;"

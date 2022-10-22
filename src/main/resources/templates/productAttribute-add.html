@@ -30,41 +30,81 @@
 				<div class="col-md-8">
 					<form th:action="@{/admin/addProductAttribute}" th:object="${productAttribute}"
 						method="post">
-						 <label for="category"  class="col-form-lable" style="font-size: 20px;">Danh mục</label>
-						 <select id="category" th:field="*{category}" class="form-control" style="font-size: 20px;">
-						 	 <option th:value="null" selected="selected">- Chọn danh mục -</option>
-							 <option th:each="category: ${categories}"
-							 		th:value = "${{category}}"
-							 		th:text="${category.name}"> </option>
-						 </select>
-						 <p th:errors="*{category}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div align="center" style="padding-top: 15px; padding-bottom: 5px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddCategory}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm danh mục mới</a> 
-						</div>
-						 <label for="type"  class="col-form-lable" style="font-size: 20px;">Loại thuộc tính</label>
-						 <select id="type" th:field="*{type}" class="form-control" style="font-size: 20px;">
-						 	<option th:value="null" selected="selected">- Chọn loại thuộc tính -</option>
-							 <option th:each="type: ${attributeTypes}"
-							 		th:value = "${{type}}"
-							 		th:text="${type.name}"></option>
-						 </select>
-						 <p th:errors="*{type}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div align="center" style="padding-top: 55px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddAttributeType}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm loại thuộc tính mới</a> 
-						</div>
-						<label for="value" class="col-form-label" style="font-size: 20px;">Giá trị thuộc tính:</label> 
-						<input type="text" th:field="*{value}" class="form-control"
-							id="value" placeholder="Hãy nhập giá trị của thuộc tính bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{value}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Thêm" style="font-size: 20px;">
+						<div class="row">
+							<div class="col-md-3">
+								<label for="category"  class="col-form-lable" style="font-size: 20px;">Danh mục:</label>
+							</div>
+							<div class="col-md-8">
+								<select id="category" th:field="*{category}" class="form-control" style="font-size: 20px;">
+								 	 <option th:value="null" selected="selected">- Chọn danh mục -</option>
+									 <option th:each="category: ${categories}"
+									 		th:value = "${{category}}"
+									 		th:text="${category.name}"> </option>
+								</select>
+								<div class="row">
+									<p th:errors="*{category}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								</div>
+							</div>
+							<div align="center" style="padding-top: 15px; padding-bottom: 5px">
+								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
+								th:href="@{/formAddCategory}" target=”_blank”>
+									<i class="fas fa-plus"></i> <b>Thêm danh mục mới</b></a> 
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="type"  class="col-form-lable" style="font-size: 20px;">Loại thuộc tính:</label>
+							</div>
+							<div class="col-md-8">
+								<select id="type" th:field="*{type}" class="form-control" style="font-size: 20px;">
+								 	<option th:value="null" selected="selected">- Chọn loại thuộc tính -</option>
+									<option th:each="type: ${attributeTypes}"
+									 		th:value = "${{type}}"
+									 		th:text="${type.name}"></option>
+								</select>
+								<p th:errors="*{type}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+							<div align="center" style="padding-top: 15px">
+								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
+								th:href="@{/formAddAttributeType}" target=”_blank”>
+									<i class="fas fa-plus"></i> <b>Thêm loại thuộc tính mới</b></a> 
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">	
+								<label for="value" class="col-form-label" style="font-size: 20px;">Giá trị thuộc tính:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{value}" class="form-control"
+									id="value" placeholder="Hãy nhập giá trị của thuộc tính bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{value}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									<div th:switch="${messages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div align="center">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Thêm" style="font-size: 20px;">
 						</div>
 					</form>
+					<div align="center">
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>

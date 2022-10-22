@@ -92,7 +92,7 @@ public class EmployeeService {
 	private static final String DEFAULT_INITIAL_PASSWORD = "admin";
 	public void createDefaultAdmin() throws Exception{
 		String password = passwordEncoder.encode("123456");
-		Position adminPositon = positionRepository.findPositionByName("Admin");
+		Position adminPositon = positionRepository.findPositionByName("Quản trị viên");
 		String sDate1="01/01/1996";  
 	    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
 	    
@@ -105,7 +105,7 @@ public class EmployeeService {
 		emp.setName("Hai");
 		emp.setUserName("admin");
 		emp.setPassword(password);
-		emp.setPhoneNumber("123456789");
+		emp.setPhoneNumber("0123456789");
 		emp.setPosition(adminPositon);
 		employeeRepository.save(emp);
 	}

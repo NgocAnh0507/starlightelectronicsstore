@@ -28,20 +28,34 @@
 				<div class="col-md-8">
 					<form th:action="@{/admin/updateCategory?(categoryID=${category.categoryID})}" th:object="${category}"
 						method="post">
-						<label for="name" class="col-form-label" style="font-size: 20px;">Tên danh mục:</label> 
-						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên danh mục bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div th:switch="${messages}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="name" class="col-form-label" style="font-size: 20px;">Tên danh mục:</label>
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{name}" class="form-control"
+									id="name" placeholder="Hãy nhập tên danh mục bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									<div th:switch="${messages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+						
+						<div align="center">
+							<input type="submit" class="btn btn-outline-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
 						</div>
+						
 					</form>
+					<div align="center">
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>

@@ -25,7 +25,7 @@
 
 		<div th:switch="${orders}" class="container-fluid"
 			style="padding-top: 25px">
-			<h2 th:case="null" align="center">Chưa có hóa đơn!</h2>
+			<h2 th:case="null" align="center" class="text-primary">Chưa có hóa đơn!</h2>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-12">
@@ -55,6 +55,7 @@
 									<!-- <th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/orders?(page=${currentPage},sortField='order.fastShip',sortDir=${reverseSortDir})}">
 											Phương thức vận chuyển</a></th>
+											-->
 									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
@@ -88,6 +89,7 @@
 										<p th:case="true">Chuyển phát nhanh</p>
 										<p th:case="false">Chuyển phát chậm</p>
 									</td>
+									-->
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
@@ -124,12 +126,6 @@
 						</nav>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div  align="center" th:switch="${messages}">
-			<div th:case="null"></div>
-			<div th:case="*">
-				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
 	</div>

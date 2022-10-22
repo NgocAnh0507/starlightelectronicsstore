@@ -51,25 +51,31 @@ fit=no">
 							</button>
 							<div class="collapse navbar-collapse" id="navbarSupportedContent">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<li class="nav-item"><a class="nav-link active"
-										aria-current="page" th:href="@{/}">Trang chủ</a></li>
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{/shop/thanhtoanvatienich}">Thanh toán và tiện ích</a></li>
+									<li class="nav-item">
+									<a class="nav-link active" aria-current="page" th:href="@{/}">Trang chủ</a></li>
 									<li class="nav-item dropdown"><a
-										class="nav-link dropdown-toggle" href="#" role="button"
+										class="nav-link dropdown-toggle " href="#"
+										role="button" data-bs-toggle="dropdown" aria-expanded="false">
+											Khuyến mãi </a>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="hotdeal.html">Giảm
+													sâu trong tháng</a></li>
+											<li><hr class="dropdown-divider"></li>
+											<li><a class="dropdown-item" href="khuyenmai.html">Tất
+													cả khuyến mãi</a></li>
+
+										</ul></li>
+									<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" role="button"
 										data-bs-toggle="dropdown" aria-expanded="false"> Thông tin
 											mới nhất </a>
 										<ul class="dropdown-menu">
-											<li><a class="dropdown-item" th:href="@{/shop/tinmoi}">Tin
-													mới</a></li>
+											<li><a class="dropdown-item" href="tinmoi.html">Tin tức công nghệ</a></li>
 											<li><hr class="dropdown-divider"></li>
-											<li><a class="dropdown-item" th:href="@{/shop/khuyenmai}">Khuyến
-													mãi</a></li>
-											<li><hr class="dropdown-divider"></li>
-											<li><a class="dropdown-item" th:href="@{/shop/appvagame}">App
+											<li><a class="dropdown-item" href="appvagame.html">App
 													và game</a></li>
 											<li><hr class="dropdown-divider"></li>
-											<li><a class="dropdown-item" th:href="@{/shop/tuvan}">Đánh
+											<li><a class="dropdown-item" href="tuvan.html">Đánh
 													giá và tư vấn</a></li>
 
 										</ul></li>
@@ -218,7 +224,7 @@ fit=no">
 			class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
 			<!-- Left -->
 			<div class="me-5 d-none d-lg-block">
-				<span>Đây là trang chủ chính thức của DOG-STORE</span>
+				<span> Đây là trang chủ chính thức của Cửa hàng thiết bị công nghệ Ánh Sao! </span>
 			</div>
 			<!-- Left -->
 
@@ -249,11 +255,11 @@ fit=no">
 					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 						<!-- Content -->
 						<h6 class="text-uppercase fw-bold mb-4">
-							<i class="bi bi-apple"></i>DOG-STORE
+							<i class="bi bi-apple"></i> Cửa hàng thiết bị công nghệ Ánh Sao!
 						</h6>
-						<p>Mọi hành động sử dụng nội dung đăng tải trên Website
-							Dog-Store tại địa chỉ dogstore... phải có sự đồng ý bằng
-							văn bản của Công ty TNHH Dog-Store</p>
+						<p> Chúng tôi hân hạnh mang đến cho bạn một ngập tràn công nghệ, 
+						dù thiết bị công nghệ cá nhân, phục vụ gia đình hay dành cho doanh nghiệp
+						đều sẽ được tìm thất ở Ánh Sao. Hãy để chúng tôi đáp ứng mọi nhưu cầu của bạn. </p>
 					</div>
 					<!-- Grid column -->
 
@@ -261,21 +267,9 @@ fit=no">
 					<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 						<!-- Links -->
 						<h6 class="text-uppercase fw-bold mb-4">Sản phẩm</h6>
-						<p>
-							<a href="allappleproduct.html" class="text-reset"><i
-								class="bi bi-apple"></i>Apple</a>
-						</p>
-						<p>
-							<a href="samsung.html" class="text-reset"><i
-								class="bi bi-phone"></i>Samsung</a>
-						</p>
-						<p>
-							<a href="lapdeal.html" class="text-reset"><i
-								class="bi bi-laptop"></i>Laptop</a>
-						</p>
-						<p>
-							<a href="linhphukiendeal.html" class="text-reset"><i
-								class="bi bi-headphones"></i>PC-Phụ kiện</a>
+						<p th:each="category : ${categories}" >
+							<a  class="text-reset" th:text="${category.name}">
+							<i class="bi bi-apple"></i></a>
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -287,27 +281,27 @@ fit=no">
 							<i class="bi bi-headset"></i>Hỗ trợ khách hàng
 						</h6>
 						<p>
-							<a th:href="@{/shop/quydinhchung}" class="text-reset">Quy định
+							<a href="quydinhchung.html" class="text-reset">Quy định
 								chung</a>
 						</p>
 						<p>
-							<a th:href="@{/shop/huongdanmuahang}" class="text-reset">Hướng dẫn
+							<a href="huongdanmuahang.html" class="text-reset">Hướng dẫn
 								mua hàng</a>
 						</p>
 						<p>
-							<a th:href="@{/shop/thanhtoanvagiaonhan}" class="text-reset">Thanh
+							<a href="thanhtoanvagiaonhan.html" class="text-reset">Thanh
 								toán và giao nhận</a>
 						</p>
 						<p>
-							<a th:href="@{/shop/caccauhoi}" class="text-reset">Các câu
+							<a href="caccauhoithuonggap.html" class="text-reset">Các câu
 								hỏi thường gặp</a>
 						</p>
 						<p>
-							<a th:href="@{/shop/huongdandoitra}" class="text-reset">Hướng
+							<a href="huongdandoitrasp.html" class="text-reset">Hướng
 								dẫn đổi trả sản phẩm</a>
 						</p>
 						<p>
-							<a th:href = "@{/shop/baomatthongtin}" class="text-reset">Bảo mật
+							<a href="baomatthongtinkh.html" class="text-reset">Bảo mật
 								thông tin khách hàng</a>
 						</p>
 					</div>
@@ -317,10 +311,10 @@ fit=no">
 					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 						<!-- Links -->
 						<h6 class="text-uppercase fw-bold mb-4">
-							<i class="bi bi-person-lines-fill"></i>Contact
+							<i class="bi bi-person-lines-fill"></i>Liện hệ
 						</h6>
 						<p>
-							<i class="fas fa-home me-3 text-grayish"></i> Tân Bình,TP.HCM,VN
+							<i class="fas fa-home me-3 text-grayish"></i> Tân Bình, TP.HCM, Việt Nam
 						</p>
 						<p>
 							<i class="fas fa-envelope me-3 text-grayish"></i>
@@ -343,8 +337,8 @@ fit=no">
 		<!-- Copyright -->
 		<div class="text-center p-4"
 			style="background-color: rgba(0, 0, 0, 0.025);">
-			© 2021 Copyright: <a class="text-reset fw-bold"
-				href="https://mdbootstrap.com/">dog-store.com</a>
+			© 2022 Copyright: <a class="text-reset fw-bold"
+				href="https://mdbootstrap.com/">starlightelectronisstore.com</a>
 		</div>
 		<!-- Copyright -->
 	</footer>

@@ -29,9 +29,9 @@ public class StarlightelectronicsstoreApplication implements CommandLineRunner {
 		System.out.println("Test");
 		if(empSer.findEmployeeByUserName("Admin")==null) {
 
-			if(posSer.findPositionByUserName("Admin")==null) {
+			if(posSer.findPositionByUserName("Quản trị viên")==null) {
 				Position adminPositon = new Position();
-				adminPositon.setName("Admin");
+				adminPositon.setName("Quản trị viên");
 				adminPositon.setRole("ADMIN");
 				posSer.addPosition(adminPositon);
 			}

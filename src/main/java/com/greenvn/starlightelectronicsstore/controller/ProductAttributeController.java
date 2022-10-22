@@ -67,6 +67,23 @@ public class ProductAttributeController {
 			model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
 			return "productAttribute-add";
 		}
+		
+		List<ProductAttribute> attributeList = productAttributeService.findProductAttributeByCategoryIDandTypeID(productAttribute.getCategory().getCategoryID(), productAttribute.getType().getAttributeTypeID());
+		Boolean check = true;
+		for(ProductAttribute pa : attributeList) {
+		    if(pa.getValue().equals(productAttribute.getValue())) {
+		        check = false;
+		        break;
+		    }
+		}
+		
+		if(!check) {
+            model.addAttribute("messages","Thuộc tính cùng giá trị đã tồn tại!");
+            model.addAttribute("categories",this.categoryService.getCategories());
+            model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
+            return "productAttribute-add";
+		}
+		
 		this.productAttributeService.addProductAttribute(productAttribute);
 		return "redirect:/admin/productAttributes";
 	}
@@ -88,6 +105,24 @@ public class ProductAttributeController {
 			model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
 			return "productAttribute-update";
 		}
+
+        List<ProductAttribute> attributeList = productAttributeService.findProductAttributeByCategoryIDandTypeID(productAttribute.getCategory().getCategoryID(), productAttribute.getType().getAttributeTypeID());
+        Boolean check = true;
+        for(ProductAttribute pa : attributeList) {
+            if(pa.getValue().equals(productAttribute.getValue())) {
+                check = false;
+                break;
+            }
+        }
+        
+        if(!check) {
+            model.addAttribute("messages","Thuộc tính cùng giá trị đã tồn tại!");
+            model.addAttribute("productAttribute", productAttribute);
+            model.addAttribute("categories",this.categoryService.getCategories());
+            model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
+            return "productAttribute-update";
+        }
+        
 		this.productAttributeService.updateProductAttribute(productAttribute, productAttributeID);
 		return "redirect:/admin/productAttributes";
 	}

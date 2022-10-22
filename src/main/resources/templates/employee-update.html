@@ -64,84 +64,184 @@
 				<div class="col-md-8">
 					<form th:action="@{/admin/updateEmployee?(employeeID=${employee.employeeID})}" th:object="${employee}"
 						enctype="multipart/form-data" method="post">
-					<label for="name" class="col-form-label" style="font-size: 20px;">Tên:</label> 
-						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 						
-						<label for="birthday" class="col-form-label" style="font-size: 20px;">Ngày-tháng-năm sinh:</label> 
-						<input type="date"
-							th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
-						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
-						<input type="text" th:field="*{phoneNumber}" class="form-control"
-							id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{phoneNumber}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div th:switch="${messages}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="name" class="col-form-label" style="font-size: 20px;">Tên:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{name}" class="form-control"
+									id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+								<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 							</div>
 						</div>
 						
-						<label for="email" class="col-form-label" style="font-size: 20px;">Email:</label> 
-						<input type="text" th:field="*{email}" class="form-control"
-							id="email" placeholder="Hãy nhập địa chỉ email của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{email}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<hr/>
 						
-						<label for="userName" class="col-form-label" style="font-size: 20px;">Tài khoản:</label> 
-						<input type="text" th:field="*{userName}" class="form-control"
-							id="userName" placeholder="Hãy nhập tài khoản của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{userName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="birthday" class="col-form-label" style="font-size: 20px;">Ngày sinh:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="date"
+									th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									<div th:switch="${birthdayMessages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${birthdayMessages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						
-						<label for="password" class="col-form-label" style="font-size: 20px;">Mật khẩu:</label> 
-						<input type="password" th:field="*{password}" class="form-control"
-							id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
-						<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						 
-						 <label for="position"  class="col-form-lable" style="font-size: 20px;"> Chức vụ</label>
-						 <select id="position" th:field="*{position}" class="form-control" style="font-size: 20px;">
-						 	 <option th:value="null" selected="selected">- Chọn chức vụ -</option>
-							 <option th:each="position: ${positions}"
-							 		th:value = "${{position}}"
-							 		th:switch="${position.role}">
-							 		<p th:case="ADMIN"><span th:text="${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
-							 		<p th:case="MANAGEMENT"><span th:text="${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
-							 		<p th:case="EMPLOYEE"><span th:text="${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
-							 </option> 
-						 </select>
-						 <p th:errors="*{position}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						 
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{phoneNumber}" class="form-control"
+									id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{phoneNumber}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									<div th:switch="${messages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="email" class="col-form-label" style="font-size: 20px;">Email:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{email}" class="form-control"
+									id="email" placeholder="Hãy nhập địa chỉ email của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+								<p th:errors="*{email}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="userName" class="col-form-label" style="font-size: 20px;">Tài khoản:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{userName}" class="form-control"
+									id="userName" placeholder="Hãy nhập tài khoản của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+								<p th:errors="*{userName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="password" class="col-form-label" style="font-size: 20px;">Mật khẩu:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="password" th:field="*{password}" class="form-control"
+									id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									<div th:switch="${messagesPass}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+						 <div class="col-md-3">
+						 	<label for="position"  class="col-form-lable" style="font-size: 20px;"> Chức vụ:</label>
+						 </div>
+						 <div class="col-md-8">
+							 <select id="position" th:field="*{position}" class="form-control" style="font-size: 20px;">
+							 	 <option th:value="null" selected="selected">- Chọn chức vụ -</option>
+								 <option th:each="position: ${positions}"
+								 		th:value = "${{position}}"
+								 		th:switch="${position.role}">
+								 		<p th:case="ADMIN"><span th:text="${position.name} + ' - ' + ${position.role}"></span> - Được phép chỉnh sửa dữ liệu và thông tin nhân viên</p>
+								 		<p th:case="MANAGEMENT"><span th:text="${position.name} + ' - ' + ${position.role}"></span> -  Được phép chỉnh sửa dữ liệu</p>
+								 		<p th:case="EMPLOYEE"><span th:text="${position.name} + ' - ' + ${position.role}"></span> -  Chỉ được phép xem dữ liệu</p>
+								 </option> 
+							 </select>
+							 <p th:errors="*{position}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						 </div>
+						 	
+						 </div>
 						 <div align="center" style="padding-top: 15px; padding-bottom: 5px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
+							<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
 							th:href="@{/admin/formAddPosition}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm chức vụ mới</a> 
-						</div>
-						 
-						<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
-							Tải lên ảnh đại diện </label> 
-						<input id="fileupload" class="form-control" type="file" name="file"/>
-						<div th:switch="${noImage}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${noImage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								<i class="fas fa-plus"></i> <b>Thêm chức vụ mới</b></a> 
+						 </div>
+								
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="fileupload" class="col-form-lable" style="font-size: 20px;">
+									Tải lên ảnh đại diện: </label> 
+							</div>
+							<div class="col-md-8">
+								<input id="fileupload" class="form-control" type="file" name="file"/>
+								<div th:switch="${noImage}">
+									<div th:case="null"></div>
+									<div th:case="*">
+										<p th:text="${noImage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									</div>
+								</div>
 							</div>
 						</div>
-						<hr />
-						<b>Ảnh đã chọn: </b>
-						<br />
-						<br />
-						<div id="dvPreview"></div>
-							
 						
-						<input type="checkbox"  th:field="*{isActive}" id="isActive" name="isActive" value="dữ liệu">
-						 <label for="isActive" class="col-form-label" style="font-size: 20px;"> Trạng thái làm việc</label> 
-						 
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+						<br/>
+						
+						<div class="row">
+							<div class="col-md-3">
+							<p style="font-size: 20px;">Ảnh đã chọn: </p>
+							</div>
+							<div class="col-md-8">
+								<div id="dvPreview"></div>
+							</div>
 						</div>
-t</form>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label class="col-form-lable" style="font-size: 20px;">Trạng thái làm việc:</label>
+							</div>
+							<div class="col-md-8">
+								<input type="checkbox"  th:field="*{isActive}" id="isActive" name="isActive" value="dữ liệu">
+								<label for="isActive" class="col-form-label" style="font-size: 20px;"> Đang làm việc</label> 
+							</div>
+						</div>
+						
+						<hr/>
+						 
+						<div align="center">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 20px;">
+						</div>
+					</form>
+					<div align="center">
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>

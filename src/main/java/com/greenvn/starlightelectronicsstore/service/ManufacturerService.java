@@ -1,5 +1,6 @@
 package com.greenvn.starlightelectronicsstore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
+import com.greenvn.starlightelectronicsstore.entities.Product;
+import com.greenvn.starlightelectronicsstore.model.ManufacturerInfo;
 import com.greenvn.starlightelectronicsstore.repository.ManufacturerRepository;
 
 @Service
@@ -22,6 +25,39 @@ public class ManufacturerService {
 	{
 		return manufacturerRepository.findAll();
 	}
+	
+	public List<Manufacturer> getManufacturersByCategory(String categoryName)
+    {
+	    List<Manufacturer> manufacturerList = this.getManufacturers();
+        List<Manufacturer> manufacturers = new ArrayList<Manufacturer>();
+        for(Manufacturer m : manufacturerList) {
+            Boolean check = false;
+            for(Product p : m.getProducts()) {
+                if(p.getCategory().getName().equals(categoryName)) {
+                    check = true;
+                    break;
+                }
+            }
+            
+            if(check) {
+                manufacturers.add(m);
+            }
+        }
+        return manufacturers;
+    }
+	   
+    public List<ManufacturerInfo> getManufacturerInfoHaveProduct()
+    {
+        List<Manufacturer> manufacturerList = this.getManufacturers();
+        List<ManufacturerInfo> manufacturerInfos = new ArrayList<ManufacturerInfo>();
+        for(Manufacturer m : manufacturerList) {
+            for(Product p : m.getProducts()) {
+                ManufacturerInfo mInfo = new ManufacturerInfo(p.getCategory().getName(),m.getLogo().getName());
+                if(!manufacturerInfos.contains(mInfo)) manufacturerInfos.add(mInfo);
+            }
+        }
+        return manufacturerInfos;
+    }
 	
 	public Manufacturer addManufacturer(Manufacturer manufacturer)
 	{

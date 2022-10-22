@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-shop}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<title>Sản phẩm đang mở bán</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="container pt-5">
+
+			<div class="row" align="center" style="padding-top: 35px; padding-bottom: 35px">
+				<h1 style="font-size: 35px;">Sản phẩm đang mở bán</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<form th:action="@{/shop/productFilter?(categoryName=${categoryName})}" th:object="${filter}"
+						method="post" style="padding-left: 15px;">
+						<h5 style="font-size: 20px;">Lọc sản phẩm theo: </h5>
+						<div id="price-filter" style="padding-left: 15px;">
+							<b style="font-size: 15px;">Khoảng giá: </b>
+							<br/>
+							<label class="col-form-label" for="lowest-price" style="font-size: 15px; margin-left: 15px">Giá thấp nhất:</label> 
+							<input class="form-control" th:field="*{priceMin}" type="number" id="lowest-price" th:value="null" style="font-size: 15px; margin-left: 15px">
+							
+							<label class="col-form-label" for="highest-price" style="font-size: 15px; margin-left: 15px"> Giá cao nhất: </label> 
+							<input class="form-control" th:field="*{priceMax}" type="number"  id="highest-price" th:value="null" style="font-size: 15px; margin-left: 15px">
+							<hr/>
+						</div>
+						<div id="manufacturer-filter" style="padding-left: 15px;">
+							<b style="font-size: 15px;">Hãng sản xuất</b> 
+							<select class="form-control" th:field="*{manufacturer}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
+							 	<option th:value="null" selected="selected"></option>
+								<div th:each="manufac: ${manufacturers}">
+							 			<option th:value = "${{manufac}}"
+										 		th:text="${manufac.name}">
+									 	</option>
+							 	 </div>
+							</select>
+							<hr/>
+						</div>
+						<div id="attributes-filter" style="padding-left: 15px;" th:each="attributeType: ${attributeTypes}">
+							<b style="font-size: 15px;" th:text="${attributeType.name}"></b> 
+							<select class="form-control" th:field="*{attributes}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
+							 	<option th:value="null" selected="selected"></option>
+								<div th:each="attribute: ${attributes}" th:switch="${attribute.type.attributeTypeID}">
+							 			<div th:case="${attributeType.attributeTypeID}">
+								 			<option th:value = "${{attribute}}"
+											 		th:text="${attribute.value}">
+										 	</option>
+										</div>
+							 	 </div>
+							</select>
+							<hr/>
+						</div>
+						<div align="center">
+							<input type="submit" class="btn btn-success mt-5" value="Lọc" style="font-size: 20px;">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-lg-4 col-md-4 col-sm-12" th:each="product : ${products}">
+							<div class="card product_item">
+								<div class="body">
+									<div class="cp_img">
+										<div id="myCarousel" class="carousel slide"
+											data-bs-ride="carousel">
+											<div class="carousel-inner">
+												<div class="carousel-item active">
+													<img class="d-block w-100"
+														th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"
+														style="max-width: 90%; padding-left: 10%" />
+												</div>
+												<div class="carousel-item " th:each="image : ${product.images}">
+													<img class="d-block w-100"
+														th:attr="src=@{/upload/{path}(path=${image.name})}"
+														style="max-width: 90%; padding-left: 10%" />
+												</div>
+											</div>
+											<button class="carousel-control-prev" type="button"
+												data-bs-target="#myCarousel" data-bs-slide="prev">
+												<span><i class="fa fa-angle-left" aria-hidden="true"
+													style="color: #000000; font-size: 25px;"></i></span> <span
+													class="visually-hidden">Previous</span>
+											</button>
+											<button class="carousel-control-next" type="button"
+												data-bs-target="#myCarousel" data-bs-slide="next">
+												<span><i class="fa fa-angle-right" aria-hidden="true"
+													style="color: #000000; font-size: 25px;"></i></span> <span
+													class="visually-hidden">Next</span>
+											</button>
+										</div>
+										<div class="hover">
+											<a class="btn btn-primary" style="font-size: 15px;"
+												role="button"
+												th:href="@{/shop/productInfo?(productID=${product.productID})}">
+												Xem chi tiết! </a>
+										</div>
+									</div>
+									<div style="margin-top: 285px;">
+										<h3 align="center" class="hot-name" th:text="${product.productName}"></h3>
+			
+										<div align="center" id="price" th:switch="${product.priceSpecial}">
+											<div th:case="null">
+												<b><p th:text="${#numbers.formatInteger(product.price,3,'POINT')}"
+														style="font-size: 25px;"></p></b>
+											</div>
+											<div th:case="*">
+												<p class="old-price"
+													th:text="${#numbers.formatInteger(product.price,3,'POINT')}"
+													style="font-size: 25px;"></p>
+												<b><p class="hot-price" th:text="${#numbers.formatInteger(product.priceSpecial,3,'POINT')}"
+														style="font-size: 25px; color: red;"></p></b>
+											</div>
+										</div>
+			
+										<div id="attributes">
+											<div class="row">
+												<div class="col-md-6" th:each="attribute : ${product.attributes}">
+													<p  align="center" th:text="${attribute.type.name} + ': ' + ${attribute.value}"
+														style="font-size: 15px; border: 1px solid #000000; border-radius: 5px;"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

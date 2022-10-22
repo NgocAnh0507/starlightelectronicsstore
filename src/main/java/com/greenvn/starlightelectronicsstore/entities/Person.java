@@ -18,7 +18,7 @@ public abstract class Person {
 	@NotBlank(message = "Tên không được để trống!")
 	private String name;
 	
-	@Column(name = "BIRTHDAY",columnDefinition = "DATETIME")
+	@Column(name = "BIRTHDAY",columnDefinition = "DATE")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Ngày sinh không được để trống!")
 	private Date birthday;
