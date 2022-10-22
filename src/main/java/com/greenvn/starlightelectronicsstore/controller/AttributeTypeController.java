@@ -3,6 +3,9 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,7 @@ public class AttributeTypeController {
 	public String showAttributeTypeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "attributeTypeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<AttributeType> pageAttributeType = attributeTypeService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -37,6 +40,8 @@ public class AttributeTypeController {
 		if(attributeTypes.size() == 0) attributeTypes = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageAttributeType.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","attributeTypes" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -95,11 +100,11 @@ public class AttributeTypeController {
 	}
 
 	@GetMapping("/deleteAttributeType")
-	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model) {
+	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model,HttpServletRequest request) {
 		AttributeType attributeType =  attributeTypeService.findAttributeTypeById(attributeTypeID);
 		if(attributeType.getProductAttributes().size() > 0) {
 			model.addAttribute("messages","Không thể xóa loại thuộc tính đang có thuộc tính!");
-			return showAttributeTypeList(1,"attributeTypeID","asc",model);
+			return showAttributeTypeList(1,"attributeTypeID","asc",model,request);
 		}
 		attributeTypeService.deleteAttributeType(attributeTypeID);
 		

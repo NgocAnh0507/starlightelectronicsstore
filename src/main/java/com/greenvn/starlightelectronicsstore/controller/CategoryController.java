@@ -3,6 +3,8 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class CategoryController {
 	public String showCategoryList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "categoryID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model, HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Category> pageCategory = categoryService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -38,6 +40,8 @@ public class CategoryController {
 		if(categories.size() == 0) categories = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageCategory.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected", "categories");
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -95,11 +99,11 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/deleteCategory")
-	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model) {
+	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model,HttpServletRequest request) {
 		Category category =  categoryService.findCategoryById(categoryID);
 		if(category.getProductAttributes().size() > 0 || category.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa danh mục đang có thuộc tính hoặc sản phẩm!");
-			return showCategoryList(1,"categoryID","asc",model);
+			return showCategoryList(1,"categoryID","asc",model,request);
 		}
 		categoryService.deleteCategory(categoryID);
 		return "redirect:/admin/categories";

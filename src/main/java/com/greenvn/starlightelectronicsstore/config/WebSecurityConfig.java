@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
         // permitall không cần kiểm tra
-        .antMatchers("/", "/contact", "/about","/css/**","/images/**").permitAll()
+        .antMatchers("/", "/contact", "/about","/css/**","/images/**","/api/**").permitAll()
         // .hasrole phaỉ có quyền ADMIN mới được phép truy cập và đăng nhập
         
 //      .antMatchers("/users/**").access("hasRole('ADMIN')")

@@ -19,6 +19,30 @@
 </head>
 <body>
 	<div layout:fragment="content">
+		<!-- cú pháp Jquery: ý nghĩa chờ cái trang html vẽ lên xong r mới xử lý code -->
+		<script>
+			$(document).ready(function(){
+				
+				$(".quantity").change(function(){
+					/* lấy được giá trị khi được nhập */
+					console.log($(this).val());
+					var quantity = $(this).val();
+					/*Lay ra ma san pham (.parent lay phan tu cha)*/
+					var productIdInput = $(this).parent().parent().children().eq(2);
+					var productId = productIdInput.val();
+					console.log(productId);
+					var url = "/api/cart/update-quantity?productId="+productId+"&quantity="+quantity;
+					 $.get(url,function(data,status){
+						 console.log(data);
+						 console.log(status);
+						 console.log("Data: "+data+"\nStatus: "+ status);
+					 })
+					 
+				});
+				
+			});
+			
+		</script>
 		<div class="entry-header-area pb-50 pdtop">
 			<div class="container">
 				<div class="row">
@@ -84,6 +108,7 @@
 																th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')} + VND"></strong>
 															</td>
 															<td class="col"><input type="number"
+																class="quantity"
 																th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 															</td>
 

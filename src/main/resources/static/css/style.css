@@ -92,4 +92,7 @@
     #wrapper.toggled #sidebar-wrapper {
       margin-left: -15rem;
     }
+    .active{
+    	background-color: rgba(39, 172, 138, 1); 
+    }
   }

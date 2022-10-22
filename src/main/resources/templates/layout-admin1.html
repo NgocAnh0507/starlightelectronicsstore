@@ -24,6 +24,55 @@ fit=no">
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
+		<!-- <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+			style="width: 280px;">
+			<a href="/"
+				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+				<svg class="bi me-2" width="40" height="32">
+					<use xlink:href="#bootstrap"></use></svg> <span class="fs-4">Sidebar</span>
+			</a>
+			<hr>
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li class="nav-item"><a href="#" class="nav-link active"
+					aria-current="page"> <svg class="bi me-2" width="16"
+							height="16">
+							<use xlink:href="#home"></use></svg> Home
+				</a></li>
+				<li><a href="#" class="nav-link text-white"> <svg
+							class="bi me-2" width="16" height="16">
+							<use xlink:href="#speedometer2"></use></svg> Dashboard
+				</a></li>
+				<li><a href="#" class="nav-link text-white"> <svg
+							class="bi me-2" width="16" height="16">
+							<use xlink:href="#table"></use></svg> Orders
+				</a></li>
+				<li><a href="#" class="nav-link text-white"> <svg
+							class="bi me-2" width="16" height="16">
+							<use xlink:href="#grid"></use></svg> Products
+				</a></li>
+				<li><a href="#" class="nav-link text-white"> <svg
+							class="bi me-2" width="16" height="16">
+							<use xlink:href="#people-circle"></use></svg> Customers
+				</a></li>
+			</ul>
+			<hr>
+			<div class="dropdown">
+				<a href="#"
+					class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+					id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+					<img src="https://github.com/mdo.png" alt="" width="32" height="32"
+					class="rounded-circle me-2"> <strong>mdo</strong>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-dark text-small shadow"
+					aria-labelledby="dropdownUser1">
+					<li><a class="dropdown-item" href="#">New project...</a></li>
+					<li><a class="dropdown-item" href="#">Settings</a></li>
+					<li><a class="dropdown-item" href="#">Profile</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="#">Sign out</a></li>
+				</ul>
+			</div>
+		</div> -->
 		<!-- Sidebar -->
 		<div class="bg-white" id="sidebar-wrapper">
 			<div>
@@ -31,49 +80,40 @@ fit=no">
 					th:attr="src=@{/images/logo.png}" width="100px"></a>
 
 			</div>
+
 			<div class="list-group list-group-flush my-3">
 				<a href="#"
 					class="list-group-item list-group-item-action bg-transparent second-text active"><i
-					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a
-					th:href="@{/}"
+					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a th:href="@{/}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Trang chủ</a> 
-					 <a
+					class="fas fa-home"></i> Trang chủ</a> <a
 					th:href="@{/admin/categories}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Quản lý danh mục</a>
-					 <a
+					th:class="${session.menuSelected == 'categories'}?'list-group-item list-group-item-action second-text active':'list-group-item list-group-item-action second-text'"><i
+					class="fas fa-home"></i> Quản lý danh mục</a> <a
 					th:href="@{/admin/attributeTypes}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Quản lý loại thuộc tính</a>
-					 <a
+					class="fas fa-home"></i> Quản lý loại thuộc tính</a> <a
 					th:href="@{/admin/productAttributes}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Quản lý thuộc tính</a>
-					 <a
+					class="fas fa-home"></i> Quản lý thuộc tính</a> <a
 					th:href="@{/admin/positions}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Quản lý chức vụ</a>
-					<a
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
+					class="fas fa-home"></i> Quản lý chức vụ</a> <a
 					th:href="@{/admin/employees}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-project-diagram me-2"></i>Quản lý nhân viên</a>
-					<a
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
+					class="fas fa-project-diagram me-2"></i>Quản lý nhân viên</a> <a
 					th:href="@{/admin/customers}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-user-friends"></i> Quản lý khách hàng</a> 
-					 <a
+					class="fas fa-user-friends"></i> Quản lý khách hàng</a> <a
 					th:href="@{/admin/manufacturers}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-home"></i> Quản lý hãng sản phẩm</a><a
 					th:href="@{/admin/products}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-chart-line me-2"></i> Quản lý sản phẩm</a>
-					<a
+					class="fas fa-chart-line me-2"></i> Quản lý sản phẩm</a> <a
 					th:href="@{/admin/orders}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-chart-line me-2"></i> Quản lý hóa đơn</a>
-					<a
+					class="fas fa-chart-line me-2"></i> Quản lý hóa đơn</a> <a
 					th:href="@{/login}"
 					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
 					class="fas fa-power-off me-2"></i> Logout</a>
@@ -104,7 +144,8 @@ fit=no">
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" th:href="@{/admin/infoUser}">Profile</a></li>
-								<li><a class="dropdown-item" th:href="@{/admin/change-PassWord}">Change Password</a></li>
+								<li><a class="dropdown-item"
+									th:href="@{/admin/change-PassWord}">Change Password</a></li>
 								<li><a class="dropdown-item" th:href="@{/login}">Logout</a></li>
 							</ul></li>
 					</ul>
@@ -112,6 +153,7 @@ fit=no">
 			</nav>
 			<div layout:fragment="content"></div>
 		</div>
+
 	</div>
 
 	<script
