@@ -171,7 +171,7 @@
 															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 														</td>
 
-														<td class="amountTotal"
+														<td class="amount"
 															th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')} + ' '  + VND"></td>
 														<td class="col"><a class="btn btn-danger"
 															th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
