@@ -34,13 +34,13 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/positions?(page=${currentPage},sortField='positionID',sortDir=${reverseSortDir})}">Mã
 											chức vụ</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/positions?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											chức vụ</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/positions?(page=${currentPage},sortField='role',sortDir=${reverseSortDir})}">Quyền hạn</a></th>
 									<th class="text-center" style="font-size: 20px;" sec:authorize="hasRole('ROLE_ADMIN')">Thao tác</th>
 								</tr>
@@ -55,14 +55,14 @@
 										th:text="${position.role}">
 									</td>
 									<td align="center" sec:authorize="hasRole('ROLE_ADMIN')">
-										<a class="btn btn-outline-primary"
-										style="font-size: 15px;" role="button"
+										<a class="btn btn-outline-primary "
+										style="font-size: 15px;width: 6rem;" role="button"
 										th:href="@{/admin/formUpdatePosition?(positionID=${position.positionID})}">
 											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
-										<a class="btn btn-outline-danger" style="font-size: 15px;"
+										<a class="btn btn-outline-danger" style="font-size: 15px;width: 6rem;height:3.6rem;"
 										role="button"
 										th:href="@{/admin/deletePosition?(positionID=${position.positionID})}">
-											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
+											<i class="fas fa-trash-alt mt-3"></i> <b>Xóa</b></a>
 									</td>
 								</tr>
 							</tbody>

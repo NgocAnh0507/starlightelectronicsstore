@@ -106,9 +106,9 @@
 
 								<ul class="product_price list-unstyled">
 									<li class="old_price text-decoration-line-through"
-										th:text="${#numbers.formatInteger(pro.price,3,'POINT')}"></li>
+										th:text="${#numbers.formatInteger(pro.price,3,'POINT')+' '+'VND'}"></li>
 									<li class="new_price"
-										th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')}"></li>
+										th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')+' '+'VND'}"></li>
 								</ul>
 							</div>
 						</div>

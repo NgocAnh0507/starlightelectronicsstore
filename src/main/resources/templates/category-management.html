@@ -33,10 +33,10 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/categories?(page=${currentPage},sortField='categoryID',sortDir=${reverseSortDir})}">Mã
 											danh mục</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/categories?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											danh mục</a></th>
 									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
@@ -49,14 +49,14 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${category.name}"></td>
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-										<a class="btn btn-outline-primary"
-										style="font-size: 15px;" role="button"
+										<a class="btn btn-outline-primary "
+										style="font-size: 15px;width: 6rem;" role="button"
 										th:href="@{/admin/formUpdateCategory?(categoryID=${category.categoryID})}">
 											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
-										<a class="btn btn-outline-danger" style="font-size: 15px;"
+										<a class="btn btn-outline-danger" style="font-size: 15px;width: 6rem;height:3.6rem;"
 										role="button"
 										th:href="@{/admin/deleteCategory?(categoryID=${category.categoryID})}">
-											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
+											<i class="fas fa-trash-alt mt-3"></i> <b>Xóa</b></a>
 									</td>
 								</tr>
 							</tbody>

@@ -34,29 +34,29 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th class="text-center" style="font-size: 15px;" width="10%"><a
+										<th class="text-center" style="font-size: 15px;" width="10%"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='employeeID',sortDir=${reverseSortDir})}">
 												Mã nhân viên</a></th>
-										<th class="text-center text-primary" style="font-size: 15px;">Ảnh đại diện</th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center text-secondary" style="font-size: 15px;">Ảnh đại diện</th>
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">
 												Họ tên</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='birthday',sortDir=${reverseSortDir})}">
 												Ngày sinh</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='phoneNumber',sortDir=${reverseSortDir})}">
 												Số điện thoại</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='email',sortDir=${reverseSortDir})}">
 												Email</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='userName',sortDir=${reverseSortDir})}">
 												Tài khoản</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='isActive',sortDir=${reverseSortDir})}">
 												Trạng thái làm việc</a></th>
-										<th class="text-center" style="font-size: 15px;"><a
+										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 												Chức vụ</a></th>
 										<th class="text-center" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
@@ -64,23 +64,23 @@
 								</thead>
 								<tbody>
 									<tr th:each="employee: ${employees}">
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.employeeID}"></td>
-										<td align="center" style="font-size: 10px;" th:switch="${employee.avatar}">
+										<td align="center" style="font-size: 15px;" th:switch="${employee.avatar}">
 								              <div th:case="null"><span>Chưa có ảnh đại điện!</span></div>
 								              <div th:case="*"><img th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}"  width="100px" height="100px"/></div>
 										</td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.name}"></td>
-										<td align="center" style="font-size: 10px;"
-											th:text="${employee.birthday}"></td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
+											th:text="${#calendars.format(employee.birthday,'dd/MM/yyyy')}"></td>
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.phoneNumber}"></td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.email}"></td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.userName}"></td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:switch="${employee.isActive}">
 											<p th:case="true">Đang làm việc</p>
 											<p th:case="false">Ngưng làm việc</p>
@@ -88,15 +88,16 @@
 										<td align="center" style="font-size: 10px;"
 											th:text="${employee.position.name}"></td>
 										<td align="center">
-											<a class="btn btn-outline-primary"
-												style="font-size: 10px;" role="button"
+										
+											<a class="btn btn-outline-primary "
+										style="font-size: 15px;width:7rem;height:3.6rem;" role="button"
 												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
-													<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b>
+													<i class="fas fa-pencil-alt mt-3"></i>Chỉnh sửa
 											</a> 
-											<a class="btn btn-outline-danger" style="font-size: 10px;"
-												role="button"
+											<a class="btn btn-outline-danger" style="font-size: 15px;width: 7rem;height:3.6rem;"
+										role="button"
 												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
-													<i class="fas fa-trash-alt"></i> <b>Xóa</b>
+													<i class="fas fa-trash-alt mt-3"></i>Xóa
 											</a>
 										</td>
 									</tr>

@@ -29,12 +29,12 @@
 							<table class="table table-striped table-responsive-md">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Năm sinh</th>
-										<th>Email</th>
-										<th>Tên</th>
-										<th>Số điện thoại</th>
-										<th>Địa chỉ</th>
+										<th class="text-secondary">ID</th>
+										<th class="text-secondary">Ngày sinh</th>
+										<th class="text-secondary">Email</th>
+										<th class="text-secondary">Tên</th>
+										<th class="text-secondary">Số điện thoại</th>
+										<th class="text-secondary">Địa chỉ</th>
 										<th class="text-center" style="font-size: 20px;"
 											sec:authorize="hasRole('ROLE_ADMIN')">Thao tác</th>
 									</tr>
@@ -42,7 +42,7 @@
 								<tbody>
 									<tr th:each="cus : ${customers}">
 										<td th:text="${cus.customerID}"></td>
-										<td th:text="${cus.birthday}"></td>
+										<td th:text="${#dates.format(cus.birthday,'dd/MM/yyyy')}"></td>
 										<td th:text="${cus.email}"></td>
 										<td th:text="${cus.name}"></td>
 										<td th:text="${cus.phoneNumber}"></td>
@@ -55,16 +55,16 @@
 											class="btn btn-danger"
 											th:href="@{/admin/deleteCustomer?(customerID=${cus.customerID})}"
 											role="button">Delete</a></td> -->
-										<td align="center"><a class="btn btn-warning"
-											style="font-size: 15px;" role="button"
+										<td align="center"><a class="btn btn-outline-primary "
+										style="font-size: 15px;width: 6rem;" role="button"
 											th:href="@{/admin/formUpdateCustomer?(customerID=${cus.customerID})}"
 											sec:authorize="hasRole('ROLE_ADMIN')"> <i
 												class="fas fa-pencil-alt"></i> Chỉnh sửa
-										</a> <a class="btn btn-danger" style="font-size: 15px;"
-											role="button"
+										</a> <a class="btn btn-outline-danger" style="font-size: 15px;width: 6rem;height:3.6rem;"
+										role="button"
 											th:href="@{/admin/deleteCustomer?(customerID=${cus.customerID})}"
 											sec:authorize="hasRole('ROLE_ADMIN')"> <i
-												class="fas fa-trash-alt"></i> Xóa
+												class="fas fa-trash-alt mt-3"></i> Xóa
 										</a></td>
 									</tr>
 								</tbody>

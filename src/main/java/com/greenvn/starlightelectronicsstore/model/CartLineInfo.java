@@ -3,6 +3,13 @@ package com.greenvn.starlightelectronicsstore.model;
 public class CartLineInfo {
 	private ProductInfo productInfo;
 	private int quantity;
+	private double amount;
+	
+	
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
 	public CartLineInfo() {
 		this.quantity = 0;

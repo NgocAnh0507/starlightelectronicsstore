@@ -52,11 +52,11 @@ fit=no">
 					class="	fas fa-list"></i> Quản lý thuộc tính</a>
 					 <a
 					th:href="@{/admin/positions}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
 					class="	fas fa-id-card-alt"></i> Quản lý chức vụ</a>
 					<a
 					th:href="@{/admin/employees}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
 					class="fas fa-address-card"></i> Quản lý nhân viên</a>
 					<a
 					th:href="@{/admin/customers}"

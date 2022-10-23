@@ -65,21 +65,21 @@
 									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecial',sortDir=${reverseSortDir})}">
 											Giá sale</a></th>
-									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
+									<!-- <th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecialStartDate',sortDir=${reverseSortDir})}">
 											Ngày bắt đầu khuyến mãi</a></th>
 									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='priceSpecialEndDate',sortDir=${reverseSortDir})}">
-											Ngày hết khuyến mãi</a></th>
+											Ngày hết khuyến mãi</a></th> -->
 									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantity',sortDir=${reverseSortDir})}">
 											Số lượng hiện có</a></th>
 									<!-- <th class="text-center" style="font-size: 20px;"><a
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMin',sortDir=${reverseSortDir})}">
 											Số lượng đặt hàng tối thiểu </a></th> -->
-									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
+									<!-- <th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='quantityOrderMax',sortDir=${reverseSortDir})}">
-											Số lượng đặt hàng tối đa </a></th>
+											Số lượng đặt hàng tối đa </a></th> -->
 									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='status',sortDir=${reverseSortDir})}">
 											Tình trạng </a></th>
@@ -95,7 +95,7 @@
 									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/products?(page=${currentPage},sortField='defaultImage.name',sortDir=${reverseSortDir})}">
 											Ảnh bìa</a></th>
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_Admin', 'ROLE_Management')">Thao tác</th>
+									<th class="text-center text-decoration-none" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -109,7 +109,7 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.productSKU}"></td>
 									<td align="center">
-										<p type="text" th:text="*{product.productName}"
+										<p  type="text" th:text="*{product.productName}"
 											id="pName" hidden="hidden"></p>
 										<button class="btn btn-primary btn-sm" style="font-size: 10px;"
 										    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
@@ -120,16 +120,16 @@
 										th:text="${#numbers.formatInteger(product.price,3,'POINT')}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${#numbers.formatInteger(product.priceSpecial,3,'POINT')}"></td>
-									<td align="center" style="font-size: 15px;"
+									<!-- <td align="center" style="font-size: 15px;"
 										th:text="${product.priceSpecialStartDate}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${product.priceSpecialEndDate}"></td>
+										th:text="${product.priceSpecialEndDate}"></td> -->
 									<td align="center" style="font-size: 15px;"
 										th:text="${product.quantity}"></td>
 									<!-- <td align="center" style="font-size: 15px;"
 										th:text="${product.quantityOrderMin}"></td> -->
-									<td align="center" style="font-size: 15px;"
-										th:text="${product.quantityOrderMax}"></td>
+									<!-- <td align="center" style="font-size: 15px;"
+										th:text="${product.quantityOrderMax}"></td> -->
 									<td align="center" style="font-size: 15px;"
 										th:switch="${product.status}">
 										<p th:case="true">Đang bán</p>
@@ -149,14 +149,14 @@
 							              <div th:case="*"><img th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"  width="100px" height="100px"/></div>
 									</td>
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-										<a class="btn btn-warning"
-										style="font-size: 15px;" role="button"
+										<a class="btn btn-outline-primary "
+										style="font-size: 15px;width: 6rem;" role="button" 
 										th:href="@{/admin/formUpdateProduct?(productID=${product.productID})}">
 											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
-										<a class="btn btn-danger" style="font-size: 15px;"
+										<a class="btn btn-outline-danger" style="font-size: 15px;width: 6rem;height:3.6rem;"
 										role="button"
 										th:href="@{/admin/deleteProduct?(productID=${product.productID})}">
-											<i class="fas fa-trash-alt"></i> Xóa</a>
+											<i class="fas fa-trash-alt mt-3"></i> Xóa</a>
 									</td>
 								</tr>
 							</tbody>
