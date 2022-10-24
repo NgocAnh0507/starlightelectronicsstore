@@ -73,75 +73,79 @@
 					</form>
 				</div>
 				<div class="col-md-9">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-12" th:each="product : ${products}">
-							<div class="card product_item">
-								<div class="body">
-									<div class="cp_img">
-										<div id="myCarousel" class="carousel slide"
-											data-bs-ride="carousel">
-											<div class="carousel-inner">
-												<div class="carousel-item active">
-													<img class="d-block w-100"
-														th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"
-														style="max-width: 90%; padding-left: 10%" />
+					<div th:switch="${products}" style="padding-top: 35px">
+						<h3 th:case="null" align="center" class="text-danger">Không có sản phẩm nào phù hợp với bộ lọc!</h3>
+						<div th:case="*" class="row">
+							<div class="col-lg-4 col-md-4 col-sm-12" th:each="product : ${products}">
+								<div class="card product_item">
+									<div class="body">
+										<div class="cp_img">
+											<div id="myCarousel" class="carousel slide"
+												data-bs-ride="carousel">
+												<div class="carousel-inner">
+													<div class="carousel-item active">
+														<img class="d-block w-100"
+															th:attr="src=@{/upload/{path}(path=${product.defaultImage})}"
+															style="max-width: 90%; padding-left: 10%" />
+													</div>
+													<div class="carousel-item " th:each="image : ${product.images}">
+														<img class="d-block w-100"
+															th:attr="src=@{/upload/{path}(path=${image.name})}"
+															style="max-width: 90%; padding-left: 10%" />
+													</div>
 												</div>
-												<div class="carousel-item " th:each="image : ${product.images}">
-													<img class="d-block w-100"
-														th:attr="src=@{/upload/{path}(path=${image.name})}"
-														style="max-width: 90%; padding-left: 10%" />
+												<button class="carousel-control-prev" type="button"
+													data-bs-target="#myCarousel" data-bs-slide="prev">
+													<span><i class="fa fa-angle-left" aria-hidden="true"
+														style="color: #000000; font-size: 25px;"></i></span> <span
+														class="visually-hidden">Previous</span>
+												</button>
+												<button class="carousel-control-next" type="button"
+													data-bs-target="#myCarousel" data-bs-slide="next">
+													<span><i class="fa fa-angle-right" aria-hidden="true"
+														style="color: #000000; font-size: 25px;"></i></span> <span
+														class="visually-hidden">Next</span>
+												</button>
+											</div>
+											<div class="hover">
+												<a class="btn btn-primary" style="font-size: 15px;"
+													role="button"
+													th:href="@{/shop/productInfo?(productID=${product.productID})}">
+													Xem chi tiết! </a>
+											</div>
+										</div>
+										<div style="margin-top: 285px;">
+											<h3 align="center" class="hot-name" th:text="${product.productName}"></h3>
+				
+											<div align="center" id="price" th:switch="${product.priceSpecial}">
+												<div th:case="null">
+													<b><p th:text="${#numbers.formatInteger(product.price,3,'POINT')} + ' VNĐ'"
+															style="font-size: 25px;"></p></b>
+												</div>
+												<div th:case="*">
+													<p class="old-price"
+														th:text="${#numbers.formatInteger(product.price,3,'POINT')}  + ' VNĐ'"
+														style="font-size: 25px;"></p>
+													<b><p class="hot-price" th:text="${#numbers.formatInteger(product.priceSpecial,3,'POINT')} + ' VNĐ'"
+															style="font-size: 25px; color: red;"></p></b>
 												</div>
 											</div>
-											<button class="carousel-control-prev" type="button"
-												data-bs-target="#myCarousel" data-bs-slide="prev">
-												<span><i class="fa fa-angle-left" aria-hidden="true"
-													style="color: #000000; font-size: 25px;"></i></span> <span
-													class="visually-hidden">Previous</span>
-											</button>
-											<button class="carousel-control-next" type="button"
-												data-bs-target="#myCarousel" data-bs-slide="next">
-												<span><i class="fa fa-angle-right" aria-hidden="true"
-													style="color: #000000; font-size: 25px;"></i></span> <span
-													class="visually-hidden">Next</span>
-											</button>
-										</div>
-										<div class="hover">
-											<a class="btn btn-primary" style="font-size: 15px;"
-												role="button"
-												th:href="@{/shop/productInfo?(productID=${product.productID})}">
-												Xem chi tiết! </a>
-										</div>
-									</div>
-									<div style="margin-top: 285px;">
-										<h3 align="center" class="hot-name" th:text="${product.productName}"></h3>
-			
-										<div align="center" id="price" th:switch="${product.priceSpecial}">
-											<div th:case="null">
-												<b><p th:text="${#numbers.formatInteger(product.price,3,'POINT')}"
-														style="font-size: 25px;"></p></b>
-											</div>
-											<div th:case="*">
-												<p class="old-price"
-													th:text="${#numbers.formatInteger(product.price,3,'POINT')}"
-													style="font-size: 25px;"></p>
-												<b><p class="hot-price" th:text="${#numbers.formatInteger(product.priceSpecial,3,'POINT')}"
-														style="font-size: 25px; color: red;"></p></b>
-											</div>
-										</div>
-			
-										<div id="attributes">
-											<div class="row">
-												<div class="col-md-6" th:each="attribute : ${product.attributes}">
-													<p  align="center" th:text="${attribute.type.name} + ': ' + ${attribute.value}"
-														style="font-size: 15px; border: 1px solid #000000; border-radius: 5px;"></p>
+				
+											<div id="attributes">
+												<div class="row">
+													<div class="col-md-6" th:each="attribute : ${product.attributes}">
+														<p  align="center" th:text="${attribute.type.name} + ': ' + ${attribute.value}"
+															style="font-size: 15px; border: 1px solid #000000; border-radius: 5px;"></p>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+	
 						</div>
-
+					
 					</div>
 				</div>
 			</div>

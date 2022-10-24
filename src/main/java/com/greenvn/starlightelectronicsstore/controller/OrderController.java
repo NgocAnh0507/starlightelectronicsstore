@@ -95,6 +95,20 @@ public class OrderController {
 		return "redirect:/admin/orders";
 	}
 
+	@GetMapping("/updateOrderStatus")
+	public String updateOrderStatus(@RequestParam(name = "orderID")Long orderID, String status, Model model){
+
+		Order order =  orderService.findOrderById(orderID);
+		
+		if(status.equals("0")) order.setOrderStatus(OderStatus.RECEIVED);
+		else if(status.equals("1")) order.setOrderStatus(OderStatus.PACKAGED);
+		else if(status.equals("2")) order.setOrderStatus(OderStatus.DELIVERED);
+		else if(status.equals("3")) order.setOrderStatus(OderStatus.CANCELED);
+		
+		orderService.updateOrder(order,orderID);
+		return "redirect:/admin/orderDetail?orderID=" + orderID;
+	}
+	
 	@GetMapping("/deleteOrder")
 	public String deleteOrder(@RequestParam(name = "orderID")Long orderID, Model model) {
 		orderService.deleteOrder(orderID);
