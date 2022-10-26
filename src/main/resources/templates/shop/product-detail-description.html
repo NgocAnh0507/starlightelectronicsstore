@@ -13,6 +13,10 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link rel="stylesheet" 
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/Rich-Text-Editor-jQuery-RichText/src/richtext.min.css">
+
 <title>Thông tin chi tiết</title>
 </head>
 <body>
@@ -34,10 +38,19 @@
 						</p>
 					</div>
 					
-					<div id="description">
-						<p th:text="${product.productDescription}" style="font-size: 20px; padding-left: 10%">
-						</p>
+					<div id="description" class="row">
+						<div class="col-1"></div>
+						<textarea disabled class="content col-10" th:text="${product.productDescription}" style="font-size: 20px; height: 420px;">
+						</textarea>
+						<div class="col-1"></div>
 					</div>
+					
+			        <script>
+			        $(document).ready(function() {
+			            $('.content').richText();
+			        });
+			        </script>
+			        
 				</div>
 
 				<div class="col-md-1"></div>
@@ -50,5 +63,8 @@
 		crossorigin="anonymous">
 		
 	</script>
+	<script src="/path/to/cdn/jquery.min.js"></script>
+	<script src="/path/to/jquery.richtext.min.js"></script>
+	
 </body>
 </html>

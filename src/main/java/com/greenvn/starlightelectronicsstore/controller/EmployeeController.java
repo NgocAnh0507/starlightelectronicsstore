@@ -149,7 +149,7 @@ public class EmployeeController {
 			HttpServletRequest request, @RequestParam("file") MultipartFile file){
 		if(result.hasErrors()) {
 
-	       if(employee.getPassword().isEmpty())
+	       if(employee.getPassword().isEmpty() || employee.getPassword() == null)
 	       {
 	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
 	       }

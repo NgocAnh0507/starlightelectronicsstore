@@ -101,12 +101,12 @@
 				<div id="price" style="padding-left: 10%;" th:switch="${product.priceSpecial}">
 					<hr/>
 					<div th:case="null">
-						<b><p th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')}" style="font-size: 25px;"></p></b>
+						<b><p th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+'VNĐ'}" style="font-size: 25px;"></p></b>
 					</div>
 					<div th:case="*">
-						<p class="old-price" th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')}" style="font-size: 25px;"></p>
-						<b><p class="hot-price" th:text="'Giá khuyến mãi: ' + ${#numbers.formatInteger(product.priceSpecial,3,'POINT')}" style="font-size: 25px; color: red;"></p></b>
-						<b><p class="hot-price" th:text="'( Từ ' + ${product.priceSpecialStartDate} + ' đến ' + ${product.priceSpecialEndDate} + ' )'" style="font-size: 15px;"></p></b>
+						<p class="old-price" th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+' VNĐ'}" style="font-size: 25px;"></p>
+						<b><p class="hot-price" th:text="'Giá khuyến mãi: ' + ${#numbers.formatInteger(product.priceSpecial,3,'POINT')+' VNĐ'}" style="font-size: 25px; color: red;"></p></b>
+						<b><p class="hot-price" th:text="'( Từ ' + ${#calendars.format(product.priceSpecialStartDate,'dd/MM/yyyy HH:mm')}+ ' đến ' + ${#calendars.format(product.priceSpecialEndDate,'dd/MM/yyyy HH:mm')} + ' )'" style="font-size: 15px;"></p></b>
 					</div>
 				</div>
 				<div id="ship" style="padding-left: 10%;" th:switch="${product.freeShip}">

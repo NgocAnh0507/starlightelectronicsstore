@@ -48,12 +48,12 @@ public class Product {
 
 	
 	@Column(name = "PRICE_SPECIAL_STARTDATE", columnDefinition = "DATETIME")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date priceSpecialStartDate;
 	
 	
 	@Column(name = "PRICE_SPECIAL_ENDDATE", columnDefinition = "DATETIME")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date priceSpecialEndDate;
 	
 	

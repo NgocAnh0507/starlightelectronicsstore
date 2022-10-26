@@ -59,7 +59,7 @@
 										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 												Chức vụ</a></th>
-										<th class="text-center" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
+										<th class="text-center text-secondary" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -85,55 +85,57 @@
 											<p th:case="true">Đang làm việc</p>
 											<p th:case="false">Ngưng làm việc</p>
 										</td>
-										<td align="center" style="font-size: 10px;"
+										<td align="center" style="font-size: 15px;"
 											th:text="${employee.position.name}"></td>
 										<td align="center">
 										
 											<a class="btn btn-outline-primary "
-										style="font-size: 15px;width:7rem;height:3.6rem;" role="button"
-												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
-													<i class="fas fa-pencil-alt mt-3"></i>Chỉnh sửa
+										style="font-size: 15px;width:8rem;" role="button"
+												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
+													<i class="fas fa-pencil-alt "></i><b>Chỉnh sửa</b>
 											</a> 
-											<a class="btn btn-outline-danger" style="font-size: 15px;width: 7rem;height:3.6rem;"
+											<br/>
+											<a class="btn btn-outline-danger mt-1" style="font-size: 15px;width: 8rem;"
 										role="button"
-												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
-													<i class="fas fa-trash-alt mt-3"></i>Xóa
+												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
+													<i class="fas fa-trash-alt"></i><b>Xóa</b>
 											</a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<nav aria-label="Page navigation example" style="padding-top: 15px">
-							<ul class="pagination">
-								<li th:if="${currentPage>1}" class="page-item"><a
-									class="page-link"
-									th:href="@{/admin/employees?(page=${currentPage-1})}">Trang
-										trước</a></li>
+								<nav aria-label="Page navigation example"
+									style="padding-top: 15px">
+									<ul class="pagination justify-content-center">
+										<li th:if="${currentPage>1}" class="page-item"><a
+											class="page-link"
+											th:href="@{/admin/employees?(page=${currentPage-1})}">Trang
+												trước</a></li>
 
-								<li th:if="${currentPage<=1}" class="page-item disabled"><a
-									class="page-link" href="#">Trang trước</a></li>
+										<li th:if="${currentPage<=1}" class="page-item disabled"><a
+											class="page-link" href="#">Trang trước</a></li>
 
-								<li th:each="i:${#numbers.sequence(1,totalPage)}"
-									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/admin/employees?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+										<li th:each="i:${#numbers.sequence(1,totalPage)}"
+											class="page-item"><a class="page-link" th:text=${i}
+											th:href="@{/admin/employees?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
-								<li th:if="${currentPage<totalPage}" class="page-item"><a
-									class="page-link"
-									th:href="@{/admin/employees?(page=${currentPage+1})}">Trang
-										kế tiếp</a></li>
-										
-								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
-									class="page-link" href="#">Trang kế tiếp</a></li>
-							</ul>
-						</nav>
+										<li th:if="${currentPage<totalPage}" class="page-item"><a
+											class="page-link"
+											th:href="@{/admin/employees?(page=${currentPage+1})}">Trang
+												sau</a></li>
 
+										<li th:if="${currentPage>=totalPage}"
+											class="page-item disabled"><a class="page-link" href="#">Trang
+												sau</a></li>
+									</ul>
+								</nav>
 					</div>
-					<!-- <div class="col-md-2"></div> -->
-			</div>
-		</div>
+							<!-- <div class="col-md-2"></div> -->
+						</div>
+					</div>
 		<div align="center" style="padding-top: 15px; padding-bottom: 35px" sec:authorize="hasRole('ROLE_ADMIN')">
-			<a class="btn btn-outline-success" style="font-size: 15px;" role="button"
+			<a class="btn btn-outline-success mb-5" style="font-size: 15px;" role="button"
 				th:href="@{/admin/formAddEmployee}"> <i class="fas fa-plus"></i>
 				<b>Thêm nhân viên mới</b>
 			</a>

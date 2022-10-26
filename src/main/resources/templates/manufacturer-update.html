@@ -54,7 +54,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 55px">
+		<div align="center" style="padding-top: 35px">
 			<h1 style="font-size: 35px;">Chỉnh sửa hãng sản xuất</h1>
 		</div>
 
@@ -79,6 +79,23 @@
 										<div th:case="*">
 											<p th:text="${messages}" class="text-danger"  style="font-size: 18px; padding-top: 15px;"></p>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row" >
+							<div class="col-md-3">
+								<label class="col-form-lable" style="font-size: 20px;">Ảnh biểu tượng <br/>hiện tại:</label>	
+							</div>
+							<div class="col-md-8">
+								<div class="row" th:switch="*{logo}">
+									<p th:case="null" align="center" class="text-danger" style="font-size: 20px;"> Chưa có ảnh biểu tượng!</p>
+									<div th:case="*">
+									        <img th:attr="src=@{/upload/{path}(path=${manufacturer.logo.name})}"  width="110px" height="110px"/>
+									        
 									</div>
 								</div>
 							</div>
@@ -116,11 +133,11 @@
 						<hr/>
 						
 						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 17px; font-weight:700; width: 8rem;">
 						</div>
 					</form>
 					<div align="center">
-						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
 					</div>
 				</div>
 				<div class="col-md-2"></div>

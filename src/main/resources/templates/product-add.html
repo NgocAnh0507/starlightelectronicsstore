@@ -53,8 +53,8 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 55px">
-			<h1 style="font-size: 35px;">Thêm sản phẩm</h1>
+		<div align="center" style="padding-top: 35px">
+			<h2 style="font-size: 35px;">Thêm sản phẩm</h2>
 		</div>
 
 		<div class="container-fluid" style="padding-top: 35px">
@@ -64,102 +64,229 @@
 					<form th:action="@{/admin/addProduct}" th:object="${product}"
 						 enctype="multipart/form-data" method="post">
 						
-						<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
-						<input type="text" th:field="*{productName}" class="form-control"
-							id="productName" placeholder="Hãy nhập tên của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{productName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
-						<div th:switch="${messages}">
-							<div th:case="null"></div>
-							<div th:case="*">
-								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="productName" class="col-form-label" style="font-size: 20px;">Tên sản phẩm:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{productName}" class="form-control"
+									id="productName" placeholder="Hãy nhập tên của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{productName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									<div th:switch="${messages}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						
-						<label for="productSKU" class="col-form-label" style="font-size: 20px;">Mã SKU:</label> 
-						<input type="text" th:field="*{productSKU}" class="form-control"
-							id="productSKU" placeholder="Hãy nhập mã SKU của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{productSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<hr/>
 						
-						<label for="productDescription" class="col-form-label" style="font-size: 20px;">Mô tả sản phẩm:</label> 
-						<textarea th:field="*{productDescription}" class="form-control textarea"
-							id="productDescription" placeholder="Hãy nhập mô tả của sản phẩm bạn muốn thêm"  style="font-size: 20px;"></textarea>
-						<p th:errors="*{productDescription}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<div class="row">
+							<div class="col-md-3">
+								<label for="productSKU" class="col-form-label" style="font-size: 20px;">Mã SKU:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="text" th:field="*{productSKU}" class="form-control"
+									id="productSKU" placeholder="Hãy nhập mã SKU của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{productSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
 						
-						<label for="price" class="col-form-label" style="font-size: 20px;">Giá:</label> 
-						<input type="number" th:field="*{price}" class="form-control"
-							id="price" placeholder="Hãy nhập giá của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{price}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<hr/>
 						
-						<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
-						<input type="number" th:field="*{priceSpecial}" class="form-control"
-							id="priceSpecial" placeholder="Hãy nhập giá khuyến mãi của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="productDescription" class="col-form-label" style="font-size: 20px;">Mô tả sản phẩm:</label> 
+							</div>
+							<div class="col-md-8">
+								<textarea th:field="*{productDescription}" class="form-control textarea"
+									id="productDescription" placeholder="Hãy nhập mô tả của sản phẩm bạn muốn thêm"  style="font-size: 20px;"></textarea>
+								<div class="row">
+								<p th:errors="*{productDescription}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
+							
+						<hr/>
 						
-						<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
-						<input type="number" th:field="*{quantity}" class="form-control"
-							id="quantity" placeholder="Hãy nhập số lượng hiện có của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{quantity}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<div class="row">
+							<div class="col-md-3">
+								<label for="price" class="col-form-label" style="font-size: 20px;">Giá:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="number" th:field="*{price}" class="form-control"
+									id="price" placeholder="Hãy nhập giá của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{price}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
+							
+						<hr/>
 						
-						<label for="quantityOrderMin" class="col-form-label" style="font-size: 20px;">Số lượng đặt hàng tối thiểu:</label> 
-						<input type="number" th:field="*{quantityOrderMin}" class="form-control"
-							id="quantityOrderMin" placeholder="Hãy nhập số lượng đặt hàng tối thiểu của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{quantityOrderMin}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<div class="row">
+							<div class="col-md-3">
+								<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="number" th:field="*{priceSpecial}" class="form-control"
+									id="priceSpecial" placeholder="Hãy nhập giá khuyến mãi của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{priceSpecial}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								</div>
+							</div>
+						</div>
 						
-						<label for="quantityOrderMax" class="col-form-label" style="font-size: 20px;">Số lượng đặt hàng tối đa:</label> 
-						<input type="number" th:field="*{quantityOrderMax}" class="form-control"
-							id="quantityOrderMax" placeholder="Hãy nhập số lượng đặt hàng tối đa của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{quantityOrderMax}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<hr/>
 						
-						<input type="checkbox"  th:field="*{status}" id="status" name="status" value="trạng thái của sản phẩm">
-						 <label for="status" class="col-form-label" style="font-size: 20px;"> Cho phép bán </label> 
-						<p th:errors="*{status}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+						<div class="row">
+							<div class="col-md-3">
+								<label for="quantity" class="col-form-label" style="font-size: 20px;">Số lượng hiện có:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="number" th:field="*{quantity}" class="form-control"
+									id="quantity" placeholder="Hãy nhập số lượng hiện có của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{quantity}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
+							
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="quantityOrderMin" class="col-form-label" style="font-size: 20px;">Số lượng <br/>đặt hàng tối thiểu:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="number" th:field="*{quantityOrderMin}" class="form-control"
+									id="quantityOrderMin" placeholder="Hãy nhập số lượng đặt hàng tối thiểu của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{quantityOrderMin}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
+							
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="quantityOrderMax" class="col-form-label" style="font-size: 20px;">Số lượng <br/>đặt hàng tối đa:</label> 
+							</div>
+							<div class="col-md-8">
+								<input type="number" th:field="*{quantityOrderMax}" class="form-control"
+									id="quantityOrderMax" placeholder="Hãy nhập số lượng đặt hàng tối đa của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
+								<div class="row">
+									<p th:errors="*{quantityOrderMax}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-6">
+								<input type="checkbox"  th:field="*{status}" id="status" name="status" value="trạng thái của sản phẩm">
+								 <label for="status" class="col-form-label" style="font-size: 20px;"> Cho phép bán </label> 
+								<p th:errors="*{status}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+							</div>
+							<div class="col-md-4">
+								<input type="checkbox"  th:field="*{freeShip}" id="freeShip" name="freeShip" value="giao hàng miễn phí">
+								 <label for="freeShip" class="col-form-label" style="font-size: 20px;"> Giao hàng miễn phí </label> 
+								<p th:errors="*{freeShip}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							 <div class="col-md-3">
+							 	<label for="category"  class="col-form-lable" style="font-size: 20px;">Danh mục</label>
+							 </div>
+							 <div class="col-md-8">
+								 <select id="category" th:field="*{category}" class="form-control" style="font-size: 20px;">
+								 	 <option th:value="null" selected="selected">- Chọn danh mục -</option>
+									 <option th:each="category: ${categories}"
+									 		th:value = "${{category}}"
+									 		th:text="${category.name}"> </option>
+								 </select>
+								 <div class="row">
+									 <p th:errors="*{category}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								 </div>
+							</div>
+							 <div align="center" style="padding-top: 15px; padding-bottom: 5px">
+								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
+								th:href="@{/admin/formAddCategory}" target=”_blank”>
+									<i class="fas fa-plus"></i> <b>Thêm danh mục mới</b></a> 
+							 </div>
+								 
+						</div>
+						
+						<hr/>
+						<div class="row">
+							 <div class="col-md-3">
+							 	<label for="manufacturer"  class="col-form-lable" style="font-size: 20px;">Hãng sản xuất</label>
+							 </div>
+							 <div class="col-md-8">
+								 <select id="manufacturer" th:field="*{manufacturer}" class="form-control" style="font-size: 20px;">
+								 	<option th:value="null" selected="selected">- Chọn hãng sản xuất -</option>
+									 <option th:each="manufacturer: ${manufacturers}"
+									 		th:value = "${{manufacturer}}"
+									 		th:text="${manufacturer.name}"></option>
+								 </select>
+								 <div class="row">
+									 <p th:errors="*{manufacturer}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								 </div>
+							 </div>
+							 <div align="center" style="padding-top: 15px">
+								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
+								th:href="@{/admin/formAddManufacturer}" target=”_blank”>
+									<i class="fas fa-plus"></i> <b>Thêm hãng sản xuất mới</b></a> 
+							 </div>
+								 
+						</div>
+						
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+								<label for="file" class="col-form-label" style="font-size: 20px;">Tải lên <br/>ảnh sản phẩm:</label> 
+							</div>
+							<div class="col-md-8">
+								<input id="fileupload" class="form-control" type="file" name="file" multiple="multiple" />
+							</div>
+						</div>
+						
 						<br/>
-						<input type="checkbox"  th:field="*{freeShip}" id="freeShip" name="freeShip" value="giao hàng miễn phí">
-						 <label for="freeShip" class="col-form-label" style="font-size: 20px;"> Giao hàng miễn phí </label> 
-						<p th:errors="*{freeShip}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						 <br/>
-						 <label for="category"  class="col-form-lable" style="font-size: 20px;">Danh mục</label>
-						 <select id="category" th:field="*{category}" class="form-control" style="font-size: 20px;">
-						 	 <option th:value="null" selected="selected">- Chọn danh mục -</option>
-							 <option th:each="category: ${categories}"
-							 		th:value = "${{category}}"
-							 		th:text="${category.name}"> </option>
-						 </select>
-						 <p th:errors="*{category}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div align="center" style="padding-top: 15px; padding-bottom: 5px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/admin/formAddCategory}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm danh mục mới</a> 
+						
+						<div class="row">
+							<div class="col-md-3">
+							<p style="font-size: 18px;">Ảnh đã chọn: </p>
+							</div>
+							<div class="col-md-8">
+								<div id="dvPreview"></div>
+							</div>
 						</div>
 						
-						 <label for="manufacturer"  class="col-form-lable" style="font-size: 20px;">Hãng sản xuất</label>
-						 <select id="manufacturer" th:field="*{manufacturer}" class="form-control" style="font-size: 20px;">
-						 	<option th:value="null" selected="selected">- Chọn hãng sản xuất -</option>
-							 <option th:each="manufacturer: ${manufacturers}"
-							 		th:value = "${{manufacturer}}"
-							 		th:text="${manufacturer.name}"></option>
-						 </select>
-						 <p th:errors="*{manufacturer}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						<div align="center" style="padding-top: 15px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/admin/formAddManufacturer}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm hãng sản xuất mới</a> 
-						</div>
+						<hr/>
 						
-						<label for="file" class="col-form-label" style="font-size: 20px;">Tải lên ảnh sản phẩm:</label> 
-						<input id="fileupload" class="form-control" type="file" name="file" multiple="multiple" />
-						<hr />
-						<b>Ảnh sản phẩm đã chọn: </b>
-						<br />
-						<br />
-						<div id="dvPreview"></div>
-						
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Tiếp theo" style="font-size: 20px;">
+						<div align="center">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Tiếp theo" style="font-size: 17px; font-weight:700; width: 8rem;">
 						</div>
 					</form>
+					<div align="center">
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
+					</div>
 				</div>
-				<div class="col-md-2"></div>
+				<div class="col-md-2"></div>3
 			</div>
 		</div>
 	</div>

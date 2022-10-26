@@ -35,7 +35,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{name}" class="form-control"
-									id="name" placeholder="Hãy nhập tên danh mục bạn muốn thêm"  style="font-size: 20px;">
+									id="name" placeholder="Hãy nhập tên danh mục bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 									<div th:switch="${messages}">
@@ -49,12 +49,12 @@
 						</div>
 						
 						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+							<input type="submit" class="btn btn-outline-success mt-5" value="Chỉnh sửa" style="font-size: 17px; font-weight:700; width: 8rem;">
 						</div>
 						
 					</form>
 					<div align="center">
-						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
 					</div>
 				</div>
 				<div class="col-md-2"></div>

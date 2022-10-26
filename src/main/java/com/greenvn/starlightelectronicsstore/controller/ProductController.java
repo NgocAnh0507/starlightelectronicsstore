@@ -217,9 +217,6 @@ public class ProductController {
 	public String fullInfo(@RequestParam(name = "productID")Long productID, Model model) {
 		Product product = this.productService.findProductById(productID);
 		model.addAttribute("product", product);
-		model.addAttribute("categories",categoryService.getCategories());
-		model.addAttribute("manufacturers", manufacturerService.getManufacturers());
-		model.addAttribute("images", product.getImages());
 		return "fullInfoProduct";
 	}
 }

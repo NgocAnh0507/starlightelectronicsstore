@@ -54,8 +54,8 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 55px">
-			<h1 style="font-size: 35px;">Chỉnh sửa thông tin nhân viên</h1>
+		<div align="center" style="padding-top: 35px">
+			<h2 style="font-size: 35px;">Chỉnh sửa thông tin nhân viên</h2>
 		</div>
 
 		<div class="container-fluid" style="padding-top: 35px">
@@ -71,7 +71,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{name}" class="form-control"
-									id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+									id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{phoneNumber}" class="form-control"
-									id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+									id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{phoneNumber}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 									<div th:switch="${messages}">
@@ -126,7 +126,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{email}" class="form-control"
-									id="email" placeholder="Hãy nhập địa chỉ email của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+									id="email" placeholder="Hãy nhập địa chỉ email của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<p th:errors="*{email}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 							</div>
 						</div>
@@ -139,7 +139,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{userName}" class="form-control"
-									id="userName" placeholder="Hãy nhập tài khoản của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+									id="userName" placeholder="Hãy nhập tài khoản của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<p th:errors="*{userName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 							</div>
 						</div>
@@ -152,7 +152,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="password" th:field="*{password}" class="form-control"
-									id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn thêm"  style="font-size: 20px;">
+									id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 									<div th:switch="${messagesPass}">
@@ -192,6 +192,23 @@
 								<i class="fas fa-plus"></i> <b>Thêm chức vụ mới</b></a> 
 						 </div>
 								
+						<hr/>
+						
+						<div class="row" >
+							<div class="col-md-3">
+								<label class="col-form-lable" style="font-size: 20px;">Ảnh đại diện hiện tại:</label>	
+							</div>
+							<div class="col-md-8">
+								<div class="row" th:switch="*{avatar}">
+									<p th:case="null" align="center" class="text-danger" style="font-size: 20px;"> Chưa có ảnh đại diện!</p>
+									<div th:case="*">
+									        <img th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}"  width="110px" height="110px"/>
+									        
+									</div>
+								</div>
+							</div>
+						</div>
+						
 						<hr/>
 						
 						<div class="row">
@@ -236,12 +253,12 @@
 						<hr/>
 						 
 						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 20px;">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 17px; font-weight:700; width: 8rem;">
 						</div>
 					</form>
 					<div align="center">
-						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
-					</div>
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2 mb-5" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
+					</div> 
 				</div>
 				<div class="col-md-2"></div>
 			</div>

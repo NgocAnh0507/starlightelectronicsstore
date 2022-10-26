@@ -48,7 +48,7 @@
 							</div>
 							<div align="center" style="padding-top: 15px; padding-bottom: 5px">
 								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
-								th:href="@{/formAddCategory}" target=”_blank”>
+								th:href="@{/admin/formAddCategory}" target=”_blank”>
 									<i class="fas fa-plus"></i> <b>Thêm danh mục mới</b></a> 
 							</div>
 						</div>
@@ -70,7 +70,7 @@
 							</div>
 							<div align="center" style="padding-top: 15px">
 								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
-								th:href="@{/formAddAttributeType}" target=”_blank”>
+								th:href="@{/admin/formAddAttributeType}" target=”_blank”>
 									<i class="fas fa-plus"></i> <b>Thêm loại thuộc tính mới</b></a> 
 							</div>
 						</div>
@@ -83,7 +83,7 @@
 							</div>
 							<div class="col-md-8">
 								<input type="text" th:field="*{value}" class="form-control"
-									id="value" placeholder="Hãy nhập giá trị của thuộc tính bạn muốn thêm"  style="font-size: 20px;">
+									id="value" placeholder="Hãy nhập giá trị của thuộc tính bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{value}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 									<div th:switch="${messages}">
@@ -99,11 +99,11 @@
 						<hr/>
 						
 						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 20px;">
+							<input type="submit" class="btn btn-outline-success mt-3" value="Chỉnh sửa" style="font-size: 17px; font-weight:700; width: 8rem;">
 						</div>
 					</form>
 					<div align="center">
-						<button onclick="history.back()" class="btn btn-outline-primary mt-2"><b>Quay lại</b></button>
+						<button onclick="history.back()" class="btn btn-outline-primary mt-2" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
 					</div>
 				</div>
 				<div class="col-md-2"></div>

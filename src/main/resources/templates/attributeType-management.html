@@ -20,13 +20,13 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 50px">
-			<h1 style="font-size: 35px;">Quản lý loại thuộc tính</h1>
+		<div align="center" style="padding-top: 35px">
+			<h2 style="font-size: 30px;">Quản lý loại thuộc tính</h2>
 		</div>
 
 		<div th:switch="${attributeTypes}" class="container-fluid"
 			style="padding-top: 30px">
-			<h2 th:case="null" align="center" class="text-primary">Chưa có loại thuộc tính nào!</h2>
+			<h3 th:case="null" align="center" class="text-primary">Chưa có loại thuộc tính nào!</h3>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-2"></div>
@@ -34,13 +34,13 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/attributeTypes?(page=${currentPage},sortField='attributeTypeID',sortDir=${reverseSortDir})}">Mã
 											loại thuộc tính</a></th>
-									<th class="text-center" style="font-size: 20px;"><a class="text-decoration-none text-secondary"
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/attributeTypes?(page=${currentPage},sortField='name',sortDir=${reverseSortDir})}">Tên
 											loại thuộc tính</a></th>
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
+									<th class="text-center text-secondary" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,38 +51,39 @@
 										th:text="${attributeType.name}"></td>
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<a class="btn btn-outline-primary "
-										style="font-size: 15px;width: 6rem;" role="button"
+										style="font-size: 15px;width: 8rem;" role="button"
 										th:href="@{/admin/formUpdateAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
 											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
-										<a class="btn btn-outline-danger" style="font-size: 15px;width: 6rem;height:3.6rem;"
+										<a class="btn btn-outline-danger" style="font-size: 15px;width: 8rem;"
 										role="button"
 										th:href="@{/admin/deleteAttributeType?(attributeTypeID=${attributeType.attributeTypeID})}">
-											<i class="fas fa-trash-alt mt-3"></i> <b>Xóa</b></a></td>
+											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a></td>
 								</tr>
 							</tbody>
 						</table>
+								<nav aria-label="Page navigation example justify-content-center">
+									<ul class="pagination justify-content-center">
+										<li th:if="${currentPage>1}" class="page-item"><a
+											class="page-link"
+											th:href="@{/admin/attributeTypes?(page=${currentPage-1})}">Trang
+												trước</a></li>
 
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li th:if="${currentPage>1}" class="page-item"><a
-									class="page-link"
-									th:href="@{/admin/attributeTypes?(page=${currentPage-1})}">Trang trước</a></li>
+										<li th:if="${currentPage<=1}" class="page-item disabled"><a
+											class="page-link" href="#">Trang trước</a></li>
 
-								<li th:if="${currentPage<=1}" class="page-item disabled"><a
-									class="page-link" href="#">Trang trước</a></li>
+										<li th:each="i:${#numbers.sequence(1,totalPage)}"
+											class="page-item"><a class="page-link" th:text=${i}
+											th:href="@{/admin/attributeTypes?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
 
-								<li th:each="i:${#numbers.sequence(1,totalPage)}"
-									class="page-item"><a class="page-link" th:text=${i}
-									th:href="@{/admin/attributeTypes?(page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
-
-								<li th:if="${currentPage<totalPage}" class="page-item"><a
-									class="page-link"
-									th:href="@{/admin/attributeTypes?(page=${currentPage+1})}">Trang kế tiếp</a></li>
-								<li th:if="${currentPage>=totalPage}" class="page-item disabled"><a
-									class="page-link" href="#">Trang kế tiếp</a></li>
-							</ul>
-						</nav>
-
+										<li th:if="${currentPage<totalPage}" class="page-item"><a
+											class="page-link"
+											th:href="@{/admin/attributeTypes?(page=${currentPage+1})}">Trang
+												sau</a></li>
+										<li th:if="${currentPage>=totalPage}"
+											class="page-item disabled"><a class="page-link" href="#">Trang
+												sau</a></li>
+									</ul>
+								</nav>
 					</div>
 					<div class="col-md-2"></div>
 				</div>
@@ -94,9 +95,9 @@
 				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
-		<div align="center" style="padding-top: 35px" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-			<a class="btn btn-outline-success" style="font-size: 15px;" role="button"
-			th:href="@{/admin/formAddAttributeType}">
+		<div align="center" style="padding-top: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
+			<a class="btn btn-outline-success mb-5" style="font-size: 15px;" role="button"
+			th:href="@{/admin/formAddAttributeType}"> 
 				<i class="fas fa-plus"></i> <b>Thêm loại thuộc tính mới</b></a> 
 		</div>
 	</div>
