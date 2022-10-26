@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class ProductController {
 	public String showProductList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "productID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Product> pageProduct = productService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -64,7 +65,8 @@ public class ProductController {
 		if(products.size() == 0) products = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageProduct.getTotalPages());
-		
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","products" );
 		//sort
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);

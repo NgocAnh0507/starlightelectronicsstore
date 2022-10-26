@@ -2,6 +2,8 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class ProductAttributeController {
 	public String showProductAttributeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "productAttributeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model, HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<ProductAttribute> pageProductAttribute = this.productAttributeService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -44,6 +46,8 @@ public class ProductAttributeController {
 		if(productAttributes.size() == 0) productAttributes = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageProductAttribute.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","productAttributes" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -51,6 +55,7 @@ public class ProductAttributeController {
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		model.addAttribute("productAttributes",productAttributes);
 		return "productAttribute-management";
+		
 	}
 	
 	@GetMapping("/formAddProductAttribute")
@@ -128,11 +133,11 @@ public class ProductAttributeController {
 	}
 	
 	@GetMapping("/deleteProductAttribute")
-	public String deleteProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model) {
+	public String deleteProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model,HttpServletRequest request) {
 		ProductAttribute productAttribute = this.productAttributeService.findProductAttributeById(productAttributeID);
 		if(productAttribute.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa thuộc tính đang có sản phẩm!");
-			return showProductAttributeList(1,"productAttributeID","asc",model);
+			return showProductAttributeList(1,"productAttributeID","asc",model,request);
 		}
 		this.productAttributeService.deleteProductAttribute(productAttributeID);
 		return "redirect:/admin/productAttributes";

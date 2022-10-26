@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class OrderController {
 	public String showOrderList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "orderID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Order> pageOrder = orderService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -53,6 +54,8 @@ public class OrderController {
 		if(orders.size() == 0) orders = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageOrder.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","orders" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);

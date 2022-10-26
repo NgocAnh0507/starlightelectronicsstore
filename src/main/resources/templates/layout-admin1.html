@@ -34,46 +34,40 @@ fit=no">
 			<div class="list-group list-group-flush my-3">
 				<a href="#"
 					class="list-group-item list-group-item-action bg-transparent second-text active"><i
-					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a
-					th:href="@{/}"
+					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> <a th:href="@{/}"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-home"></i> Trang chủ</a> 
-					 <a
-					th:href="@{/admin/categories}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="	fas fa-folder-open"></i> Quản lý danh mục</a>
-					 <a
+					class="fas fa-home"></i> Trang chủ</a>
+				
+				<a th:href="@{/admin/categories}"
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
+					th:class="${session.menuSelected == 'categories'}?'list-group-item list-group-item-action bg-success text-white fw-bold ':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="	fas fa-folder-open"></i> Quản lý danh mục</a> <a
 					th:href="@{/admin/attributeTypes}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-sitemap"></i> Quản lý loại thuộc tính</a>
-					 <a
+					th:class="${session.menuSelected == 'attributeTypes'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="fas fa-sitemap"></i> Quản lý loại thuộc tính</a> <a
 					th:href="@{/admin/productAttributes}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="	fas fa-list"></i> Quản lý thuộc tính</a>
-					 <a
+					th:class="${session.menuSelected == 'productAttributes'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="	fas fa-list"></i> Quản lý thuộc tính</a> <a
 					th:href="@{/admin/positions}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
-					class="	fas fa-id-card-alt"></i> Quản lý chức vụ</a>
-					<a
+					th:class="${session.menuSelected == 'positions'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"
+					sec:authorize="hasRole('ROLE_ADMIN')"><i
+					class="	fas fa-id-card-alt"></i> Quản lý chức vụ</a> <a
 					th:href="@{/admin/employees}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold" sec:authorize="hasRole('ROLE_ADMIN')"><i
-					class="fas fa-address-card"></i> Quản lý nhân viên</a>
-					<a
+					th:class="${session.menuSelected == 'employees'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"
+					sec:authorize="hasRole('ROLE_ADMIN')"><i
+					class="fas fa-address-card"></i> Quản lý nhân viên</a> <a
 					th:href="@{/admin/customers}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="fas fa-user-friends"></i> Quản lý khách hàng</a> 
-					 <a
+					th:class="${session.menuSelected == 'customers'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="fas fa-user-friends"></i> Quản lý khách hàng</a> <a
 					th:href="@{/admin/manufacturers}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+					th:class="${session.menuSelected == 'manufacturers'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
 					class="	fas fa-tools"></i> Quản lý hãng sản phẩm</a><a
 					th:href="@{/admin/products}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="	fas fa-dolly"></i> Quản lý sản phẩm</a>
-					<a
+					th:class="${session.menuSelected == 'products'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="	fas fa-dolly"></i> Quản lý sản phẩm</a> <a
 					th:href="@{/admin/orders}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-					class="	fas fa-money-check-alt"></i> Quản lý hóa đơn</a>
-					<a
+					th:class="${session.menuSelected == 'orders'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
+					class="	fas fa-money-check-alt"></i> Quản lý hóa đơn</a> <a
 					th:href="@{/login}"
 					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
 					class="fas fa-power-off me-2"></i> Đăng xuất</a>
@@ -95,7 +89,8 @@ fit=no">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 55px">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent"
+					style="margin-right: 55px">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle second-text fw-bold" href="#"
@@ -103,9 +98,12 @@ fit=no">
 							aria-expanded="false"> <span sec:authentication="name"></span>
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" th:href="@{/admin/infoUser}">Hồ sơ nhân viên</a></li>
-								<li><a class="dropdown-item" th:href="@{/admin/change-PassWord}">Đổi mật khẩu</a></li>
-								<li><a class="dropdown-item" th:href="@{/login}">Đăng xuất</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/infoUser}">Hồ
+										sơ nhân viên</a></li>
+								<li><a class="dropdown-item"
+									th:href="@{/admin/change-PassWord}">Đổi mật khẩu</a></li>
+								<li><a class="dropdown-item" th:href="@{/login}">Đăng
+										xuất</a></li>
 							</ul></li>
 					</ul>
 				</div>

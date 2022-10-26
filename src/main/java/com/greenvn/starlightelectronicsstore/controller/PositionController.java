@@ -2,6 +2,8 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class PositionController {
 	public String showPositionList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "positionID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model, HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Position> pagePositon = positionService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -35,6 +37,8 @@ public class PositionController {
 		if(positions.size() == 0) positions = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pagePositon.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","positions" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -92,11 +96,11 @@ public class PositionController {
 	}
 	
 	@GetMapping("/deletePosition")
-	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model) {
+	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model,HttpServletRequest request) {
 		Position P = positionService.findPositionById(positionID);
 		if(P.getEmployees().size() > 0) {
 			model.addAttribute("messages","Không thể xóa chức vụ đang có nhân viên nắm giữ!");
-			return showPositionList(1, "positionID", "asc", model);
+			return showPositionList(1, "positionID", "asc", model,request);
 		}
 		positionService.deletePosition(positionID);
 		return "redirect:/admin/positions";

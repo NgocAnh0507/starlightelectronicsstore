@@ -38,9 +38,17 @@
 				<div class="col-lg-4">
 					<div class="card mb-4">
 						<div class="card-body text-center">
-							<img
-								th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}" class="rounded-circle img-fluid"
-								style="width: 150px;">
+							<div th:switch="${employee.avatar}">
+								<div th:case="null">
+									<span>Chưa có ảnh đại điện!</span>
+								</div>
+								<div th:case="*">
+									<img
+										th:attr="src=@{/upload/{path}(path=${employee.avatar.name})}"
+										class="rounded-circle img-fluid" style="width: 150px;">
+								</div>
+							</div>
+							
 							<h5 class="my-3" th:text="${employee.name}"></h5>
 							<p class="text-muted mb-1" th:text="${employee.employeeID}"></p>
 							<p class="text-muted mb-4" th:text="${employee.userName}"></p>
@@ -56,6 +64,17 @@
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0" th:text="${employee.name}"></p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Ngày sinh</p>
+								</div>
+								<div class="col-sm-9">
+
+									<p class="text-muted mb-0"
+										th:text="${#dates.format(employee.birthday,'dd-MM-yyyy')}"></p>
 								</div>
 							</div>
 							<hr>
@@ -77,27 +96,35 @@
 								</div>
 							</div>
 
+							
 							<hr>
 							<div class="row">
 								<div class="col-sm-3">
-									<p class="mb-0">Ngày sinh</p>
+									<p class="mb-0">Chức vụ</p>
 								</div>
 								<div class="col-sm-9">
-									<p class="text-muted mb-0" th:text="${employee.birthday}"></p>
+
+									<p class="text-muted mb-0" th:text="${employee.position.name}"></p>
 								</div>
 							</div>
 						</div>
-						<a class="btn btn-primary"
-							th:href="@{/admin/formUpdateInfoEmployee?(employeeID=${employee.employeeID})}"
-							role="button"><i class="fas fa-edit"></i></a> <a
-							th:href="@{/admin}" class="btn btn-primary mt-1">Trở về</a>
+						<div class="text-center">
+							<a
+								th:href="@{/admin/formUpdateInfoEmployee?(employeeID=${employee.employeeID})}"
+								class="btn btn-outline-primary btn-lg" role="button"><i
+								class="fas fa-pencil-alt"></i> Chỉnh sửa</a></a> <a th:href="@{/admin}"
+								class="btn btn-outline-danger btn-lg" role="button"
+								aria-pressed="true" style="width: 9rem;">Quay về</a>
+
+						</div>
+
 					</div>
 				</div>
 			</div>
 
 		</section>
-		
+
 	</div>
-	
+
 </body>
 </html>

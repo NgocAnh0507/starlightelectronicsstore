@@ -21,75 +21,59 @@
 <body>
 	<div layout:fragment="content">
 		<div align="center" style="padding-top: 55px">
-			<h1 style="font-size: 35px;">Chỉnh sửa thông tin nhân viên</h1>
+			<h1 style="font-size: 35px;">Chỉnh sửa thông tin hiển thị</h1>
 		</div>
 
 		<div class="container-fluid" style="padding-top: 35px">
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form th:action="@{/admin/formUpdateInfo?(employeeID=${employee.employeeID})}" th:object="${employee}"
-						method="post">
-						<label for="name" class="col-form-label" style="font-size: 20px;">Tên:</label> 
+					<form
+						th:action="@{/admin/formUpdateInfoEmployee?(employeeID=${employee.employeeID})}"
+						th:object="${employee}" method="post">
+						<label for="name" class="col-form-label" style="font-size: 20px;">Tên:</label>
 						<input type="text" th:field="*{name}" class="form-control"
-							id="name" placeholder="Hãy nhập tên của nhân viên bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{name}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						<label for="birthday" class="col-form-label" style="font-size: 20px;">Năm sinh:</label> 
-						<input type="number" min="1900" max="2100" step="1"
-							th:field="*{birthday}"  class="form-control" id="bithYear"  style="font-size: 20px;">
-						<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						<label for="phoneNumber" class="col-form-label" style="font-size: 20px;">Số điện thoại:</label> 
-						<input type="text" th:field="*{phoneNumber}" class="form-control"
-							id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{phoneNumber}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							id="name" placeholder="Hãy nhập tên của bạn"
+							style="font-size: 20px;">
+						<p th:errors="*{name}" class="text-danger"
+							style="font-size: 20px; padding-top: 15px;"></p>
+
+						<label for="birthday" class="col-form-label"
+							style="font-size: 20px;">Ngày sinh</label> <input type="date"
+							min="1900" max="2100" step="1" th:field="*{birthday}"
+							class="form-control" id="birthday" style="font-size: 20px;">
+						<p th:errors="*{birthday}" class="text-danger"
+							style="font-size: 20px; padding-top: 15px;"></p>
+						<label for="email" class="col-form-label" style="font-size: 20px;">Email:</label>
+						<input type="text" th:field="*{email}" class="form-control"
+							id="email" placeholder="Hãy nhập địa chỉ email của bạn"
+							style="font-size: 20px;">
+						<p th:errors="*{email}" class="text-danger"
+							style="font-size: 20px; padding-top: 15px;"></p>
+
+						<label for="phoneNumber" class="col-form-label"
+							style="font-size: 20px;">Số điện thoại:</label> <input
+							type="text" th:field="*{phoneNumber}" class="form-control"
+							id="phoneNumber" placeholder="Hãy nhập số điện thoại của bạn"
+							style="font-size: 20px;">
+						<p th:errors="*{phoneNumber}" class="text-danger"
+							style="font-size: 20px; padding-top: 15px;"></p>
 						<div th:switch="${messages}">
 							<div th:case="null"></div>
 							<div th:case="*">
-								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+								<p th:text="${messages}" class="text-danger"
+									style="font-size: 20px; padding-top: 15px;"></p>
 							</div>
 						</div>
-						<label for="email" class="col-form-label" style="font-size: 20px;">Email:</label> 
-						<input type="text" th:field="*{email}" class="form-control"
-							id="email" placeholder="Hãy nhập địa chỉ email của nhân viên bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{email}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+
+
 						
-						<label for="userName" class="col-form-label" style="font-size: 20px;">Tài khoản:</label> 
-						<input type="text" th:field="*{userName}" class="form-control"
-							id="userName" placeholder="Hãy nhập tài khoản của nhân viên bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{userName}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						<input type="text" th:field="*{password}" class="form-control" hidden
-							id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn thêm"  style="font-size: 20px;">
-						<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						 
-						 <label for="position"  class="col-form-lable" style="font-size: 20px;">Chức vụ</label>
-						 <select id="position" th:field="*{position}" class="form-control" style="font-size: 20px;">
-						 	 <option th:value="null" selected="selected">- Chọn chức vụ -</option>
-							 <option th:each="position: ${positions}"
-							 		th:value = "${{position}}"
-							 		th:switch="${position.editData}">
-								 		<p th:case="true"><span th:text="${position.name}"></span> - Được phép chỉnh sửa dữ liệu</p>
-								 		<p th:case="false"><span th:text="${position.name}"></span> - Không được phép chỉnh sửa dữ liệu</p>
-							 </option> 
-						 </select>
-						 <p th:errors="*{position}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						 
-						 <div align="center" style="padding-top: 15px; padding-bottom: 5px">
-							<a class="btn btn-warning" style="font-size: 15px;" role="button"
-							th:href="@{/formAddPosition}" target=”_blank”>
-								<i class="fas fa-plus"></i> Thêm chức vụ mới</a> 
-						</div>
-						 
-						<input type="checkbox"  th:field="*{isActive}" id="isActive" name="isActive" value="trạng thái làm việc">
-						 <label for="isActive" class="col-form-label" style="font-size: 20px;"> Trạng thái làm việc</label> 
-						<p th:errors="*{isActive}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-						
-						
-						<div align="center" style="padding-top: 15px; padding-bottom: 35px">
-							<input type="submit" class="btn btn-success mt-5" value="Chỉnh sửa" style="font-size: 20px;">
+
+
+						<div align="center"
+							style="padding-top: 15px; padding-bottom: 35px">
+							<input type="submit" class="btn btn-success mt-5"
+								value="Chỉnh sửa" style="font-size: 20px;">
 						</div>
 					</form>
 				</div>

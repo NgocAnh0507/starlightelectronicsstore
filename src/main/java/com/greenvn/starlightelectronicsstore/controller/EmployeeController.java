@@ -55,7 +55,7 @@ public class EmployeeController {
 	public String showEmployeeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "employeeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model ,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Employee> pageEmployee = employeeService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -63,6 +63,8 @@ public class EmployeeController {
 		if(employees.size() == 0) employees = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageEmployee.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","employees" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -213,7 +215,7 @@ public class EmployeeController {
         model.addAttribute("positions",positionService.getPositions());
 		return "employee-update1";
 	}
-    @PostMapping("/formUpdateInfo")
+    @PostMapping("/formUpdateInfoEmployee")
     public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
         if(result.hasErrors()) {
             Employee emp = employeeService.findEmployeeById(employeeID);

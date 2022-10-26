@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ManufacturerController {
 	public String showManufacturerList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "manufacturerID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Manufacturer> pageManufacturer = manufacturerService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -49,6 +50,8 @@ public class ManufacturerController {
 		if(manufacturers.size() == 0) manufacturers = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageManufacturer.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","manufacturers" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
@@ -142,11 +145,11 @@ public class ManufacturerController {
 	}
 
 	@GetMapping("/deleteManufacturer")
-	public String deleteManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID, Model model) {
+	public String deleteManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID, Model model,HttpServletRequest request) {
 		Manufacturer M = manufacturerService.findManufacturertById(manufacturerID);
 		if(M.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa hãng sản xuất đang có sản phẩm!");
-			return showManufacturerList(1,"manufacturerID","asc",model);
+			return showManufacturerList(1,"manufacturerID","asc",model,request);
 		}
 		manufacturerService.deleteManufacturer(manufacturerID);
 		imageService.deleteImage(M.getLogo().getImageID());

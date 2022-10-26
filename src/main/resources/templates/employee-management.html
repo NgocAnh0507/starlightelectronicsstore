@@ -91,12 +91,12 @@
 										
 											<a class="btn btn-outline-primary "
 										style="font-size: 15px;width:7rem;height:3.6rem;" role="button"
-												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
+												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
 													<i class="fas fa-pencil-alt mt-3"></i>Chỉnh sửa
 											</a> 
 											<a class="btn btn-outline-danger" style="font-size: 15px;width: 7rem;height:3.6rem;"
 										role="button"
-												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
+												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
 													<i class="fas fa-trash-alt mt-3"></i>Xóa
 											</a>
 										</td>

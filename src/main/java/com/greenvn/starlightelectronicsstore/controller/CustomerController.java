@@ -1,5 +1,7 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,11 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@GetMapping("/admin/customers")
-	public String showCustomerList(Model model)
+	public String showCustomerList(Model model,HttpServletRequest request)
 	{
 		model.addAttribute("customers",customerService.getCustomers());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","customers" );
 		return "customers";
 	}
 	
