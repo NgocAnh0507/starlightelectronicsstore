@@ -2,6 +2,8 @@ package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class CustomerController {
 	public String showCustomerList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "customerID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		int pageSize = 9;
 		Page<Customer> pageCustomer = customerService.findAll(pageNo, pageSize,sortField,sortDir);
@@ -35,6 +37,8 @@ public class CustomerController {
 		if(customers.size() == 0) customers = null;
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPage", pageCustomer.getTotalPages());
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","customers" );
 		
 		//sort
 		model.addAttribute("sortField", sortField);
