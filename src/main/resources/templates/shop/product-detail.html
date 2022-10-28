@@ -78,13 +78,15 @@
 				</div>
 				
 				<div id="status" style="padding-left: 10%;" th:switch="${product.quantity}">
-					<hr/>
+					
 					<div th:case="null"></div>
 					<div th:case="0">
+						<hr/>
 						<span th:text=" 'Trạng thái: ' " style="font-size: 25px;"></span>
 						<span style="font-size: 25px; color:red">Hết hàng!</span>
 					</div>
 					<div th:case="*">
+						<hr/>
 						<span th:text=" 'Trạng thái: ' " style="font-size: 25px;"></span>
 						<span style="font-size: 25px; color:green">Còn hàng!</span>
 					</div>
@@ -99,28 +101,31 @@
 				</div>
 				
 				<div id="price" style="padding-left: 10%;" th:switch="${product.priceSpecial}">
-					<hr/>
+					
 					<div th:case="null">
 						<b><p th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+'VNĐ'}" style="font-size: 25px;"></p></b>
 					</div>
 					<div th:case="*">
+						<hr/>
 						<p class="old-price" th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+' VNĐ'}" style="font-size: 25px;"></p>
 						<b><p class="hot-price" th:text="'Giá khuyến mãi: ' + ${#numbers.formatInteger(product.priceSpecial,3,'POINT')+' VNĐ'}" style="font-size: 25px; color: red;"></p></b>
 						<b><p class="hot-price" th:text="'( Từ ' + ${#calendars.format(product.priceSpecialStartDate,'dd/MM/yyyy HH:mm')}+ ' đến ' + ${#calendars.format(product.priceSpecialEndDate,'dd/MM/yyyy HH:mm')} + ' )'" style="font-size: 15px;"></p></b>
 					</div>
 				</div>
 				<div id="ship" style="padding-left: 10%;" th:switch="${product.freeShip}">
-					<hr/>
+					
 					<div th:case="null"></div>
 					<div th:case="*">
+						<hr/>
 						<span><i class='fas fa-truck' style='color:green'></i><span th:text="' Giao hàng miễn phí'"></span></span>
 					</div>
 				</div>
 				
 				<div id="attributes" style="padding-left: 10%;" th:switch="${attributesCount}">
-					<hr/>
+					
 					<div th:case="0"></div>
 					<div th:case="*">
+						<hr/>
 						<p th:text="'Thông tin chung:'" style="font-size: 25px;"></p>
 						<div style="border: 1px solid #000000; border-radius: 5px;">
 							<p th:each="attribute : ${attributes}" th:text="${attribute.type.name} + ': ' + ${attribute.value}" style="padding-left: 3%; font-size: 20px;"></p>
@@ -129,12 +134,13 @@
 				</div>
 				
 				<div id="description" style="padding-left: 10%; " th:switch="${product.productDescription}">
-					<hr/>
+					
 					<div th:case="null"></div>
 					<div th:case="*">
+						<hr/>
 						<p type="text" th:text="*{product.productName}"
 							id="pName" hidden="hidden"></p>
-						<button class="btn btn-success btn-sm" style="font-size: 20px;"
+						<button class="btn btn-outline-success btn-sm" style="font-size: 20px;"
 						    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
 					        Thông tin chi tiết
 					    </button>

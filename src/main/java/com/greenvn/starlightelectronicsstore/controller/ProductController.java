@@ -118,8 +118,12 @@ public class ProductController {
 		for(ProductAttribute PA : productAttributes) {
 			if(!attributeTypes.contains(PA.getType())) attributeTypes.add(PA.getType());
 		}
+		if(attributeTypes.size() == 0) attributeTypes = null;
+		
+		List<Image> images = product.getImages();
+		if(images.size() == 0) images = null;
 
-		model.addAttribute("images",product.getImages());
+		model.addAttribute("images",images);
 		model.addAttribute("productAttributes",productAttributes);
 		model.addAttribute("attributeTypes",attributeTypes);
 		model.addAttribute("product", product);
@@ -135,13 +139,17 @@ public class ProductController {
 		for(ProductAttribute PA : productAttributes) {
 			if(!attributeTypes.contains(PA.getType())) attributeTypes.add(PA.getType());
 		}
+		if(attributeTypes.size() == 0) attributeTypes = null;
+
+		List<Image> images = productOld.getImages();
+		if(images.size() == 0) images = null;
 		
 		if(productOld.getPriceSpecial() != null)
 		{
 			if(product.getPriceSpecialEndDate() == null || product.getPriceSpecialStartDate() == null) {
 				
 				model.addAttribute("messages", "Thời gian khuyến mãi không được để trống!");
-				model.addAttribute("images",productOld.getImages());
+				model.addAttribute("images",images);
 				model.addAttribute("productAttributes",productAttributes);
 				model.addAttribute("attributeTypes",attributeTypes);
 				model.addAttribute("product", productOld);
@@ -150,7 +158,7 @@ public class ProductController {
 			else if(product.getPriceSpecialEndDate().before(product.getPriceSpecialStartDate())) 
 			{
 				model.addAttribute("messages", "Ngày bắt đầu khuyến mãi không thể muộn hơn ngày kết thúc!");
-				model.addAttribute("images",productOld.getImages());
+				model.addAttribute("images",images);
 				model.addAttribute("productAttributes",productAttributes);
 				model.addAttribute("attributeTypes",attributeTypes);
 				model.addAttribute("product", productOld);

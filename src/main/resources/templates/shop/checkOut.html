@@ -24,27 +24,26 @@
 			<h1 style="font-size: 35px;">Thông tin hóa đơn</h1>
 		</div>
 		<div class="checkout-area pb-50 pdtop">
-			<div class="container">
+			<div class="container-fluid" style="padding-top: 35px">
 				<div class="row">
-
-					<!-- If error messages -->
-					<div id="checkoutError" class=""></div>
-					<!--alert-error-->
-					<form th:action="@{/shop/shoppingCartConfirmation}" method="POST">
-						<div class="col-lg-12 col-md-12" th:object="${customerInfo}">
-								<h5>Thông tin khách hàng</h5>
-								<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<form th:action="@{/shop/shoppingCartConfirmation}" method="POST">
+							<div class="col-lg-12 col-md-12" th:object="${customerInfo}">
+								<h5 style="font-size: 20px;">Thông tin khách hàng</h5>
+								<div class="row" >
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Họ và tên: </label>
+									</div>
 									<div class="col-md-6">
-										<div class="checkout-form-list">
-
-											<label>Họ và tên<span class="required">*</span></label> <input
-												class="form-control" th:field="*{name}"
-												id="customer.name" name="customer.billing.name"
-												title="Name is required" type="text"
-												maxlength="99" style="background-color: rgb(240, 255, 255);"
-												placeholder="Họ và tên" /> <span
-												id="error-customer.billing.name" class="error"></span>
-										</div>
+										<input class="form-control" th:field="*{name}"
+											id="customer.name" name="customer.billing.name"
+											title="Name is required" type="text"
+											maxlength="99" style="background-color: rgb(240, 255, 255);"
+											placeholder="Họ và tên" /> <span
+											id="error-customer.billing.name" class="error"></span>
+										
 										<div th:switch="${nameMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -52,20 +51,22 @@
 													style="font-size: 20px; padding-top: 15px;"></p>
 											</div>
 										</div>
+									</div>
 								</div>
-
+								<div class="row" style="padding-top: 15px">
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Ngày sinh:</label>
+									</div>
 									<div class="col-md-6">
-
-										<div class="checkout-form-list">
-											<label>Ngày sinh<span class="required">*</span></label> <input
-												class="form-control" th:field="*{birthday}"
-												id="customer.birthday" name="customer.billing.birthday"
-												title="Birthday is required" autofocus="autofocus"
-												type="date"
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Ngày sinh" /> <span
-												id="error-customer.billing.birthday" class="error"></span>
-										</div>
+										<input class="form-control" th:field="*{birthday}"
+											id="customer.birthday" name="customer.billing.birthday"
+											title="Birthday is required" autofocus="autofocus"
+											type="date"
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Ngày sinh" /> <span
+											id="error-customer.billing.birthday" class="error"></span>
+										
 										<div th:switch="${birthdayMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -74,18 +75,20 @@
 											</div>
 										</div>
 									</div>
-								
+								</div>
+								<div class="row" style="padding-top: 15px">
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Email: </label>
+									</div>
 									<div class="col-md-6">
-
-										<div class="checkout-form-list">
-											<label>Email <span class="required">*</span></label> <input
-												class="form-control" th:field="*{email}"
-												id="customer.emailAddress" name="customer.emailAddress"
-												title="Email address is required" type="text" 
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Email" /> <span
-												id="error-customer.emailAddress" class="error"></span>
-										</div>
+										<input class="form-control" th:field="*{email}"
+											id="customer.emailAddress" name="customer.emailAddress"
+											title="Email address is required" type="text" 
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Email" /> <span
+											id="error-customer.emailAddress" class="error"></span>
+										
 										<div th:switch="${emailMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -94,18 +97,20 @@
 											</div>
 										</div>
 									</div>
-
+								</div>
+								<div class="row" style="padding-top: 15px">
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Số điện thoại: </label>
+									</div>
 									<div class="col-md-6">
-
-										<div class="checkout-form-list">
-											<label>Số điện thoại <span class="required">*</span></label>
-											<input class="form-control" th:field="*{numberPhone}"
-												id="customer.billing.phone" name="customer.billing.phone"
-												title="Phone number is required" type="text" 
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Số điện thoại" /> <span
-												id="error-customer.billing.phone" class="error"></span>
-										</div>
+										<input class="form-control" th:field="*{numberPhone}"
+											id="customer.billing.phone" name="customer.billing.phone"
+											title="Phone number is required" type="text" 
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Số điện thoại" /> <span
+											id="error-customer.billing.phone" class="error"></span>
+										
 										<div th:switch="${phoneMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -116,20 +121,23 @@
 									</div>
 								</div>
 								<hr/>
-								<h5>Địa chỉ giao hàng</h5>
-								<div class="row">
-									<div class="col-md-12">
-
-										<div class="checkout-form-list">
-											<label>Số nhà, tên đường, phường <span class="required">*</span></label>
-											<input class="form-control" th:field="*{street}"
-												id="customer.billing.address"
-												name="customer.billing.address"
-												title="Street address is required" type="text" value=""
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Số nhà, tên đường, phường" /> <span
-												id="error-customer.billing.address" class="error"></span>
-										</div>
+								<h5 style="font-size: 20px;">Địa chỉ giao hàng</h5>
+									
+								<div class="row" style="padding-top: 15px">
+									
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Số nhà, tên đường, phường <span class="required">*</span></label>
+									</div>
+									<div class="col-md-6">
+										<input class="form-control" th:field="*{street}"
+											id="customer.billing.address"
+											name="customer.billing.address"
+											title="Street address is required" type="text" value=""
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Số nhà, tên đường, phường" /> <span
+											id="error-customer.billing.address" class="error"></span>
+									
 										<div th:switch="${streetMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -138,18 +146,22 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12">
-
-										<div class="checkout-form-list">
-											<label>Quận, huyện, thành phố <span class="required">*</span></label> <input
-												class="form-control" th:field="*{district}"
-												id="customer.billing.address"
-												name="customer.billing.address"
-												title="District address is required" type="text" value=""
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Quận, huyện, thành phố" /> <span
-												id="error-customer.billing.address" class="error"></span>
-										</div>
+								</div>
+								<div class="row" style="padding-top: 15px">
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Quận, huyện, thành phố <span class="required">*</span></label> 
+									</div>
+									<div class="col-md-6">
+										<input
+											class="form-control" th:field="*{district}"
+											id="customer.billing.address"
+											name="customer.billing.address"
+											title="District address is required" type="text" value=""
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Quận, huyện, thành phố" /> <span
+											id="error-customer.billing.address" class="error"></span>
+									
 										<div th:switch="${districtMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -158,17 +170,22 @@
 											</div>
 										</div>
 									</div>
-
-									<div class="col-md-12">
-										<div class="checkout-form-list">
-											<label>Tỉnh (thành phố trực thuộc trung ương) <span class="required">*</span></label> <input
-												class="form-control" th:field="*{city}"
-												id="customer.billing.city" name="customer.billing.city"
-												title="City is required" type="text" value=""
-												style="background-color: rgb(240, 255, 255);"
-												placeholder="Tỉnh (thành phố trực thuộc trung ương)" /> <span
-												id="error-customer.billing.city" class="error"></span>
-										</div>
+								</div>
+								<div class="row" style="padding-top: 15px">
+									
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
+										<label style="font-size: 20px;">Tỉnh (thành phố trực thuộc trung ương) <span class="required">*</span></label>
+									</div>
+									<div class="col-md-6">
+										<input
+											class="form-control" th:field="*{city}"
+											id="customer.billing.city" name="customer.billing.city"
+											title="City is required" type="text" value=""
+											style="background-color: rgb(240, 255, 255);"
+											placeholder="Tỉnh (thành phố trực thuộc trung ương)" /> <span
+											id="error-customer.billing.city" class="error"></span>
+									
 										<div th:switch="${cityMessages}">
 											<div th:case="null"></div>
 											<div th:case="*">
@@ -177,8 +194,8 @@
 											</div>
 										</div>
 									</div>
-
 								</div>
+
 
 								<div class="pdtop">
 
@@ -186,62 +203,76 @@
 										class="alert alert-danger" th:text="${errorMessage}"
 										role="alert"></div>
 								</div>
-						</div>
-						<div class="col-lg-12 col-md-12" th:object="${cartInfo}">
-							<hr />
-							<h5>Chi tiết hóa đơn</h5>
-							<div class="row">
-								<div class="col-2">Ảnh sản phẩm</div>
-								<div class="col-2">Mã sản phẩm</div>
-								<div class="col-2">Tên sản phẩm</div>
-
-								<div class="col-2">Giá</div>
-								<div class="col-1">Số lượng</div>
-								<div class="col-2">Thành tiền</div>
 							</div>
-							<div class="row" th:each="cartLineInfo,itemStat:*{cartLines}" style="border: 1px solid #000000; border-radius: 5px; padding-top: 3px">
-								<div class="col-2" >
-									<img height=50 src=""
-										th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+							<div class="col-lg-12 col-md-12" th:object="${cartInfo}">
+								<hr />
+								<h5 style="font-size: 20px;">Chi tiết hóa đơn</h5>
+								<br/>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-11">
+										<table class="table" style="background-color: rgb(240, 255, 255);">
+											<thead>
+												<tr>
+													<th class="text-center " style="font-size: 15px;">Ảnh sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Mã sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Tên sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Giá (VNĐ)</th>
+													<th class="text-center " style="font-size: 15px;">Số lượng</th>
+													<th class="text-center " style="font-size: 15px;">Thành tiền (VNĐ)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="cartLineInfo,itemStat: *{cartLines}">
+													<td class="col-2">
+														<img height=50 src=""
+															th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+													</td>
+													<td align="center" style="font-size: 15px;"
+														 th:text="${cartLineInfo.productInfo.productID}"></td>
+													<td align="center" style="font-size: 15px;"
+														th:text="${cartLineInfo.productInfo.productName}"></td>
+													<td align="center" style="font-size: 15px;">
+														<strong th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
+													</td>
+													<td align="center" style="font-size: 15px;"
+														th:text="*{cartLines[__${itemStat.index}__].quantity}"></td>
+													<td align="center" style="font-size: 15px;">
+														<strong th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
-								<div class="col-2" th:text="${cartLineInfo.productInfo.productID}"></div>
-								<div class="col-2" th:text="${cartLineInfo.productInfo.productName}"></div>
-								<div class="col-2">
-									<strong th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
+								
+								<div class="row" style="padding-top: 15px">
+									
+									<div class="col-md-1"></div>
+									<div class="col-md-8">
+										<strong th:text="'Tổng tiền của hóa đơn (không gồm phí giao hàng): '"></strong>
+									</div>
+									<div align="right" class="col-md-3">
+										<strong th:text="${#numbers.formatInteger(cartInfo.amountTotal,0,'POINT')} + ' VNĐ'"></strong>
+									</div>
 								</div>
-								<div class="col-1" th:text="*{cartLines[__${itemStat.index}__].quantity}"></div>
-								<strong class="col-2" th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></strong>
+								<hr />
+								<h5>Phương thức thanh toán</h5>
+								<div class="row"  style="padding-top: 15px">		
+									<br/>
+									<div class="col-md-1"></div>
+									<input class="col-1"  type="radio" checked  style="height:20px; width:20px;">
+									<label class="col-10"  style="font-size: 20px;"> Thanh toán khi nhận hàng </label> 
+								</div>
 							</div>
-							<div class="row"  style="padding-top: 15px">
-								<strong th:text="'Tổng hóa đơn: ' + ${#numbers.formatInteger(cartInfo.amountTotal,0,'POINT')}"></strong>
+							<div align="center" class="order-button-payment pdtop">
+								<br />
+								<a class="btn btn-outline-primary" th:href="@{/shop/shoppingCart}">Quay lại giỏ hàng</a>
+								
+								<button id="submitOrder" type="submit" class="btn btn-outline-primary">Xác nhận hóa đơn</button>
 							</div>
-							<hr />
-							<h5>Phương thức vận chuyển</h5>
-							<div class="row"  style="padding-top: 15px">		
-								<br/>
-								<!-- <input class="col-1"  type="radio"  th:field="*{fastShip}" value="true" style="height:25px; width:25px;">  --> 
-								<label class="col-11"  style="font-size: 20px;"> Chuyển phát nhanh - 100.000 VND </label> 
-							</div>
-							<div class="row"  style="padding-top: 15px">	
-								<!-- <input class="col-1"   type="radio"  th:field="*{fastShip}" value="false"  style="height:25px; width:25px;"> -->
-								<label class="col-11"   style="font-size: 20px;"> Chuyển phát chậm - 50.000 VND </label> 
-								<br/>
-							</div>
-							<hr />
-							<h5>Phương thức thanh toán</h5>
-							<div class="row"  style="padding-top: 15px">		
-								<br/>
-								<input class="col-1"  type="radio" checked  style="height:25px; width:25px;">
-								<label class="col-11"  style="font-size: 20px;"> Thanh toán khi nhận hàng </label> 
-							</div>
-						</div>
-						<div class="order-button-payment pdtop">
-							<hr />
-							<a class="btn btn-primary" th:href="@{/shop/shoppingCart}">Quay lại giỏ hàng</a>
-							
-							<button id="submitOrder" type="submit" class="btn btn-primary">Xác nhận hóa đơn</button>
-						</div>
-					</form>
+						</form>
+					</div>
+					<div class="col-md-2"></div>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.entities.ProductReview;
+import com.greenvn.starlightelectronicsstore.model.CartLineInfo;
 import com.greenvn.starlightelectronicsstore.model.Filter;
 import com.greenvn.starlightelectronicsstore.model.ManufacturerInfo;
 import com.greenvn.starlightelectronicsstore.service.CategoryService;
@@ -59,7 +61,23 @@ public class ShopController {
         model.addAttribute("manufacturerInfos", manufacturerInfos);
         
 		Page<Product> pageProduct=productService.search(keyword, pageNo, pageSize);
-		List<Product> products = pageProduct.getContent();
+		List<Product> productList = pageProduct.getContent();
+        List<Product> products = new ArrayList<Product>();
+
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date date= new java.util.Date(millis);
+		
+		//Lọc chỉ lấy những product có status là true (được phép bán)
+		for(Product pro : productList) 
+		{
+		    if(pro.getStatus() == true) {
+		    	//Kiểm tra ngày giảm giá
+		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		        products.add(pro);
+		    }
+		}
+		
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", pageProduct.getTotalPages());
 		model.addAttribute("products", products);
@@ -139,10 +157,17 @@ public class ShopController {
 		List<Product> productList = pageProduct.getContent();
 		List<Product> products = new ArrayList<Product>();
 		
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date date= new java.util.Date(millis);
+		
 		//Lọc chỉ lấy những product có status là true (được phép bán)
 		for(Product pro : productList) 
 		{
 		    if(pro.getStatus() == true) {
+
+		    	//Kiểm tra ngày giảm giá
+		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
 		        products.add(pro);
 		    }
 		}
@@ -153,6 +178,8 @@ public class ShopController {
         for(ProductAttribute A : attributes) {
             if(!attributeTypes.contains(A.getType())) attributeTypes.add(A.getType());
         }
+        if(attributeTypes.size() == 0) attributeTypes = null;
+        
         model.addAttribute("attributes",attributes);
         model.addAttribute("attributeTypes",attributeTypes);
         
@@ -258,14 +285,21 @@ public class ShopController {
         Page<Product> pageProduct = productService.findProductByCategoryName(categoryName,pageNo, pageSize,sortField,sortDir);
         List<Product> productList = pageProduct.getContent();
         List<Product> products = new ArrayList<Product>();
-        
-        //Lọc chỉ lấy những product có status là true (được phép bán)
-        for(Product pro : productList) 
-        {
-            if(pro.getStatus() == true) {
-                products.add(pro);
-            }
-        }
+
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date date= new java.util.Date(millis);
+		
+		//Lọc chỉ lấy những product có status là true (được phép bán)
+		for(Product pro : productList) 
+		{
+		    if(pro.getStatus() == true) {
+
+		    	//Kiểm tra ngày giảm giá
+		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		        products.add(pro);
+		    }
+		}
         
         products = filter(filter, products);
         
@@ -274,6 +308,8 @@ public class ShopController {
         for(ProductAttribute A : attributes) {
             if(!attributeTypes.contains(A.getType())) attributeTypes.add(A.getType());
         }
+        if(attributeTypes.size() == 0) attributeTypes = null;
+       
         model.addAttribute("attributes",attributes);
         model.addAttribute("attributeTypes",attributeTypes);
 

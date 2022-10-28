@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.greenvn.starlightelectronicsstore.entities.Category;
 import com.greenvn.starlightelectronicsstore.entities.Customer;
 import com.greenvn.starlightelectronicsstore.entities.Order;
 import com.greenvn.starlightelectronicsstore.entities.OrderDetail;
@@ -27,9 +28,12 @@ import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.model.CartInfo;
 import com.greenvn.starlightelectronicsstore.model.CartLineInfo;
 import com.greenvn.starlightelectronicsstore.model.CustomerInfo;
+import com.greenvn.starlightelectronicsstore.model.ManufacturerInfo;
 import com.greenvn.starlightelectronicsstore.model.ProductInfo;
 import com.greenvn.starlightelectronicsstore.repository.ProductRepository;
+import com.greenvn.starlightelectronicsstore.service.CategoryService;
 import com.greenvn.starlightelectronicsstore.service.CustomerService;
+import com.greenvn.starlightelectronicsstore.service.ManufacturerService;
 import com.greenvn.starlightelectronicsstore.service.OderDetailService;
 import com.greenvn.starlightelectronicsstore.service.OrderService;
 import com.greenvn.starlightelectronicsstore.service.ProductService;
@@ -53,10 +57,23 @@ public class ShoppingCartController {
 	@Autowired
 	private ProductService productService;
 	
+    @Autowired
+    private ManufacturerService manufacturerService;
+
+    @Autowired
+    private CategoryService categoryService;
+	
 
 	@RequestMapping(value = { "/buyProduct" }, method = RequestMethod.GET)
 	public String listProductHandler(HttpServletRequest request, Model model,
 			@RequestParam(value = "productID", defaultValue = "") Long productID) {
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		Product product = null;
 		if (productID != null) {
 			product = proSer.findProductById(productID);
@@ -74,6 +91,13 @@ public class ShoppingCartController {
 			Model model, @ModelAttribute("cartForm") CartInfo cartForm)
 
 	{
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		CartInfo cartInfo = Utils.getCartInSession(request);
 		cartInfo.updateQuantity(cartForm);
 		return "redirect:/shop/shoppingCart";
@@ -81,6 +105,13 @@ public class ShoppingCartController {
 
 	@RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.GET)
 	public String shoppingCartHandler(HttpServletRequest request, Model model) {
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		CartInfo myCart = Utils.getCartInSession(request);
 		model.addAttribute("cartForm", myCart);
 		return "shop/shoppingCart";
@@ -90,6 +121,13 @@ public class ShoppingCartController {
 	public String removeProductHandler(HttpServletRequest request, Model model,
 			//
 			@RequestParam(value = "productID", defaultValue = "") Long productID) {
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		Product product = null;
 		if (productID != null) {
 			product = proSer.findProductById(productID);
@@ -104,6 +142,13 @@ public class ShoppingCartController {
 	
 	@RequestMapping(value = { "/shoppingCartConfirmation" }, method = RequestMethod.GET)
 		public String shoppingCartCustomerForm(HttpServletRequest request, Model model) {
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		CartInfo cartInfo = Utils.getCartInSession(request);
 		CustomerInfo customerInfo = cartInfo.getCustomerInfo();
 		if (customerInfo == null) {
@@ -119,6 +164,13 @@ public class ShoppingCartController {
 			public String shoppingCartCustomerSave(@ModelAttribute("customerInfo") CustomerInfo customerInfo,
 			HttpServletRequest request, Model model) throws ParseException 
 	{
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		CartInfo cartInfo = Utils.getCartInSession(request);
 	    
 		Boolean checkCustomer = true;
@@ -198,9 +250,23 @@ public class ShoppingCartController {
 	
 	@RequestMapping(value = { "/orderInfo" }, method = RequestMethod.GET)
 		public String orderInfo(HttpServletRequest request, Model model,
-				@RequestParam(value = "orderID") Long orderID) 
+				@RequestParam(value = "orderID",name = "orderID",defaultValue = "0") Long orderID) 
 	{
+
+        // Phải có cho layout-shop
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        
 		Order order = orderService.findOrderById(orderID);
+		if(order == null) {
+			
+			model.addAttribute("messages", "Mã hóa đơn không tồn tại!");
+			return "shop/orderInfo";
+		}
+		else model.addAttribute("messages",null);
+		
 		Customer customer = order.getCustomer();
 		
 		List<OrderDetail> detailList = oderDetailService.getOrderDetailsByOrderID(orderID);

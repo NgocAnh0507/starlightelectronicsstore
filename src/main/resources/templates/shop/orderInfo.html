@@ -20,163 +20,180 @@
 <body>
 
 	<div layout:fragment="content">
-		<div align="center" style="padding-top: 35px">
-			<h1 style="font-size: 35px;">Đơn hàng của bạn</h1>
-		</div>
 		<div class="checkout-area pb-50 pdtop">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12" th:object="${order}">
-						<div class="row">
-							<div class="col-md-12">
-								<label>Mã hóa đơn: <span th:text="${order.orderID}" /></span></label>
-
+		<div class="container-fluid" style="padding-top: 35px">
+			<div th:switch="${messages}">
+				<div th:case="null">
+					<div class="row">
+						<div align="center" style="padding-top: 35px">
+							<h1 style="font-size: 35px;">Đơn hàng của bạn</h1>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-lg-8 col-md-8" th:object="${order}">
+							<div class="row mt-5">
+								<div class="col-md-4" style="font-size: 20px;">
+									<label>Mã hóa đơn: </label>
+								</div>
+								<div class="col-md-8" style="font-size: 20px;">
+									<p th:text="${order.orderID}" /></p>
+								</div>
 							</div>
+								
+							<hr/>
+								
+							<div class="row">
+								<div class="col-md-4" style="font-size: 20px;">
+										<label>Trạng thái đơn hàng: </label>
+								</div>
+								<div class="col-md-8" style="font-size: 22px;">
+									<div th:switch="${order.orderStatus.toString}">
+										<b th:case="RECEIVED" style="color: blue">Đã nhận đơn</b>
+										<b th:case="PACKAGED" style="color: indigo">Đã đóng gói</b>
+										<b th:case="DELIVERED" style="color: green">Đã chuyển hàng</b>
+										<b th:case="CANCELED" style="color: red">Đã hủy đơn</b>
+									</div>
+								</div>
+									
+							</div>
+							
 						</div>
-						<div class="row">
-						<div class="col-md-12">
-								<label th:switch="${order.orderStatus.toString}">Trạng thái đơn hàng: 
-										<span th:case="RECEIVED" style="color: green">Đã nhận đơn</span>
-										<span th:case="PACKAGED" style="color: green">Đã đóng gói</span>
-										<span th:case="DELIVERED" style="color: green">Đã chuyển hàng</span>
-										<span th:case="CANCELED" style="color: green">Đã hủy đơn</span>
-								</label>
-
-						</div>
+						<div class="col-md-2"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-1"></div>
-						<div class="col-md-2">
-							<a class="btn btn-warning"
-							style="font-size: 15px;" role="button"
-							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=0)}">
-								<i class="fas fa-pencil-alt"></i> Đã nhận đơn</a>
+						<div class="col-md-2"></div>
+						<div class="col-lg-8 col-md-8" th:object="${customer}">
+							<hr />
+							<h5 style="font-size: 20px;">Thông tin khách hàng</h5>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-3">
+									<label style="font-size: 20px;">Họ và tên: </label>
+								</div>
+								<div class="col-md-8">
+									<p style="font-size: 20px;" th:text="*{name}"></p>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-3">
+									<label style="font-size: 20px;">Ngày sinh:</label>
+								</div>
+								<div class="col-md-8">
+									<p style="font-size: 20px;" th:text="${#calendars.format(customer.birthday,'dd/MM/yyyy')}"></p>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-3">
+									<label style="font-size: 20px;">Email: </label>
+								</div>
+								<div class="col-md-8">
+									<p style="font-size: 20px;" th:text="*{email}"></p>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-3">
+									<label style="font-size: 20px;">Số điện thoại: </label>
+								</div>
+								<div class="col-md-8">
+									<p style="font-size: 20px;" th:text="*{phoneNumber}"></p>
+								</div>
+							</div>
+							<hr />
+							
+							<div class="row">
+								<div class="col-md-4">
+									<label style="font-size: 20px;">Địa chỉ giao hàng: </label>
+								</div>
+								<div class="col-md-8">
+									<p style="font-size: 20px;" th:text="*{address}" /></p>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-1"></div>
-						<div class="col-md-2">
-							<a class="btn btn-warning"
-							style="font-size: 15px;" role="button"
-							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=1)}">
-								<i class="fas fa-pencil-alt"></i> Đã đóng gói</a>
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-lg-8 col-md-8">
+								<hr />
+								<h5 style="font-size: 20px;">Chi tiết hóa đơn</h5>
+								<br/>
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-11">
+										<table class="table" style="background-color: rgb(240, 255, 255);">
+											<thead>
+												<tr>
+													<th class="text-center " style="font-size: 15px;">Ảnh sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Mã sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Tên sản phẩm</th>
+													<th class="text-center " style="font-size: 15px;">Giá (VNĐ)</th>
+													<th class="text-center " style="font-size: 15px;">Số lượng</th>
+													<th class="text-center " style="font-size: 15px;">Thành tiền (VNĐ)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="cartLineInfo,itemStat: ${cartLines}">
+													<td class="col-2">
+														<img height=50 src=""
+															th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+													</td>
+													<td align="center" style="font-size: 15px;"
+														 th:text="${cartLineInfo.productInfo.productID}"></td>
+													<td align="center" style="font-size: 15px;"
+														th:text="${cartLineInfo.productInfo.productName}"></td>
+													<td align="center" style="font-size: 15px;">
+														<strong th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
+													</td>
+													<td align="center" style="font-size: 15px;"
+														th:text="*{cartLines[__${itemStat.index}__].quantity}"></td>
+													<td align="center" style="font-size: 15px;">
+														<strong th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row" style="padding-top: 15px">
+									<div class="col-md-1"></div>
+									<div class="col-md-8">
+										<strong th:text="'Tổng tiền của hóa đơn (không gồm phí giao hàng): '"></strong>
+									</div>
+									<div align="right" class="col-md-3">
+										<strong th:text="${#numbers.formatInteger(total,0,'POINT')} + ' VNĐ'"></strong>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+								<div class="col-md-4">
+										<label style="font-size: 20px;">Phí chuyển hàng: </label>
+									</div>
+									<div class="col-md-8">
+										<p style="font-size: 20px;">Nhân viên giao hàng thu</p>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+								<div class="col-md-4">
+										<label style="font-size: 20px;">Phương thức thanh toán: </label>
+									</div>
+									<div class="col-md-8">
+										<p style="font-size: 20px;">Thanh toán khi nhận hàng</p>
+									</div>
+								</div>
+								
+							</div>
+							<div class="col-md-2"></div>
 						</div>
-						<div class="col-md-1"></div>
-						<div class="col-md-2">
-							<a class="btn btn-warning"
-							style="font-size: 15px;" role="button"
-							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=2)}">
-								<i class="fas fa-pencil-alt"></i> Đã chuyển hàng</a>
-						</div>
-						<div class="col-md-1"></div>
-						<div class="col-md-2">
-							<a class="btn btn-warning"
-							style="font-size: 15px;" role="button"
-							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=3)}">
-								<i class="fas fa-pencil-alt"></i> Đã hủy đơn</a>
-						</div>
-					</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12 col-md-12" th:object="${customer}">
-						<hr />
-						<h5>Thông tin khách hàng</h5>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="checkout-form-list">
-									<label>Họ và tên: <span th:text="*{name}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="checkout-form-list">
-									<label>Ngày sinh: <span th:text="*{birthday}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-
-								<div class="checkout-form-list">
-									<label>Email: <span th:text="*{email}" /></span></label>
-
-								</div>
-							</div>
-
-							<div class="col-md-6">
-
-								<div class="checkout-form-list">
-									<label>Số điện thoại: <span th:text="*{phoneNumber}" /></span></label>
-
-								</div>
-							</div>
-						</div>
-						<hr />
-						<h5>Địa chỉ giao hàng</h5>
-						<div class="row">
-							<div class="col-md-12">
-								<p th:text="*{address}" /></p>
-							</div>
-						</div>
+				<div th:case="*">
+					<div align="center" style="padding-top: 35px">
+						<h1 th:text="${messages}" class="text-danger"  style="font-size: 35px; padding-top: 15px;"></h1>
 					</div>
-					<div class="col-lg-12 col-md-12">
-						<hr />
-						<h5>Chi tiết hóa đơn</h5>
-						<div class="row">
-							<div class="col-2">Ảnh sản phẩm</div>
-							<div class="col-2">Mã sản phẩm</div>
-							<div class="col-2">Tên sản phẩm</div>
-
-							<div class="col-2">Giá</div>
-							<div class="col-1">Số lượng</div>
-							<div class="col-2">Thành tiền</div>
-						</div>
-						<div class="row" th:each="cartLineInfo,itemStat: ${cartLines}"
-							style="border: 1px solid #000000; border-radius: 5px; padding-top: 3px">
-							<div class="col-2">
-								<img height=50 src=""
-									th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
-							</div>
-							<div class="col-2"
-								th:text="${cartLineInfo.productInfo.productID}"></div>
-							<div class="col-2"
-								th:text="${cartLineInfo.productInfo.productName}"></div>
-							<div class="col-2">
-								<strong
-									th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
-							</div>
-							<div class="col-1"
-								th:text="*{cartLines[__${itemStat.index}__].quantity}"></div>
-							<strong class="col-2"
-								th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></strong>
-						</div>
-						<div class="row" style="padding-top: 15px">
-							<strong
-								th:text="'Tổng hóa đơn: ' + ${#numbers.formatInteger(total,0,'POINT')}"></strong>
-						</div>
-						<hr />
-						<h5>Phương thức vận chuyển</h5>
-						<div class="row" style="padding-top: 15px" th:switch="${fastShip}">
-							<br /> <label th:case="true" class="col-11"
-								style="font-size: 20px;"> Chuyển phát nhanh - 100.000
-								VND </label> <label th:case="false" class="col-11"
-								style="font-size: 20px;"> Chuyển phát chậm - 50.000 VND
-							</label>
-						</div>
-						<hr />
-						<h5>Phương thức thanh toán</h5>
-						<div class="row" style="padding-top: 15px">
-							<br /> <label class="col-11" style="font-size: 20px;">
-								Thanh toán khi nhận hàng </label>
-						</div>
-					</div>
-					<div class="order-button-payment pdtop">
-						<hr />
-						<a class="btn btn-primary" th:href="@{/}">Tiếp tục mua sắm</a>
-
-					</div>
+					
 				</div>
 			</div>
+			
+			<div class="row" align="center">
+				<div class="buttons-cart pdtop" >
+					<a class="btn btn-outline-primary mt-5" th:href="@{/}">Về trang chủ</a>
+				</div>
+			</div>
+		</div>
 		</div>
 	</div>
 

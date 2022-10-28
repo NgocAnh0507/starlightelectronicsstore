@@ -2,6 +2,7 @@ package com.greenvn.starlightelectronicsstore.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,7 +62,9 @@ public class OrderService {
 	
 	public Order findOrderById(Long orderID)
 	{
-		return orderRepository.findById(orderID).get();
+		Optional<Order> order = orderRepository.findById(orderID);
+		if(!order.isPresent()) return null;
+		else return order.get();
 	}
 	
 	public Order updateOrder(Order orderNew, Long orderID)

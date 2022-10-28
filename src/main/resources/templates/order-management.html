@@ -25,38 +25,34 @@
 
 		<div th:switch="${orders}" class="container-fluid"
 			style="padding-top: 25px">
-			<h2 th:case="null" align="center" class="text-primary">Chưa có hóa đơn!</h2>
+			<h2 th:case="null" align="center" class="text-primary">Chưa có hóa đơn nào!</h2>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-12">
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='orderID',sortDir=${reverseSortDir})}">
 											Mã hóa đơn</a></th>
-									<th class="text-center" style="font-size: 20px;"> Chi tiết hóa đơn</th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center text-secondary" style="font-size: 15px;"> Chi tiết hóa đơn</th>
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='customer',sortDir=${reverseSortDir})}">
 											Khách hàng</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='orderStatus',sortDir=${reverseSortDir})}">
 											Trạng thái</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/orders?(page=${currentPage},sortField='amount',sortDir=${reverseSortDir})}">
-											Số lượng sản phẩm</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/orders?(page=${currentPage},sortField='total',sortDir=${reverseSortDir})}">
-											Tổng giá tiền( không bao gồm phí giao hàng)</a></th>
-									<th class="text-center" style="font-size: 20px;"><a
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='order.orderDate',sortDir=${reverseSortDir})}">
 											Ngày đặt hàng</a></th>
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
+										th:href="@{/admin/orders?(page=${currentPage},sortField='amount',sortDir=${reverseSortDir})}">
+											Số lượng sản phẩm</a></th>
+									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
+										th:href="@{/admin/orders?(page=${currentPage},sortField='total',sortDir=${reverseSortDir})}">
+											Tổng giá tiền<br/>(không gồm phí giao hàng)</a></th>
 											
-									<!-- <th class="text-center" style="font-size: 20px;"><a
-										th:href="@{/admin/orders?(page=${currentPage},sortField='order.fastShip',sortDir=${reverseSortDir})}">
-											Phương thức vận chuyển</a></th>
-											-->
-									<th class="text-center" style="font-size: 20px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
+									<th class="text-center text-secondary" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -64,10 +60,10 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.orderID}"></td>
 									<td align="center">
-										<a class="btn btn-primary" style="font-size: 15px;"
+										<a class="btn btn-outline-primary" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/orderDetail?(orderID=${order.orderID})}">
-											Chi tiết hóa đơn</a>
+											<b>Chi tiết hóa đơn</b></a>
 									</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.customer.name + ' - ' + order.customer.phoneNumber}"></td>
@@ -79,26 +75,21 @@
 										<p th:case="CANCELED">Đã hủy đơn</p>
 									</td>
 									<td align="center" style="font-size: 15px;"
+										th:text="${order.orderDate}"></td>
+									<td align="center" style="font-size: 15px;"
 										th:text="${order.amount}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.total}"></td>
-									<td align="center" style="font-size: 15px;"
-										th:text="${order.orderDate}"></td>
-									<!-- <td align="center" style="font-size: 15px;"
-										th:switch="${order.fastShip}">
-										<p th:case="true">Chuyển phát nhanh</p>
-										<p th:case="false">Chuyển phát chậm</p>
-									</td>
-									-->
+									
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
-										<a class="btn btn-warning"
+										<!-- <a class="btn btn-warning"
 										style="font-size: 15px;" role="button"
 										th:href="@{/admin/formUpdateOrder?(orderID=${order.orderID})}">
-											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a> 
-										<a class="btn btn-danger" style="font-size: 15px;"
+											<i class="fas fa-pencil-alt"></i> Chỉnh sửa</a>  -->
+										<a class="btn btn-outline-danger" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/deleteOrder?(orderID=${order.orderID})}">
-											<i class="fas fa-trash-alt"></i> Xóa</a>
+											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
 									</td>
 								</tr>
 							</tbody>
