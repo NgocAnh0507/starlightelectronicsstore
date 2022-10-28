@@ -11,6 +11,7 @@ public class ProductInfo {
 	private String productDescription;
 	private Double price;
 	private String defaultImage;
+	private String productSKU;
 	
 	public ProductInfo() {
 		super();
@@ -22,6 +23,14 @@ public class ProductInfo {
 		if(product.getPriceSpecial() != null) this.price = product.getPriceSpecial();
 		else this.price = product.getPrice();
 		this.defaultImage = product.getDefaultImage();
+		this.productSKU=product.getProductSKU();
+	}
+	
+	public String getProductSKU() {
+		return productSKU;
+	}
+	public void setProductSKU(String productSKU) {
+		this.productSKU = productSKU;
 	}
 	public long getProductID() {
 		return productID;

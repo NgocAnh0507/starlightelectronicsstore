@@ -114,9 +114,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="cart-main-area pb-50">
+		<!-- <div class="cart-main-area pb-50">
 			<div class="container-fluid">
-				<!-- cart-main-area start -->
+				cart-main-area start
 				<div class="cart-main-area ptb-40">
 					<div class="container">
 						<div class="row">
@@ -158,7 +158,7 @@
 															</div>
 														</td>
 														<td width="15%"
-															th:text="${cartLineInfo.productInfo.productID}"></td>
+															th:text="${cartLineInfo.productInfo.productSKU}"></td>
 														<input type="hidden"
 															th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
 														<td class="col"
@@ -167,7 +167,7 @@
 															th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')} + ' ' +  VND"></strong>
 														</td>
 														<td class="col"><input type="number" class="quantity"
-														th:attr="oldvalue=*{cartLines[__${itemStat.index}__].quantity}"
+															th:attr="oldvalue=*{cartLines[__${itemStat.index}__].quantity}"
 															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
 														</td>
 
@@ -188,36 +188,7 @@
 															type="submit" value="Cập nhật số lượng" />
 													</div>
 												</div>
-												<!-- <tr th:each="cartLineInfo,itemStat:*{cartLines}">
-														<td data-th="Image">
-															<div class="row-cart">
-																<div class="col-sm-4 hidden-xs">
-																	<img width="75" height=50 src=""
-																		th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
-																</div>
-															</div>
-														</td>
-														<td width="15%"
-															th:text="${cartLineInfo.productInfo.productID}"></td>
-														<input type="hidden"
-															th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
-														<td class="col"
-															th:text="${cartLineInfo.productInfo.productName}"></td>
-														<td class="col">
-															<strong th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')}"></strong>
-														</td>
-														<td class="col"><input type="number"
-															th:field="*{cartLines[__${itemStat.index}__].quantity}" />
-														</td>
-														
-														<td
-															th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')}"></td>
-														<td class="col"><a class="btn btn-danger"
-															th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}">
-																<i class="fas fa-trash-alt"></i> Xóa
-
-														</a></td>
-													</tr> -->
+												
 
 
 
@@ -262,7 +233,94 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
+			<section class="h-100" style="background-color: #eee;">
+				<div class="container h-100 py-5">
+					<div
+						class="row d-flex justify-content-center align-items-center h-100">
+						<div class="col-10">
+
+							<!-- <div
+								class="d-flex justify-content-between align-items-center mb-4">
+								<h1 class="entry-title mt-5" align="center">Giỏ hàng của
+									bạn</h1>
+								<div id="message" class="alert alert-danger" role="alert">
+								Vượt quá số lượng quy định</div>
+							</div> -->
+
+							<form th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}"
+												method="POST" th:action="@{/shop/shoppingCart}">
+												<div class="card rounded-3 mb-4" th:object="${cartForm}">
+								<div class="card-body p-4"
+									th:each="cartLineInfo,itemStat:*{cartLines}">
+									<div
+										class="row d-flex justify-content-between align-items-center">
+										<div class="col-md-2 col-lg-2 col-xl-2">
+											<img width="75" height=50 src=""
+												th:attr="src=@{/upload/{path}(path=${cartLineInfo.productInfo.defaultImage})}" />
+										</div>
+										<div class="col-md-3 col-lg-3 col-xl-3">
+											<input type="hidden"
+												th:field="*{cartLines[__${itemStat.index}__].productInfo.productID}" />
+											<p th:text="${cartLineInfo.productInfo.productName}"
+												class="text-uppercase"></p>
+											<p>
+												Mã sản phẩm: <span class="text-muted"
+													th:text="${cartLineInfo.productInfo.productSKU}">
+											</p>
+											<p>
+												Đơn giá:<span class="text-muted"
+													th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')} + ' ' +  VND"></span>
+										</div>
+										<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+											<button class="btn btn-link px-2"
+												onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+												<i class="fas fa-minus"></i>
+											</button>
+
+											<input type="number" class="quantity"
+												th:attr="oldvalue=*{cartLines[__${itemStat.index}__].quantity}"
+												th:field="*{cartLines[__${itemStat.index}__].quantity}" />
+
+											<button class="btn btn-link px-2"
+												onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+												<i class="fas fa-plus"></i>
+											</button>
+										</div>
+										<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+											<h5 class="mb-0 amount"
+												th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')} + ' '  + VND"></h5>
+										</div>
+										<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+											<a
+												th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}"
+												class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+							</form>
+							
+
+
+							<div class="order_total">
+								<div class="order_total_content text-md-right">
+									<div class="order_total_title">Tổng cộng:</div>
+									<div class="order_total_amount" id="amountTotal"
+																th:text="${#numbers.formatInteger(cartForm.amountTotal,0,'POINT')} + ' ' +VND"></div>
+								</div>
+							</div>
+							<div class="cart_buttons">
+								<a th:href="@{/}"><button type="button" class="button cart_button_clear">Tiếp tục mua hàng</button></a>
+								<a th:href="@{/shop/shoppingCartConfirmation}"><button type="button" class="button cart_button_checkout">Thanh toán</button></a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
 		</div>
 </body>
 </html>
