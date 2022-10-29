@@ -28,7 +28,7 @@ public class CartRestController {
 			cartInfo.updateProduct(productId, quantity);
 			cartInfo.setMessage(null);
 		}else {
-			cartInfo.setMessage("Vuot qua so luong cho phep");
+			cartInfo.setMessage("Vượt quá số lượng cho phép đặt");
 		}
 		return cartInfo;
 	}

@@ -81,7 +81,7 @@ public class ShoppingCartController {
 		if (product != null) {
 			CartInfo cartInfo = Utils.getCartInSession(request); // Lấy giỏ hàng hiện tại ra
 			ProductInfo productInfo = new ProductInfo(product);
-			cartInfo.addProduct(productInfo, 1.0);
+			cartInfo.addProduct(productInfo, 1, product.getQuantity());
 		}
 		return "redirect:/shop/shoppingCart";
 	}
