@@ -100,7 +100,7 @@
 										<label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu <br/>khuyến mãi: </label> 
 									</div>
 									<div class="col-md-8" >
-										<p th:text="${#calendars.format(product.priceSpecialStartDate,'dd/MM/yyyy HH:mm')}" id="priceSpecialStartDate" ></p>
+										<p th:text="${#calendars.format(product.priceSpecialStartDate,'dd/MM/yyyy')}" id="priceSpecialStartDate" ></p>
 									</div>
 								</div>
 								
@@ -111,7 +111,7 @@
 										<label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày kết thúc <br/>khuyến mãi: </label> 
 									</div>
 									<div class="col-md-8" >
-										<p th:text="${#calendars.format(product.priceSpecialEndDate,'dd/MM/yyyy HH:mm')}" id="priceSpecialEndDate"></p>
+										<p th:text="${#calendars.format(product.priceSpecialEndDate,'dd/MM/yyyy')}" id="priceSpecialEndDate"></p>
 										
 									</div>
 								</div>

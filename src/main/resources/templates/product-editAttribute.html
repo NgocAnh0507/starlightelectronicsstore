@@ -64,7 +64,7 @@
 										<label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu <br/>khuyến mãi: </label> 
 									</div>
 									<div class="col-md-8" >
-										<input type="datetime-local"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" class="form-control">
+										<input type="date"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" class="form-control">
 										<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
 									</div>
 								</div>
@@ -77,7 +77,7 @@
 										<label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày kết thúc <br/>khuyến mãi: </label> 
 									</div>
 									<div class="col-md-8" >
-										<input type="datetime-local"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" class="form-control">
+										<input type="date"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" class="form-control">
 										<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 									</div>
 								</div>

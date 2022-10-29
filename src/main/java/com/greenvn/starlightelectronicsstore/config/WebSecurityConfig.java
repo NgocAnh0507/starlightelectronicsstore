@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //        .antMatchers("/admin").hasRole("Admin")
 //        .antMatchers("/users/**").hasRole("Admin")
 //        .antMatchers("/admin/**").hasRole("Admin")
-        .anyRequest().authenticated()//Những cái URL còn lại đều phải đăng nhập mới được xài
+//        .anyRequest().authenticated()//Những cái URL còn lại đều phải đăng nhập mới được xài
         .and()
         .formLogin()
         .loginPage("/login")
