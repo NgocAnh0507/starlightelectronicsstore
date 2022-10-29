@@ -19,6 +19,9 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/Rich-Text-Editor-jQuery-RichText/src/richtext.min.css">
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/Rich-Text-Editor-jQuery-RichText/src/jquery.richtext.js"></script>
+
 <title>Thông tin sản phẩm</title>
 </head>
 <body>
@@ -64,6 +67,12 @@
 								<textarea disabled class="content" th:text="${product.productDescription}" style="font-size: 20px; height: 500px; width: 100%">
 								</textarea>
 							</div>
+							
+					        <script>
+					        $(document).ready(function() {
+					            $('.content').richText();
+					        });
+					        </script>
 						</div>
 							
 						<hr/>
@@ -164,10 +173,10 @@
 							</div>
 							<div class="col-md-8" id="ship" th:switch="${product.freeShip}">
 								<div th:case="true">
-									<span style="font-size: 20px;">Miễn phí</span>
+									<span style="font-size: 20px; color: green">Miễn phí</span>
 								</div>
 								<div th:case="false">
-									<span style="font-size: 20px;">Tính phí</span>
+									<span style="font-size: 20px; color: red">Tính phí</span>
 								</div>
 							</div>
 						</div>

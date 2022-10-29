@@ -197,70 +197,7 @@ public class ShopController {
 		return "shop/shop-products";
 	}
 	
-	List<Product> filter(Filter filter, List<Product> productList){
-	    
-	    System.out.println(filter.getPriceMin());
-        System.out.println(filter.getPriceMax());
-        if(filter.getManufacturer() != null) System.out.println(filter.getManufacturer().getName());
-        else System.out.println("null");
-        if(filter.getAttributes() != null) {
-            System.out.println(filter.getAttributes().size());
-            for(ProductAttribute pa : filter.getAttributes()) {
-                if(pa != null) {
-                    System.out.println(" - " + pa.getValue());
-                }
-                else System.out.println(" - null");
-            }
-        }
-        else System.out.println("null");
-	    
-	    List<Product> products = new ArrayList<Product>();
-	    for(Product pro : productList) 
-        {
-	        System.out.println(pro.getProductName());
-            Boolean check = true;
-            System.out.println(check);
-            
-            if(filter.getManufacturer() != null &&
-               (pro.getManufacturer().getManufacturerID() != filter.getManufacturer().getManufacturerID()) ) 
-            {
-                System.out.println("false: Manufacturer");
-                check = false;
-            }
-            else {
-                Double price = pro.getPrice();
-                if(pro.getPriceSpecial() != null) price = pro.getPriceSpecial();
-                
-                if(filter.getPriceMin() != null && price < filter.getPriceMin() ) 
-                {
-                    System.out.println("false: PriceMin");
-                    check = false;
-                }
-                else if(filter.getPriceMax() != null && price > filter.getPriceMax() ) 
-                {
-                    System.out.println("false: PriceMax");
-                    check = false;
-                }
-                else if(filter.getAttributes() != null){
-                    for(ProductAttribute pa : filter.getAttributes()) {
-                        if(pa != null && !pro.getAttributes().contains(pa)) {
-                            System.out.println("false: Attribute");
-                            check = false;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            System.out.println(check);
-            if(check) {
-                System.out.println("pass");
-                products.add(pro);
-            }
-            
-        }
-	    return products;
-	}
+	
 	
 	@PostMapping("/shop/productFilter")
     public String productFilter(Filter filter, Model model,
@@ -301,7 +238,7 @@ public class ShopController {
 		    }
 		}
         
-        products = filter(filter, products);
+        products = productService.filter(filter, products);
         
         List<AttributeType> attributeTypes = new ArrayList<AttributeType>();
         List<ProductAttribute> attributes =  productAttributeService.findProductAttributeByCategoryID(category.getCategoryID());

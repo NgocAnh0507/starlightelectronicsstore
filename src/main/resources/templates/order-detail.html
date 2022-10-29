@@ -44,9 +44,11 @@
 						</div>
 						<div class="col-md-8" style="font-size: 22px;">
 							<div th:switch="${order.orderStatus.toString}">
-								<b th:case="RECEIVED" style="color: blue">Đã nhận đơn</b>
+								<b th:case="RECEIVED" style="color:olive;">Đã nhận đơn</b>
 								<b th:case="PACKAGED" style="color: indigo">Đã đóng gói</b>
+								<b th:case="DELIVERING" style="color: blue">Đang chuyển hàng</b>
 								<b th:case="DELIVERED" style="color: green">Đã chuyển hàng</b>
+								<b th:case="ORDER_RETURNED" style="color: orangered;">Đã trả lại hàng</b>
 								<b th:case="CANCELED" style="color: red">Đã hủy đơn</b>
 							</div>
 						</div>
@@ -54,28 +56,42 @@
 					</div>
 					
 					<div class="row"  style="padding-top: 15px">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<a class="btn btn-outline-warning"
-							style="font-size: 17px; width: 12rem; color: blue" role="button"
+							style="font-size: 17px; width: 15rem; color: olive" role="button"
 							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=0)}">
 								<i class="fas fa-pencil-alt"></i> <b>Đã nhận đơn</b></a>
-						</div>
-						<div class="col-md-3">
+						</div> 
+						<div class="col-md-4">
 							<a class="btn btn-outline-warning"
-							style="font-size: 17px; width: 12rem; color: indigo" role="button"
+							style="font-size: 17px; width: 15rem; color: indigo" role="button"
 							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=1)}">
 								<i class="fas fa-pencil-alt"></i> <b>Đã đóng gói</b></a>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<a class="btn btn-outline-warning"
-							style="font-size: 17px; width: 12rem; color: green" role="button"
+							style="font-size: 17px; width: 15rem; color:blue" role="button"
 							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=2)}">
+								<i class="fas fa-pencil-alt"></i> <b>Đang chuyển hàng</b></a>
+						</div>
+						</div>
+						<div class="row"  style="padding-top: 15px">
+						<div class="col-md-4">
+							<a class="btn btn-outline-warning" 
+							style="font-size: 17px; width: 15rem; color: green" role="button"
+							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=3)}">
 								<i class="fas fa-pencil-alt"></i> <b>Đã chuyển hàng</b></a>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4">
+							<a class="btn btn-outline-warning"
+							style="font-size: 17px; width: 15rem; color: orangered" role="button"
+							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=4)}">
+								<i class="fas fa-pencil-alt"></i> <b>Đã trả lại hàng</b></a>
+						</div>
+						<div class="col-md-4">
 							<a class="btn btn-outline-warning" 
-							style="font-size: 17px; width: 12rem; color: red" role="button"
-							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=3)}">
+							style="font-size:17px; width: 15rem; color: red" role="button"
+							th:href="@{/admin/updateOrderStatus?(orderID=${order.orderID}, status=5)}">
 								<i class="fas fa-pencil-alt"></i> <b>Đã hủy đơn</b></a>
 						</div>
 					</div>

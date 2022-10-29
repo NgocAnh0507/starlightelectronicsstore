@@ -69,10 +69,12 @@
 										th:text="${order.customer.name + ' - ' + order.customer.phoneNumber}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:switch="${order.orderStatus.toString}">
-										<p th:case="RECEIVED">Đã nhận đơn</p>
-										<p th:case="PACKAGED">Đã đóng gói</p>
-										<p th:case="DELIVERED">Đã chuyển hàng</p>
-										<p th:case="CANCELED">Đã hủy đơn</p>
+										<b th:case="RECEIVED" style="color:olive;">Đã nhận đơn</b>
+										<b th:case="PACKAGED" style="color: indigo">Đã đóng gói</b>
+										<b th:case="DELIVERING" style="color: blue">Đang chuyển hàng</b>
+										<b th:case="DELIVERED" style="color: green">Đã chuyển hàng</b>
+										<b th:case="ORDER_RETURNED" style="color: orangered;">Đã trả lại hàng</b>
+										<b th:case="CANCELED" style="color: red">Đã hủy đơn</b>
 									</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.orderDate}"></td>

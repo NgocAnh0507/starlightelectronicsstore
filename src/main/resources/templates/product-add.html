@@ -14,7 +14,13 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" 
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/Rich-Text-Editor-jQuery-RichText/src/richtext.min.css">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/Rich-Text-Editor-jQuery-RichText/src/jquery.richtext.js"></script>
+        
 <script language="javascript" type="text/javascript">
 	window.onload = function () {
 	    var fileUpload = document.getElementById("fileupload");
@@ -105,12 +111,18 @@
 								<label for="productDescription" class="col-form-label" style="font-size: 20px;">Mô tả sản phẩm:</label> 
 							</div>
 							<div class="col-md-8">
-								<textarea th:field="*{productDescription}" class="form-control textarea"
+								<textarea th:field="*{productDescription}" class="form-control textarea content"
 									id="productDescription" placeholder="Hãy nhập mô tả của sản phẩm bạn muốn thêm"  style="font-size: 20px;"></textarea>
 								<div class="row">
 								<p th:errors="*{productDescription}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
 								</div>
 							</div>
+							
+					        <script>
+					        $(document).ready(function() {
+					            $('.content').richText();
+					        });
+					        </script>
 						</div>
 							
 						<hr/>
@@ -297,5 +309,8 @@
 		crossorigin="anonymous">
 		
 	</script>
+	<script src="/path/to/cdn/jquery.min.js"></script>
+	<script src="/path/to/jquery.richtext.min.js"></script>
+	
 </body>
 </html>

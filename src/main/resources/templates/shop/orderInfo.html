@@ -47,9 +47,11 @@
 								</div>
 								<div class="col-md-8" style="font-size: 22px;">
 									<div th:switch="${order.orderStatus.toString}">
-										<b th:case="RECEIVED" style="color: blue">Đã nhận đơn</b>
+										<b th:case="RECEIVED" style="color:olive;">Đã nhận đơn</b>
 										<b th:case="PACKAGED" style="color: indigo">Đã đóng gói</b>
+										<b th:case="DELIVERING" style="color: blue">Đang chuyển hàng</b>
 										<b th:case="DELIVERED" style="color: green">Đã chuyển hàng</b>
+										<b th:case="ORDER_RETURNED" style="color: orangered;">Đã trả lại hàng</b>
 										<b th:case="CANCELED" style="color: red">Đã hủy đơn</b>
 									</div>
 								</div>
@@ -190,7 +192,7 @@
 			
 			<div class="row" align="center">
 				<div class="buttons-cart pdtop" >
-					<a class="btn btn-outline-primary mt-5" th:href="@{/}">Về trang chủ</a>
+					<a class="btn btn-outline-primary mt-5" th:href="@{/}" style="font-size: 17px; width: 8rem;"><b>Về trang chủ</b></a>
 				</div>
 			</div>
 		</div>

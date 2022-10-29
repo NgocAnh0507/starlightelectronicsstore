@@ -8,14 +8,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
+import com.greenvn.starlightelectronicsstore.model.DashboardInfo;
 import com.greenvn.starlightelectronicsstore.service.EmployeeService;
+import com.greenvn.starlightelectronicsstore.service.OrderService;
+import com.greenvn.starlightelectronicsstore.service.ProductService;
 
 @Controller
 public class DashboardController {
 	@Autowired
 	private EmployeeService empSer;
+	
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private EmployeeService employeeService;
+	
 	@GetMapping("/admin")
-	public String showAdmin(){
+	public String showAdmin(Model model){
+		DashboardInfo dashboardInfo = new DashboardInfo();
+		dashboardInfo.Sumary(orderService.getOrders(), employeeService.getEmployees(), productService.getProducts());
+		model.addAttribute("dashboardInfo", dashboardInfo);
 		return "admin";
 	}
 

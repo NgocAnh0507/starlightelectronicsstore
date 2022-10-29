@@ -22,7 +22,7 @@
 							<h5 class="card-title text-center">
 								Doanh số tháng này
 								</h5>
-									<h1 class="text-center">10.000.000</h1>
+									<h1 class="text-center" th:text="${dashboardInfo.incomingMoney}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
 										<i class="fas fa-money-check-alt"></i>
@@ -36,9 +36,9 @@
 
 						<div class="card-content p-3">
 							<h5 class="card-title text-center">
-								Số lượng khách hàng
+								Số lượng nhân viên
 								</h5>
-									<h1 class="text-center">1000</h1>
+									<h1 class="text-center" th:text="${dashboardInfo.employeeCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
 										<i class="fas fa-user"></i>
@@ -54,7 +54,7 @@
 							<h5 class="card-title text-center">
 								Sản phẩm trong kho
 								</h5>
-									<h1 class="text-center">10.000</h1>
+									<h1 class="text-center" th:text="${dashboardInfo.productCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
 										<i class="fas fa-store"></i>
@@ -63,13 +63,108 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+					<div class="card text-white bg-info mb-3" style="max-width: 18rem; ">
 
 						<div class="card-content p-3">
 							<h5 class="card-title text-center">
-								Đang giao hàng
+								Đơn hàng tháng này
 								</h5>
-									<h1 class="text-center">300</h1>
+									<h1 class="text-center" th:text="${dashboardInfo.orderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-truck-moving"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-2">
+					<div class="card text-white mb-3"
+						style="max-width: 18rem; background-color: olive;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đã nhận tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.receivedOrderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-money-check-alt"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card text-white bg-info mb-3" style="max-width: 18rem; background-color: indigo;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đã đóng gói tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.packagedOrderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-truck-moving"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card text-white mb-3"
+						style="max-width: 18rem; background-color: blue;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đang chuyển tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.deliveringOrderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-user"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card text-white mb-3"
+						style="max-width: 18rem; background-color: green;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đã chuyển tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.deliveredOrderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-store"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card text-white mb-3" style="max-width: 18rem; background-color: orangered;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đã trả lại tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.returnedOrderCount}"></h1>
+									<div class="d-flex justify-content-center"
+										style="font-size: 44px;">
+										<i class="fas fa-truck-moving"></i>
+									</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="card text-white mb-3" style="max-width: 18rem;  background-color: red;">
+
+						<div class="card-content p-3">
+							<h5 class="card-title text-center">
+								Đơn hàng đã hủy tháng này
+								</h5>
+									<h1 class="text-center" th:text="${dashboardInfo.canceledOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
 										<i class="fas fa-truck-moving"></i>

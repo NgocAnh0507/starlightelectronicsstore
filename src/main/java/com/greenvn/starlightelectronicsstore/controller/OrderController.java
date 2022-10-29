@@ -77,26 +77,28 @@ public class OrderController {
 		return "order-update";
 	}
 
-	@PostMapping("/updateOrder")
-	public String updateOrder(@RequestParam(name = "orderID")Long orderID, CartInfo cartInfo, BindingResult result, Model model){
-
-		Order order =  orderService.findOrderById(orderID);
-		
-		if(cartInfo.getStatus() == null || cartInfo.getStatus().isEmpty()) {
-			model.addAttribute("messages", "Trạng thái đơn hàng không được để trống!");
-
-			model.addAttribute("cartInfo", cartInfo);
-			model.addAttribute("order", order);
-			return "order-update";
-		}
-		else if(cartInfo.getStatus().equals("0")) order.setOrderStatus(OderStatus.RECEIVED);
-		else if(cartInfo.getStatus().equals("1")) order.setOrderStatus(OderStatus.PACKAGED);
-		else if(cartInfo.getStatus().equals("2")) order.setOrderStatus(OderStatus.DELIVERED);
-		else if(cartInfo.getStatus().equals("3")) order.setOrderStatus(OderStatus.CANCELED);
-		
-		orderService.updateOrder(order,orderID);
-		return "redirect:/admin/orders";
-	}
+	/*
+	 * @PostMapping("/updateOrder") public String updateOrder(@RequestParam(name =
+	 * "orderID")Long orderID, CartInfo cartInfo, BindingResult result, Model
+	 * model){
+	 * 
+	 * Order order = orderService.findOrderById(orderID);
+	 * 
+	 * if(cartInfo.getStatus() == null || cartInfo.getStatus().isEmpty()) {
+	 * model.addAttribute("messages", "Trạng thái đơn hàng không được để trống!");
+	 * 
+	 * model.addAttribute("cartInfo", cartInfo); model.addAttribute("order", order);
+	 * return "order-update"; } else if(cartInfo.getStatus().equals("0"))
+	 * order.setOrderStatus(OderStatus.RECEIVED); else
+	 * if(cartInfo.getStatus().equals("1"))
+	 * order.setOrderStatus(OderStatus.PACKAGED); else
+	 * if(cartInfo.getStatus().equals("2"))
+	 * order.setOrderStatus(OderStatus.DELIVERED); else
+	 * if(cartInfo.getStatus().equals("3"))
+	 * order.setOrderStatus(OderStatus.CANCELED);
+	 * 
+	 * orderService.updateOrder(order,orderID); return "redirect:/admin/orders"; }
+	 */
 
 	@GetMapping("/updateOrderStatus")
 	public String updateOrderStatus(@RequestParam(name = "orderID")Long orderID, String status, Model model){
@@ -105,8 +107,10 @@ public class OrderController {
 		
 		if(status.equals("0")) order.setOrderStatus(OderStatus.RECEIVED);
 		else if(status.equals("1")) order.setOrderStatus(OderStatus.PACKAGED);
-		else if(status.equals("2")) order.setOrderStatus(OderStatus.DELIVERED);
-		else if(status.equals("3")) order.setOrderStatus(OderStatus.CANCELED);
+		else if(status.equals("2")) order.setOrderStatus(OderStatus.DELIVERING);
+		else if(status.equals("3")) order.setOrderStatus(OderStatus.DELIVERED);
+		else if(status.equals("4")) order.setOrderStatus(OderStatus.ORDER_RETURNED);
+		else if(status.equals("5")) order.setOrderStatus(OderStatus.CANCELED);
 		
 		orderService.updateOrder(order,orderID);
 		return "redirect:/admin/orderDetail?orderID=" + orderID;
