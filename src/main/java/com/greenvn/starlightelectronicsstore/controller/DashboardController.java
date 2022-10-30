@@ -1,5 +1,8 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,10 +31,12 @@ public class DashboardController {
 	private EmployeeService employeeService;
 	
 	@GetMapping("/admin")
-	public String showAdmin(Model model){
+	public String showAdmin(Model model,HttpServletRequest request){
 		DashboardInfo dashboardInfo = new DashboardInfo();
 		dashboardInfo.Sumary(orderService.getOrders(), employeeService.getEmployees(), productService.getProducts());
 		model.addAttribute("dashboardInfo", dashboardInfo);
+		HttpSession session = request.getSession();
+		session.setAttribute("menuSelected","dashboard" );
 		return "admin";
 	}
 

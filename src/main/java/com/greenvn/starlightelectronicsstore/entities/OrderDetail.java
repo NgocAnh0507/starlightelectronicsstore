@@ -27,7 +27,7 @@ public class OrderDetail {
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
 	@NotNull(message = "Giá bán không được để trống!")
-	private Double price;
+	private Long price;
 	
 	public OrderDetail() {
 		super();
@@ -65,12 +65,14 @@ public class OrderDetail {
 		this.quantity = quantity;
 	}
 
-	public Double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
+
+	
 
 }

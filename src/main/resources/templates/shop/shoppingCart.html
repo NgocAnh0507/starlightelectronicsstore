@@ -278,7 +278,7 @@
 											</p>
 											<p>
 												Đơn giá:<span class="text-muted"
-													th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')} + ' ' +  VND"></span>
+													th:text="${#numbers.formatInteger(cartLineInfo.productInfo.price,3,'POINT')} + ' ' +  VNĐ"></span>
 										</div>
 										<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 												<button class="btn btn-link px-2"
@@ -296,13 +296,14 @@
 												<i class="fas fa-plus"></i>
 												</button>
 										</div>
-										<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 amount" th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')} + ' ' + VND">
+										<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 amount" th:text="${#numbers.formatInteger(cartLineInfo.amount,3,'POINT')} + ' ' + VNĐ">
 											
 										</div>
 										<div class="col-md-1 col-lg-1 col-xl-1 text-end">
-											<a
+											<a style="font-size: 15px; width: 6rem;margin-left: -30px;" role="button"
 												th:href="@{/shop/shoppingCartRemoveProduct?(productID=${cartLineInfo.productInfo.productID})}"
-												class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+												class="btn btn-outline-danger"><i
+												class="fas fa-trash-alt"></i> <b>Xóa</b></a>
 										</div>
 									</div>
 									<hr>
@@ -316,7 +317,7 @@
 								<div class="order_total_content text-md-right">
 									<div class="order_total_title">Tổng cộng:</div>
 									<div class="order_total_amount" id="amountTotal"
-																th:text="${#numbers.formatInteger(cartForm.amountTotal,0,'POINT')} + ' ' +VND"></div>
+																th:text="${#numbers.formatInteger(cartForm.amountTotal,0,'POINT')} + ' ' +VNĐ"></div>
 								</div>
 							</div>
 							<div class="cart_buttons">

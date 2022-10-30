@@ -26,6 +26,7 @@ import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 import com.greenvn.starlightelectronicsstore.entities.ProductReview;
+import com.greenvn.starlightelectronicsstore.model.CartInfo;
 import com.greenvn.starlightelectronicsstore.model.CartLineInfo;
 import com.greenvn.starlightelectronicsstore.model.Filter;
 import com.greenvn.starlightelectronicsstore.model.ManufacturerInfo;
@@ -33,6 +34,7 @@ import com.greenvn.starlightelectronicsstore.service.CategoryService;
 import com.greenvn.starlightelectronicsstore.service.ManufacturerService;
 import com.greenvn.starlightelectronicsstore.service.ProductAttributeService;
 import com.greenvn.starlightelectronicsstore.service.ProductService;
+import com.greenvn.starlightelectronicsstore.utils.Utils;
 
 @Controller
 public class ShopController {
@@ -52,7 +54,7 @@ public class ShopController {
 	public String home(Model model,
 			
 			@RequestParam(name = "page",defaultValue = "1") Integer pageNo,
-			@RequestParam(defaultValue = "8") Integer pageSize, @RequestParam(defaultValue ="") String keyword) {
+			@RequestParam(defaultValue = "8") Integer pageSize, @RequestParam(defaultValue ="") String keyword,HttpServletRequest request) {
 	    
         // Phải có cho layout-shop
         List<Category> categories = categoryService.getCategories();
@@ -82,6 +84,8 @@ public class ShopController {
 		model.addAttribute("totalPages", pageProduct.getTotalPages());
 		model.addAttribute("products", products);
 		model.addAttribute("keyword", keyword);
+		CartInfo cartInfo = Utils.getCartInSession(request);
+		request.getSession().setAttribute("itemCount", cartInfo.getQuantityTotal());
 		return "shop/home";
 	}
 

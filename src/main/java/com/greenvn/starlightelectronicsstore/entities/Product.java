@@ -41,10 +41,10 @@ public class Product {
 
 	@Column(name = "PRICE", columnDefinition = "DECIMAL(11,1)")
 	@NotNull(message = "Giá bán không được để trống!")
-	private Double price;
+	private Long price;
 
 	@Column(name = "PRICE_SPECIAL", columnDefinition = "DECIMAL(11,1)")
-	private Double priceSpecial;
+	private Long priceSpecial;
 
 	
 	@Column(name = "PRICE_SPECIAL_STARTDATE", columnDefinition = "DATETIME")
@@ -129,19 +129,21 @@ public class Product {
 		this.productDescription = productDescription;
 	}
 
-	public Double getPrice() {
+	
+
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
-	public Double getPriceSpecial() {
+	public Long getPriceSpecial() {
 		return priceSpecial;
 	}
 
-	public void setPriceSpecial(Double priceSpecial) {
+	public void setPriceSpecial(Long priceSpecial) {
 		this.priceSpecial = priceSpecial;
 	}
 

@@ -9,7 +9,7 @@ public class ProductInfo {
 	private long productID;
 	private String productName;
 	private String productDescription;
-	private Double price;
+	private Long price;
 	private String defaultImage;
 	private String productSKU;
 	
@@ -50,10 +50,11 @@ public class ProductInfo {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
-	public Double getPrice() {
+	
+	public Long getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 	public String getDefaultImage() {

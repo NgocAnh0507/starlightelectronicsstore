@@ -133,7 +133,8 @@
 								<label for="price" class="col-form-label" style="font-size: 20px;">Giá:</label> 
 							</div>
 							<div class="col-md-8">
-								<input type="number" th:field="*{price}" class="form-control"
+							
+								<input type="number" th:field="*{price}"  class="form-control"
 									id="price" placeholder="Hãy nhập giá của sản phẩm bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{price}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
