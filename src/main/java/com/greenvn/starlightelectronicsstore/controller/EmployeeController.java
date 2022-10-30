@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.entities.Image;
+import com.greenvn.starlightelectronicsstore.model.EmployeeInfo;
 import com.greenvn.starlightelectronicsstore.service.EmployeeService;
 import com.greenvn.starlightelectronicsstore.service.ImageService;
 import com.greenvn.starlightelectronicsstore.service.PositionService;
@@ -216,10 +217,9 @@ public class EmployeeController {
 		return "employee-update1";
 	}
     @PostMapping("/formUpdateInfoEmployee")
-    public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model){
+    public String updateEmployee1(@RequestParam(name = "employeeID")Long employeeID,@Valid EmployeeInfo employee, BindingResult result, Model model){
         if(result.hasErrors()) {
-            Employee emp = employeeService.findEmployeeById(employeeID);
-            model.addAttribute("employee", emp);
+            model.addAttribute("employee", employee);
             model.addAttribute("positions",positionService.getPositions());
             return "employee-update1";
         }

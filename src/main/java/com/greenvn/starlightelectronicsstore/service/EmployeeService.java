@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.entities.Position;
+import com.greenvn.starlightelectronicsstore.model.EmployeeInfo;
 import com.greenvn.starlightelectronicsstore.repository.EmployeeRepository;
 import com.greenvn.starlightelectronicsstore.repository.PositionRepository;
 
@@ -60,6 +61,19 @@ public class EmployeeService {
 		employee.setName(employeeNew.getName());
 		employee.setPhoneNumber(employeeNew.getPhoneNumber());
 		employee.setAvatar(employeeNew.getAvatar());
+		return employeeRepository.save(employee);
+	}
+	
+	public Employee updateEmployee(EmployeeInfo employeeNew, Long employeeID)
+	{
+		Employee employee = findEmployeeById(employeeID);
+		
+		
+		
+		employee.setBirthday(employeeNew.getBirthday());
+		employee.setEmail(employeeNew.getEmail());
+		employee.setName(employeeNew.getName());
+		employee.setPhoneNumber(employeeNew.getPhoneNumber());
 		return employeeRepository.save(employee);
 	}
 	
