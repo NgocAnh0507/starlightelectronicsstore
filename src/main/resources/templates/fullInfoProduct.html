@@ -64,8 +64,8 @@
 								<label for="productDescription" class="col-form-label" style="font-size: 20px;">Mô tả sản phẩm:</label> 
 							</div>
 							<div class="col-md-8">
-								<textarea disabled class="content" th:text="${product.productDescription}" style="font-size: 20px; height: 500px; width: 100%">
-								</textarea>
+								<div  th:utext="${product.productDescription}" style="font-size: 20px; height: 100%; width: 100%">
+								</div>
 							</div>
 							
 					        <script>

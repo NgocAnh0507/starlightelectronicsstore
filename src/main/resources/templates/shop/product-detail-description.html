@@ -43,8 +43,8 @@
 					
 					<div id="description" class="row">
 						<div class="col-1"></div>
-						<textarea disabled class="content col-10" th:text="${product.productDescription}" style="font-size: 20px; height: 420px;">
-						</textarea>
+						<div  class="col-10" th:utext="${product.productDescription}" style="font-size: 20px; height: 420px;">
+						</div>
 						<div class="col-1"></div>
 					</div>
 					
