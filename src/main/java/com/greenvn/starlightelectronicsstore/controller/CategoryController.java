@@ -52,12 +52,15 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/formAddCategory")
-	public String addCategoryForm(Category category) {
+	public String addCategoryForm(Category category, Model model,
+			@RequestParam(name = "callFrom")String callFrom) {
+		model.addAttribute("callFrom", callFrom);
 		return "category-add";
 	}
 	
 	@PostMapping("/addCategory")
-	public String addCategory(@Valid Category category, BindingResult result, Model model) {
+	public String addCategory(@Valid Category category, BindingResult result, Model model,
+			@RequestParam(name = "callFrom")String callFrom) {
 		if (result.hasErrors()) {
 			return "category-add";
 		}
@@ -70,7 +73,9 @@ public class CategoryController {
 		else model.addAttribute("messages",null);
 		
 		categoryService.addCategory(category);
-		return "redirect:/admin/categories";
+		
+		
+		return "redirect:" + callFrom;
 	}
 	
 	@GetMapping("/formUpdateCategory")

@@ -8,45 +8,45 @@ import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 public class Filter {
     private Double priceMin;
     private Double priceMax;
-    private Manufacturer manufacturer;
-    private List<ProductAttribute> attributes;
+    private List<Manufacturer> manufacturerList;
+    private List<ProductAttribute> attributeList;
     
-    public Filter(Double priceMin, Double priceMax, Manufacturer manufacturer, List<ProductAttribute> attributes) {
-        super();
-        this.priceMin = priceMin;
-        this.priceMax = priceMax;
-        this.manufacturer = manufacturer;
-        this.attributes = attributes;
-    }
+	public Double getPriceMin() {
+		return priceMin;
+	}
+	public void setPriceMin(Double priceMin) {
+		this.priceMin = priceMin;
+	}
+	public Double getPriceMax() {
+		return priceMax;
+	}
+	public void setPriceMax(Double priceMax) {
+		this.priceMax = priceMax;
+	}
+	public List<Manufacturer> getManufacturerList() {
+		return manufacturerList;
+	}
+	public void setManufacturerList(List<Manufacturer> manufacturerList) {
+		this.manufacturerList = manufacturerList;
+	}
+	public List<ProductAttribute> getAttributeList() {
+		return attributeList;
+	}
+	public void setAttributeList(List<ProductAttribute> attributeList) {
+		this.attributeList = attributeList;
+	}
+	public Filter(Double priceMin, Double priceMax, List<Manufacturer> manufacturerList,
+			List<ProductAttribute> attributeList) {
+		super();
+		this.priceMin = priceMin;
+		this.priceMax = priceMax;
+		this.manufacturerList = manufacturerList;
+		this.attributeList = attributeList;
+	}
+	public Filter() {
+		super();
+	}
     
-    public Filter() {
-        super();
-    }
-
-
-    public Double getPriceMin() {
-        return priceMin;
-    }
-    public void setPriceMin(Double priceMin) {
-        this.priceMin = priceMin;
-    }
-    public Double getPriceMax() {
-        return priceMax;
-    }
-    public void setPriceMax(Double priceMax) {
-        this.priceMax = priceMax;
-    }
-    public Manufacturer getManufacturer() {
-        return manufacturer;
-    }
-    public void setManufacturer(Manufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-    public List<ProductAttribute> getAttributes() {
-        return attributes;
-    }
-    public void setAttributes(List<ProductAttribute> attributes) {
-        this.attributes = attributes;
-    }
+    
     
 }

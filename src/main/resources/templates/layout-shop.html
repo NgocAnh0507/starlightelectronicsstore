@@ -119,13 +119,11 @@ fit=no">
 		</div>
 	</section>
 	<section class="fs-menu">
-		<div class="f-wrap">
-			<div class="container-fluid">
+			<div class="container-fluid f-wrap">
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col-10">
-						<nav class="navbar navbar-expand-lg bg-dark">
-							<div class="container-fluid">
+						<nav class="navbar navbar-expand-lg bg-dark ">
 								<!-- <a class="navbar-brand" href="#">Navbar</a> -->
 								<button class="navbar-toggler" type="button"
 									data-bs-toggle="collapse"
@@ -134,40 +132,37 @@ fit=no">
 									aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon"></span>
 								</button>
-								<div class="collapse navbar-collapse"
+								<div class="collapse navbar-collapse row"
 									id="navbarSupportedContent">
-									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-										<li class="nav-item category"
-											th:each="category : ${categories}"><a
-											class="nav-link text-light"
+									<ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+									
+										<li class="nav-item category col-md-1" th:each="category : ${categories}" style="font-size: 16px;">
+											<a class="nav-link text-light" 
 											th:href="@{/shop/productCategoryFilter?(categoryName=${category.name})}"
-											role="button" th:text="${category.name}"></a>
-											<div class="hover"
-												style="border: 1px solid #ffffff; border-radius: 5px;">
-												<div class="row">
-													<div class="col-md-3"
-														th:each="manufacturerInfo: ${manufacturerInfos}"
-														style="margin: 5px;">
-														<a th:switch="${manufacturerInfo.categoryName}"> <img
-															th:case="${category.name}"
-															th:attr="src=@{/upload/{path}(path=${manufacturerInfo.logo})}"
-															width="100px"
-															style="border: 1px solid #000000; border-radius: 5px;">
-														</a>
-													</div>
+											role="button" th:text="${category.name}" ></a>
+											<div class="hover" style="border: 1px solid #ffffff; border-radius: 5px;">
+												<div class="row" style="width: 200px">
+													<b align="left">Hãng sản xuất: </b>
 												</div>
-											</div></li>
+												<div class="row" >
+														<div class="col-md-2"  th:each="manufacturerInfo: ${manufacturerInfos}"  th:switch="${manufacturerInfo.categoryName}"
+															th:case="${category.name}" style="margin: 15px;">
+														 	 <a class="text-decoration-none"
+														 	 	th:href="@{/shop/productCategoryFilter?(categoryName=${manufacturerInfo.categoryName}, manufacturerName=${manufacturerInfo.name})}">
+														 	 	<span th:text="${manufacturerInfo.name}"></span>
+														 	 </a>
+													 	 </div>
+											 	 </div>
+											</div>
+										</li>
 									</ul>
 
 								</div>
-							</div>
 						</nav>
 					</div>
 					<div class="col-1"></div>
 				</div>
 			</div>
-		</div>
 	</section>
 	<!-- <div id='ads-left' class="adv">
 		<div
@@ -192,8 +187,7 @@ fit=no">
 			class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
 			<!-- Left -->
 			<div class="me-5 d-none d-lg-block">
-				<span> Đây là trang chủ chính thức của Cửa hàng thiết bị
-					công nghệ Ánh Sao! </span>
+				<span> Đây là trang chủ chính thức của Cửa hàng thiết bị công nghệ Ánh Sao! </span>
 			</div>
 			<!-- Left -->
 
@@ -226,10 +220,9 @@ fit=no">
 						<h6 class="text-uppercase fw-bold mb-4">
 							<i class="bi bi-apple"></i> Cửa hàng thiết bị công nghệ Ánh Sao!
 						</h6>
-						<p>Chúng tôi hân hạnh mang đến cho bạn một ngập tràn công
-							nghệ, dù thiết bị công nghệ cá nhân, phục vụ gia đình hay dành
-							cho doanh nghiệp đều sẽ được tìm thất ở Ánh Sao. Hãy để chúng tôi
-							đáp ứng mọi nhưu cầu của bạn.</p>
+						<p> Chúng tôi hân hạnh mang đến cho bạn một ngập tràn công nghệ, 
+						dù thiết bị công nghệ cá nhân, phục vụ gia đình hay dành cho doanh nghiệp
+						đều sẽ được tìm thất ở Ánh Sao. Hãy để chúng tôi đáp ứng mọi nhưu cầu của bạn. </p>
 					</div>
 					<!-- Grid column -->
 
@@ -237,9 +230,9 @@ fit=no">
 					<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 						<!-- Links -->
 						<h6 class="text-uppercase fw-bold mb-4">Sản phẩm</h6>
-						<p th:each="category : ${categories}">
-							<a class="text-reset" th:text="${category.name}"> <i
-								class="bi bi-apple"></i></a>
+						<p th:each="category : ${categories}" >
+							<a th:href="@{/shop/productCategoryFilter?(categoryName=${category.name})}" class="text-reset" th:text="${category.name}">
+							<i class="bi bi-apple"></i></a>
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -284,8 +277,7 @@ fit=no">
 							<i class="bi bi-person-lines-fill"></i>Liện hệ
 						</h6>
 						<p>
-							<i class="fas fa-home me-3 text-grayish"></i> Tân Bình, TP.HCM,
-							Việt Nam
+							<i class="fas fa-home me-3 text-grayish"></i> Tân Bình, TP.HCM, Việt Nam
 						</p>
 						<p>
 							<i class="fas fa-envelope me-3 text-grayish"></i>

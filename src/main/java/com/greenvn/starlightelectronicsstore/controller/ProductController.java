@@ -100,6 +100,26 @@ public class ProductController {
 			return "product-add";
 		}
 		else model.addAttribute("messages", null);
+		
+		if(productService.findProductBySKU(product.getProductSKU()) != null)
+		{
+			model.addAttribute("messagesSKU", "Mã SKU đã tồn tại!");
+			model.addAttribute("categories",categoryService.getCategories());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+			return "product-add";
+		}
+		else model.addAttribute("messagesSKU", null);
+		
+		if(product.getQuantityOrderMin() != null && product.getQuantityOrderMax() != null
+			&&	product.getQuantityOrderMin() > product.getQuantityOrderMax())
+		{
+			model.addAttribute("messagesOrder", "Số lượng đặt hàng tối thiểu không được lớn hơn số lượng đặt hàng tối đa!");
+			model.addAttribute("categories",categoryService.getCategories());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+			return "product-add";
+		}
+		else model.addAttribute("messagesOrder", null);
+		
 		Product productSaved =productService.addProduct(product);
 
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
@@ -201,8 +221,28 @@ public class ProductController {
 			model.addAttribute("images", imageService.getImages());
 			return "product-update";
 		}
-			
 		else model.addAttribute("messages", null);
+		
+		P = productService.findProductBySKU(product.getProductSKU());
+		if(P != null && P.getProductID() != product.getProductID())
+		{
+			model.addAttribute("messagesSKU", "Mã SKU đã tồn tại!");
+			model.addAttribute("categories",categoryService.getCategories());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+			return "product-update";
+		}
+		else model.addAttribute("messagesSKU", null);
+		
+
+		if(product.getQuantityOrderMin() != null && product.getQuantityOrderMax() != null
+			&&	product.getQuantityOrderMin() > product.getQuantityOrderMax())
+		{
+			model.addAttribute("messagesOrder", "Số lượng đặt hàng tối thiểu không được lớn hơn số lượng đặt hàng tối đa!");
+			model.addAttribute("categories",categoryService.getCategories());
+			model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+			return "product-update";
+		}
+		else model.addAttribute("messagesOrder", null);
 		
 		productService.updateProduct(product, productID);
 

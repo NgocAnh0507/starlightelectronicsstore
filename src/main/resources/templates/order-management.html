@@ -77,7 +77,7 @@
 										<b th:case="CANCELED" style="color: red">Đã hủy đơn</b>
 									</td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${order.orderDate}"></td>
+										th:text="${#calendars.format(order.orderDate,'dd/MM/yyyy HH:mm:ss')}"></td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.amount}"></td>
 									<td align="center" style="font-size: 15px;"

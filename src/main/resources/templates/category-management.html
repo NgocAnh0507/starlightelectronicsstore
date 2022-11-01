@@ -99,7 +99,7 @@
 		</div>
 		<div align="center" style="padding-top: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 			<a class="btn btn-outline-success mb-5" style="font-size: 15px;" role="button"
-			th:href="@{/admin/formAddCategory}">
+			th:href="@{/admin/formAddCategory?(callFrom='/admin/categories')}">
 				<i class="fas fa-plus"></i> <b>Thêm danh mục mới</b></a> 
 				
 		</div>

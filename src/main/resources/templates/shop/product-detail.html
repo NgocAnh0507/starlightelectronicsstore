@@ -77,7 +77,7 @@
 					</p>
 				</div>
 				
-				<div id="status" style="padding-left: 10%;" th:switch="${product.quantity}">
+				<div id="status" style="padding-left: 10%;" th:switch="${quantity_minOder}">
 					
 					<div th:case="null"></div>
 					<div th:case="0">
@@ -100,12 +100,12 @@
 					</p>
 				</div>
 				
-				<div id="price" style="padding-left: 10%;" th:switch="${product.priceSpecial}">
+				<div id="price" style="padding-left: 10%;" th:switch="${checkSpecialPrice}">
 					
-					<div th:case="null">
+					<div th:case="false">
 						<b><p th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+'VNĐ'}" style="font-size: 25px;"></p></b>
 					</div>
-					<div th:case="*">
+					<div th:case="true">
 						<hr/>
 						<p class="old-price" th:text="'Giá bán: ' + ${#numbers.formatInteger(product.price,3,'POINT')+' VNĐ'}" style="font-size: 25px;"></p>
 						<b><p class="hot-price" th:text="'Giá khuyến mãi: ' + ${#numbers.formatInteger(product.priceSpecial,3,'POINT')+' VNĐ'}" style="font-size: 25px; color: red;"></p></b>

@@ -52,8 +52,19 @@ public class ManufacturerService {
         List<ManufacturerInfo> manufacturerInfos = new ArrayList<ManufacturerInfo>();
         for(Manufacturer m : manufacturerList) {
             for(Product p : m.getProducts()) {
-                ManufacturerInfo mInfo = new ManufacturerInfo(p.getCategory().getName(),m.getLogo().getName());
-                if(!manufacturerInfos.contains(mInfo)) manufacturerInfos.add(mInfo);
+            	Boolean check = false;
+                for(ManufacturerInfo mi : manufacturerInfos) {
+                    if(mi.getName().equals(p.getManufacturer().getName()) && mi.getCategoryName().equals(p.getCategory().getName())) {
+                        check = true;
+                        break;
+                    }
+                }
+                
+                if(!check) {
+                    ManufacturerInfo mInfo = new ManufacturerInfo(p.getManufacturer().getName(),p.getCategory().getName(),m.getLogo().getName());
+                    manufacturerInfos.add(mInfo);
+                    System.out.println(mInfo.getName());
+                }
             }
         }
         return manufacturerInfos;

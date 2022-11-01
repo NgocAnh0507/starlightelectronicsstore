@@ -21,46 +21,60 @@
 <body>
 	<div layout:fragment="content">
 
-		<div class="container pt-5">
+		<div class="container-fliud pt-5" style=" margin-left: 25px">
 
 			<div class="row" align="center" style="padding-top: 35px; padding-bottom: 35px">
 				<h1 style="font-size: 35px;">Sản phẩm đang mở bán</h1>
 			</div>
 			<div class="row">
-				<div class="col-md-3" style="background-color: rgb(240, 255, 255); border: 1px solid #000000; border-radius: 5px;" >
+				<div class="col-md-3" style="background-color: rgb(165, 255, 255); border-radius: 15px;" >
 					<form th:action="@{/shop/productFilter?(categoryName=${categoryName})}" th:object="${filter}"
 						method="post" style=" margin-right: 10px">
 						<h5 style="font-size: 20px;">Lọc sản phẩm theo: </h5>
 						<div id="price-filter" style="padding-left: 15px;  padding-top: 15px">
-							<b style="font-size: 15px;">Khoảng giá: </b>
+							<b class="row mb-2" style="font-size: 15px;">Khoảng giá: </b>
+							<div class="row">
+								<label class="col-md-4 form-label pt-2" for="lowest-price" style="font-size: 14px;">Giá thấp nhất:</label> 
+								<input class="col-md-7 form-control" th:field="*{priceMin}" type="number" min="0" step="500000" id="lowest-price" th:value="null" style="font-size: 15px; margin-left: 10px; width: 50%;">
+								<div class="col-md-1 pt-1">VNĐ</div>
+							</div>
 							<br/>
-							<label class="col-form-label" for="lowest-price" style="font-size: 15px; margin-left: 15px">Giá thấp nhất:</label> 
-							<input class="form-control" th:field="*{priceMin}" type="number" id="lowest-price" th:value="null" style="font-size: 15px; margin-left: 15px">
-							
-							<label class="col-form-label" for="highest-price" style="font-size: 15px; margin-left: 15px"> Giá cao nhất: </label> 
-							<input class="form-control" th:field="*{priceMax}" type="number"  id="highest-price" th:value="null" style="font-size: 15px; margin-left: 15px">
-							
+							<div class="row">
+								<label class="col-md-4 form-label pt-2" for="highest-price" style="font-size: 14px"> Giá cao nhất:</label> 
+								<input class="col-md-7 form-control" th:field="*{priceMax}" type="number" min="0" step="500000" id="highest-price" th:value="null" style="font-size: 15px; margin-left: 10px; width: 50%;">
+								<div class="col-md-1 pt-1">VNĐ</div>
+							</div>
+							<hr/>
 						</div>
-						<hr/>
-						<div id="manufacturer-filter" style="padding-left: 15px;">
-							<b style="font-size: 15px;">Hãng sản xuất</b> 
-							<select class="form-control" th:field="*{manufacturer}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
-							 	<option th:value="null" selected="selected"></option>
-								<div th:each="manufac: ${manufacturers}">
-							 			<option th:value = "${{manufac}}"
-										 		th:text="${manufac.name}">
-									 	</option>
-							 	 </div>
-							</select>
-							
+						<div th:switch="${manufacturers}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<div id="manufacturer-filter" style="padding-left: 15px;">
+									<b class="row mb-2" style="font-size: 15px;">Hãng sản xuất</b> 
+									<!-- <select class="form-control" th:field="*{manufacturer}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
+									 	<option th:value="null" selected="selected"></option>
+										<div th:each="manufac: ${manufacturers}">
+									 			<option th:value = "${{manufac}}"
+												 		th:text="${manufac.name}">
+											 	</option>
+									 	 </div>
+									</select> -->
+									<fieldset class="row"> 
+										 <div class="col-md-6" th:each="manufac: ${manufacturers}">
+											 <input checked th:field="*{manufacturerList}" type="checkbox" th:value = "${{manufac}}" th:text="' ' + ${manufac.name}">        
+									   	 </div>
+									</fieldset> 
+									<hr/>
+								</div>
+							</div>
 						</div>
-						<hr/>
 						<div th:switch="${attributeTypes}">
 							<div th:case="null"></div>
 							<div th:case="*">
 								<div id="attributes-filter" style="padding-left: 15px;" th:each="attributeType: ${attributeTypes}">
-									<b style="font-size: 15px;" th:text="${attributeType.name}"></b> 
-									<select class="form-control" th:field="*{attributes}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
+									<b class="row mb-2" style="font-size: 15px;" th:text="${attributeType.name}"></b> 
+									
+									<!-- <select class="form-control" th:field="*{attributes}" style="font-size: 15px; margin-left: 15px; margin-top: 15px">
 									 	<option th:value="null" selected="selected"></option>
 										<div th:each="attribute: ${attributes}" th:switch="${attribute.type.attributeTypeID}">
 									 			<div th:case="${attributeType.attributeTypeID}">
@@ -69,14 +83,26 @@
 												 	</option>
 												</div>
 									 	 </div>
-									</select>
-									
+									</select> -->
+									<fieldset class="row"> 
+										 <div class="col-md-6" th:each="attribute: ${attributes}" th:switch="${attribute.type.attributeTypeID}"
+										  th:case="${attributeType.attributeTypeID}">
+											 <input th:field="*{attributeList}"
+											  type="checkbox" th:value = "${{attribute}}" th:text="' ' + ${attribute.value}">        
+									   	 </div>
+									</fieldset> 
+									<hr/>
 								</div>
-								<hr/>
 							</div>
 						</div>
 						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-5" value="Lọc sản phẩm" style="font-size: 17px;  font-weight:700;">
+							<a  align="center" class="btn btn-outline-success mb-1" style="font-size: 17px;"
+								role="button" th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName})}"> 
+								 <b>Đặt lại bộ lọc</b>
+							</a>
+						</div>
+						<div align="center">
+							<input type="submit" class="btn btn-outline-primary mt-1 mb-3" value="Lọc sản phẩm" style="font-size: 17px;  font-weight:700;">
 						</div>
 					</form>
 				</div>
