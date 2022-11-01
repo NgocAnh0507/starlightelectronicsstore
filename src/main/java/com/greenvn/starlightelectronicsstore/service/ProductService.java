@@ -116,7 +116,7 @@ public class ProductService {
                 check = false;
             }
             else {
-                Double price = pro.getPrice();
+                Long price = pro.getPrice();
                 if(pro.getPriceSpecial() != null) price = pro.getPriceSpecial();
                 
                 if(filter.getPriceMin() != null && price < filter.getPriceMin() ) 

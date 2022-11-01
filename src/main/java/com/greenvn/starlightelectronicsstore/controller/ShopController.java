@@ -272,9 +272,12 @@ public class ShopController {
 		    if(pro.getStatus() == true) {
 
 		    	//Kiểm tra ngày giảm giá
-		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
 		    	if(pro.getPriceSpecial() != null) {
-		        products.add(pro);
+		    		if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	}
+		    	if(pro.getPriceSpecial() != null) {
+			        products.add(pro);
+			    }
 		    }
 		}
         
@@ -298,6 +301,7 @@ public class ShopController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         model.addAttribute("products",products);
         model.addAttribute("categoryName",categoryName);
+
         return "shop/shop-products";
     }
     
