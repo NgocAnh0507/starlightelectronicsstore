@@ -98,7 +98,7 @@ fit=no">
 
 										</ul></li>
 									<li class="nav-item"><a class="nav-link"
-										th:href="@{/shop/shoppingCart}">Giỏ hàng<p th:text=${session.itemCount}></p></a></li>
+										th:href="@{/shop/shoppingCart}">Giỏ hàng<span th:text="' ' + ${session.itemCount}"></span></a></li>
 										
 									<!-- <button type="button" class="btn btn-primary">
 										<span  th:text=${session.itemCount} class="badge badge-light"></span> <a 

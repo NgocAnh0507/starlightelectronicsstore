@@ -275,9 +275,9 @@ public class ShopController {
 		    	if(pro.getPriceSpecial() != null) {
 		    		if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
 		    	}
-		    	if(pro.getPriceSpecial() != null) {
-			        products.add(pro);
-			    }
+		    	
+			    products.add(pro);
+			    
 		    }
 		}
         
