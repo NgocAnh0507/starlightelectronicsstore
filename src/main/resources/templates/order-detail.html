@@ -55,7 +55,7 @@
 							
 					</div>
 					
-					<div class="row"  style="padding-top: 15px">
+					<div class="row"  style="padding-top: 15px" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 						<div class="col-md-4">
 							<a class="btn btn-outline-warning"
 							style="font-size: 17px; width: 15rem; color: olive" role="button"
@@ -75,7 +75,7 @@
 								<i class="fas fa-pencil-alt"></i> <b>Đang chuyển hàng</b></a>
 						</div>
 						</div>
-						<div class="row"  style="padding-top: 15px">
+						<div class="row"  style="padding-top: 15px" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 						<div class="col-md-4">
 							<a class="btn btn-outline-warning" 
 							style="font-size: 17px; width: 15rem; color: green" role="button"
