@@ -27,7 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         // .hasrole phaỉ có quyền ADMIN mới được phép truy cập và đăng nhập
         
 //      .antMatchers("/users/**").access("hasRole('ADMIN')")
-//        .antMatchers("/admin").hasRole("Admin")
+				/*
+				 * .antMatchers("/admin").hasRole("ADMIN")
+				 * .antMatchers("/admin").hasRole("EMPLOYEE")
+				 * .antMatchers("/admin").hasRole("MANAGEMENT")
+				 */
+        .antMatchers("/admin/**").hasAnyRole("ADMIN","MANAGEMENT","EMPLOYEE")
 //        .antMatchers("/users/**").hasRole("Admin")
 //        .antMatchers("/admin/**").hasRole("Admin")
 //        .anyRequest().authenticated()//Những cái URL còn lại đều phải đăng nhập mới được xài

@@ -82,7 +82,7 @@
 								<label for="price" class="col-form-label" style="font-size: 20px;">Giá:</label> 
 							</div>
 							<div class="col-md-8">
-								<p th:text="*{price}" id="price" style="font-size: 20px;"></p>
+								<p th:text="*{price} + ' ' + 'VNĐ'" id="price" style="font-size: 20px;"></p>
 								
 							</div>
 						</div>
@@ -98,7 +98,7 @@
 										<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
 									</div>
 									<div class="col-md-8">
-										<p th:text="*{priceSpecial}" id="priceSpecial" style="font-size: 20px;"></p>
+										<p th:text="*{priceSpecial}+ ' ' + 'VNĐ'" id="priceSpecial" style="font-size: 20px;"></p>
 									</div>
 								</div>
 								

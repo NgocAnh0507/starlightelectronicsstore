@@ -81,7 +81,7 @@
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.amount}"></td>
 									<td align="center" style="font-size: 15px;"
-										th:text="${order.total}"></td>
+										th:text="${#numbers.formatInteger(order.total,3,'POINT')}+ ' '  +'VNĐ' "></td>
 									
 									<td align="center" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">
 										<!-- <a class="btn btn-warning"

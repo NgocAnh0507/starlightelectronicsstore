@@ -31,13 +31,13 @@ fit=no">
 					th:attr="src=@{/images/logo1.png}" width="220px"></a>
 
 			</div>
-			<div class="list-group list-group-flush my-3">
+			<div class="list-group list-group-flush my-3 hai">
 			
 				<a th:href="@{/}"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold hai"><i
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold "><i
 					class="fas fa-home"></i> Trang chủ</a>
 				<a th:href="@{/admin}"th:class="${session.menuSelected == 'dashboard'}?'list-group-item list-group-item-action bg-success text-white fw-bold ':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"
-					class="list-group-item list-group-item-action bg-transparent second-text fw-bold hai"><i
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> 
 				
 				<a th:href="@{/admin/categories}"
