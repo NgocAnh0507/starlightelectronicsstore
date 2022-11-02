@@ -31,7 +31,7 @@ public class Product {
 	@NotBlank(message = "Tên sản phẩm không được để trống!")
 	private String productName;
 	
-	@Column(name = "PRODUCT_SKU", columnDefinition = "VARCHAR(55)")
+	@Column(name = "PRODUCT_SKU", columnDefinition = "VARCHAR(55) UNIQUE")
 	@NotBlank(message = "SKU không được để trống!")
 	private String productSKU;
 	

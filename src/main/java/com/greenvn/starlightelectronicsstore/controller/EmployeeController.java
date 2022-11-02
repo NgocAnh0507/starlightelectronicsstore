@@ -106,6 +106,7 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
+		model.addAttribute("birthdayMessages",null);
 		
 		if(!employeeService.checkPhoneNumber(employee.getPhoneNumber()))
 		{
@@ -113,8 +114,15 @@ public class EmployeeController {
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
-		 
 		model.addAttribute("messages",null);
+		
+		if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
+		{
+			model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
+			model.addAttribute("positions",positionService.getPositions());
+			return "employee-add";
+		}
+		model.addAttribute("messagesPass",null);
 
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
 		File saveFile = storageService.storeImage(file, uploadRootPath);
@@ -154,7 +162,14 @@ public class EmployeeController {
 	       {
 	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
 	       }
-	       else model.addAttribute("messagesPass", null);
+	       
+	       
+	       else if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
+			{
+				model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
+				
+			}
+	       else model.addAttribute("messagesPass",null);
 		       
 			Employee emp = employeeService.findEmployeeById(employeeID);
 			model.addAttribute("employee", emp);

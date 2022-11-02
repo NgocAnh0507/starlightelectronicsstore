@@ -41,12 +41,12 @@
 									th:field="*{birthday}"  class="form-control" id="birthday"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{birthday}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-									<!-- <div th:switch="${birthdayMessages}">
+									<div th:switch="${birthdayMessages}">
 										<div th:case="null"></div>
 										<div th:case="*">
 											<p th:text="${birthdayMessages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 										</div>
-									</div>-->
+									</div>
 								</div>
 							</div>
 						</div>

@@ -194,9 +194,9 @@ public class ShoppingCartController {
 			
 			long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears(); 
 			
-			if(age < 16 || age > 95)
+			if(age < 10 || age > 95)
 			{
-				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 16 đến 95!");
+				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 10 đến 95!");
 				checkCustomer = false;
 			}
 		}

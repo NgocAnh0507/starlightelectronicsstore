@@ -75,7 +75,9 @@ public class ShopController {
 		{
 		    if(pro.getStatus() == true) {
 		    	//Kiểm tra ngày giảm giá
-		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	if(pro.getPriceSpecial() != null) {
+		    		if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	}
 		        products.add(pro);
 		    }
 		}
@@ -116,6 +118,29 @@ public class ShopController {
         model.addAttribute("manufacturerInfos", manufacturerInfos);
         
 		Product product = productService.findProductById(productID);
+		
+		// Ngày hiện tại
+		long millis=System.currentTimeMillis(); 
+		Date date= new java.util.Date(millis);
+		
+    	//Kiểm tra ngày giảm giá
+    	if(product.getPriceSpecial() != null) {
+    		if(product.getPriceSpecialEndDate().before(date) || product.getPriceSpecialStartDate().after(date)) {
+    			model.addAttribute("checkSpecialPrice", false);
+    		}
+    		else model.addAttribute("checkSpecialPrice", true);
+    	}
+    	else model.addAttribute("checkSpecialPrice", false);
+    	
+    	//Số lượng hiện có phải lớn hơn số lượng đặt hàng tối thiểu thì mới tính còn hàng
+    	if(product.getQuantityOrderMin() != null) 
+    	{
+	    	Integer quantity_minOder = product.getQuantity() - product.getQuantityOrderMin();
+	    	if(quantity_minOder < 0) quantity_minOder=0;
+	    	model.addAttribute("quantity_minOder", quantity_minOder);
+    	}
+    	else model.addAttribute("quantity_minOder", product.getQuantity());
+		
 		Integer sizeReviews = product.getProductReviews().size();
 		Integer sizeAttributes = product.getAttributes().size();
 		model.addAttribute("images", product.getImages());
@@ -139,6 +164,7 @@ public class ShopController {
 	// lọc theo Danh mục
 	@GetMapping("/shop/productCategoryFilter")
 	public String productCategoryFilter(@RequestParam(name = "categoryName")String categoryName,
+            @RequestParam(name = "manufacturerName", required = false,defaultValue = "")String manufacturerName,
 			@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "productName") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
@@ -152,6 +178,7 @@ public class ShopController {
         
         //Chỉ lấy Manufacturer có product thuộc category đang lọc
         List<Manufacturer> manufacturers = manufacturerService.getManufacturersByCategory(categoryName);
+        if(manufacturers.size() == 0) manufacturers = null;
         model.addAttribute("manufacturers", manufacturers);
         
         Category category = categoryService.findCategoryByName(categoryName);
@@ -169,13 +196,13 @@ public class ShopController {
 		for(Product pro : productList) 
 		{
 		    if(pro.getStatus() == true) {
-
 		    	//Kiểm tra ngày giảm giá
-		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	if(pro.getPriceSpecial() != null) {
+		    		if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	}
 		        products.add(pro);
 		    }
 		}
-		
         
         List<AttributeType> attributeTypes = new ArrayList<AttributeType>();
         List<ProductAttribute> attributes =  productAttributeService.findProductAttributeByCategoryID(category.getCategoryID());
@@ -187,7 +214,15 @@ public class ShopController {
         model.addAttribute("attributes",attributes);
         model.addAttribute("attributeTypes",attributeTypes);
         
-        Filter filter = new Filter(null,null,null,null);
+		Filter filter = new Filter(null,null,manufacturers,attributes);
+
+        if(manufacturerName.length() != 0) {
+        	Manufacturer m = manufacturerService.findManufacturerByName(manufacturerName);
+        	List<Manufacturer> manufacturerList = new ArrayList<Manufacturer>();
+        	manufacturerList.add(m);
+        	filter.setManufacturerList(manufacturerList);
+        	products = productService.filter(filter, products);
+        }
 
         if(products.size() == 0) products = null;
         model.addAttribute("currentPage", pageNo);
@@ -237,8 +272,12 @@ public class ShopController {
 		    if(pro.getStatus() == true) {
 
 		    	//Kiểm tra ngày giảm giá
-		    	if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
-		        products.add(pro);
+		    	if(pro.getPriceSpecial() != null) {
+		    		if(pro.getPriceSpecialEndDate().before(date) || pro.getPriceSpecialStartDate().after(date)) pro.setPriceSpecial(null);
+		    	}
+		    	
+			    products.add(pro);
+			    
 		    }
 		}
         
@@ -262,6 +301,7 @@ public class ShopController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         model.addAttribute("products",products);
         model.addAttribute("categoryName",categoryName);
+
         return "shop/shop-products";
     }
     

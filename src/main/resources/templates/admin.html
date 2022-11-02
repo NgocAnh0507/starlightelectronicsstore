@@ -57,7 +57,7 @@
 									<h1 class="text-center" th:text="${dashboardInfo.productCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-store"></i>
+										<i class="fas fa-archive"></i>
 									</div>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 									<h1 class="text-center" th:text="${dashboardInfo.orderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-truck-moving"></i>
+										<i class="fas fa-file-alt"></i>
 									</div>
 						</div>
 					</div>
@@ -84,13 +84,13 @@
 						style="max-width: 18rem; background-color: olive;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
-								Đơn hàng đã nhận tháng này
+							<h5 class="card-title text-center" style="font-size: 16.3px;">
+								Đơn hàng <br/>đã nhận tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.receivedOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-money-check-alt"></i>
+										<i class="fas fa-handshake"></i>
 									</div>
 						</div>
 					</div>
@@ -99,13 +99,13 @@
 					<div class="card text-white bg-info mb-3" style="max-width: 18rem; background-color: indigo;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
-								Đơn hàng đã đóng gói tháng này
+							<h5 class="card-title text-center"  style="font-size: 16.3px;">
+								Đơn hàng đã <br/>đóng gói tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.packagedOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-truck-moving"></i>
+										<i class="fas fa-truck-loading"></i>
 									</div>
 						</div>
 					</div>
@@ -115,13 +115,13 @@
 						style="max-width: 18rem; background-color: blue;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
+							<h5 class="card-title text-center"  style="font-size: 16.3px;">
 								Đơn hàng đang chuyển tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.deliveringOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-user"></i>
+										<i class="fas fa-truck-moving"></i>
 									</div>
 						</div>
 					</div>
@@ -131,13 +131,13 @@
 						style="max-width: 18rem; background-color: green;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
+							<h5 class="card-title text-center" style="font-size: 16.3px;">
 								Đơn hàng đã chuyển tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.deliveredOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-store"></i>
+										<i class="fas fa-people-carry"></i>
 									</div>
 						</div>
 					</div>
@@ -146,13 +146,13 @@
 					<div class="card text-white mb-3" style="max-width: 18rem; background-color: orangered;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
+							<h5 class="card-title text-center" style="font-size: 16.3px;">
 								Đơn hàng đã trả lại tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.returnedOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-truck-moving"></i>
+										<i class="fas fa-undo-alt"></i>
 									</div>
 						</div>
 					</div>
@@ -161,91 +161,94 @@
 					<div class="card text-white mb-3" style="max-width: 18rem;  background-color: red;">
 
 						<div class="card-content p-3">
-							<h5 class="card-title text-center">
+							<h5 class="card-title text-center" style="font-size: 16.3px;">
 								Đơn hàng đã hủy tháng này
 								</h5>
 									<h1 class="text-center" th:text="${dashboardInfo.canceledOrderCount}"></h1>
 									<div class="d-flex justify-content-center"
 										style="font-size: 44px;">
-										<i class="fas fa-truck-moving"></i>
+										<i class="fas fa-calendar-times"></i>
 									</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<hr/>
 			<div class="row mt-5">
-				<h2>Doanh số(số liệu từng tháng)</h2>
-				<canvas id="myChart" style="max-width: 1000px;"></canvas>
-				<script>
-					var ctx = document.getElementById("myChart").getContext(
-							'2d');
-					var myChart = new Chart(ctx, {
-						type : 'bar',
-						data : {
-							labels : [ "Tháng 1", "Tháng 2", "Tháng 3",
-									"Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
-									"Tháng 8", "Tháng 9", "Tháng 10",
-									"Tháng 11", "Tháng 12" ],
-							datasets : [ {
-								label : 'Doanh số (triệu)',
-								data : [ 12, 19, 3, 5, 2, 3, 16, 15, 19, 22,
-										17, 32 ],
-								backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)' ],
-								borderColor : [ 'rgba(255,99,132,1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)' ],
-								borderWidth : 1
-							} ]
-						},
-						options : {
-							scales : {
-								yAxes : [ {
-									ticks : {
-										beginAtZero : true
-									}
+				<div class="col-md-5">
+					<h3 align="center">Doanh số (số liệu từng tháng)</h3>
+					<canvas id="myChart" style="max-width: 1000px;"></canvas>
+					<script>
+						var ctx = document.getElementById("myChart").getContext(
+								'2d');
+						var myChart = new Chart(ctx, {
+							type : 'bar',
+							data : {
+								labels : [ "Tháng 1", "Tháng 2", "Tháng 3",
+										"Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
+										"Tháng 8", "Tháng 9", "Tháng 10",
+										"Tháng 11", "Tháng 12" ],
+								datasets : [ {
+									label : 'Doanh số (triệu)',
+									data : [ 12, 19, 3, 5, 2, 3, 16, 15, 19, 22,
+											17, 32 ],
+									backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+											'rgba(54, 162, 235, 0.2)',
+											'rgba(255, 206, 86, 0.2)',
+											'rgba(75, 192, 192, 0.2)',
+											'rgba(153, 102, 255, 0.2)',
+											'rgba(255, 159, 64, 0.2)' ],
+									borderColor : [ 'rgba(255,99,132,1)',
+											'rgba(54, 162, 235, 1)',
+											'rgba(255, 206, 86, 1)',
+											'rgba(75, 192, 192, 1)',
+											'rgba(153, 102, 255, 1)',
+											'rgba(255, 159, 64, 1)' ],
+									borderWidth : 1
 								} ]
+							},
+							options : {
+								scales : {
+									yAxes : [ {
+										ticks : {
+											beginAtZero : true
+										}
+									} ]
+								}
 							}
-						}
-					});
-				</script>
-			</div>
-			<div class="row mt-5">
-
-				<h2>Số lượng sản phẩm chiếm trong kho</h2>
-				<canvas id="pieChart" style="max-width: 900px;"></canvas>
-				<script>
-					//pie
-					var ctxP = document.getElementById("pieChart").getContext(
-							'2d');
-					var myPieChart = new Chart(ctxP, {
-						type : 'pie',
-						data : {
-							labels : [ "SAMSUNG", "IPHONE", "DELL", "HP",
-									"LENOVO", "ACER", "ISUS" ],
-							datasets : [ {
-								data : [ 200, 50, 100, 40, 120, 100, 30 ],
-								backgroundColor : [ "#F7464A", "#46BFBD",
-										"#FDB45C", "#949FB1", "#4D5360",
-										"#8B008B", "#7FFF00" ],
-								hoverBackgroundColor : [ "#FF5A5E", "#5AD3D1",
-										"#FFC870", "#A8B3C5", "#616774",
-										"#9932CC", "#7FFFD4" ]
-							} ]
-						},
-						options : {
-							responsive : true
-						}
-					});
-				</script>
-
+						});
+					</script>
+				</div>
+				<div class="col-md-7">
+	
+					<h3 align="center" >Số lượng sản phẩm chiếm trong kho</h3>
+					<canvas id="pieChart" style="max-width: 900px;"></canvas>
+					<script>
+						//pie
+						var ctxP = document.getElementById("pieChart").getContext(
+								'2d');
+						var myPieChart = new Chart(ctxP, {
+							type : 'pie',
+							data : {
+								labels : [ "SAMSUNG", "IPHONE", "DELL", "HP",
+										"LENOVO", "ACER", "ASUS" ],
+								datasets : [ {
+									data : [ 200, 50, 100, 40, 120, 100, 30 ],
+									backgroundColor : [ "#F7464A", "#46BFBD",
+											"#FDB45C", "#949FB1", "#4D5360",
+											"#8B008B", "#7FFF00" ],
+									hoverBackgroundColor : [ "#FF5A5E", "#5AD3D1",
+											"#FFC870", "#A8B3C5", "#616774",
+											"#9932CC", "#7FFFD4" ]
+								} ]
+							},
+							options : {
+								responsive : true
+							}
+						});
+					</script>
+	
+				</div>
 			</div>
 		</div>
 	</div>

@@ -102,24 +102,24 @@
 							<div class="product_details">
 
 								<a th:href="@{/shop/productInfo?(productID=${pro.productID})}"
-									class="text-decoration-none text-info"><h5
-										th:text="${pro.productName}"></h5></a>
+									class="text-decoration-none text-info">
+									<h5 th:text="${pro.productName}"></h5></a>
 
 								<div id="price" style="padding-left: 10%;"
 									th:switch="${pro.priceSpecial}">
 									<hr />
 									<div th:case="null">
-										<b><p
-												th:text="${#numbers.formatInteger(pro.price,3,'POINT')+' VNĐ'}"
-												style="font-size: 15px;"></p></b>
+										<b th:text="${#numbers.formatInteger(pro.price,3,'POINT')+' VNĐ'}"
+												style="font-size: 15px;"></b>
 									</div>
 									<div th:case="*">
-										<b><p class="old-price"
+										<b class="old-price"
 											th:text="${#numbers.formatInteger(pro.price,3,'POINT')+' VNĐ'}"
-											style="font-size: 15px;"></p></b>
-										<b><p class="hot-price"
+											style="font-size: 15px;"></b>
+										<b class="hot-price"
 												th:text="${#numbers.formatInteger(pro.priceSpecial,3,'POINT')+' VNĐ'}"
-												style="font-size: 15px; color: red;"></p></b>
+												style="font-size: 15px; color: red;"></b>
+									</div>
 								</div>
 							</div>
 						</div>

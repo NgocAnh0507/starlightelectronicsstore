@@ -34,14 +34,22 @@ fit=no">
 			<div class="list-group list-group-flush my-3 hai">
 			
 				<a th:href="@{/}"
+<<<<<<< HEAD
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold "><i
 					class="fas fa-home"></i> Trang chủ</a>
 				<a th:href="@{/admin}"th:class="${session.menuSelected == 'dashboard'}?'list-group-item list-group-item-action bg-success text-white fw-bold ':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"
 					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
 					class="fas fa-tachometer-alt me-2"></i>Dashboard</a> 
+=======
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+					class="fas fa-home"></i> Trang chủ</a>
+				<a th:href="@{/admin}"
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+					class="fas fa-chart-bar"></i> Dashboard</a> 
+>>>>>>> 2849f3cd33e80d4679e63a231f896af5862ab54e
 				
 				<a th:href="@{/admin/categories}"
-					
+					class="list-group-item list-group-item-action bg-transparent second-text fw-bold"
 					th:class="${session.menuSelected == 'categories'}?'list-group-item list-group-item-action bg-success text-white fw-bold ':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
 					class="	fas fa-folder-open"></i> Quản lý danh mục</a> <a
 					th:href="@{/admin/attributeTypes}"
@@ -69,7 +77,7 @@ fit=no">
 					class="	fas fa-dolly"></i> Quản lý sản phẩm</a> <a
 					th:href="@{/admin/orders}"
 					th:class="${session.menuSelected == 'orders'}?'list-group-item list-group-item-action bg-success text-white fw-bold':'list-group-item list-group-item-action bg-transparent second-text fw-bold'"><i
-					class="	fas fa-money-check-alt"></i> Quản lý đơn hàng</a> <a
+					class="	fas fa-money-check-alt"></i> Quản lý hóa đơn</a> <a
 					th:href="@{/login}"
 					class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
 					class="fas fa-power-off me-2"></i> Đăng xuất</a>

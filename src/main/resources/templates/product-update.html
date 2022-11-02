@@ -101,6 +101,12 @@
 									id="productSKU" placeholder="Hãy nhập mã SKU của sản phẩm bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{productSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									<div th:switch="${messagesSKU}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messagesSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -133,8 +139,7 @@
 								<label for="price" class="col-form-label" style="font-size: 20px;">Giá:</label> 
 							</div>
 							<div class="col-md-8">
-							
-								<input type="number" th:field="*{price}"  class="form-control"
+								<input type="number" th:field="*{price}" class="form-control"
 									id="price" placeholder="Hãy nhập giá của sản phẩm bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{price}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
@@ -183,6 +188,7 @@
 									id="quantityOrderMin" placeholder="Hãy nhập số lượng đặt hàng tối thiểu của sản phẩm bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{quantityOrderMin}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									
 								</div>
 							</div>
 						</div>
@@ -198,6 +204,12 @@
 									id="quantityOrderMax" placeholder="Hãy nhập số lượng đặt hàng tối đa của sản phẩm bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{quantityOrderMax}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									<div th:switch="${messagesOrder}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messagesOrder}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

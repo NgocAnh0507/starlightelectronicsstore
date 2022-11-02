@@ -1,5 +1,9 @@
 package com.greenvn.starlightelectronicsstore.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,12 +62,38 @@ public class CustomerController {
 		if (result.hasErrors()) {
 			return "customer-add";
 		}
+		
 		if(!customerService.checkPhoneNumber(customer.getPhoneNumber()))
 		{
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
 			return "customer-add";
 		}
 		model.addAttribute("messages",null);
+		
+		if (customer.getBirthday() == null) {
+			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
+			return "customer-add";
+		}
+		else{
+			// Ngày hiện tại
+			long millis = System.currentTimeMillis(); 
+			Date currentDate = new java.util.Date(millis);  
+			LocalDate currentLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			//
+
+			// Ngày sinh khách hàng
+			LocalDate birthdayLocalDate = customer.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+			long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears(); 
+			
+			if(age < 10 || age > 95)
+			{
+				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 10 đến 95!");
+				return "customer-add";
+			}
+		}
+		model.addAttribute("birthdayMessages",null);
+		
 		customerService.addCustomer(customer);
 		return "redirect:/admin/customers";
 	}
@@ -91,6 +121,32 @@ public class CustomerController {
 		}
         
         model.addAttribute("messages",null);
+        
+
+		if (customer.getBirthday() == null) {
+			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
+			return "update-customer";
+		}
+		else{
+			// Ngày hiện tại
+			long millis = System.currentTimeMillis(); 
+			Date currentDate = new java.util.Date(millis);  
+			LocalDate currentLocalDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			//
+
+			// Ngày sinh khách hàng
+			LocalDate birthdayLocalDate = customer.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+			long age =  Period.between(birthdayLocalDate, currentLocalDate).getYears(); 
+			
+			if(age < 10 || age > 95)
+			{
+				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 10 đến 95!");
+				return "update-customer";
+			}
+		}
+		model.addAttribute("birthdayMessages",null);
+		
 		customerService.updateCustomer(customer, customerID);
 		return "redirect:/admin/customers";
 	}

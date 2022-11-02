@@ -100,6 +100,12 @@
 									id="productSKU" placeholder="Hãy nhập mã SKU của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{productSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									<div th:switch="${messagesSKU}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messagesSKU}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -181,6 +187,7 @@
 									id="quantityOrderMin" placeholder="Hãy nhập số lượng đặt hàng tối thiểu của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{quantityOrderMin}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									
 								</div>
 							</div>
 						</div>
@@ -196,6 +203,12 @@
 									id="quantityOrderMax" placeholder="Hãy nhập số lượng đặt hàng tối đa của sản phẩm bạn muốn thêm"  style="font-size: 20px;">
 								<div class="row">
 									<p th:errors="*{quantityOrderMax}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									<div th:switch="${messagesOrder}">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messagesOrder}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -289,16 +302,26 @@
 						</div>
 						
 						<hr/>
-						
-						<div align="center">
-							<input type="submit" class="btn btn-outline-success mt-3" value="Tiếp theo" style="font-size: 17px; font-weight:700; width: 8rem;">
+						 <div class="row">
+						 	<div class="col-md-9" >
+						 	
+							
 						</div>
+						<div class="col-md-1"></div>
+						<div class="col-md-2 mt-1" >
+						<input  type="submit" class="btn btn-outline-success mt-3 mr-1 " value="Tiếp theo" style="font-size: 17px; font-weight:700; width: 10.1rem;">
+						 </div>
+						 
+						
+						
+					</div> 
 					</form>
-					<div align="center">
-						<button onclick="history.back()" class="btn btn-outline-primary mt-2" style="font-size: 17px; width: 8rem;"><b>Quay lại</b></button>
+					<div>
+					
+						<button onclick="history.back()" class="btn btn-outline-primary" style="font-size: 17px; width: 10.1rem;margin-top: -70px" ><b>Quay lại</b></button>
 					</div>
 				</div>
-				<div class="col-md-2"></div>3
+				<div class="col-md-2"></div>
 			</div>
 		</div>
 	</div>
