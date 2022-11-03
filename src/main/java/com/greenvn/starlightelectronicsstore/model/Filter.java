@@ -6,21 +6,22 @@ import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
 
 public class Filter {
-    private Double priceMin;
-    private Double priceMax;
+    private Long priceMin;
+    private Long priceMax;
     private List<Manufacturer> manufacturerList;
     private List<ProductAttribute> attributeList;
     
-	public Double getPriceMin() {
+	
+	public Long getPriceMin() {
 		return priceMin;
 	}
-	public void setPriceMin(Double priceMin) {
+	public void setPriceMin(Long priceMin) {
 		this.priceMin = priceMin;
 	}
-	public Double getPriceMax() {
+	public Long getPriceMax() {
 		return priceMax;
 	}
-	public void setPriceMax(Double priceMax) {
+	public void setPriceMax(Long priceMax) {
 		this.priceMax = priceMax;
 	}
 	public List<Manufacturer> getManufacturerList() {
@@ -35,7 +36,7 @@ public class Filter {
 	public void setAttributeList(List<ProductAttribute> attributeList) {
 		this.attributeList = attributeList;
 	}
-	public Filter(Double priceMin, Double priceMax, List<Manufacturer> manufacturerList,
+	public Filter(Long priceMin, Long priceMax, List<Manufacturer> manufacturerList,
 			List<ProductAttribute> attributeList) {
 		super();
 		this.priceMin = priceMin;
