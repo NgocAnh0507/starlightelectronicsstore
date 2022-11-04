@@ -157,7 +157,8 @@ public class ShopController {
 	public String getProductDescription(@RequestParam(name = "productName")String productName, HttpServletRequest request, Model model) {
         
 		Product product = productService.findProductByName(productName);
-		model.addAttribute("product", product);
+		if(!product.getProductName().equals(productName)) model.addAttribute("product", null);
+		else model.addAttribute("product", product);
 		return "shop/product-detail-description";
 	}
 	

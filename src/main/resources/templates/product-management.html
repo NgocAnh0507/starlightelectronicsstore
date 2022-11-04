@@ -113,7 +113,7 @@
 									</td>
 										
 									<td align="center" >
-										<p  type="text" th:text="*{product.productName}"
+										<p th:text="${product.productName}"
 											id="pName" hidden="hidden"></p>
 										<button class="btn btn-outline-primary btn-sm" style="font-size: 15px;"
 										    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
