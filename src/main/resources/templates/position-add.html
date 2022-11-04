@@ -26,7 +26,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form th:action="@{/admin/addPosition}" th:object="${position}"
+					<form th:action="@{/admin/addPosition?(callFrom=${callFrom}, callFromID=${callFromID})}"  th:object="${position}"
 						method="post">
 						
 						<div class="row">

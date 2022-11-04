@@ -53,12 +53,18 @@ public class AttributeTypeController {
 	}
 	
 	@GetMapping("/formAddAttributeType")
-	public String addAttributeTypeForm(AttributeType attributeType) {
+	public String addAttributeTypeForm(AttributeType attributeType, Model model,
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
+		model.addAttribute("callFrom", callFrom);
+		model.addAttribute("callFromID", callFromID);
 		return "attributeType-add";
 	}
 	
 	@PostMapping("/addAttributeType")
-	public String addAttributeType(@Valid AttributeType attributeType, BindingResult result, Model model) {
+	public String addAttributeType(@Valid AttributeType attributeType, BindingResult result, Model model,
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
 			return "attributeType-add";
 		}
@@ -71,7 +77,9 @@ public class AttributeTypeController {
 		else model.addAttribute("messages",null);
 		
 		attributeTypeService.addAttributeType(attributeType);
-		return "redirect:/admin/attributeTypes";
+
+		if(callFromID != null) return "redirect:" + callFrom + callFromID;
+		return "redirect:" + callFrom;
 	}
 
 	@GetMapping("/formUpdateAttributeType")

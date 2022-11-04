@@ -158,7 +158,7 @@
 									<div th:switch="${messagesPass}">
 										<div th:case="null"></div>
 										<div th:case="*">
-											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+											<p th:text="${messagesPass}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 										</div>
 									</div>
 								</div>
@@ -188,7 +188,7 @@
 						 </div>
 						 <div align="center" style="padding-top: 15px; padding-bottom: 5px">
 							<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
-							th:href="@{/admin/formAddPosition}" target=”_blank”>
+							th:href="@{/admin/formAddPosition?(callFrom='/admin/formUpdateEmployee?employeeID=', callFromID=${employee.employeeID})}">
 								<i class="fas fa-plus"></i> <b>Thêm chức vụ mới</b></a> 
 						 </div>
 								

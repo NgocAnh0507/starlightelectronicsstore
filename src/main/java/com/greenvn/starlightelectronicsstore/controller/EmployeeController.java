@@ -85,6 +85,15 @@ public class EmployeeController {
 	public String addEmployee(@Valid Employee employee, BindingResult result, Model model,
 			HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		if (result.hasErrors()) {
+
+			if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
+			{
+				model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
+				model.addAttribute("positions",positionService.getPositions());
+				return "employee-add";
+			}
+			model.addAttribute("messagesPass",null);
+			
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
@@ -162,8 +171,6 @@ public class EmployeeController {
 	       {
 	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
 	       }
-	       
-	       
 	       else if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
 			{
 				model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
@@ -205,6 +212,18 @@ public class EmployeeController {
 		}
         
        model.addAttribute("messages",null);
+       
+
+       if(employee.getPassword().isEmpty() || employee.getPassword() == null)
+       {
+           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
+       }
+       else if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
+		{
+			model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
+			return "employee-update";
+		}
+       else model.addAttribute("messagesPass",null);
 		
 		Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
 		String uploadRootPath = request.getServletContext().getRealPath("upload");
@@ -219,7 +238,6 @@ public class EmployeeController {
 			employee.setAvatar(imageService.addImage(image));
 		}
 		else employee.setAvatar(currentImage);
-		
 		employeeService.updateEmployee(employee, employeeID);
 		if(saveFile != null) imageService.deleteImage(currentImage.getImageID());
 		return "redirect:/admin/employees";

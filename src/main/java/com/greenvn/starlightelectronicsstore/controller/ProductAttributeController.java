@@ -59,9 +59,11 @@ public class ProductAttributeController {
 	}
 	
 	@GetMapping("/formAddProductAttribute")
-	public String addProductAttributeForm(ProductAttribute productAttribute, Model model) {
+	public String addProductAttributeForm(ProductAttribute productAttribute, Model model,
+			@RequestParam(name= "notice",required = false)String notice) {
 		model.addAttribute("categories",this.categoryService.getCategories());
 		model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
+		model.addAttribute("notice", notice);
 		return "productAttribute-add";
 	}
 	
@@ -90,6 +92,7 @@ public class ProductAttributeController {
 		}
 		
 		this.productAttributeService.addProductAttribute(productAttribute);
+		
 		return "redirect:/admin/productAttributes";
 	}
 	

@@ -63,13 +63,18 @@ public class ManufacturerController {
 	}
 	
 	@GetMapping("/formAddManufacturer")
-	public String addManufacturerForm(Manufacturer manufacturer,Model model) {
+	public String addManufacturerForm(Manufacturer manufacturer, Model model,
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
+		model.addAttribute("callFrom", callFrom);
+		model.addAttribute("callFromID", callFromID);
 		return "manufacturer-add";
 	}
 	
 	@PostMapping("/addManufacturer")
 	public String addManufacturer(@Valid Manufacturer manufacturer, BindingResult result, Model model,
-			HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+			@RequestParam(name = "callFrom")String callFrom, HttpServletRequest request, @RequestParam("file") MultipartFile file,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
 			return "manufacturer-add";
 		}
@@ -99,7 +104,8 @@ public class ManufacturerController {
 		}
 		
 		manufacturerService.addManufacturer(manufacturer);
-		return "redirect:/admin/manufacturers";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID;
+		return "redirect:" + callFrom;
 	}
 
 	@GetMapping("/formUpdateManufacturer")

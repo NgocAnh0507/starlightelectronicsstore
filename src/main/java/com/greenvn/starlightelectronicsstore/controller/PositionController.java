@@ -49,12 +49,18 @@ public class PositionController {
 	}
 	
 	@GetMapping("/formAddPosition")
-	public String addPositionForm(Position position) {
+	public String addPositionForm(Position position, Model model,
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
+		model.addAttribute("callFrom", callFrom);
+		model.addAttribute("callFromID", callFromID);
 		return "position-add";
 	}
 	
 	@PostMapping("/addPosition")
-	public String addPosition(@Valid Position position, BindingResult result, Model model) {
+	public String addPosition(@Valid Position position, BindingResult result, Model model,
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
 			return "position-add";
 		}
@@ -66,7 +72,8 @@ public class PositionController {
 		else model.addAttribute("messages",null);
 		
 		positionService.addPosition(position);
-		return "redirect:/admin/positions";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID;
+		return "redirect:" + callFrom;
 	}
 	
 	@GetMapping("/formUpdatePosition")

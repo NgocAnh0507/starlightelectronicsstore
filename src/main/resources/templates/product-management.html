@@ -160,10 +160,44 @@
 										role="button" 
 										th:href="@{/admin/formUpdateProduct?(productID=${product.productID})}">
 											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
-										<a class="btn btn-outline-danger  mt-1" style="font-size: 15px;width: 8rem;"
+										<!-- <a class="btn btn-outline-danger  mt-1" style="font-size: 15px;width: 8rem;"
 										role="button"
 										th:href="@{/admin/deleteProduct?(productID=${product.productID})}">
+											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a> -->
+											
+									<!-- BĐau Modal hiện alert cho nút xóa-->
+										<button type="button" class="btn btn-outline-danger mt-1"
+											data-bs-toggle="modal" style="font-size: 15px; width: 8rem;"
+											th:attr="data-bs-target=${'#deleteConfirmModal'+product.productID}">
 											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
+										</button>
+
+										<div class="modal fade"
+											th:attr="id = ${'deleteConfirmModal'+product.productID}"
+											tabindex="-1" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline-primary"
+															data-bs-dismiss="modal" style=" width: 6rem;">
+															<i class='far fa-hand-point-down'></i><b>&nbsp;Không</b>
+														</button>
+														<a class="btn btn-outline-danger" role="button"  style=" width:6rem;"
+															th:href="@{/admin/deleteProduct?(productID=${product.productID})}">
+																	<i class="fas fa-trash-alt"></i> <b>Có</b>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div> 
+										<!--KThuc Modal hiện alert cho nút xóa-->
 									</td>
 								</tr>
 							</tbody>

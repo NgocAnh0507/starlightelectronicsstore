@@ -59,7 +59,7 @@
 										<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 											th:href="@{/admin/employees?(page=${currentPage},sortField='position.name',sortDir=${reverseSortDir})}">
 												Chức vụ</a></th>
-										<th class="text-center text-secondary" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">Thao tác</th>
+										<th class="text-center text-secondary" style="font-size: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN')">Thao tác</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -87,19 +87,52 @@
 										</td>
 										<td align="center" style="font-size: 15px;"
 											th:text="${employee.position.name}"></td>
-										<td align="center">
-										
+										<td align="center" sec:authorize="hasRole('ROLE_ADMIN')">
+
 											<a class="btn btn-outline-primary "
-										style="font-size: 15px;width:8rem;" role="button"
-												th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
-													<i class="fas fa-pencil-alt "></i><b>Chỉnh sửa</b>
-											</a> 
-											<br/>
-											<a class="btn btn-outline-danger mt-1" style="font-size: 15px;width: 8rem;"
+											style="font-size: 15px; width: 8rem;" role="button"
+											th:href="@{/admin/formUpdateEmployee?(employeeID=${employee.employeeID})}">
+												<i class="fas fa-pencil-alt "></i><b>Chỉnh sửa</b>
+										</a> <br /> <!-- <a class="btn btn-outline-danger mt-1" style="font-size: 15px;width: 8rem;"
 										role="button"
-												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}" sec:authorize="hasRole('ROLE_ADMIN')">
+												th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
 													<i class="fas fa-trash-alt"></i><b>Xóa</b>
-											</a>
+											</a> -->
+											
+											
+											 <!-- BĐau Modal hiện alert cho nút xóa-->
+											<button type="button" class="btn btn-outline-danger  mt-1"
+												data-bs-toggle="modal" style="font-size: 15px; width: 8rem;"
+												th:attr="data-bs-target=${'#deleteConfirmModal'+employee.employeeID}">
+												<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
+											</button>
+
+											<div class="modal fade"
+												th:attr="id = ${'deleteConfirmModal'+employee.employeeID}"
+												tabindex="-1" aria-labelledby="exampleModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-outline-primary" style=" width: 6rem;"
+																data-bs-dismiss="modal">
+																<i class='far fa-hand-point-down'></i><b>&nbsp;Không</b>
+															</button>
+															<a class="btn btn-outline-danger" role="button" style=" width: 6rem;"
+																th:href="@{/admin/deleteEmployee?(employeeID=${employee.employeeID})}">
+																<i class="fas fa-trash-alt"></i><b>Có</b>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div> 
+											<!--KThuc Modal hiện alert cho nút xóa-->
 										</td>
 									</tr>
 								</tbody>

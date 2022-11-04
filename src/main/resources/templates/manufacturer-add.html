@@ -62,7 +62,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<form enctype="multipart/form-data" th:action="@{/admin/addManufacturer}" th:object="${manufacturer}"
+					<form enctype="multipart/form-data" th:action="@{/admin/addManufacturer?(callFrom=${callFrom}, callFromID=${callFromID})}" th:object="${manufacturer}"
 						method="post">
 						
 						<div class="row">

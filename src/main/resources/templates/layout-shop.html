@@ -120,7 +120,7 @@ fit=no">
 	</section>
 	<section class="fs-menu">
 			<div class="container-fluid f-wrap">
-				<div class="row">
+				<div class="row bg-dark">
 					<div class="col-1"></div>
 					<div class="col-10">
 						<nav class="navbar navbar-expand-lg bg-dark ">
@@ -134,15 +134,15 @@ fit=no">
 								</button>
 								<div class="collapse navbar-collapse row"
 									id="navbarSupportedContent">
-									<ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+									<ul class="navbar-nav me-auto mb-2 mb-lg-0 row">
 									
-										<li class="nav-item category col-md-1" th:each="category : ${categories}" style="font-size: 16px;">
-											<a class="nav-link text-light" 
+										<li class="nav-item category col-md-2" th:each="category : ${categories}" style="font-size: 16px;">
+											<a align="center" class="nav-link text-light" 
 											th:href="@{/shop/productCategoryFilter?(categoryName=${category.name})}"
 											role="button" th:text="${category.name}" ></a>
 											<div class="hover" style="border: 1px solid #ffffff; border-radius: 5px;">
-												<div class="row" style="width: 200px">
-													<b align="left">Hãng sản xuất: </b>
+												<div align="left" class="row" style="width: 200px">
+													<b>Hãng sản xuất: </b>
 												</div>
 												<div class="row" >
 														<div class="col-md-2"  th:each="manufacturerInfo: ${manufacturerInfos}"  th:switch="${manufacturerInfo.categoryName}"

@@ -32,8 +32,12 @@ public class CategoryController {
 	public String showCategoryList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "categoryID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model, HttpServletRequest request)
+			Model model, HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Category> pageCategory = categoryService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Category> categories = pageCategory.getContent();
@@ -53,15 +57,19 @@ public class CategoryController {
 	
 	@GetMapping("/formAddCategory")
 	public String addCategoryForm(Category category, Model model,
-			@RequestParam(name = "callFrom")String callFrom) {
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		model.addAttribute("callFrom", callFrom);
+		model.addAttribute("callFromID", callFromID);
 		return "category-add";
 	}
 	
 	@PostMapping("/addCategory")
 	public String addCategory(@Valid Category category, BindingResult result, Model model,
-			@RequestParam(name = "callFrom")String callFrom) {
+			@RequestParam(name = "callFrom")String callFrom,
+			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("notice", "Thêm danh mục thất bại");
 			return "category-add";
 		}
 		
@@ -74,8 +82,9 @@ public class CategoryController {
 		
 		categoryService.addCategory(category);
 		
-		
-		return "redirect:" + callFrom;
+		String notice = "Thêm danh mục thành công!";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID + ", notice=" + notice;
+		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 	
 	@GetMapping("/formUpdateCategory")
@@ -108,7 +117,7 @@ public class CategoryController {
 		Category category =  categoryService.findCategoryById(categoryID);
 		if(category.getProductAttributes().size() > 0 || category.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa danh mục đang có thuộc tính hoặc sản phẩm!");
-			return showCategoryList(1,"categoryID","asc",model,request);
+			return showCategoryList(1,"categoryID","asc",model,request,null);
 		}
 		categoryService.deleteCategory(categoryID);
 		return "redirect:/admin/categories";

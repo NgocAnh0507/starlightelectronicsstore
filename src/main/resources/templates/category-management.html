@@ -19,6 +19,19 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
 		<div align="center" style="padding-top: 35px">
 			<h2 style="font-size: 30px;">Quản lý danh mục</h2>
 		</div>
@@ -30,6 +43,12 @@
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
+						<div  align="center" th:switch="${messages}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
 						<table class="table">
 							<thead>
 								<tr>
@@ -53,10 +72,44 @@
 										style="font-size: 15px;width: 8rem;" role="button"
 										th:href="@{/admin/formUpdateCategory?(categoryID=${category.categoryID})}">
 											<i class="fas fa-pencil-alt"></i> <b>Chỉnh sửa</b></a> 
-										<a class="btn btn-outline-danger" style="font-size: 15px;width: 8rem;"
+										<!-- <a class="btn btn-outline-danger" style="font-size: 15px;width: 8rem;"
 										role="button"
 										th:href="@{/admin/deleteCategory?(categoryID=${category.categoryID})}">
+											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a> -->
+											
+									<!-- BĐau Modal hiện alert cho nút xóa-->
+										<button type="button" class="btn btn-outline-danger"
+											data-bs-toggle="modal" style="font-size: 15px; width: 8rem;"
+											th:attr="data-bs-target=${'#deleteConfirmModal'+category.categoryID}">
 											<i class="fas fa-trash-alt"></i> <b>Xóa</b></a>
+										</button>
+
+										<div class="modal fade"
+											th:attr="id = ${'deleteConfirmModal'+category.categoryID}"
+											tabindex="-1" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">Bạn có chắc chắn muốn xóa?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline-primary"
+															data-bs-dismiss="modal" style=" width: 6rem;">
+															<i class='far fa-hand-point-down'></i><b>&nbsp;Không</b>
+														</button>
+														<a class="btn btn-outline-danger" role="button"  style=" width:6rem;"
+															th:href="@{/admin/deleteCategory?(categoryID=${category.categoryID})}">
+															<i class="fas fa-trash-alt"></i> <b>Có</b>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div> 
+										<!--KThuc Modal hiện alert cho nút xóa-->
 									</td>
 								</tr>
 							</tbody>
@@ -89,12 +142,6 @@
 					</div>
 					<div class="col-md-2"></div>
 				</div>
-			</div>
-		</div>
-		<div  align="center" th:switch="${messages}">
-			<div th:case="null"></div>
-			<div th:case="*">
-				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
 			</div>
 		</div>
 		<div align="center" style="padding-top: 15px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGEMENT')">

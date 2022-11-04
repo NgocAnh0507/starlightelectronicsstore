@@ -48,7 +48,7 @@
 							</div>
 							<div align="center" style="padding-top: 15px; padding-bottom: 5px">
 								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
-								th:href="@{/admin/formAddCategory?(callFrom='/admin/formAddProductAttribute')}">
+								th:href="@{/admin/formAddCategory?(callFrom='/admin/formUpdateProductAttribute?productAttributeID=', callFromID=${productAttribute.productAttributeID})}">
 									<i class="fas fa-plus"></i> <b>Thêm danh mục mới</b></a> 
 							</div>
 						</div>
@@ -70,7 +70,7 @@
 							</div>
 							<div align="center" style="padding-top: 15px">
 								<a class="btn btn-outline-primary" style="font-size: 15px;" role="button"
-								th:href="@{/admin/formAddAttributeType}" target=”_blank”>
+								th:href="@{/admin/formAddAttributeType?(callFrom='/admin/formUpdateProductAttribute?productAttributeID=', callFromID=${productAttribute.productAttributeID})}">
 									<i class="fas fa-plus"></i> <b>Thêm loại thuộc tính mới</b></a> 
 							</div>
 						</div>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.greenvn.starlightelectronicsstore.entities.Category;
 import com.greenvn.starlightelectronicsstore.entities.Customer;
 import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.service.CustomerService;
@@ -152,7 +153,12 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/admin/deleteCustomer")
-	public String deleteCustomer(@RequestParam(name = "customerID")Long customerID, Model model) {
+	public String deleteCustomer(@RequestParam(name = "customerID")Long customerID, Model model,HttpServletRequest request) {
+		Customer customer =  customerService.findCustomerById(customerID);
+		if(customer.getOrders().size() > 0 || customer.getOrders().size() > 0) {
+			model.addAttribute("messages","Không thể xóa khách hàng đang có hóa đơn!");
+			return showCustomerList(1,"categoryID","asc",model,request);
+		}
 		customerService.deleteCustomer(customerID);
 		return "redirect:/admin/customers";
 	}
