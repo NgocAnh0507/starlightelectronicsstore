@@ -79,6 +79,7 @@ public class ManufacturerService {
 	public Manufacturer findManufacturertById(Long manufacturerID)
 	
 	{
+		if(manufacturerRepository.findById(manufacturerID).isEmpty()) return null;
 		return manufacturerRepository.findById(manufacturerID).get();
 	}
 
@@ -90,6 +91,7 @@ public class ManufacturerService {
 	public Manufacturer updateManufacturer(Manufacturer manufacturerNew, Long manufacturerID)
 	{
 		Manufacturer manufacturer = findManufacturertById(manufacturerID);
+		if(manufacturer == null) return null;
 		manufacturer.setName(manufacturerNew.getName());
 		manufacturer.setLogo(manufacturerNew.getLogo());
 		return manufacturerRepository.save(manufacturer);

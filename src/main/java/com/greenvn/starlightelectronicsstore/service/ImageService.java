@@ -27,12 +27,14 @@ public class ImageService {
 	
 	public Image findImageById(Long imageID)
 	{
+		if(imageRepository.findById(imageID).isEmpty()) return null;
 		return imageRepository.findById(imageID).get();
 	}
 	
 	public Image updateImage(Image imageNew, Long imageID)
 	{
 		Image image = findImageById(imageID);
+		if(image == null) return null;
 		image.setName(imageNew.getName());
 		image.setImageURL(imageNew.getImageURL());
 		image.setProduct(imageNew.getProduct());

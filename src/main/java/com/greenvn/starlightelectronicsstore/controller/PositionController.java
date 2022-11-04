@@ -62,11 +62,15 @@ public class PositionController {
 			@RequestParam(name = "callFrom")String callFrom,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "position-add";
 		}
 		if(positionService.findPositionByName(position.getName()) != null)
 		{
 			model.addAttribute("messages","Chức vụ đã tồn tại!");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "position-add";
 		}
 		else model.addAttribute("messages",null);
@@ -105,6 +109,7 @@ public class PositionController {
 	@GetMapping("/deletePosition")
 	public String deletePosition(@RequestParam(name = "positionID")Long positionID, Model model,HttpServletRequest request) {
 		Position P = positionService.findPositionById(positionID);
+		if(P == null) return "redirect:/admin/positions";
 		if(P.getEmployees().size() > 0) {
 			model.addAttribute("messages","Không thể xóa chức vụ đang có nhân viên nắm giữ!");
 			return showPositionList(1, "positionID", "asc", model,request);

@@ -69,13 +69,18 @@ public class CategoryController {
 			@RequestParam(name = "callFrom")String callFrom,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
-			model.addAttribute("notice", "Thêm danh mục thất bại");
+			model.addAttribute("notice", "Thêm danh mục thất bại!");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "category-add";
 		}
 		
 		if(categoryService.findCategoryByName(category.getName()) != null) {
-			
+
+			model.addAttribute("notice", "Thêm danh mục thất bại!");
 			model.addAttribute("messages","Danh mục đã tồn tại!");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "category-add";
 		}
 		else model.addAttribute("messages",null);
@@ -83,7 +88,7 @@ public class CategoryController {
 		categoryService.addCategory(category);
 		
 		String notice = "Thêm danh mục thành công!";
-		if(callFromID != null) return "redirect:" + callFrom + callFromID + ", notice=" + notice;
+		if(callFromID != null) return "redirect:" + callFrom + callFromID;
 		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 	
@@ -95,13 +100,15 @@ public class CategoryController {
 	}
 
 	@PostMapping("/updateCategory")
-	public String updateCategory(@RequestParam(name = "categoryID")Long categoryID,@Valid Category category, BindingResult result, Model model) {
+	public String updateCategory(@RequestParam(name = "categoryID")Long categoryID,@Valid Category category, BindingResult result, HttpServletRequest request, Model model) {
 		if(result.hasErrors()) {
+			model.addAttribute("notice", "Chỉnh sửa danh mục thất bại");
 			category.setCategoryID(categoryID);
 			return "category-update";
 		}
 		Category C = categoryService.findCategoryByName(category.getName());
 		if(C != null && C.getCategoryID() != category.getCategoryID()) {
+			model.addAttribute("notice", "Chỉnh sửa danh mục thất bại");
 			model.addAttribute("messages","Danh mục đã tồn tại!");
 			return "category-update";
 		}
@@ -109,18 +116,21 @@ public class CategoryController {
 		else model.addAttribute("messages",null);
 		
 		categoryService.updateCategory(category,categoryID);
-		return "redirect:/admin/categories";
+		
+		String notice = "Chỉnh sửa danh mục thành công!";
+		return showCategoryList(1,"categoryID","asc",model,request,notice);
 	}
 	
 	@GetMapping("/deleteCategory")
 	public String deleteCategory(@RequestParam(name = "categoryID")Long categoryID, Model model,HttpServletRequest request) {
 		Category category =  categoryService.findCategoryById(categoryID);
+		if(category == null) return "redirect:/admin/categories";
 		if(category.getProductAttributes().size() > 0 || category.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa danh mục đang có thuộc tính hoặc sản phẩm!");
-			return showCategoryList(1,"categoryID","asc",model,request,null);
+			return showCategoryList(1,"categoryID","asc",model,request,"Xóa danh mục thất bại!");
 		}
 		categoryService.deleteCategory(categoryID);
-		return "redirect:/admin/categories";
+		return showCategoryList(1,"categoryID","asc",model,request,"Xóa danh mục thành công!");
 	}
 	 
 }

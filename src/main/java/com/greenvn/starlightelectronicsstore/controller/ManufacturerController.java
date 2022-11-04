@@ -76,12 +76,16 @@ public class ManufacturerController {
 			@RequestParam(name = "callFrom")String callFrom, HttpServletRequest request, @RequestParam("file") MultipartFile file,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "manufacturer-add";
 		}
 		
 		if(manufacturerService.findManufacturerByName(manufacturer.getName()) != null) {
 			
 			model.addAttribute("messages","Hãng sản xuất đã tồn tại!");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "manufacturer-add";
 		}
 		else model.addAttribute("messages",null);
@@ -127,7 +131,7 @@ public class ManufacturerController {
 		if(M != null && M.getManufacturerID() != manufacturer.getManufacturerID()) {
 			
 			model.addAttribute("messages","Hãng sản xuất đã tồn tại!");
-			return "manufacturer-add";
+			return "manufacturer-update";
 		}
 		else model.addAttribute("messages",null);
 		
@@ -153,6 +157,7 @@ public class ManufacturerController {
 	@GetMapping("/deleteManufacturer")
 	public String deleteManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID, Model model,HttpServletRequest request) {
 		Manufacturer M = manufacturerService.findManufacturertById(manufacturerID);
+		if(M == null) return "redirect:/admin/manufacturers";
 		if(M.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa hãng sản xuất đang có sản phẩm!");
 			return showManufacturerList(1,"manufacturerID","asc",model,request);

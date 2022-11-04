@@ -56,12 +56,14 @@ public class ProductAttributeService {
 	
 	public ProductAttribute findProductAttributeById(Long productAttributeID)
 	{
+		if(productAttributeRepository.findById(productAttributeID).isEmpty()) return null;
 		return productAttributeRepository.findById(productAttributeID).get();
 	}
 	
 	public ProductAttribute updateProductAttribute(ProductAttribute productAttributeNew, Long productAttributeID)
 	{
 		ProductAttribute productAttribute = findProductAttributeById(productAttributeID);
+		if(productAttribute == null) return null;
 		productAttribute.setCategory(productAttributeNew.getCategory());
 		productAttribute.setType(productAttributeNew.getType());
 		productAttribute.setValue(productAttributeNew.getValue());

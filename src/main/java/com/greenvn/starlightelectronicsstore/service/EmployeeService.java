@@ -46,12 +46,14 @@ public class EmployeeService {
 	
 	public Employee findEmployeeById(Long employeeID)
 	{
+		if(employeeRepository.findById(employeeID).isEmpty()) return null;
 		return employeeRepository.findById(employeeID).get();
 	}
 	
 	public Employee updateEmployee(Employee employeeNew, Long employeeID)
 	{
 		Employee employee = findEmployeeById(employeeID);
+		if(employee == null) return null;
 		employee.setUserName(employeeNew.getUserName());
 		employee.setPassword(passwordEncoder.encode(employeeNew.getPassword()));
 		employee.setIsActive(employeeNew.getIsActive());
@@ -67,8 +69,8 @@ public class EmployeeService {
 	public Employee updateEmployee(EmployeeInfo employeeNew, Long employeeID)
 	{
 		Employee employee = findEmployeeById(employeeID);
-		
-		
+
+		if(employee == null) return null;
 		
 		employee.setBirthday(employeeNew.getBirthday());
 		employee.setEmail(employeeNew.getEmail());

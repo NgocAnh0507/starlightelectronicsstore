@@ -49,12 +49,14 @@ public class PositionService {
 	
 	public Position findPositionById(Long positionID)
 	{
+		if(positionRepository.findById(positionID).isEmpty()) return null;
 		return positionRepository.findById(positionID).get();
 	}
 	
 	public Position updatePosition(Position positionNew, Long positionID)
 	{
 		Position position = findPositionById(positionID);
+		if(position == null) return null;
 		position.setName(positionNew.getName());
 		position.setRole(positionNew.getRole());
 		return positionRepository.save(position);

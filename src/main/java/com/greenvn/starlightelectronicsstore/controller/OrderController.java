@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Customer;
+import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.OderStatus;
 import com.greenvn.starlightelectronicsstore.entities.Order;
 import com.greenvn.starlightelectronicsstore.entities.OrderDetail;
@@ -118,6 +119,8 @@ public class OrderController {
 	
 	@GetMapping("/deleteOrder")
 	public String deleteOrder(@RequestParam(name = "orderID")Long orderID, Model model) {
+		Order O = orderService.findOrderById(orderID);
+		if(O == null) return "redirect:/admin/orders";
 		orderService.deleteOrder(orderID);
 		return "redirect:/admin/orders";
 	}

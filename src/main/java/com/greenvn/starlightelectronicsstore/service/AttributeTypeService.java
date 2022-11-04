@@ -31,6 +31,7 @@ public class AttributeTypeService {
 	
 	public AttributeType findAttributeTypeById(Long attributeTypeID)
 	{
+		if(attributeTypeRepository.findById(attributeTypeID).isEmpty()) return null;
 		return attributeTypeRepository.findById(attributeTypeID).get();
 	}
 
@@ -42,6 +43,7 @@ public class AttributeTypeService {
 	public AttributeType updateAttributeType(AttributeType attributeTypeNew, Long attributeTypeID)
 	{
 		AttributeType attributeType = findAttributeTypeById(attributeTypeID);
+		if(attributeType == null) return null;
 		attributeType.setName(attributeTypeNew.getName());
 		return attributeTypeRepository.save(attributeType);
 	}

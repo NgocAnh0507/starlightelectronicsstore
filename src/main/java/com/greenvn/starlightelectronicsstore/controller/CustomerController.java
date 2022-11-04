@@ -155,9 +155,10 @@ public class CustomerController {
 	@GetMapping("/admin/deleteCustomer")
 	public String deleteCustomer(@RequestParam(name = "customerID")Long customerID, Model model,HttpServletRequest request) {
 		Customer customer =  customerService.findCustomerById(customerID);
+		if(customer == null) return "redirect:/admin/customers";
 		if(customer.getOrders().size() > 0 || customer.getOrders().size() > 0) {
 			model.addAttribute("messages","Không thể xóa khách hàng đang có hóa đơn!");
-			return showCustomerList(1,"categoryID","asc",model,request);
+			return showCustomerList(1,"customerID","asc",model,request);
 		}
 		customerService.deleteCustomer(customerID);
 		return "redirect:/admin/customers";

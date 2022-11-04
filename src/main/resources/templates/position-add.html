@@ -80,9 +80,9 @@
 						 </div>
 						 </div>
 					</form>
-					<div>
-					
-						<button onclick="history.back()" class="btn btn-outline-primary" style="font-size: 17px; width: 10.1rem;margin-top: -70px" ><b>Quay lại</b></button>
+					<div th:switch="${callFromID}">
+						<a th:case="null" th:href="@{${callFrom}}" class="btn btn-outline-primary" style="font-size: 17px; width: 10.1rem;margin-top: -70px;" ><b>Quay lại</b></a>
+						<a th:case="*" th:href="@{${callFrom} + ${callFromID}}" class="btn btn-outline-primary" style="font-size: 17px; width: 10.1rem;margin-top: -70px;" ><b>Quay lại</b></a>
 					</div>
 				</div>
 				<div class="col-md-2"></div>

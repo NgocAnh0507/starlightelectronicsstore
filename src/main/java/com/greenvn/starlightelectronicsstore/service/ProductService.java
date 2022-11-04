@@ -58,12 +58,14 @@ public class ProductService {
 	
 	public Product findProductById(Long productID)
 	{
+		if(this.productRepository.findById(productID).isEmpty()) return null;
 		return this.productRepository.findById(productID).get();
 	}
 	
 	public Product updateProductAttribute(List<ProductAttribute> productAttributes, String image,Product productNew, Long productID) {
 		
 		Product product= findProductById(productID);
+		if(product == null) return null;
 		product.setDefaultImage(image);
 		product.setAttributes(productAttributes);
 		product.setPriceSpecialStartDate(productNew.getPriceSpecialStartDate());
@@ -74,6 +76,7 @@ public class ProductService {
 	public Product updateProductImage(List<Image> productImages, Long productID) {
 		
 		Product product= findProductById(productID);
+		if(product == null) return null;
 		product.setImages(productImages);
 		return productRepository.save(product);
 	}
@@ -81,6 +84,7 @@ public class ProductService {
 	public Product updateProduct(Product productNew, Long productID)
 	{
 		Product product = findProductById(productID);
+		if(product == null) return null;
 		product.setProductSKU(productNew.getProductSKU());
 		product.setCategory(productNew.getCategory());
 		product.setManufacturer(productNew.getManufacturer());

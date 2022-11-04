@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.greenvn.starlightelectronicsstore.entities.Order;
 import com.greenvn.starlightelectronicsstore.entities.ProductReview;
 import com.greenvn.starlightelectronicsstore.service.ProductReviewService;
 
@@ -59,6 +60,8 @@ public class ProductReviewController {
 	
 	@GetMapping("/deleteProductReview")
 	public String deleteProductReview(@RequestParam(name = "productReviewID")Long productReviewID, Model model) {
+		ProductReview O = productReviewService.findProductReviewById(productReviewID);
+		if(O == null) return "redirect:/admin/productReviews";
 		productReviewService.deleteProductReview(productReviewID);
 		return "";
 	}

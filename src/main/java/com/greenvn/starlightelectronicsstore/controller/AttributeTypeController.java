@@ -32,8 +32,12 @@ public class AttributeTypeController {
 	public String showAttributeTypeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "attributeTypeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model,HttpServletRequest request)
+			Model model,HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<AttributeType> pageAttributeType = attributeTypeService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<AttributeType> attributeTypes = pageAttributeType.getContent();
@@ -66,20 +70,27 @@ public class AttributeTypeController {
 			@RequestParam(name = "callFrom")String callFrom,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("notice", "Thêm loại thuộc tính thất bại");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "attributeType-add";
 		}
 		
 		if(attributeTypeService.findAttributeTypeByName(attributeType.getName()) != null) {
-			
+
+			model.addAttribute("notice", "Thêm loại thuộc tính thất bại");
 			model.addAttribute("messages","Loại thuộc tính đã tồn tại!");
+			model.addAttribute("callFrom", callFrom);
+			model.addAttribute("callFromID", callFromID);
 			return "attributeType-add";
 		}
 		else model.addAttribute("messages",null);
 		
 		attributeTypeService.addAttributeType(attributeType);
 
+		String notice = "Thêm loại thuộc tính thành công!";
 		if(callFromID != null) return "redirect:" + callFrom + callFromID;
-		return "redirect:" + callFrom;
+		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 
 	@GetMapping("/formUpdateAttributeType")
@@ -90,32 +101,36 @@ public class AttributeTypeController {
 	}
 
 	@PostMapping("/updateAttributeType")
-	public String updateAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID,@Valid AttributeType attributeType, BindingResult result, Model model){
+	public String updateAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID,@Valid AttributeType attributeType, BindingResult result,HttpServletRequest request, Model model){
 		if(result.hasErrors()) {
+			model.addAttribute("notice", "Chỉnh sửa loại thuộc tính thất bại");
 			attributeType.setAttributeTypeID(attributeTypeID);
 			return "attributeType-update";
 		}
 		AttributeType A = attributeTypeService.findAttributeTypeByName(attributeType.getName());
 		if(A != null && A.getAttributeTypeID() != attributeType.getAttributeTypeID()) {
-			
+			model.addAttribute("notice", "Chỉnh sửa loại thuộc tính thất bại");
 			model.addAttribute("messages","Loại thuộc tính đã tồn tại!");
 			return "attributeType-update";
 		}
 		else model.addAttribute("messages",null);
 		
 		attributeTypeService.updateAttributeType(attributeType,attributeTypeID);
-		return "redirect:/admin/attributeTypes";
+		
+		String notice = "Chỉnh sửa loại thuộc tính thành công!";
+		return showAttributeTypeList(1,"attributeTypeID","asc",model,request,notice);
 	}
 
 	@GetMapping("/deleteAttributeType")
 	public String deleteAttributeType(@RequestParam(name = "attributeTypeID")Long attributeTypeID, Model model,HttpServletRequest request) {
 		AttributeType attributeType =  attributeTypeService.findAttributeTypeById(attributeTypeID);
+		if(attributeType == null) return "redirect:/admin/attributeTypes";
 		if(attributeType.getProductAttributes().size() > 0) {
 			model.addAttribute("messages","Không thể xóa loại thuộc tính đang có thuộc tính!");
-			return showAttributeTypeList(1,"attributeTypeID","asc",model,request);
+			return showAttributeTypeList(1,"attributeTypeID","asc",model,request,"Xóa loại thuộc tính thất bại!");
 		}
 		attributeTypeService.deleteAttributeType(attributeTypeID);
 		
-		return "redirect:/admin/attributeTypes";
+		return showAttributeTypeList(1,"attributeTypeID","asc",model,request,"Xóa loại thuộc tính thành công!");
 	}
 }

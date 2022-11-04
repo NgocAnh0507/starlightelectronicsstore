@@ -58,12 +58,14 @@ public class CustomerService {
 	
 	public Customer findCustomerById(Long customerID)
 	{
+		if(customerRepository.findById(customerID).isEmpty()) return null;
 		return customerRepository.findById(customerID).get();
 	}
 	
 	public Customer updateCustomer(Customer customertNew, Long customerID)
 	{
 		Customer customer = findCustomerById(customerID);
+		if(customer == null) return null;
 		customer.setAddress(customertNew.getAddress());
 		customer.setBirthday(customertNew.getBirthday());
 		customer.setEmail(customertNew.getEmail());

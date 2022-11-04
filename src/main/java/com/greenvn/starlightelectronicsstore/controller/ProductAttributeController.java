@@ -38,8 +38,12 @@ public class ProductAttributeController {
 	public String showProductAttributeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "productAttributeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model, HttpServletRequest request)
+			Model model, HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<ProductAttribute> pageProductAttribute = this.productAttributeService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<ProductAttribute> productAttributes = pageProductAttribute.getContent();
@@ -68,10 +72,11 @@ public class ProductAttributeController {
 	}
 	
 	@PostMapping("/addProductAttribute")
-	public String addProductAttribute(@Valid ProductAttribute productAttribute, BindingResult result, Model model) {
+	public String addProductAttribute(@Valid ProductAttribute productAttribute, BindingResult result, HttpServletRequest request, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("categories",this.categoryService.getCategories());
 			model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
+			model.addAttribute("notice", "Thêm thuộc tính thất bại!");
 			return "productAttribute-add";
 		}
 		
@@ -85,6 +90,7 @@ public class ProductAttributeController {
 		}
 		
 		if(!check) {
+			model.addAttribute("notice", "Thêm thuộc tính thất bại!");
             model.addAttribute("messages","Thuộc tính cùng giá trị đã tồn tại!");
             model.addAttribute("categories",this.categoryService.getCategories());
             model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
@@ -93,21 +99,25 @@ public class ProductAttributeController {
 		
 		this.productAttributeService.addProductAttribute(productAttribute);
 		
-		return "redirect:/admin/productAttributes";
+
+		return showProductAttributeList(1,"productAttributeID","asc",model,request,"Thêm thuộc tính thành công!");
 	}
 	
 	@GetMapping("/formUpdateProductAttribute")
-	public String updateProductAttributeForm(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model) {
+	public String updateProductAttributeForm(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model,
+			@RequestParam(name= "notice",required = false)String notice) {
 		ProductAttribute productAttribute = this.productAttributeService.findProductAttributeById(productAttributeID);
 		model.addAttribute("productAttribute", productAttribute);
 		model.addAttribute("categories",this.categoryService.getCategories());
 		model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
+		model.addAttribute("notice", notice);
 		return "productAttribute-update";
 	}
 	
 	@PostMapping("/updateProductAttribute")
-	public String updateProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID,@Valid ProductAttribute productAttribute, BindingResult result, Model model){
+	public String updateProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID,@Valid ProductAttribute productAttribute, BindingResult result,HttpServletRequest request, Model model){
 		if(result.hasErrors()) {
+			model.addAttribute("notice", "Chỉnh sửa thuộc tính thất bại!");
 			model.addAttribute("productAttribute", productAttribute);
 			model.addAttribute("categories",this.categoryService.getCategories());
 			model.addAttribute("attributeTypes",this.attributeTypeService.getAttributeTypes());
@@ -118,12 +128,17 @@ public class ProductAttributeController {
         Boolean check = true;
         for(ProductAttribute pa : attributeList) {
             if(pa.getValue().equals(productAttribute.getValue())) {
-                check = false;
-                break;
+            	if(!pa.getCategory().getName().equals(productAttribute.getCategory().getName())
+            		|| !pa.getType().getName().equals(productAttribute.getType().getName())) {
+
+            		check = false;
+	                break;
+            	}
             }
         }
         
         if(!check) {
+			model.addAttribute("notice", "Chỉnh sửa thuộc tính thất bại!");
             model.addAttribute("messages","Thuộc tính cùng giá trị đã tồn tại!");
             model.addAttribute("productAttribute", productAttribute);
             model.addAttribute("categories",this.categoryService.getCategories());
@@ -132,17 +147,19 @@ public class ProductAttributeController {
         }
         
 		this.productAttributeService.updateProductAttribute(productAttribute, productAttributeID);
-		return "redirect:/admin/productAttributes";
+		return showProductAttributeList(1,"productAttributeID","asc",model,request,"Chỉnh sửa thuộc tính thành công!");
 	}
 	
 	@GetMapping("/deleteProductAttribute")
 	public String deleteProductAttribute(@RequestParam(name = "productAttributeID")Long productAttributeID, Model model,HttpServletRequest request) {
 		ProductAttribute productAttribute = this.productAttributeService.findProductAttributeById(productAttributeID);
+		if(productAttribute == null) return "redirect:/admin/productAttributes";
 		if(productAttribute.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa thuộc tính đang có sản phẩm!");
-			return showProductAttributeList(1,"productAttributeID","asc",model,request);
+			return showProductAttributeList(1,"productAttributeID","asc",model,request,"Xóa thuộc tính thất bại!");
 		}
 		this.productAttributeService.deleteProductAttribute(productAttributeID);
-		return "redirect:/admin/productAttributes";
+
+		return showProductAttributeList(1,"productAttributeID","asc",model,request,"Xóa thuộc tính thành công!");
 	}
 }

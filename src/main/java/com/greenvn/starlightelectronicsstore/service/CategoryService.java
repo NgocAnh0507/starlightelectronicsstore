@@ -37,12 +37,14 @@ public class CategoryService {
 	
 	public Category findCategoryById(Long categoryID)
 	{
+		if(categoryRepository.findById(categoryID).isEmpty()) return null;
 		return categoryRepository.findById(categoryID).get();
 	}
 	
 	public Category updateCategory(Category categoryNew, Long categoryID)
 	{
 		Category category = findCategoryById(categoryID);
+		if(category == null) return null;
 		category.setName(categoryNew.getName());
 		return categoryRepository.save(category);
 	}

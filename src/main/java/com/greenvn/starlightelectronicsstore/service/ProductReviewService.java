@@ -27,12 +27,14 @@ public class ProductReviewService {
 	
 	public ProductReview findProductReviewById(Long productReviewID)
 	{
+		if(productReviewRepository.findById(productReviewID).isEmpty()) return null;
 		return productReviewRepository.findById(productReviewID).get();
 	}
 	
 	public ProductReview updateProductReview(ProductReview productReviewNew, Long productReviewID)
 	{
 		ProductReview productReview = findProductReviewById(productReviewID);
+		if(productReview == null) return null;
 		productReview.setRating(productReviewNew.getRating());
 		productReview.setCustomer(productReviewNew.getCustomer());
 		productReview.setProduct(productReviewNew.getProduct());

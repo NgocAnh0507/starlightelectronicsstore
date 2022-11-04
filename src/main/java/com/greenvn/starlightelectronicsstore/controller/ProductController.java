@@ -255,6 +255,7 @@ public class ProductController {
 	@GetMapping("/deleteProduct")
 	public String deleteProduct(@RequestParam(name = "productID")Long productID, Model model) {
 		Product product = this.productService.findProductById(productID);
+		if(product == null) return "redirect:/admin/products";
 		for(Image i : product.getImages()) {
 			imageService.deleteImage(i.getImageID());
 		}

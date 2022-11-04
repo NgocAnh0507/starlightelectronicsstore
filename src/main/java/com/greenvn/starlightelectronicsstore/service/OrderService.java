@@ -70,6 +70,7 @@ public class OrderService {
 	public Order updateOrder(Order orderNew, Long orderID)
 	{
 		Order order = findOrderById(orderID);
+		if(order == null) return null;
 		order.setCustomer(orderNew.getCustomer());
 		order.setOrderStatus(orderNew.getOrderStatus());
 		order.setAmount(orderNew.getAmount());

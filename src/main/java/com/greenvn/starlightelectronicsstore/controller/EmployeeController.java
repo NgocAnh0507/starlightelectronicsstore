@@ -268,8 +268,9 @@ public class EmployeeController {
     }
 	
 	@GetMapping("/deleteEmployee")
-	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model) {
+	public String deleteEmployee(@RequestParam(name = "employeeID")Long employeeID, Model model,HttpServletRequest request) {
 		Employee E = employeeService.findEmployeeById(employeeID);
+		if(E == null) return "redirect:/admin/employees";
 		employeeService.deleteEmployee(employeeID);
 		if(E.getAvatar() != null)imageService.deleteImage(E.getAvatar().getImageID());
 		return "redirect:/admin/employees";
