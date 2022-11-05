@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //        .anyRequest().authenticated()//Những cái URL còn lại đều phải đăng nhập mới được xài
         .and()
         .formLogin()
-        .loginPage("/login")
+        .loginPage("/login").permitAll()
         .defaultSuccessUrl("/admin", true)
         .failureUrl("/login?error")
         .and()

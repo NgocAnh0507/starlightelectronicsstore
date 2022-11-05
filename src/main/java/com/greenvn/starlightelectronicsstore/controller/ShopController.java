@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,16 @@ public class ShopController {
 			@RequestParam(defaultValue = "8") Integer pageSize, @RequestParam(defaultValue ="") String keyword,HttpServletRequest request) {
 	    
         // Phải có cho layout-shop
+		HttpSession session = request.getSession();
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
         List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
         model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
+        
+        
         
 		Page<Product> pageProduct=productService.search(keyword, pageNo, pageSize);
 		List<Product> productList = pageProduct.getContent();
