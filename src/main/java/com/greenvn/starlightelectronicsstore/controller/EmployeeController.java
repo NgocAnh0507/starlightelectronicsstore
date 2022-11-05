@@ -237,9 +237,13 @@ public class EmployeeController {
 			image.setProduct(null);
 			employee.setAvatar(imageService.addImage(image));
 		}
-		else employee.setAvatar(currentImage);
+		else {
+			employee.setAvatar(currentImage);
+		}
 		employeeService.updateEmployee(employee, employeeID);
-		if(saveFile != null) imageService.deleteImage(currentImage.getImageID());
+		if(saveFile != null && currentImage != null) {
+			imageService.deleteImage(currentImage.getImageID());
+		}
 		return "redirect:/admin/employees";
 	}
     @GetMapping("/formUpdateInfoEmployee")

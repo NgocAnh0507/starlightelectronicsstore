@@ -36,7 +36,11 @@ public class DashboardController {
 		dashboardInfo.Sumary(orderService.getOrders(), employeeService.getEmployees(), productService.getProducts());
 		model.addAttribute("dashboardInfo", dashboardInfo);
 		HttpSession session = request.getSession();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userName = authentication.getName();
+		Employee emp = empSer.findEmployeeByUserName(userName);
 		session.setAttribute("menuSelected","dashboard" );
+		session.setAttribute("name", emp.getName());
 		return "admin";
 	}
 

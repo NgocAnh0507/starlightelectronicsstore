@@ -131,7 +131,7 @@
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 						<li th:if="${currentPage>1}" class="page-item"><a
-							class="page-link" th:href="@{/(page=${currentPage-1})}">Trang
+							class="page-link" th:href="@{/(page=${currentPage-1},keyword=${keyword})}">Trang
 								trước</a></li>
 
 						<li th:if="${currentPage<=1}" class="page-item disabled"><a
@@ -139,11 +139,11 @@
 
 						<li th:each="i:${#numbers.sequence(1,totalPages)}"
 							class="page-item"><a class="page-link" th:text=${i}
-							th:href="@{/(page=${i})}">1</a></li>
+							th:href="@{/(page=${i},keyword=${keyword})}">1</a></li>
 
 
 						<li th:if="${currentPage<totalPages}" class="page-item"><a
-							class="page-link" th:href="@{/(page=${currentPage+1})}">Trang
+							class="page-link" th:href="@{/(page=${currentPage+1},keyword=${keyword})}">Trang
 								kế tiếp</a></li>
 						<li th:if="${currentPage>=totalPages}" class="page-item disabled"><a
 							class="page-link" href="#">Trang kế tiếp</a></li>
