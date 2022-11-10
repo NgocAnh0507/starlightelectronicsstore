@@ -19,6 +19,27 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="'Xóa nhân viên thất bại!'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
 		<div align="center" style="padding-top: 35px">
 			<h2 style="font-size: 30px;">Quản lý nhân viên</h2>
 		</div>

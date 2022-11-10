@@ -47,8 +47,12 @@ public class OrderController {
 	public String showOrderList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "orderID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model,HttpServletRequest request)
+			Model model,HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Order> pageOrder = orderService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Order> orders = pageOrder.getContent();
@@ -118,11 +122,11 @@ public class OrderController {
 	}
 	
 	@GetMapping("/deleteOrder")
-	public String deleteOrder(@RequestParam(name = "orderID")Long orderID, Model model) {
+	public String deleteOrder(@RequestParam(name = "orderID")Long orderID, Model model,HttpServletRequest request) {
 		Order O = orderService.findOrderById(orderID);
 		if(O == null) return "redirect:/admin/orders";
 		orderService.deleteOrder(orderID);
-		return "redirect:/admin/orders";
+		return showOrderList(1,"orderID","asc",model,request,"Xóa đơn hàng thành công!");
 	}
 	
 

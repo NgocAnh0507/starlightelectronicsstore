@@ -1,0 +1,223 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout-admin1}">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<title>Chọn thuộc tính cho sản phẩm</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
+		<div align="center" style="padding-top: 45px">
+			<h2 style="font-size: 35px;">Chọn thuộc tính cho sản phẩm</h2>
+		</div>
+
+		<div class="container-fluid" style="padding-top: 35px">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<form th:action="@{/admin/attributesForUpdateProduct?(productID=${product.productID})}" th:object="${product}"
+						method="post">
+						
+						<div class="row"  align="center">
+								<b th:text="*{productName}" style="font-size: 25px;"></b>
+						</div>
+						
+						<br/>
+						<hr/>
+						<h1 style="font-size: 25px;">Chọn thời gian khuyến mãi</h1>
+						<div th:switch="${product.priceSpecial}"> 
+							<p th:case="null" align="center" class="text-danger" style="font-size: 20px;"> Sản phẩm chưa có giá khuyến mãi!</p>
+							<div th:case="*">
+								
+								
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-3">
+										<label for="priceSpecial" class="col-form-label" style="font-size: 20px;">Giá khuyến mãi:</label> 
+									</div>
+									<div class="col-md-8" >
+										<b th:text="*{priceSpecial}" style="font-size: 20px;"></b>
+										<b style="font-size: 20px;"> VNĐ</b>
+									</div>
+								</div>
+								
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-3">
+										<label for="priceSpecialStartDate" class="col-form-label" style="font-size: 20px;"> Ngày bắt đầu <br/>khuyến mãi: </label> 
+									</div>
+									<div class="col-md-8" >
+										<input type="date"  th:field="*{priceSpecialStartDate}" id="priceSpecialStartDate" name="priceSpecialStartDate" class="form-control">
+										<p th:errors="*{priceSpecialStartDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>		
+									</div>
+								</div>
+								
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-3">
+										<label for="priceSpecialEndDate" class="col-form-label" style="font-size: 20px;"> Ngày kết thúc <br/>khuyến mãi: </label> 
+									</div>
+									<div class="col-md-8" >
+										<input type="date"  th:field="*{priceSpecialEndDate}" id="priceSpecialEndDate" name="priceSpecialEndDate" class="form-control">
+										<p th:errors="*{priceSpecialEndDate}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>	
+									</div>
+								</div>
+								
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div th:switch="${messages}" class="col-md-11">
+										<div th:case="null"></div>
+										<div th:case="*">
+											<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr />
+						
+						<h1 style="font-size: 25px;">Chọn ảnh bìa sản phẩm</h1>
+						<div th:switch="${images}">
+							<p th:case="null" align="center" class="text-danger" style="font-size: 20px;"> Chưa có ảnh sản phẩm nào!</p>
+							<div th:case="*">
+								
+								
+								<br/>
+								
+								<div class="row">
+									<div class="col-md-1"></div>
+									<div class="col-md-3">
+										<label class="col-form-lable" style="font-size: 20px;">Ảnh sản phẩm:</label>	
+									</div>
+									<div class="col-md-8">
+										<div class="row" >
+											<div  class="row">
+												<div th:each="image,index : ${images}" class="col-md-3">
+											        <img th:attr="src=@{/upload/{path}(path=${image.name})}"  width="100px" height="100px"/>
+											        <br/>
+													<p  align="center" style="font-size: 15px; width: 90px; margin-left: 5px; margin-top: 5px; margin-bottom: 5px;" 
+													th:text="'Ảnh ' + ${index.index+1}"></ps>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<br/>
+								
+								<div class="row" >
+									 <div class="col-md-1"></div>
+									 <div class="col-md-3">
+										 <label for="defaultImage"  class="col-form-lable" style="font-size: 20px;">Ảnh bìa</label>
+									 </div>
+									 <div class="col-md-8">
+										 <select id="defaultImage" th:field="*{defaultImage}" class="form-control" style="font-size: 20px;">
+										 	 <option th:value="null" selected="selected">- Chọn ảnh bìa -</option>
+											 <option th:each="image,index : ${images}"
+											 		th:value = "${image.name}"
+											 		th:text="'Ảnh ' + ${index.index+1}"> </option>
+										 </select>
+									 </div>
+								</div>
+								
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<h1 style="font-size: 25px;">Chọn các thuộc tính khác của sản phẩm</h1>
+						<div th:switch="${attributeTypes}">
+							<p th:case="null" align="center" class="text-danger" style="font-size: 20px;"> Chưa có loại thuộc tính nào!</p>
+							<div th:case="*">
+								
+							
+								<br/>
+								
+								<div class="row" th:each="attributeType: ${attributeTypes}">
+									<div class="col-md-1"></div>
+									<div class="col-md-3">
+										<label class="col-form-lable" style="font-size: 20px;" th:text="${attributeType.name}"></label> 
+									</div>
+									<div class="col-md-8">
+										<select th:field="*{attributes}" class="form-control" style="font-size: 20px;">
+										 	<option th:value="null" selected="selected">- Có thể chọn hoặc để trống -</option>
+											<div th:each="attribute: ${productAttributes}" th:switch="${attribute.type.attributeTypeID}">
+										 			<div th:case="${attributeType.attributeTypeID}">
+											 			<option th:value = "${{attribute}}"
+														 		th:text="${attribute.value}">
+													 	</option>
+													</div>
+										 	 </div>
+										</select>
+									</div>
+								
+									<br/>
+									<br/>
+									<br/>
+								
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						
+						 
+						 <div class="row">
+							<div class="col-md-5"></div>
+							<div class="col-md-2 mt-3 mb-5 " >
+								<input type="submit" class="btn btn-outline-success " value="Hoàn tất" style="font-size: 17px; font-weight:700; width: 10.1rem;">
+							</div>
+							<div class="col-md-5"></div>
+						</div> 
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+</html>

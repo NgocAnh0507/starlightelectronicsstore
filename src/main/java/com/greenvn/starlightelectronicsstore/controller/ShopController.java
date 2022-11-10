@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.greenvn.starlightelectronicsstore.entities.AttributeType;
 import com.greenvn.starlightelectronicsstore.entities.Category;
+import com.greenvn.starlightelectronicsstore.entities.Image;
 import com.greenvn.starlightelectronicsstore.entities.Manufacturer;
 import com.greenvn.starlightelectronicsstore.entities.Product;
 import com.greenvn.starlightelectronicsstore.entities.ProductAttribute;
@@ -150,7 +151,12 @@ public class ShopController {
 		
 		Integer sizeReviews = product.getProductReviews().size();
 		Integer sizeAttributes = product.getAttributes().size();
-		model.addAttribute("images", product.getImages());
+		List<Image> images = new ArrayList<Image>();
+		for(Image img : product.getImages()) {
+			if(!img.getName().equals(product.getDefaultImage())) images.add(img);
+		}
+		
+		model.addAttribute("images", images);
 		model.addAttribute("reviews", product.getProductReviews());
 		model.addAttribute("reviewsCount", sizeReviews.toString());
 		model.addAttribute("attributes", product.getAttributes());

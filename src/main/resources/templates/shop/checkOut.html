@@ -15,13 +15,13 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<title>Thông tin hóa đơn</title>
+<title>Thông tin đơn hàng</title>
 </head>
 <body>
 
 	<div layout:fragment="content">
 		<div align="center" style="padding-top: 35px">
-			<h1 style="font-size: 35px;">Thông tin hóa đơn</h1>
+			<h1 style="font-size: 35px;">Thông tin đơn hàng</h1>
 		</div>
 		<div class="checkout-area pb-50 pdtop">
 			<div class="container-fluid" style="padding-top: 35px">
@@ -206,7 +206,7 @@
 							</div>
 							<div class="col-lg-12 col-md-12" th:object="${cartInfo}">
 								<hr />
-								<h5 style="font-size: 20px;">Chi tiết hóa đơn</h5>
+								<h5 style="font-size: 20px;">Chi tiết đơn hàng</h5>
 								<br/>
 								<div class="row">
 									<div class="col-md-1"></div>
@@ -249,7 +249,7 @@
 									
 									<div class="col-md-1"></div>
 									<div class="col-md-8">
-										<strong th:text="'Tổng tiền của hóa đơn (không gồm phí giao hàng): '"></strong>
+										<strong th:text="'Tổng tiền của đơn hàng (không gồm phí giao hàng): '"></strong>
 									</div>
 									<div align="right" class="col-md-3">
 										<strong th:text="${#numbers.formatInteger(cartInfo.amountTotal,0,'POINT')} + ' VNĐ'"></strong>

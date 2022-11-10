@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greenvn.starlightelectronicsstore.entities.Category;
@@ -25,17 +26,22 @@ import com.greenvn.starlightelectronicsstore.entities.Employee;
 import com.greenvn.starlightelectronicsstore.service.CustomerService;
 
 @Controller
+@RequestMapping(value = "/admin")
 public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
 	
-	@GetMapping("/admin/customers")
+	@GetMapping("/customers")
 	public String showCustomerList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "customerID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model,HttpServletRequest request)
+			Model model,HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Customer> pageCustomer = customerService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Customer> customers = pageCustomer.getContent();
@@ -53,25 +59,32 @@ public class CustomerController {
 		return "customer-management";
 	}
 	
-	@GetMapping("/admin/formAddCustomer")
+	@GetMapping("/formAddCustomer")
 	public String addCustomerForm(Customer customer) {
 		return "customer-add";
 	}
 	
-	@PostMapping("/admin/addCustomer")
-	public String addCustomer(@Valid Customer customer, BindingResult result, Model model) {
+	@PostMapping("/addCustomer")
+	public String addCustomer(@Valid Customer customer, BindingResult result,HttpServletRequest request, Model model) {
 		if (result.hasErrors()) {
+			if(customer.getPhoneNumber().length() == 0 || customer.getPhoneNumber() == null) {
+				model.addAttribute("messages", "Số điện thoại không được để trống!");
+			}
+			
+			model.addAttribute("notice", "Thêm khách hàng thất bại!");
 			return "customer-add";
 		}
 		
 		if(!customerService.checkPhoneNumber(customer.getPhoneNumber()))
 		{
+			model.addAttribute("notice", "Thêm khách hàng thất bại!");
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
 			return "customer-add";
 		}
 		model.addAttribute("messages",null);
 		
 		if (customer.getBirthday() == null) {
+			model.addAttribute("notice", "Thêm khách hàng thất bại!");
 			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
 			return "customer-add";
 		}
@@ -89,6 +102,7 @@ public class CustomerController {
 			
 			if(age < 10 || age > 95)
 			{
+				model.addAttribute("notice", "Thêm khách hàng thất bại!");
 				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 10 đến 95!");
 				return "customer-add";
 			}
@@ -96,10 +110,10 @@ public class CustomerController {
 		model.addAttribute("birthdayMessages",null);
 		
 		customerService.addCustomer(customer);
-		return "redirect:/admin/customers";
+		return showCustomerList(1,"customerID","asc",model,request,"Thêm khách hàng thành công!");
 	}
 	
-	@GetMapping("/admin/formUpdateCustomer")
+	@GetMapping("/formUpdateCustomer")
 	public String updateCustomerForm(@RequestParam(name = "customerID")Long customerID, Model model) {
 		Customer customer = customerService.findCustomerById(customerID);
 		model.addAttribute("customer", customer);
@@ -107,14 +121,19 @@ public class CustomerController {
 	}
 	
 	
-	@PostMapping("/admin/updateCustomer")
-	public String updateCustomer(@RequestParam(name = "customerID")Long customerID,@Valid Customer customer, BindingResult result, Model model){
+	@PostMapping("/updateCustomer")
+	public String updateCustomer(@RequestParam(name = "customerID")Long customerID,@Valid Customer customer, BindingResult result,HttpServletRequest request, Model model){
 		if(result.hasErrors()) {
-			customer.setCustomerID(customerID);
+			if(customer.getPhoneNumber().length() == 0 || customer.getPhoneNumber() == null) {
+				model.addAttribute("messages", "Số điện thoại không được để trống!");
+			}
+			
+			model.addAttribute("notice", "Chỉnh sửa khách hàng thất bại!");
 			return "update-customer";
 		}
 		if(!customerService.checkPhoneNumber(customer.getPhoneNumber()))
 		{
+			model.addAttribute("notice", "Chỉnh sửa khách hàng thất bại!");
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
 			Customer cus = customerService.findCustomerById(customerID);
 			model.addAttribute("customer", cus);
@@ -125,6 +144,7 @@ public class CustomerController {
         
 
 		if (customer.getBirthday() == null) {
+			model.addAttribute("notice", "Chỉnh sửa khách hàng thất bại!");
 			model.addAttribute("birthdayMessages", "Ngày sinh không được để trống!");
 			return "update-customer";
 		}
@@ -142,6 +162,7 @@ public class CustomerController {
 			
 			if(age < 10 || age > 95)
 			{
+				model.addAttribute("notice", "Chỉnh sửa khách hàng thất bại!");
 				model.addAttribute("birthdayMessages", "Tuổi khách hàng phải từ 10 đến 95!");
 				return "update-customer";
 			}
@@ -149,19 +170,19 @@ public class CustomerController {
 		model.addAttribute("birthdayMessages",null);
 		
 		customerService.updateCustomer(customer, customerID);
-		return "redirect:/admin/customers";
+		return showCustomerList(1,"customerID","asc",model,request,"Chỉnh sửa khách hàng thành công!");
 	}
 	
-	@GetMapping("/admin/deleteCustomer")
+	@GetMapping("/deleteCustomer")
 	public String deleteCustomer(@RequestParam(name = "customerID")Long customerID, Model model,HttpServletRequest request) {
 		Customer customer =  customerService.findCustomerById(customerID);
 		if(customer == null) return "redirect:/admin/customers";
 		if(customer.getOrders().size() > 0 || customer.getOrders().size() > 0) {
 			model.addAttribute("messages","Không thể xóa khách hàng đang có hóa đơn!");
-			return showCustomerList(1,"customerID","asc",model,request);
+			return showCustomerList(1,"customerID","asc",model,request,"Xóa khách hàng thất bại!");
 		}
 		customerService.deleteCustomer(customerID);
-		return "redirect:/admin/customers";
+		return showCustomerList(1,"customerID","asc",model,request,"Xóa khách hàng thành công!");
 	}
 }
 

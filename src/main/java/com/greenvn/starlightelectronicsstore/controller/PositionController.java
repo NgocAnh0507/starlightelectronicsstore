@@ -29,8 +29,12 @@ public class PositionController {
 	public String showPositionList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "positionID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model, HttpServletRequest request)
+			Model model, HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Position> pagePositon = positionService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Position> positions = pagePositon.getContent();
@@ -62,12 +66,14 @@ public class PositionController {
 			@RequestParam(name = "callFrom")String callFrom,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("notice", "Thêm chức vụ thất bại");
 			model.addAttribute("callFrom", callFrom);
 			model.addAttribute("callFromID", callFromID);
 			return "position-add";
 		}
 		if(positionService.findPositionByName(position.getName()) != null)
 		{
+			model.addAttribute("notice", "Thêm chức vụ thất bại");
 			model.addAttribute("messages","Chức vụ đã tồn tại!");
 			model.addAttribute("callFrom", callFrom);
 			model.addAttribute("callFromID", callFromID);
@@ -76,8 +82,9 @@ public class PositionController {
 		else model.addAttribute("messages",null);
 		
 		positionService.addPosition(position);
-		if(callFromID != null) return "redirect:" + callFrom + callFromID;
-		return "redirect:" + callFrom;
+		String notice = "addPosition";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID + "&notice=" + notice;
+		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 	
 	@GetMapping("/formUpdatePosition")
@@ -88,8 +95,9 @@ public class PositionController {
 	}
 
 	@PostMapping("/updatePosition")
-	public String updatePosition(@RequestParam(name = "positionID")Long positionID,@Valid Position position, BindingResult result, Model model) {
+	public String updatePosition(@RequestParam(name = "positionID")Long positionID,@Valid Position position, BindingResult result, HttpServletRequest request, Model model) {
 		if(result.hasErrors()) {
+			model.addAttribute("notice", "Chỉnh sửa chức vụ thất bại");
 			position.setPositionID(positionID);
 			return "position-update";
 		}
@@ -97,13 +105,16 @@ public class PositionController {
 		Position P = positionService.findPositionByName(position.getName());
 		if(P != null && P.getPositionID() != position.getPositionID())
 		{
+			model.addAttribute("notice", "Chỉnh sửa chức vụ thất bại");
 			model.addAttribute("messages","Chức vụ đã tồn tại!");
 			return "position-update";
 		}
 		else model.addAttribute("messages",null);
 		
 		positionService.updatePosition(position,positionID);
-		return "redirect:/admin/positions";
+		
+		String notice = "Chỉnh sửa chức vụ thành công!";
+		return showPositionList(1, "positionID", "asc", model,request,notice);
 	}
 	
 	@GetMapping("/deletePosition")
@@ -112,10 +123,10 @@ public class PositionController {
 		if(P == null) return "redirect:/admin/positions";
 		if(P.getEmployees().size() > 0) {
 			model.addAttribute("messages","Không thể xóa chức vụ đang có nhân viên nắm giữ!");
-			return showPositionList(1, "positionID", "asc", model,request);
+			return showPositionList(1, "positionID", "asc", model,request,"Xóa chức vụ thất bại!");
 		}
 		positionService.deletePosition(positionID);
-		return "redirect:/admin/positions";
+		return showPositionList(1, "positionID", "asc", model,request,"Xóa chức vụ thành công!");
 		}
 	 
 }

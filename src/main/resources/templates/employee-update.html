@@ -54,6 +54,35 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="'Chỉnh sửa nhân viên thất bại!'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="'addPosition'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span style="font-size: 20px;">Thêm chức vụ thành công!</span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+	
 		<div align="center" style="padding-top: 35px">
 			<h2 style="font-size: 35px;">Chỉnh sửa thông tin nhân viên</h2>
 		</div>
@@ -107,7 +136,7 @@
 								<input type="text" th:field="*{phoneNumber}" class="form-control"
 									id="phoneNumber" placeholder="Hãy nhập số điện thoại của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
-									<p th:errors="*{phoneNumber}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									
 									<div th:switch="${messages}">
 										<div th:case="null"></div>
 										<div th:case="*">
@@ -154,7 +183,7 @@
 								<input type="password" th:field="*{password}" class="form-control"
 									id="password" placeholder="Hãy nhập mật khẩu của nhân viên bạn muốn chỉnh sửa"  style="font-size: 20px;">
 								<div class="row">
-									<p th:errors="*{password}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+									
 									<div th:switch="${messagesPass}">
 										<div th:case="null"></div>
 										<div th:case="*">

@@ -17,6 +17,7 @@ import com.greenvn.starlightelectronicsstore.entities.OderStatus;
 import com.greenvn.starlightelectronicsstore.entities.Order;
 import com.greenvn.starlightelectronicsstore.model.CartInfo;
 import com.greenvn.starlightelectronicsstore.model.CartLineInfo;
+import com.greenvn.starlightelectronicsstore.repository.OrderDetailRepository;
 import com.greenvn.starlightelectronicsstore.repository.OrderRepository;
 
 @Service
@@ -24,6 +25,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderDetailRepository orderDetailRepository;
 	
 	public List<Order> getOrders()
 	{
@@ -82,6 +86,7 @@ public class OrderService {
 	
 	public void deleteOrder(Long orderID)
 	{
+		orderDetailRepository.deleteOrderDetailByOrderID(orderID);
 		orderRepository.deleteById(orderID);
 	}
 	

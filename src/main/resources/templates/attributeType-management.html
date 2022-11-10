@@ -31,6 +31,14 @@
 				</div>
 				<div class="col-md-1"></div>
 			</div>
+			<div th:case="'addAttributeType'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span style="font-size: 20px;">Thêm loại thuộc tính thành công!</span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
 			<div th:case="*" class="row">
 				<div class="col-md-1"></div>
 				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">

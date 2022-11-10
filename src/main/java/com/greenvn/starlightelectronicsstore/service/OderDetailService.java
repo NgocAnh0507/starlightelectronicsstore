@@ -72,8 +72,8 @@ public class OderDetailService {
 		return orderDetailRepository.save(orderDetail);
 	}
 
-	public void deleteOrderDetail(Long orderDetailID)
+	public void deleteOrderDetail(Long orderID)
 	{
-		orderDetailRepository.deleteById(orderDetailID);
+		orderDetailRepository.deleteOrderDetailByOrderID(orderID);
 	}
 }

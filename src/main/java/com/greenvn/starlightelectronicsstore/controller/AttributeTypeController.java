@@ -88,8 +88,8 @@ public class AttributeTypeController {
 		
 		attributeTypeService.addAttributeType(attributeType);
 
-		String notice = "Thêm loại thuộc tính thành công!";
-		if(callFromID != null) return "redirect:" + callFrom + callFromID;
+		String notice = "addAttributeType";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID + "&notice=" + notice;
 		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 

@@ -146,11 +146,15 @@ fit=no">
 												</div>
 												<div class="row" >
 														<div class="col-md-2"  th:each="manufacturerInfo: ${manufacturerInfos}"  th:switch="${manufacturerInfo.categoryName}"
-															th:case="${category.name}" style="margin: 15px;">
-														 	 <a class="text-decoration-none"
-														 	 	th:href="@{/shop/productCategoryFilter?(categoryName=${manufacturerInfo.categoryName}, manufacturerName=${manufacturerInfo.name})}">
-														 	 	<span th:text="${manufacturerInfo.name}"></span>
-														 	 </a>
+															th:case="${category.name}" style="margin: 15px;">	
+																<img th:attr="src=@{/upload/{path}(path=${manufacturerInfo.logo})}"
+																	width="80px" height="80px" />
+																
+															 	 <a class="text-decoration-none ps-4"
+															 	 	th:href="@{/shop/productCategoryFilter?(categoryName=${manufacturerInfo.categoryName}, manufacturerName=${manufacturerInfo.name})}">
+															 	 	<span th:text="${manufacturerInfo.name}"></span>
+															 	 </a>
+															 
 													 	 </div>
 											 	 </div>
 											</div>

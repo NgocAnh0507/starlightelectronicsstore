@@ -17,24 +17,32 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script>
-    function createPopupWin(pageTitle,
-                popupWinWidth, popupWinHeight) {
 
-	    var pName = document.getElementById("pName").innerText;
-        var left = (screen.width - popupWinWidth) / 2;
-        var top = (screen.height - popupWinHeight) / 4;
-         
-        var myWindow = window.open('/shop/productDescription?productName=' + pName, pageTitle,
-                'resizable=yes, width=' + popupWinWidth
-                + ', height=' + popupWinHeight + ', top='
-                + top + ', left=' + left);
-    }
-</script>
 <title>Quản lý sản phẩm</title>
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="'Xóa sản phẩm thất bại!'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
 		<div align="center" style="padding-top: 35px">
 			<h1 style="font-size: 35px;">Quản lý sản phẩm</h1>
 		</div>
@@ -46,6 +54,12 @@
 				<div class="row">
 					<!-- <div class="col-md-2"></div> -->
 					<div class="col-md-12">
+						<div  align="center" th:switch="${deleteMessage}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${deleteMessage}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
 						<table class="table">
 							<thead>
 								<tr>
@@ -115,10 +129,10 @@
 									<td align="center" >
 										<p th:text="${product.productName}"
 											id="pName" hidden="hidden"></p>
-										<button class="btn btn-outline-primary btn-sm" style="font-size: 15px;"
-										    th:onclick = "createPopupWin('Thông tin chi tiết', 650, 650);">
+										<a class="btn btn-outline-primary btn-sm" style="font-size: 15px;"
+										    th:href="@{/admin/productDescription?(productName=${product.productName})}">
 									        <b>Thông tin chi tiết</b>
-									    </button>
+									    </a>
 									</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${#numbers.formatInteger(product.price,3,'POINT')} +'VNĐ' " ></td>

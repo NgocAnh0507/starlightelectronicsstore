@@ -32,7 +32,7 @@
 						<div class="col-lg-8 col-md-8" th:object="${order}">
 							<div class="row mt-5">
 								<div class="col-md-4" style="font-size: 20px;">
-									<label>Mã hóa đơn: </label>
+									<label>Mã đơn hàng: </label>
 								</div>
 								<div class="col-md-8" style="font-size: 20px;">
 									<p th:text="${order.orderID}" /></p>
@@ -111,7 +111,7 @@
 							<div class="col-md-2"></div>
 							<div class="col-lg-8 col-md-8">
 								<hr />
-								<h5 style="font-size: 20px;">Chi tiết hóa đơn</h5>
+								<h5 style="font-size: 20px;">Chi tiết đơn hàng</h5>
 								<br/>
 								<div class="row">
 									<div class="col-md-1"></div>
@@ -152,7 +152,7 @@
 								<div class="row" style="padding-top: 15px">
 									<div class="col-md-1"></div>
 									<div class="col-md-8">
-										<strong th:text="'Tổng tiền của hóa đơn (không gồm phí giao hàng): '"></strong>
+										<strong th:text="'Tổng tiền của đơn hàng (không gồm phí giao hàng): '"></strong>
 									</div>
 									<div align="right" class="col-md-3">
 										<strong th:text="${#numbers.formatInteger(total,0,'POINT')} + ' VNĐ'"></strong>
@@ -192,7 +192,7 @@
 			
 			<div class="row" align="center">
 				<div class="buttons-cart pdtop" >
-					<a class="btn btn-outline-primary mt-5" th:href="@{/}" style="font-size: 17px; width: 8rem;"><b>Về trang chủ</b></a>
+					<a class="btn btn-outline-primary mt-5" th:href="@{/}" style="font-size: 17px; width: 13rem;"><b>Về trang chủ</b></a>
 				</div>
 			</div>
 		</div>

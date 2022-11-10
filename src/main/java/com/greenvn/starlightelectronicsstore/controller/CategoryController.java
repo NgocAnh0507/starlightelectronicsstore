@@ -87,8 +87,8 @@ public class CategoryController {
 		
 		categoryService.addCategory(category);
 		
-		String notice = "Thêm danh mục thành công!";
-		if(callFromID != null) return "redirect:" + callFrom + callFromID;
+		String notice = "addCategory";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID + "&notice=" + notice;
 		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 	

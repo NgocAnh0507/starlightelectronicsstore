@@ -15,17 +15,38 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<title>Quản lý hóa đơn</title>
+<title>Quản lý đơn hàng</title>
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="'Xóa đơn hàng thất bại!'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
 		<div align="center" style="padding-top: 35px">
-			<h1 style="font-size: 35px;">Quản lý hóa đơn</h1>
+			<h1 style="font-size: 35px;">Quản lý đơn hàng</h1>
 		</div>
 
 		<div th:switch="${orders}" class="container-fluid"
 			style="padding-top: 25px">
-			<h2 th:case="null" align="center" class="text-primary">Chưa có hóa đơn nào!</h2>
+			<h2 th:case="null" align="center" class="text-primary">Chưa có đơn hàng nào!</h2>
 			<div th:case="*">
 				<div class="row">
 					<div class="col-md-12">
@@ -34,8 +55,8 @@
 								<tr>
 									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='orderID',sortDir=${reverseSortDir})}">
-											Mã hóa đơn</a></th>
-									<th class="text-center text-secondary" style="font-size: 15px;"> Chi tiết hóa đơn</th>
+											Mã đơn hàng</a></th>
+									<th class="text-center text-secondary" style="font-size: 15px;"> Chi tiết đơn hàng</th>
 									<th class="text-center" style="font-size: 15px;"><a class="text-decoration-none text-secondary"
 										th:href="@{/admin/orders?(page=${currentPage},sortField='customer',sortDir=${reverseSortDir})}">
 											Khách hàng</a></th>
@@ -63,7 +84,7 @@
 										<a class="btn btn-outline-primary" style="font-size: 15px;"
 										role="button"
 										th:href="@{/admin/orderDetail?(orderID=${order.orderID})}">
-											<b>Chi tiết hóa đơn</b></a>
+											<b>Chi tiết đơn hàng</b></a>
 									</td>
 									<td align="center" style="font-size: 15px;"
 										th:text="${order.customer.name + ' - ' + order.customer.phoneNumber}"></td>

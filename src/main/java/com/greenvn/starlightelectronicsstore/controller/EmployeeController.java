@@ -56,8 +56,12 @@ public class EmployeeController {
 	public String showEmployeeList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "employeeID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model ,HttpServletRequest request)
+			Model model ,HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Employee> pageEmployee = employeeService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Employee> employees = pageEmployee.getContent();
@@ -76,24 +80,36 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/formAddEmployee")
-	public String addEmployeeForm(Employee employee,Model model) {
+	public String addEmployeeForm(Employee employee,Model model,
+		@RequestParam(name= "notice",required = false)String notice) {
+		model.addAttribute("notice", notice);
 		model.addAttribute("positions",positionService.getPositions());
 		return "employee-add";
 	}
 	
 	@PostMapping("/addEmployee")
 	public String addEmployee(@Valid Employee employee, BindingResult result, Model model,
-			HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+			HttpServletRequest request, @RequestParam("file") MultipartFile file,
+			@RequestParam(name= "notice",required = false)String notice) {
+			model.addAttribute("notice", notice);
 		if (result.hasErrors()) {
 
-			if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
+			if(employee.getPhoneNumber().length() == 0 || employee.getPhoneNumber() == null) {
+				model.addAttribute("messages", "Số điện thoại không được để trống!");
+			}
+			
+	       if(employee.getPassword().isEmpty() || employee.getPassword() == null)
+	       {
+	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
+	       }
+	       else if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
 			{
 				model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
-				model.addAttribute("positions",positionService.getPositions());
-				return "employee-add";
+				
 			}
-			model.addAttribute("messagesPass",null);
+	       else model.addAttribute("messagesPass",null);
 			
+			model.addAttribute("notice", "Thêm nhân viên thất bại!");
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
 		}
@@ -111,6 +127,7 @@ public class EmployeeController {
 		
 		if(age < 18 || age > 55) 
 		{
+			model.addAttribute("notice", "Thêm nhân viên thất bại!");
 			model.addAttribute("birthdayMessages", "Tuổi nhân viên phải từ 18 đến 55!");
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
@@ -119,6 +136,7 @@ public class EmployeeController {
 		
 		if(!employeeService.checkPhoneNumber(employee.getPhoneNumber()))
 		{
+			model.addAttribute("notice", "Thêm nhân viên thất bại!");
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
@@ -127,6 +145,7 @@ public class EmployeeController {
 		
 		if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
 		{
+			model.addAttribute("notice", "Thêm nhân viên thất bại!");
 			model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-add";
@@ -146,16 +165,19 @@ public class EmployeeController {
 			model.addAttribute("noImage",null);
 		}
 		else{
+			model.addAttribute("notice", "Thêm nhân viên thất bại!");
 			model.addAttribute("noImage","Ảnh biểu tượng không được để trống!");
 			return "employee-add";
 		}
 		
 		employeeService.addEmployee(employee);
-		return "redirect:/admin/employees";
+		return showEmployeeList(1,"employeeID","asc",model,request,"Thêm nhân viên thành công!");
 	}
 	
 	@GetMapping("/formUpdateEmployee")
-	public String updateEmployeeForm(@RequestParam(name = "employeeID")Long employeeID, Model model) {
+	public String updateEmployeeForm(@RequestParam(name = "employeeID")Long employeeID, Model model,
+			@RequestParam(name= "notice",required = false)String notice) {
+			model.addAttribute("notice", notice);
 		Employee employee = employeeService.findEmployeeById(employeeID);
 		model.addAttribute("employee", employee);
 		model.addAttribute("positions",positionService.getPositions());
@@ -164,9 +186,15 @@ public class EmployeeController {
 	
 	@PostMapping("/updateEmployee")
 	public String updateEmployee(@RequestParam(name = "employeeID")Long employeeID,@Valid Employee employee, BindingResult result, Model model,
-			HttpServletRequest request, @RequestParam("file") MultipartFile file){
+			HttpServletRequest request, @RequestParam("file") MultipartFile file,
+			@RequestParam(name= "notice",required = false)String notice) {
+			model.addAttribute("notice", notice);
 		if(result.hasErrors()) {
 
+			if(employee.getPhoneNumber().length() == 0 || employee.getPhoneNumber() == null) {
+				model.addAttribute("messages", "Số điện thoại không được để trống!");
+			}
+			
 	       if(employee.getPassword().isEmpty() || employee.getPassword() == null)
 	       {
 	           model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
@@ -178,8 +206,10 @@ public class EmployeeController {
 			}
 	       else model.addAttribute("messagesPass",null);
 		       
-			Employee emp = employeeService.findEmployeeById(employeeID);
-			model.addAttribute("employee", emp);
+	       Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+	       employee.setAvatar(currentImage);
+	       model.addAttribute("employee", employee);
+			model.addAttribute("notice", "Chỉnh sửa nhân viên thất bại!");
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-update";
 		}
@@ -197,16 +227,22 @@ public class EmployeeController {
 		
 		if(age < 18 || age > 55) 
 		{
+			model.addAttribute("notice", "Chỉnh sửa nhân viên thất bại!");
 			model.addAttribute("birthdayMessages", "Tuổi nhân viên phải từ 18 đến 55!");
 			model.addAttribute("positions",positionService.getPositions());
+			Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+	        employee.setAvatar(currentImage);
+	        model.addAttribute("employee", employee);
 			return "employee-update";
 		}
 		
 		if(!employeeService.checkPhoneNumber(employee.getPhoneNumber()))
 		{
+			model.addAttribute("notice", "Chỉnh sửa nhân viên thất bại!");
 			model.addAttribute("messages", "Số điện thoại chỉ gồm các chữ số từ 0 đến 9!");
-			Employee emp = employeeService.findEmployeeById(employeeID);
-			model.addAttribute("employee", emp);
+			Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+	        employee.setAvatar(currentImage);
+	        model.addAttribute("employee", employee);
 			model.addAttribute("positions",positionService.getPositions());
 			return "employee-update";
 		}
@@ -216,11 +252,20 @@ public class EmployeeController {
 
        if(employee.getPassword().isEmpty() || employee.getPassword() == null)
        {
+    	   model.addAttribute("notice", "Chỉnh sửa nhân viên thất bại!");
            model.addAttribute("messagesPass", "Mật khẩu không được để trống!");
+			Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+	        employee.setAvatar(currentImage);
+	        model.addAttribute("employee", employee);
+           return "employee-update";
        }
        else if(employee.getPassword().length() < 8 || employee.getPassword().length() > 16) 
 		{
+			model.addAttribute("notice", "Chỉnh sửa nhân viên thất bại!");
 			model.addAttribute("messagesPass", "Mật khẩu chỉ được chứa từ 8 đến 16 ký tự!");
+			Image currentImage = employeeService.findEmployeeById(employeeID).getAvatar();
+	        employee.setAvatar(currentImage);
+	        model.addAttribute("employee", employee);
 			return "employee-update";
 		}
        else model.addAttribute("messagesPass",null);
@@ -237,14 +282,13 @@ public class EmployeeController {
 			image.setProduct(null);
 			employee.setAvatar(imageService.addImage(image));
 		}
-		else {
-			employee.setAvatar(currentImage);
-		}
+		else employee.setAvatar(currentImage);
 		employeeService.updateEmployee(employee, employeeID);
 		if(saveFile != null && currentImage != null) {
 			imageService.deleteImage(currentImage.getImageID());
 		}
-		return "redirect:/admin/employees";
+		
+		return showEmployeeList(1,"employeeID","asc",model,request,"Chỉnh sửa nhân viên thành công!");
 	}
     @GetMapping("/formUpdateInfoEmployee")
     public String updateEmployeeForm1(@RequestParam(name = "employeeID")Long employeeID, Model model) {
@@ -277,7 +321,7 @@ public class EmployeeController {
 		if(E == null) return "redirect:/admin/employees";
 		employeeService.deleteEmployee(employeeID);
 		if(E.getAvatar() != null)imageService.deleteImage(E.getAvatar().getImageID());
-		return "redirect:/admin/employees";
+		return showEmployeeList(1,"employeeID","asc",model,request,"Xóa nhân viên thành công!");
 	}
 	//Change PassWord
 	@GetMapping("/change-PassWord")

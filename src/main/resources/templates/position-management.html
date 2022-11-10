@@ -20,6 +20,35 @@
 </head>
 <body>
 	<div layout:fragment="content">
+	
+		<div th:switch="${notice}" class="container">
+			<div th:case="null"></div>
+			<div th:case="'Xóa chức vụ thất bại!'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-red col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="'addPosition'" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span style="font-size: 20px;">Thêm chức vụ thành công!</span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div th:case="*" class="row">
+				<div class="col-md-1"></div>
+				<div class="alert-green col-md-10" align="center" style="border-radius: 15px;">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <span th:text="${notice}" style="font-size: 20px;"></span>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		
 		<div align="center" style="padding-top: 35px">
 			<h2 style="font-size: 30px;">Quản lý chức vụ</h2>
 		</div>
@@ -31,6 +60,12 @@
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
+						<div  align="center" th:switch="${messages}">
+							<div th:case="null"></div>
+							<div th:case="*">
+								<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
+							</div>
+						</div>
 						<table class="table">
 							<thead>
 								<tr>
@@ -131,12 +166,6 @@
 			</div>
 		</div>
 		
-		<div  align="center" th:switch="${messages}">
-			<div th:case="null"></div>
-			<div th:case="*">
-				<p th:text="${messages}" class="text-danger"  style="font-size: 20px; padding-top: 15px;"></p>
-			</div>
-		</div>
 		<div align="center" style="padding-top: 15px" sec:authorize="hasRole('ROLE_ADMIN')">
 			<a class="btn btn-outline-success mb-5" style="font-size: 15px;" role="button"
 			th:href="@{/admin/formAddPosition?(callFrom='/admin/positions')}">

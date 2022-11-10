@@ -42,8 +42,12 @@ public class ManufacturerController {
 	public String showManufacturerList(@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "manufacturerID") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model,HttpServletRequest request)
+			Model model,HttpServletRequest request,
+			@RequestParam(name= "notice",required = false)String notice)
 	{
+
+		if(model != null )model.addAttribute("notice", notice);
+		
 		int pageSize = 9;
 		Page<Manufacturer> pageManufacturer = manufacturerService.findAll(pageNo, pageSize,sortField,sortDir);
 		List<Manufacturer> manufacturers = pageManufacturer.getContent();
@@ -76,13 +80,15 @@ public class ManufacturerController {
 			@RequestParam(name = "callFrom")String callFrom, HttpServletRequest request, @RequestParam("file") MultipartFile file,
 			@RequestParam(name= "callFromID",required = false)Long callFromID) {
 		if (result.hasErrors()) {
+			model.addAttribute("notice", "Thêm hãng sản xuất thất bại!");
 			model.addAttribute("callFrom", callFrom);
 			model.addAttribute("callFromID", callFromID);
 			return "manufacturer-add";
 		}
 		
 		if(manufacturerService.findManufacturerByName(manufacturer.getName()) != null) {
-			
+
+			model.addAttribute("notice", "Thêm hãng sản xuất thất bại!");
 			model.addAttribute("messages","Hãng sản xuất đã tồn tại!");
 			model.addAttribute("callFrom", callFrom);
 			model.addAttribute("callFromID", callFromID);
@@ -108,8 +114,9 @@ public class ManufacturerController {
 		}
 		
 		manufacturerService.addManufacturer(manufacturer);
-		if(callFromID != null) return "redirect:" + callFrom + callFromID;
-		return "redirect:" + callFrom;
+		String notice = "addManufacturer";
+		if(callFromID != null) return "redirect:" + callFrom + callFromID + "&notice=" + notice;
+		return "redirect:" + callFrom + "?notice=" + notice;
 	}
 
 	@GetMapping("/formUpdateManufacturer")
@@ -123,13 +130,17 @@ public class ManufacturerController {
 	public String updateManufacturer(@RequestParam(name = "manufacturerID")Long manufacturerID,@Valid Manufacturer manufacturer, BindingResult result, Model model,
 			HttpServletRequest request, @RequestParam("file") MultipartFile file){
 		if(result.hasErrors()) {
+			Image currentImage = manufacturerService.findManufacturertById(manufacturerID).getLogo();
+			manufacturer.setLogo(currentImage);
+			model.addAttribute("notice", "Chỉnh sửa hãng sản xuất thất bại");
 			model.addAttribute("manufacturer", manufacturer);
 			return "manufacturer-update";
 		}
 		
 		Manufacturer M = manufacturerService.findManufacturerByName(manufacturer.getName());
 		if(M != null && M.getManufacturerID() != manufacturer.getManufacturerID()) {
-			
+
+			model.addAttribute("notice", "Chỉnh sửa hãng sản xuất thất bại");
 			model.addAttribute("messages","Hãng sản xuất đã tồn tại!");
 			return "manufacturer-update";
 		}
@@ -151,7 +162,7 @@ public class ManufacturerController {
 		
 		manufacturerService.updateManufacturer(manufacturer,manufacturerID);
 		if(saveFile != null) imageService.deleteImage(currentImage.getImageID());
-		return "redirect:/admin/manufacturers";
+		return showManufacturerList(1,"manufacturerID","asc",model,request,"Chỉnh sửa hãng sản xuất thành công!");
 	}
 
 	@GetMapping("/deleteManufacturer")
@@ -160,11 +171,11 @@ public class ManufacturerController {
 		if(M == null) return "redirect:/admin/manufacturers";
 		if(M.getProducts().size() > 0) {
 			model.addAttribute("messages","Không thể xóa hãng sản xuất đang có sản phẩm!");
-			return showManufacturerList(1,"manufacturerID","asc",model,request);
+			return showManufacturerList(1,"manufacturerID","asc",model,request,"Xóa hãng sản xuất thất bại!");
 		}
 		manufacturerService.deleteManufacturer(manufacturerID);
 		imageService.deleteImage(M.getLogo().getImageID());
-		return "redirect:/admin/manufacturers";
+		return showManufacturerList(1,"manufacturerID","asc",model,request,"Xóa hãng sản xuất thành công!");
 	}
 }
 
