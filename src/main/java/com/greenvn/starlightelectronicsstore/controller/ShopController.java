@@ -119,11 +119,16 @@ public class ShopController {
 	@GetMapping("/shop/productInfo")
 	public String getProduct(@RequestParam(name = "productID")Long productID, HttpServletRequest request, Model model) {
 
+
         // Phải có cho layout-shop
+		HttpSession session = request.getSession();
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
         List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
         model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
         
 		Product product = productService.findProductById(productID);
 		
@@ -182,13 +187,18 @@ public class ShopController {
 			@RequestParam(name = "page", required = false,defaultValue = "1") int pageNo,
 			@RequestParam(name= "sortField",required = false,defaultValue = "productName") String sortField,
 			@RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir,
-			Model model) {
-	    
-	    // Phải có cho layout-shop
+			Model model,
+            HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
         List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
         model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
         
         //Chỉ lấy Manufacturer có product thuộc category đang lọc
         List<Manufacturer> manufacturers = manufacturerService.getManufacturersByCategory(categoryName);
@@ -260,10 +270,14 @@ public class ShopController {
             @RequestParam(name= "sortDir",required = false,defaultValue = "asc")String sortDir) {
 
         // Phải có cho layout-shop
+		HttpSession session = request.getSession();
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
         List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
         model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
         
         //Chỉ lấy Manufacturer có product thuộc category đang lọc
         List<Manufacturer> manufacturers = manufacturerService.getManufacturersByCategory(categoryName);
@@ -320,48 +334,158 @@ public class ShopController {
     }
     
 	@GetMapping("/shop/thanhtoanvatienich")
-	public String thanhToanVaTienIchPage() {
+	public String thanhToanVaTienIchPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "thanhtoanvatienich";
 	}
 	@GetMapping("/shop/tinmoi")
-	public String tinMoiPage() {
+	public String tinMoiPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "tinmoi";
 	}
 	@GetMapping("/shop/khuyenmai")
-	public String khuyenMaiPage() {
+	public String khuyenMaiPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "khuyenmai";
 	}
 	@GetMapping("/shop/appvagame")
-	public String appvaGamePage() {
+	public String appvaGamePage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "appvagame";
 	}
 	@GetMapping("/shop/tuvan")
-	public String tuvanPage() {
+	public String tuvanPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "tuvan";
 	}
 	@GetMapping("/shop/quydinhchung")
-	public String quydinhPage() {
+	public String quydinhPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "quydinhchung";
 	}
 	//
 	@GetMapping("/shop/huongdanmuahang")
-	public String huongdanmuahangPage() {
+	public String huongdanmuahangPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "huongdanmuahang";
 	}
 	@GetMapping("/shop/thanhtoanvagiaonhan")
-	public String thanhtoanvagiaonhanPage() {
+	public String thanhtoanvagiaonhanPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "thanhtoanvagiaonhan";
 	}
 	@GetMapping("/shop/caccauhoi")
-	public String caccauhoiPage() {
+	public String caccauhoiPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "caccauhoi";
 	}
 	@GetMapping("/shop/huongdandoitra")
-	public String huongdandoitraPage() {
+	public String huongdandoitraPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "huongdandoitra";
 	}
 	@GetMapping("/shop/baomatthongtin")
-	public String baomatthongtinkhPage() {
+	public String baomatthongtinkhPage(Model model,HttpServletRequest request) {
+
+        // Phải có cho layout-shop
+		HttpSession session = request.getSession();
+        List<Category> categories = categoryService.getCategories();
+        model.addAttribute("categories", categories);
+        session.setAttribute("categories", categories);
+        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+        model.addAttribute("manufacturerInfos", manufacturerInfos);
+        session.setAttribute("manufacturerInfos", manufacturerInfos);
+        
 		return "baomatthongtinkh";
 	}
 
