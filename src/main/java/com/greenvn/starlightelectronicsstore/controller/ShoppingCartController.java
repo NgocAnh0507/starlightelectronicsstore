@@ -85,6 +85,27 @@ public class ShoppingCartController {
 		}
 		return "redirect:/shop/shoppingCart";
 	}
+//	@RequestMapping(value = { "/addProductToCart" }, method = RequestMethod.GET)
+//	public String addProductToCart(HttpServletRequest request, Model model,
+//			@RequestParam(value = "productID", defaultValue = "") Long productID) {
+//
+//        // Phải có cho layout-shop
+//        List<Category> categories = categoryService.getCategories();
+//        model.addAttribute("categories", categories);
+//        List<ManufacturerInfo> manufacturerInfos = manufacturerService.getManufacturerInfoHaveProduct();
+//        model.addAttribute("manufacturerInfos", manufacturerInfos);
+//        
+//		Product product = null;
+//		if (productID != null) {
+//			product = proSer.findProductById(productID);
+//		}
+//		if (product != null) {
+//			CartInfo cartInfo = Utils.getCartInSession(request); // Lấy giỏ hàng hiện tại ra
+//			ProductInfo productInfo = new ProductInfo(product);
+//			cartInfo.addProduct(productInfo, 1, product.getQuantity());
+//		}
+//		return "redirect:shop/product-detail";
+//	}
 
 	@RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
 	public String shoppingCartUpdateQty(HttpServletRequest request, //
