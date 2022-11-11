@@ -109,9 +109,26 @@
 					</form>
 				</div>
 				<div class="col-md-9">
-					<div th:switch="${products}" style="padding-top: 35px">
+					<div th:switch="${products}" style="padding-top: 15px">
 						<h3 th:case="null" align="center" class="text-danger">Không có sản phẩm nào phù hợp với bộ lọc!</h3>
 						<div th:case="*" class="row">
+							<div class="row"> 
+								<div class="col-md-2">
+									<p style="font-size: 25px;">Sắp sếp theo: </p>
+								</div>
+								<div class="col-md-2">
+									<div class="text-center mb-3" style="font-size: 25px;"><a class="text-decoration-none"
+										th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName},sortField='price',sortDir=asc)}">
+										<i class='fas fa-long-arrow-alt-up'></i> Giá tăng dần</a>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="text-center mb-3" style="font-size: 25px;"><a class="text-decoration-none"
+										th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName},sortField='price',sortDir=desc)}">
+										<i class='fas fa-long-arrow-alt-down'></i> Giá giảm dần</a>
+									</div>
+								</div>
+							</div>
 							<div class="col-lg-4 col-md-4 col-sm-12" th:each="product : ${products}">
 								<div class="card product_item">
 									<div class="body">
@@ -167,10 +184,33 @@
 									</div>
 								</div>
 							</div>
-	
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<li th:if="${currentPage>1}" class="page-item"><a
+										class="page-link"
+										th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName}, page=${currentPage-1},sortField=${sortField},sortDir=${sortDir})}">Trang
+											trước</a></li>
+
+									<li th:if="${currentPage<=1}" class="page-item disabled"><a
+										class="page-link" href="#">Trang trước</a></li>
+
+									<li th:each="i:${#numbers.sequence(1,totalPage)}"
+										class="page-item"><a class="page-link" th:text=${i}
+										th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName}, page=${i},sortField=${sortField},sortDir=${sortDir})}">1</a></li>
+
+									<li th:if="${currentPage<totalPage}" class="page-item"><a
+										class="page-link"
+										th:href="@{/shop/productCategoryFilter?(categoryName=${categoryName}, page=${currentPage+1},sortField=${sortField},sortDir=${sortDir})}">Trang
+											sau</a></li>
+									<li th:if="${currentPage>=totalPage}"
+										class="page-item disabled"><a class="page-link" href="#">Trang
+											sau</a></li>
+								</ul>
+							</nav>
 						</div>
 					
 					</div>
+					
 				</div>
 			</div>
 		</div>
